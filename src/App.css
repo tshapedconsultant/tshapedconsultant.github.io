@@ -1435,6 +1435,22 @@ a:hover {
   border: 1px solid var(--navy-800);
 }
 
+.paper-also {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.paper-also a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.paper-also a:hover {
+  color: var(--cyan-200);
+}
+
 /* ——— Credentials / about ——— */
 
 .cred-group + .cred-group {

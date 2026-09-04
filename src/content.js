@@ -310,8 +310,8 @@ export const CREDENTIAL_GROUPS = [
       },
       {
         kind: "Articles",
-        title: "Writing on Medium",
-        detail: "medium.com/@andresl",
+        title: "On Medium",
+        detail: "Essays on AI, ethics and strategy",
         href: LINKS.medium,
       },
       {

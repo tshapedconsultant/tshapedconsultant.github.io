@@ -926,6 +926,13 @@ export default function App() {
                       Download PDF
                     </a>
                   </div>
+                  <p className="paper-also">
+                    Further reading:{" "}
+                    <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
+                      articles on Medium
+                      <span className="visually-hidden"> (opens in a new tab)</span>
+                    </a>
+                  </p>
                 </div>
                 <img
                   className="paper-cover-quiet"
@@ -1093,7 +1100,7 @@ export default function App() {
             GitHub<span className="visually-hidden"> (opens in a new tab)</span>
           </a>
           <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
-            Medium<span className="visually-hidden"> (opens in a new tab)</span>
+            Articles on Medium<span className="visually-hidden"> (opens in a new tab)</span>
           </a>
           <a href={CV_PDF} download>
             CV
