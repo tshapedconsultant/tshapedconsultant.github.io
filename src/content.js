@@ -3,7 +3,6 @@ export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Gover
 export const CV_PDF = "/Andres-Lage-Freire-CV.pdf";
 
 export const LINKS = {
-  email: "andreslage@tshapedconsultant.com",
   linkedin: "https://www.linkedin.com/in/andres-lage-freire-4562a91b1/",
   github: "https://github.com/tshapedconsultant",
   githubRepos: "https://github.com/tshapedconsultant?tab=repositories",
@@ -11,8 +10,6 @@ export const LINKS = {
   pressRepsol:
     "https://www.lavozdegalicia.es/noticia/educacion/2018/03/15/alumnos-fp-unen-empresas-estudiantes-resolver-retos/0003_201803H15C6991.htm",
 };
-
-export const DIAGNOSTIC_MAIL = `mailto:${LINKS.email}?subject=${encodeURIComponent("AI Governance Diagnostic")}`;
 
 export const BRAND_DEFINITION =
   "AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.";
@@ -27,7 +24,10 @@ export const CTA = {
 
 export const DIAGNOSTIC_FORM = {
   kicker: "Or send context first",
-  submit: "Open email with these details",
+  submit: "Send enquiry",
+  sending: "Sending…",
+  success: "Thank you. Your enquiry has been sent. I will reply to the work email you provided.",
+  error: "The enquiry could not be sent. Please try again in a moment.",
   privacy:
     "No mailing list. No automated follow-up. Your details are used only to respond to this enquiry.",
   governPlaceholder:
@@ -307,6 +307,12 @@ export const CREDENTIAL_GROUPS = [
         kind: "Publication",
         title: "Probabilistic Models Require Deterministic Governance",
         detail: "Whitepaper · tshapedconsultant",
+      },
+      {
+        kind: "Articles",
+        title: "Writing on Medium",
+        detail: "medium.com/@andresl",
+        href: LINKS.medium,
       },
       {
         kind: "Implementations",

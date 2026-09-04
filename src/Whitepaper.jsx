@@ -15,8 +15,7 @@ export default function Whitepaper() {
       </blockquote>
       <p className="wings">Daedalus gave us wings. Icarus taught us the limits.</p>
       <p className="paper-brand">
-        Dédalo™ · Deterministic Governance for Probabilistic AI · tshapedconsultant ·{" "}
-        <a href="mailto:andreslage@tshapedconsultant.com">andreslage@tshapedconsultant.com</a>
+        Dédalo™ · Deterministic Governance for Probabilistic AI ·         tshapedconsultant · <a href="#diagnostic">Discuss a diagnostic</a>
       </p>
       <p className="paper-download">
         <a className="btn btn-solid" href={WHITEPAPER_PDF} download>

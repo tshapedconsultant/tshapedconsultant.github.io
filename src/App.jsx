@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Whitepaper from "./Whitepaper.jsx";
 import { Icon } from "./Icons.jsx";
+import { submitEnquiry } from "./contact.js";
 import {
   ABOUT_BLOCKS,
   APPROACH,
@@ -62,28 +63,6 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
-/** Strip CR/LF/null so form fields cannot inject extra mailto headers. */
-function mailtoSafeLine(value, max = 120) {
-  return String(value)
-    .replace(/[\r\n\0\u2028\u2029]/g, " ")
-    .replace(/%0[da]/gi, "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, max);
-}
-
-function mailtoSafeBody(value, max = 2000) {
-  return String(value)
-    .replace(/\0/g, "")
-    .replace(/\r\n/g, "\n")
-    .replace(/[\r\u2028\u2029]/g, "\n")
-    .split("\n")
-    .map((line) => line.replace(/^\s*(bcc|cc|to|from|content-type|mime-version)\s*:/i, "$1 -"))
-    .join("\n")
-    .trim()
-    .slice(0, max);
-}
-
 function GovernanceDiagram() {
   const primary = ["Regulation", "Engineering", "Runtime Assurance"];
   const pipeline = [
@@ -127,8 +106,11 @@ function DiagnosticForm() {
     email: "",
     govern: "",
     stage: "",
+    website: "",
   });
   const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle");
+  const [submitError, setSubmitError] = useState("");
 
   function update(field) {
     return (event) => {
@@ -153,41 +135,38 @@ function DiagnosticForm() {
     return next;
   }
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
+    setSubmitError("");
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) {
       requestAnimationFrame(() => summaryRef.current?.focus());
       return;
     }
+    if (values.website.trim()) {
+      setStatus("sent");
+      return;
+    }
 
-    const name = mailtoSafeLine(values.name);
-    const company = mailtoSafeLine(values.company);
-    const email = mailtoSafeLine(values.email, 254);
-    const govern = mailtoSafeBody(values.govern);
     const stageLabel =
-      DIAGNOSTIC_FORM.stages.find((option) => option.value === values.stage)?.label || "Not specified";
-    const subject = encodeURIComponent("AI Governance Diagnostic enquiry");
-    const body = encodeURIComponent(
-      [
-        "AI Governance Diagnostic enquiry",
-        "Source: tshapedconsultant.com",
-        "",
-        `Name: ${name}`,
-        `Company: ${company || "Not specified"}`,
-        `Email: ${email}`,
-        "",
-        "What they are trying to govern:",
-        govern,
-        "",
-        `Current stage and likely scope: ${values.stage ? stageLabel : "Not specified"}`,
-        "",
-        "—",
-        "Prepared from the site enquiry form. No mailing list; used only to respond.",
-      ].join("\n")
-    );
-    window.location.href = `mailto:${LINKS.email}?subject=${subject}&body=${body}`;
+      DIAGNOSTIC_FORM.stages.find((option) => option.value === values.stage)?.label || "";
+    setStatus("sending");
+    try {
+      await submitEnquiry({
+        name: values.name,
+        company: values.company,
+        email: values.email,
+        govern: values.govern,
+        stage: stageLabel,
+      });
+      setStatus("sent");
+      setValues({ name: "", company: "", email: "", govern: "", stage: "", website: "" });
+    } catch {
+      setStatus("idle");
+      setSubmitError(DIAGNOSTIC_FORM.error);
+      requestAnimationFrame(() => summaryRef.current?.focus());
+    }
   }
 
   const errorEntries = [
@@ -199,26 +178,48 @@ function DiagnosticForm() {
   return (
     <form className="diag-form" id="diagnostic-form" onSubmit={onSubmit} noValidate>
       <p className="diag-form-kicker">{DIAGNOSTIC_FORM.kicker}</p>
-      {errorEntries.length ? (
+      {status === "sent" ? (
+        <p className="form-success" role="status">
+          {DIAGNOSTIC_FORM.success}
+        </p>
+      ) : null}
+      {submitError || errorEntries.length ? (
         <div className="form-summary" ref={summaryRef} tabIndex={-1} role="alert">
-          <p>Please correct the following:</p>
-          <ul>
-            {errorEntries.map(([key, label, message, href]) => (
-              <li key={key}>
-                <a
-                  href={href}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    document.getElementById(href.slice(1))?.focus();
-                  }}
-                >
-                  {label}: {message}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {submitError ? <p>{submitError}</p> : null}
+          {errorEntries.length ? (
+            <>
+              <p>Please correct the following:</p>
+              <ul>
+                {errorEntries.map(([key, label, message, href]) => (
+                  <li key={key}>
+                    <a
+                      href={href}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        document.getElementById(href.slice(1))?.focus();
+                      }}
+                    >
+                      {label}: {message}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
         </div>
       ) : null}
+      <div className="hp" aria-hidden="true">
+        <label htmlFor="diag-website">Website</label>
+        <input
+          id="diag-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={values.website}
+          onChange={update("website")}
+        />
+      </div>
       <div className="diag-form-grid">
         <div>
           <label htmlFor="diag-name">
@@ -316,8 +317,8 @@ function DiagnosticForm() {
           ) : null}
         </div>
       </div>
-      <button className="btn btn-solid" type="submit">
-        {DIAGNOSTIC_FORM.submit}
+      <button className="btn btn-solid" type="submit" disabled={status === "sending"}>
+        {status === "sending" ? DIAGNOSTIC_FORM.sending : DIAGNOSTIC_FORM.submit}
       </button>
       <p className="diag-form-privacy">{DIAGNOSTIC_FORM.privacy}</p>
     </form>
@@ -342,6 +343,7 @@ export default function App() {
   const menuBtnRef = useRef(null);
   const moreBtnRef = useRef(null);
   const moreWrapRef = useRef(null);
+  const headerRef = useRef(null);
 
   useEffect(() => {
     const onHash = () => {
@@ -377,6 +379,40 @@ export default function App() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [menuOpen, moreOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const root = headerRef.current;
+    if (!root) return undefined;
+
+    function focusables() {
+      return [...root.querySelectorAll("a[href], button:not([disabled])")].filter((el) => {
+        if (el.hasAttribute("hidden") || el.closest("[hidden]")) return false;
+        return el.getClientRects().length > 0;
+      });
+    }
+
+    const first = focusables()[0];
+    if (first && !root.contains(document.activeElement)) first.focus();
+
+    function onTab(event) {
+      if (event.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) return;
+      const start = items[0];
+      const end = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === start) {
+        event.preventDefault();
+        end.focus();
+      } else if (!event.shiftKey && document.activeElement === end) {
+        event.preventDefault();
+        start.focus();
+      }
+    }
+
+    root.addEventListener("keydown", onTab);
+    return () => root.removeEventListener("keydown", onTab);
+  }, [menuOpen]);
 
   useEffect(() => {
     function onPointer(event) {
@@ -429,6 +465,9 @@ export default function App() {
       <a href={LINKS.github} target="_blank" rel="noopener noreferrer">
         GitHub<span className="visually-hidden"> (opens in a new tab)</span>
       </a>
+      <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
+        Medium<span className="visually-hidden"> (opens in a new tab)</span>
+      </a>
     </>
   );
 
@@ -437,7 +476,7 @@ export default function App() {
       <a className="skip" href="#main">
         Skip to content
       </a>
-      <header className="top">
+      <header className="top" ref={headerRef}>
         <a
           className="mark"
           href="#top"
@@ -516,7 +555,7 @@ export default function App() {
         </nav>
       </header>
 
-      <main id="main" tabIndex={-1}>
+      <main id="main" tabIndex={-1} inert={menuOpen ? true : undefined}>
         {view === "whitepaper" ? (
           <Whitepaper />
         ) : (
@@ -1015,7 +1054,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="foot">
+      <footer className="foot" inert={menuOpen ? true : undefined}>
         <div className="foot-main">
           <a
             className="btn btn-solid"
@@ -1031,8 +1070,19 @@ export default function App() {
           >
             Discuss
           </a>
-          <a className="foot-email" href={`mailto:${LINKS.email}`}>
-            {LINKS.email}
+          <a
+            className="foot-email"
+            href="#diagnostic"
+            onClick={(event) => {
+              event.preventDefault();
+              if (view !== "home") {
+                window.location.hash = "diagnostic";
+                return;
+              }
+              goHomeSection("diagnostic");
+            }}
+          >
+            Email
           </a>
         </div>
         <p className="foot-links">
@@ -1041,6 +1091,9 @@ export default function App() {
           </a>
           <a href={LINKS.github} target="_blank" rel="noopener noreferrer">
             GitHub<span className="visually-hidden"> (opens in a new tab)</span>
+          </a>
+          <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
+            Medium<span className="visually-hidden"> (opens in a new tab)</span>
           </a>
           <a href={CV_PDF} download>
             CV
