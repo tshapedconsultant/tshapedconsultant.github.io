@@ -5,6 +5,13 @@ export function contactEmail() {
   return `${local}@${host}`;
 }
 
+export class FormNotConfiguredError extends Error {
+  constructor() {
+    super("FORM_NOT_CONFIGURED");
+    this.name = "FormNotConfiguredError";
+  }
+}
+
 function sanitizeLine(value, max = 120) {
   return String(value)
     .replace(/[\r\n\0\u2028\u2029]/g, " ")
@@ -23,11 +30,13 @@ function sanitizeBody(value, max = 2000) {
     .slice(0, max);
 }
 
-/**
- * POST to VITE_FORM_ENDPOINT (Formspree or compatible JSON API) when set.
- * Otherwise Formsubmit.co so visitors without a desktop mail client can still send.
- */
+/** POST to VITE_FORM_ENDPOINT (Formspree or compatible JSON API). No third-party fallback. */
 export async function submitEnquiry({ name, company, email, govern, stage }) {
+  const endpoint = import.meta.env.VITE_FORM_ENDPOINT?.trim();
+  if (!endpoint) {
+    throw new FormNotConfiguredError();
+  }
+
   const payload = {
     name: sanitizeLine(name),
     email: sanitizeLine(email, 254),
@@ -37,19 +46,13 @@ export async function submitEnquiry({ name, company, email, govern, stage }) {
     _subject: "AI Governance Diagnostic enquiry",
   };
 
-  const configured = import.meta.env.VITE_FORM_ENDPOINT;
-  const url = configured || `https://formsubmit.co/ajax/${contactEmail()}`;
-  const body = configured
-    ? payload
-    : { ...payload, _template: "table", _captcha: "false" };
-
-  const response = await fetch(url, {
+  const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(payload),
   });
 
   const result = await response.json().catch(() => ({}));

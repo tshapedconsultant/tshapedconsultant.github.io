@@ -28,6 +28,8 @@ export const DIAGNOSTIC_FORM = {
   sending: "Sending…",
   success: "Thank you. Your enquiry has been sent. I will reply to the work email you provided.",
   error: "The enquiry could not be sent. Please try again in a moment.",
+  notConfigured:
+    "The enquiry form is not available yet. Please contact me via LinkedIn in the meantime.",
   privacy:
     "No mailing list. No automated follow-up. Your details are used only to respond to this enquiry.",
   governPlaceholder:

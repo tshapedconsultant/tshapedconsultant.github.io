@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Whitepaper from "./Whitepaper.jsx";
 import { Icon } from "./Icons.jsx";
-import { submitEnquiry } from "./contact.js";
+import { FormNotConfiguredError, submitEnquiry } from "./contact.js";
 import {
   ABOUT_BLOCKS,
   APPROACH,
@@ -98,8 +98,11 @@ function GovernanceDiagram() {
   );
 }
 
+const MIN_FORM_MS = 2000;
+
 function DiagnosticForm() {
   const summaryRef = useRef(null);
+  const mountedAt = useRef(Date.now());
   const [values, setValues] = useState({
     name: "",
     company: "",
@@ -144,7 +147,7 @@ function DiagnosticForm() {
       requestAnimationFrame(() => summaryRef.current?.focus());
       return;
     }
-    if (values.website.trim()) {
+    if (values.website.trim() || Date.now() - mountedAt.current < MIN_FORM_MS) {
       setStatus("sent");
       return;
     }
@@ -162,9 +165,11 @@ function DiagnosticForm() {
       });
       setStatus("sent");
       setValues({ name: "", company: "", email: "", govern: "", stage: "", website: "" });
-    } catch {
+    } catch (err) {
       setStatus("idle");
-      setSubmitError(DIAGNOSTIC_FORM.error);
+      setSubmitError(
+        err instanceof FormNotConfiguredError ? DIAGNOSTIC_FORM.notConfigured : DIAGNOSTIC_FORM.error
+      );
       requestAnimationFrame(() => summaryRef.current?.focus());
     }
   }

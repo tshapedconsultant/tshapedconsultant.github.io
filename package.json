@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "csp:hash": "node scripts/csp-hash.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
