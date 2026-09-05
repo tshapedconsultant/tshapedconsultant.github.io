@@ -965,6 +965,10 @@ a:hover {
   color: var(--ink);
 }
 
+.form-fallback {
+  margin: 0.75rem 0 0;
+}
+
 .hp {
   position: absolute;
   width: 1px;

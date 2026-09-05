@@ -30,7 +30,23 @@ function sanitizeBody(value, max = 2000) {
     .slice(0, max);
 }
 
-/** POST to VITE_FORM_ENDPOINT (Formspree or compatible JSON API). No third-party fallback. */
+function parseJsonBody(text) {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return null;
+  }
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Formspree accepts the POST then may respond with JSON { ok: true } or a 3xx redirect
+ * to a thank-you page. Following that redirect in fetch() often hits a CORS wall even
+ * though the enquiry was delivered — treat 2xx/3xx as success unless JSON explicitly says ok: false.
+ */
 export async function submitEnquiry({ name, company, email, govern, stage }) {
   const endpoint = import.meta.env.VITE_FORM_ENDPOINT?.trim();
   if (!endpoint) {
@@ -46,19 +62,35 @@ export async function submitEnquiry({ name, company, email, govern, stage }) {
     _subject: "AI Governance Diagnostic enquiry",
   };
 
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const result = await response.json().catch(() => ({}));
-  const failed =
-    !response.ok || result.ok === false || result.success === "false" || result.success === false;
-  if (failed) {
-    throw new Error(result.error || result.message || "Enquiry could not be sent.");
+  let response;
+  try {
+    response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body: JSON.stringify(payload),
+      redirect: "manual",
+    });
+  } catch {
+    throw new Error("Enquiry could not be sent.");
   }
+
+  if (response.type === "opaqueredirect" || (response.status >= 300 && response.status < 400)) {
+    return;
+  }
+
+  const bodyText = await response.text();
+  const result = parseJsonBody(bodyText);
+
+  if (response.ok) {
+    if (result?.ok === false) {
+      throw new Error(result.error || result.message || "Enquiry could not be sent.");
+    }
+    return;
+  }
+
+  throw new Error(result?.error || result?.message || "Enquiry could not be sent.");
 }

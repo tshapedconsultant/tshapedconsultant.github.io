@@ -27,7 +27,8 @@ export const DIAGNOSTIC_FORM = {
   submit: "Send enquiry",
   sending: "Sending…",
   success: "Thank you. Your enquiry has been sent. I will reply to the work email you provided.",
-  error: "The enquiry could not be sent. Please try again in a moment.",
+  error: "The enquiry could not be sent. Please try again in a moment, or use the email button below.",
+  errorFallback: "Open email with these details",
   notConfigured:
     "The enquiry form is not available yet. Please contact me via LinkedIn in the meantime.",
   privacy:

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Whitepaper from "./Whitepaper.jsx";
 import { Icon } from "./Icons.jsx";
-import { FormNotConfiguredError, submitEnquiry } from "./contact.js";
+import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
 import {
   ABOUT_BLOCKS,
   APPROACH,
@@ -63,6 +63,50 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function mailtoSafeLine(value, max = 120) {
+  return String(value)
+    .replace(/[\r\n\0\u2028\u2029]/g, " ")
+    .replace(/%0[da]/gi, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, max);
+}
+
+function mailtoSafeBody(value, max = 2000) {
+  return String(value)
+    .replace(/\0/g, "")
+    .replace(/\r\n/g, "\n")
+    .replace(/[\r\u2028\u2029]/g, "\n")
+    .split("\n")
+    .map((line) => line.replace(/^\s*(bcc|cc|to|from|content-type|mime-version)\s*:/i, "$1 -"))
+    .join("\n")
+    .trim()
+    .slice(0, max);
+}
+
+function enquiryMailtoHref({ name, company, email, govern, stageLabel }) {
+  const subject = encodeURIComponent("AI Governance Diagnostic enquiry");
+  const body = encodeURIComponent(
+    [
+      "AI Governance Diagnostic enquiry",
+      "Source: tshapedconsultant.com",
+      "",
+      `Name: ${mailtoSafeLine(name)}`,
+      `Company: ${mailtoSafeLine(company) || "Not specified"}`,
+      `Email: ${mailtoSafeLine(email, 254)}`,
+      "",
+      "What they are trying to govern:",
+      mailtoSafeBody(govern),
+      "",
+      `Current stage and likely scope: ${stageLabel || "Not specified"}`,
+      "",
+      "—",
+      "Prepared from the site enquiry form. No mailing list; used only to respond.",
+    ].join("\n")
+  );
+  return `mailto:${contactEmail()}?subject=${subject}&body=${body}`;
+}
+
 function GovernanceDiagram() {
   const primary = ["Regulation", "Engineering", "Runtime Assurance"];
   const pipeline = [
@@ -114,6 +158,7 @@ function DiagnosticForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [submitError, setSubmitError] = useState("");
+  const [mailtoFallback, setMailtoFallback] = useState("");
 
   function update(field) {
     return (event) => {
@@ -141,6 +186,7 @@ function DiagnosticForm() {
   async function onSubmit(event) {
     event.preventDefault();
     setSubmitError("");
+    setMailtoFallback("");
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) {
@@ -167,9 +213,20 @@ function DiagnosticForm() {
       setValues({ name: "", company: "", email: "", govern: "", stage: "", website: "" });
     } catch (err) {
       setStatus("idle");
-      setSubmitError(
-        err instanceof FormNotConfiguredError ? DIAGNOSTIC_FORM.notConfigured : DIAGNOSTIC_FORM.error
-      );
+      if (err instanceof FormNotConfiguredError) {
+        setSubmitError(DIAGNOSTIC_FORM.notConfigured);
+      } else {
+        setSubmitError(DIAGNOSTIC_FORM.error);
+        setMailtoFallback(
+          enquiryMailtoHref({
+            name: values.name,
+            company: values.company,
+            email: values.email,
+            govern: values.govern,
+            stageLabel,
+          })
+        );
+      }
       requestAnimationFrame(() => summaryRef.current?.focus());
     }
   }
@@ -191,6 +248,13 @@ function DiagnosticForm() {
       {submitError || errorEntries.length ? (
         <div className="form-summary" ref={summaryRef} tabIndex={-1} role="alert">
           {submitError ? <p>{submitError}</p> : null}
+          {mailtoFallback ? (
+            <p className="form-fallback">
+              <a className="btn btn-solid" href={mailtoFallback}>
+                {DIAGNOSTIC_FORM.errorFallback}
+              </a>
+            </p>
+          ) : null}
           {errorEntries.length ? (
             <>
               <p>Please correct the following:</p>
