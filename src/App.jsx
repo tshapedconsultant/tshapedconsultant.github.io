@@ -20,6 +20,7 @@ import {
   DIAGNOSTIC_FORM,
   ENGAGEMENT,
   FRAMEWORKS,
+  INSIGHTS,
   LINKS,
   PROBLEMS,
   PROJECTS,
@@ -27,10 +28,9 @@ import {
 } from "./content.js";
 
 const NAV_SECTIONS = [
-  { id: "diagnostic", label: "Diagnostic" },
-  { id: "approach", label: "Approach" },
-  { id: "projects", label: "Implementations" },
   { id: "about", label: "About" },
+  { id: "approach", label: "Approach" },
+  { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -640,9 +640,12 @@ export default function App() {
             <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
-                  <p className="eyebrow">Andrés Lage Freire · Madrid / EMEA remote</p>
-                  <h1>AI Governance Engineering</h1>
-                  <p className="tagline">From regulation to runtime assurance</p>
+                  <p className="eyebrow">Madrid / EMEA remote</p>
+                  <h1>
+                    Andrés Lage Freire
+                    <span className="h1-specialty">AI Governance Engineering</span>
+                  </h1>
+                  <p className="tagline">Responsible AI Architect · From regulation to runtime assurance</p>
                   <p className="brand-def">{BRAND_DEFINITION}</p>
                   <p className="value-prop">
                     I help organisations turn <strong>AI risk</strong>,{" "}
@@ -923,6 +926,7 @@ export default function App() {
                 <ol className="engagement-lines">
                   {ENGAGEMENT.lines.map((line) => (
                     <li key={line.label}>
+                      <Icon name={line.icon} />
                       <strong>{line.label}</strong>
                       <span>{line.text}</span>
                     </li>
@@ -1024,11 +1028,41 @@ export default function App() {
               </div>
             </section>
 
-            <section id="validation" className="region region-light">
+            <section id="insights" className="region region-light">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
                     07
+                  </p>
+                  <h2>Insights</h2>
+                </div>
+                <p className="section-lede">
+                  Short essays on responsible AI, operating models and delivery — published on Medium.
+                </p>
+                <ul className="insight-grid">
+                  {INSIGHTS.map((item) => (
+                    <li key={item.href}>
+                      <Icon name={item.icon} />
+                      <h3>
+                        <ExternalLink href={item.href}>{item.title}</ExternalLink>
+                      </h3>
+                      <p>{item.text}</p>
+                    </li>
+                  ))}
+                </ul>
+                <p className="more-repos">
+                  <ExternalLink className="btn btn-ghost" href={LINKS.medium}>
+                    All articles on Medium
+                  </ExternalLink>
+                </p>
+              </div>
+            </section>
+
+            <section id="validation" className="region region-light">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    08
                   </p>
                   <h2>Credentials, publications and open work</h2>
                 </div>
@@ -1079,7 +1113,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    08
+                    09
                   </p>
                   <h2>About Andrés</h2>
                 </div>
@@ -1112,9 +1146,9 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    09
+                    10
                   </p>
-                  <h2>{CTA.primary}</h2>
+                  <h2>Contact</h2>
                 </div>
                 <p className="closing">
                   Your AI system becomes governed when policy is enforced in design, deployment and

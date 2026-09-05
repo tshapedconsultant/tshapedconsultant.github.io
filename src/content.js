@@ -59,17 +59,47 @@ export const ENGAGEMENT = {
     {
       label: "Diagnose",
       text: "establish risk, ownership, obligations and priority gaps.",
+      icon: "clipboard",
     },
     {
       label: "Architect",
       text: "turn findings into governance design, control requirements and an implementation backlog.",
+      icon: "doc",
     },
     {
       label: "Implement or assure",
       text: "build controls directly or govern delivery with your internal team or implementation partner.",
+      icon: "gears",
     },
   ],
 };
+
+export const INSIGHTS = [
+  {
+    title: "Ethical Principles of Artificial Intelligence: The Imperative for Compliance",
+    text: "Fairness, accountability, transparency and privacy as operational requirements — especially under EU rules.",
+    href: "https://medium.com/@andresl/ethical-principles-of-artificial-intelligence-the-imperative-for-compliance-684e9a975a29",
+    icon: "scales",
+  },
+  {
+    title: "AI’s Coding Fluency: The Strategic Imperative for a New Human-Machine Operating Model",
+    text: "Why fluency in code still requires human governance, strategy and ethical guardrails.",
+    href: "https://medium.com/@andresl/ais-coding-fluency-the-strategic-imperative-for-a-new-human-machine-operating-model-deec01a25fc2",
+    icon: "code",
+  },
+  {
+    title: "Why Working with AI is Like Horsemanship",
+    text: "Human judgment steers capability. The operating model — not the model — decides outcomes.",
+    href: "https://medium.com/@andresl/why-working-with-ai-is-like-horsemanship-8a0e06b7da2b",
+    icon: "people",
+  },
+  {
+    title: "Agile in the Age of AI: Why the Practices Are Disrupting But the Principles Endure",
+    text: "AI changes delivery rituals. Accountability and human interaction still govern the work.",
+    href: "https://medium.com/@andresl/agile-in-the-age-of-ai-why-the-practices-are-disrupting-but-the-principles-endure-cde7194a3ddd",
+    icon: "gears",
+  },
+];
 
 export const AUDIENCE = [
   { id: "enterprise", label: "Enterprise leader", action: "Explore AI Governance", target: "why" },
