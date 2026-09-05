@@ -407,7 +407,7 @@ a:hover {
 .region-inner {
   width: min(70rem, calc(100% - 2.5rem));
   margin-inline: auto;
-  padding-block: var(--space-8) var(--space-7);
+  padding-block: 4.75rem 4rem;
 }
 
 .region-dark {
@@ -545,9 +545,20 @@ a:hover {
 }
 
 .hero-for {
-  margin: 0.5rem 0 0;
+  margin: 0.85rem 0 0;
+  padding: 0.55rem 0 0.55rem 0.9rem;
+  border-left: 2px solid var(--cyan-400);
+}
+
+.hero-for p {
+  margin: 0;
   color: var(--white);
   font-weight: 600;
+}
+
+.hero-for p + p {
+  margin-top: 0.4rem;
+  font-weight: 500;
 }
 
 .hero-actions {
@@ -1835,58 +1846,7 @@ a:hover {
   }
 }
 
-@media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "copy"
-      "diagram";
-  }
-
-  .hero {
-    padding: 1.2rem 1.1rem 2rem;
-  }
-
-  .hero h1 {
-    max-width: none;
-    font-size: clamp(1.7rem, 7vw, 2.25rem);
-  }
-
-  .diag-title-row h2 {
-    font-size: clamp(1.3rem, 5.5vw, 1.75rem);
-  }
-
-  .why-lead,
-  .guard-lead,
-  .about-unusual {
-    font-size: 1.15rem;
-  }
-
-  .region-inner {
-    padding-block: 4.5rem 4rem;
-  }
-
-  .arch-flow,
-  .dgom-timeline {
-    grid-template-columns: 1fr;
-  }
-
-  .diagnostic-layout,
-  .paper-teaser,
-  .two-level,
-  .term-grid,
-  .callout-pair {
-    grid-template-columns: 1fr;
-  }
-
-  .diag-form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .paper-cover-quiet {
-    max-width: 22rem;
-  }
-
+@media (max-width: 1100px) {
   .menu-toggle {
     display: inline-flex;
     align-items: center;
@@ -1939,6 +1899,59 @@ a:hover {
     margin-top: 0.35rem;
     padding-top: 0.5rem;
     border-top: 1px solid var(--navy-800);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "diagram";
+  }
+
+  .hero {
+    padding: 1.2rem 1.1rem 2rem;
+  }
+
+  .hero h1 {
+    max-width: none;
+    font-size: clamp(1.7rem, 7vw, 2.25rem);
+  }
+
+  .diag-title-row h2 {
+    font-size: clamp(1.3rem, 5.5vw, 1.75rem);
+  }
+
+  .why-lead,
+  .guard-lead,
+  .about-unusual {
+    font-size: 1.15rem;
+  }
+
+  .region-inner {
+    padding-block: 4.5rem 4rem;
+  }
+
+  .arch-flow,
+  .dgom-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .diagnostic-layout,
+  .paper-teaser,
+  .two-level,
+  .term-grid,
+  .callout-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .diag-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-cover-quiet {
+    max-width: 22rem;
   }
 
   .hero-cta-row {

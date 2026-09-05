@@ -17,6 +17,13 @@ export const BRAND_DEFINITION =
 export const BEST_FIT =
   "Best fit: regulated and high-accountability AI use cases in financial services, insurance, critical operations, enterprise knowledge systems and agentic workflows.";
 
+export const HERO_FOR = {
+  audience:
+    "For CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy.",
+  problems:
+    "Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems and agents.",
+};
+
 export const CTA = {
   primary: "Discuss an AI Governance Diagnostic",
   note: "30-minute introductory call · Explore fit and next steps",

@@ -8,6 +8,7 @@ import {
   AUDIENCE,
   BEST_FIT,
   BRAND_DEFINITION,
+  HERO_FOR,
   CAPABILITIES,
   COVER,
   CREDENTIAL_GROUPS,
@@ -30,6 +31,7 @@ const NAV_SECTIONS = [
   { id: "approach", label: "Approach" },
   { id: "projects", label: "Implementations" },
   { id: "about", label: "About" },
+  { id: "contact", label: "Contact" },
 ];
 
 function prefersReducedMotion() {
@@ -524,7 +526,6 @@ export default function App() {
 
   const secondaryLinks = (
     <>
-      <a href="#whitepaper">Whitepaper</a>
       <a href={CV_PDF} download>
         CV
       </a>
@@ -589,6 +590,13 @@ export default function App() {
             </a>
           ))}
           <a
+            href="#whitepaper"
+            className={view === "whitepaper" ? "is-active" : undefined}
+            aria-current={view === "whitepaper" ? "page" : undefined}
+          >
+            Whitepaper
+          </a>
+          <a
             className="nav-cta"
             href="#diagnostic"
             onClick={(event) => {
@@ -641,9 +649,10 @@ export default function App() {
                     <strong>regulatory obligations</strong> and <strong>accountability requirements</strong>{" "}
                     into executable controls, lifecycle gates and verifiable evidence.
                   </p>
-                  <p className="hero-for">
-                    For AI systems that must be trusted, governed and ready to scale.
-                  </p>
+                  <div className="hero-for">
+                    <p>{HERO_FOR.audience}</p>
+                    <p>{HERO_FOR.problems}</p>
+                  </div>
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
