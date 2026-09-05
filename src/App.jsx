@@ -142,18 +142,15 @@ function GovernanceDiagram() {
   );
 }
 
-const MIN_FORM_MS = 2000;
-
 function DiagnosticForm() {
   const summaryRef = useRef(null);
-  const mountedAt = useRef(Date.now());
   const [values, setValues] = useState({
     name: "",
     company: "",
     email: "",
     govern: "",
     stage: "",
-    website: "",
+    hp: "",
   });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
@@ -193,7 +190,7 @@ function DiagnosticForm() {
       requestAnimationFrame(() => summaryRef.current?.focus());
       return;
     }
-    if (values.website.trim() || Date.now() - mountedAt.current < MIN_FORM_MS) {
+    if (values.hp.trim()) {
       setStatus("sent");
       return;
     }
@@ -210,7 +207,7 @@ function DiagnosticForm() {
         stage: stageLabel,
       });
       setStatus("sent");
-      setValues({ name: "", company: "", email: "", govern: "", stage: "", website: "" });
+      setValues({ name: "", company: "", email: "", govern: "", stage: "", hp: "" });
     } catch (err) {
       setStatus("idle");
       if (err instanceof FormNotConfiguredError) {
@@ -278,15 +275,18 @@ function DiagnosticForm() {
         </div>
       ) : null}
       <div className="hp" aria-hidden="true">
-        <label htmlFor="diag-website">Website</label>
+        <label htmlFor="diag-hp">Company confirmation</label>
         <input
-          id="diag-website"
-          name="website"
+          id="diag-hp"
+          name="diag_hp"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          value={values.website}
-          onChange={update("website")}
+          data-lpignore="true"
+          data-1p-ignore="true"
+          data-form-type="other"
+          value={values.hp}
+          onChange={update("hp")}
         />
       </div>
       <div className="diag-form-grid">
