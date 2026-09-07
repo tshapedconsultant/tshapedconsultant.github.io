@@ -94,6 +94,11 @@ export const HYBRID_ARTICLE = {
   meta: "Andrés Lage Freire · 7 September 2026",
   excerpt:
     "Agents lower the cost of producing an answer. They do not lower the cost of knowing whether it is correct. T-shaped professionals with deep fundamentals and cross-domain judgment are the verification layer.",
+  figure: "/hybrid-profiles-ai-agents.jpg",
+  figureAlt:
+    "Infographic of a hybrid professional on a bridge between specialist depth — engineering, data science, security, business and regulation — and AI-agent leverage: research, code, analyse, plan, test, execute, monitor and document. Labels: understand, connect, evaluate, integrate, direct.",
+  figureCaption:
+    "Specialists provide depth. AI agents provide leverage. Hybrid professionals connect them.",
 };
 
 export const CASE_STUDIES = {

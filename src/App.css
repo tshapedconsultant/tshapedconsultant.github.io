@@ -1638,6 +1638,22 @@ a:hover {
   margin: 2rem 0 0;
 }
 
+.article-figure {
+  margin: 0 0 2rem;
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--navy-800);
+}
+
+.article-figure figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.55rem;
+}
+
 /* ——— Whitepaper teaser ——— */
 
 .paper-teaser {

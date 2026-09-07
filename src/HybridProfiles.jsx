@@ -11,6 +11,16 @@ export default function HybridProfiles() {
       <p className="paper-sub">{HYBRID_ARTICLE.standfirst}</p>
       <p className="article-meta">{HYBRID_ARTICLE.meta}</p>
 
+      <figure className="article-figure">
+        <img
+          src={HYBRID_ARTICLE.figure}
+          alt={HYBRID_ARTICLE.figureAlt}
+          width="1024"
+          height="682"
+        />
+        <figcaption>{HYBRID_ARTICLE.figureCaption}</figcaption>
+      </figure>
+
       <section>
         <p>An AI agent does not need to write malicious code to create a serious failure.</p>
         <p>
