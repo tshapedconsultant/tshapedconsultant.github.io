@@ -89,11 +89,11 @@ export const ARTICLE = {
 export const HYBRID_ARTICLE = {
   hash: "hybrid-profiles",
   kicker: "Article",
-  title: "Why Hybrid Profiles Will Win in the Age of AI Agents",
-  standfirst: "AI makes application cheaper. Fundamentals become more valuable.",
+  title: "Why Hybrid Profiles May Have an Advantage in the Age of AI Agents",
+  standfirst: "AI makes application cheaper. Fundamentals may become more valuable.",
   meta: "Andrés Lage Freire · 7 September 2026",
   excerpt:
-    "Agents lower the cost of producing an answer. They do not lower the cost of knowing whether it is correct. T-shaped professionals with deep fundamentals and cross-domain judgment are the verification layer.",
+    "As AI agents make specialised execution cheaper, the advantage may shift toward people who can connect specialist capabilities, understand the underlying systems and exercise judgment across domains.",
   figure: "/hybrid-profiles-ai-agents.jpg",
   figureAlt:
     "Infographic of a hybrid professional on a bridge between specialist depth — engineering, data science, security, business and regulation — and AI-agent leverage: research, code, analyse, plan, test, execute, monitor and document. Labels: understand, connect, evaluate, integrate, direct.",
@@ -433,8 +433,8 @@ export const CREDENTIAL_GROUPS = [
       },
       {
         kind: "Article",
-        title: "Why Hybrid Profiles Will Win in the Age of AI Agents",
-        detail: "Fundamentals, T-shape and verification in agentic systems · 7 September 2026",
+        title: "Why Hybrid Profiles May Have an Advantage in the Age of AI Agents",
+        detail: "Fundamentals, T-shape and judgment in agentic systems · 7 September 2026",
         href: `#${HYBRID_ARTICLE.hash}`,
       },
       {

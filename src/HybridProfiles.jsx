@@ -22,252 +22,251 @@ export default function HybridProfiles() {
       </figure>
 
       <section>
-        <p>An AI agent does not need to write malicious code to create a serious failure.</p>
+        <p>For decades, specialisation was one of the clearest paths to professional value.</p>
+        <p>Become very good at one thing.</p>
         <p>
-          A March 2026 incident at Meta makes the point. An engineer asked an internal AI agent to
-          analyse a technical question on a company forum. The agent posted its reply to the thread
-          without approval. The guidance was inaccurate. An employee followed it, and unauthorised
-          internal access to company and user data was open for about two hours. Meta classified
-          the event as Sev 1 — its second-highest internal severity — and said no user data was
-          mishandled. The agent did not change systems itself. A human did, acting on the agent&apos;s
-          output.
+          A strong software engineer could differentiate through technical depth. A lawyer through
+          legal expertise. A data scientist through statistical and modelling expertise.
         </p>
+        <p>That still matters.</p>
+        <p>But AI agents may be changing where some of the advantage lies.</p>
         <p>
-          The failure was not simply a wrong answer. It sat at the intersection of technical
-          architecture, human decision-making, access control, security, governance and
-          organisational accountability.
+          As AI becomes better at coding, analysing, researching, testing and executing workflows,
+          the ability to perform a narrowly defined task may become less of a differentiator in
+          some areas.
         </p>
+        <p>This does not make specialists obsolete.</p>
         <p>
-          A pure technical specialist may have asked whether the advice was sound. A security
-          professional may have seen the access-control risk. A governance professional may have
-          questioned the missing approval gate. A hybrid professional sees the system — and the
-          failure path — across all three.
+          It may simply increase the relative value of people who can connect specialist
+          capabilities, understand the underlying systems and exercise judgment across domains.
         </p>
-        <p>That is why hybrid profiles have an advantage in the age of AI agents.</p>
+        <p>That is where hybrid profiles may have an advantage.</p>
       </section>
 
       <section>
-        <h2>AI makes application cheaper. Fundamentals become more valuable.</h2>
-        <p>
-          When a capability becomes widely available, the value of knowing <em>how</em> to use it
-          can fall. The value of understanding <em>why</em> it works can rise.
-        </p>
-        <p>
-          An engineer can ask an AI to write a neural network. When the model behaves unexpectedly,
-          someone still needs to understand loss functions, gradients, optimisation,
-          backpropagation, attention, embeddings, inference, probability and statistics.
-        </p>
-        <p>
-          Without those fundamentals, the engineer can operate the tool. They may not be able to
-          interrogate it. That distinction becomes critical as AI systems move from suggestions to
-          decisions and actions.
-        </p>
-        <p className="callout">You cannot govern what you do not fundamentally understand.</p>
-      </section>
-
-      <section>
-        <h2>The loan decision you cannot explain</h2>
-        <p>
-          Consider an AI system that rejects a loan. An agent can say: “The applicant was assessed
-          as high risk.” That is not necessarily an explanation.
-        </p>
-        <p>A serious governance question is why the system reached that decision. You may need to know:</p>
+        <h2>AI makes application cheaper. Fundamentals may become more valuable.</h2>
+        <p>One of the interesting effects of AI is that it can make applying existing knowledge much easier.</p>
+        <p>An engineer can ask an AI to generate a neural network.</p>
+        <p>But when the model behaves unexpectedly, generating another answer may not be enough.</p>
+        <p>Understanding the fundamentals can help:</p>
         <ul>
-          <li>what the model was optimising;</li>
-          <li>what loss function shaped its behaviour;</li>
-          <li>what representations were learned;</li>
-          <li>how the architecture transforms the input;</li>
-          <li>where uncertainty enters the system;</li>
-          <li>which part of the pipeline actually produced the decision.</li>
+          <li>loss functions;</li>
+          <li>gradients;</li>
+          <li>optimisation;</li>
+          <li>backpropagation;</li>
+          <li>attention and transformer architecture;</li>
+          <li>embeddings and inference;</li>
+          <li>probability and statistics.</li>
+        </ul>
+        <p>The point is not that everyone needs to become an ML researcher.</p>
+        <p>
+          It is that knowing why a system works can make it easier to question what the system is
+          doing.
+        </p>
+        <p>
+          That becomes particularly relevant when AI is used in decisions, automated workflows or
+          regulated environments.
+        </p>
+        <p className="callout">
+          You cannot reliably challenge a system that you do not understand well enough to
+          interrogate.
+        </p>
+      </section>
+
+      <section>
+        <h2>An AI explanation is not necessarily an explanation</h2>
+        <p>Consider an AI system that rejects a loan application.</p>
+        <p>An agent might produce: “The applicant was assessed as high risk.”</p>
+        <p>That sounds explanatory.</p>
+        <p>But a more useful question is: why did the system reach that decision?</p>
+        <p>
+          Answering that question may require understanding the model, the data, the objective being
+          optimised, the decision process and the surrounding system.
+        </p>
+        <p>You may need to ask:</p>
+        <ul>
+          <li>What was the model optimising?</li>
+          <li>What loss function shaped its behaviour?</li>
+          <li>How was the model trained?</li>
+          <li>What representations were learned?</li>
+          <li>How does the architecture transform the input?</li>
+          <li>Where does uncertainty enter the system?</li>
+          <li>What happens during inference?</li>
+          <li>Which part of the pipeline actually produced the decision?</li>
         </ul>
         <p>
-          Fundamentals matter not because every professional needs to train a transformer from
-          scratch, but because you cannot reliably challenge, govern, secure or explain a system
-          you cannot reason about.
+          Again, the argument is not that every governance professional needs to train a transformer
+          from scratch.
+        </p>
+        <p>
+          It is that fundamentals can provide the conceptual tools needed to interrogate AI rather
+          than simply accept its explanation.
         </p>
       </section>
 
       <section>
         <h2>The agent paradox</h2>
-        <p>
-          The more capable the agent becomes, the harder it is to supervise without enough
-          underlying knowledge.
-        </p>
-        <p>Imagine an AI coding agent generates 20,000 lines of production code.</p>
+        <p>AI agents also introduce an interesting supervision problem.</p>
+        <p>An increasingly capable agent can produce a large amount of work very quickly.</p>
+        <p>Imagine an AI coding agent generating thousands of lines of production code.</p>
+        <p>Different people may evaluate different dimensions:</p>
         <ul>
-          <li>
-            A person who understands only the business requirement can judge whether the interface
-            looks correct.
-          </li>
-          <li>
-            A competent software engineer can inspect architecture, algorithms and failure modes.
-          </li>
-          <li>A security engineer can identify attack surfaces.</li>
-          <li>
-            A systems thinker can see how the software interacts with the wider organisation.
-          </li>
+          <li>A business professional may assess whether it solves the intended problem.</li>
+          <li>A software engineer may examine architecture and failure modes.</li>
+          <li>A security professional may investigate attack surfaces.</li>
+          <li>A governance professional may look for missing controls and accountability.</li>
         </ul>
+        <p>Each perspective is valuable.</p>
+        <p>But someone also needs to understand how the pieces interact.</p>
+        <p>This is where hybrid profiles can become useful.</p>
+        <p>The hybrid does not necessarily know more than every specialist.</p>
+        <p>Instead, they may be better positioned to ask whether the overall system makes sense.</p>
+      </section>
+
+      <section>
+        <h2>A supervision failure in practice</h2>
         <p>
-          The agent increases execution capacity. Human understanding determines whether that
-          capacity is safely directed.
+          A March 2026 incident at Meta illustrates the same integration and supervision problem. An
+          engineer asked an internal AI agent to analyse a technical question on a company forum.
+          The agent posted its reply without approval; the guidance was inaccurate; an employee
+          followed it; and unauthorised internal access to company and user data was open for about
+          two hours.
         </p>
-        <blockquote>
-          AI reduces the cost of producing an answer. It does not necessarily reduce the cost of
-          determining whether the answer is correct.
-        </blockquote>
         <p>
-          In some environments it increases that cost, because machine-generated output can grow
-          faster than human verification capacity.
+          Meta classified the event as Sev 1 — its second-highest internal severity — and said no
+          user data was mishandled. The agent did not change systems itself. A human did, acting on
+          the agent&apos;s output.
+        </p>
+        <p>
+          The failure sat at the intersection of architecture, access control, security, governance
+          and organisational accountability — the kind of path a hybrid profile is positioned to
+          see.
         </p>
       </section>
 
       <section>
-        <h2>Where hybrid profiles become powerful</h2>
-        <p>Imagine three professionals.</p>
+        <h2>Specialists, hybrids and the integration problem</h2>
+        <p>Consider three profiles.</p>
         <div className="powers">
           <div>
             <p className="layer-num">Specialist A</p>
             <h3>Technical</h3>
-            <p>Extremely strong in machine learning. Understands models deeply.</p>
+            <p>Deep machine-learning expertise.</p>
           </div>
           <div>
             <p className="layer-num">Specialist B</p>
             <h3>Domain</h3>
-            <p>Extremely strong in the business or regulatory domain. Understands objectives and constraints.</p>
+            <p>Deep business or regulatory expertise.</p>
           </div>
           <div>
             <p className="layer-num">Hybrid C</p>
             <h3>AI systems</h3>
             <p>
-              Understands ML fundamentals, software architecture, security, business objectives and
-              regulation.
+              Working knowledge across machine learning, software architecture, security, business
+              and regulation, combined with meaningful depth in one or two areas.
             </p>
           </div>
         </div>
+        <p>C may not outperform A on a difficult ML research problem.</p>
+        <p>C may not outperform B on a highly specialised regulatory question.</p>
         <p>
-          C may not beat A on every ML problem, and may not know the business as deeply as B. When
-          the problem is to deploy an agentic system in a regulated enterprise and make it
-          technically robust, economically viable, secure and explainable, C connects the pieces.
-          That is increasingly where the value sits.
+          But consider: “How should an enterprise deploy an agentic AI system that is technically
+          robust, economically sensible, secure and compliant?”
         </p>
-        <p>
-          Hybrid C also translates between teams: enough engineering to earn technical respect,
-          enough business to align with executives, enough governance to satisfy risk and
-          compliance. They reduce silos and keep the machine running.
-        </p>
+        <p>Now the ability to connect the different domains becomes important.</p>
+        <p>The advantage is not necessarily deeper expertise in any single component.</p>
+        <p>It is the ability to see the dependencies between them.</p>
       </section>
 
       <section>
         <h2>Breadth without fundamentals creates fragile generalists</h2>
+        <p>Hybrid does not mean shallow.</p>
         <p>
-          The future does not simply belong to generalists. A shallow generalist armed with AI can
-          produce impressive-looking answers across ten domains while understanding none of them
-          well enough to recognise when the answer is wrong. That is dangerous.
+          Someone who knows a little about ten technologies but cannot evaluate any of them
+          critically is not necessarily well positioned for an AI-native environment.
         </p>
-        <p>
-          The strongest hybrid profile is not “know a little about everything.” It is deep
-          fundamentals plus functional breadth plus AI leverage. Think of it as a new T-shape:
-        </p>
+        <p>A stronger profile might look like: deep fundamentals + meaningful breadth + AI leverage + judgment.</p>
+        <p>Think of it as a T-shape:</p>
         <ul>
-          <li>the vertical bar is first-principles understanding;</li>
-          <li>the horizontal bar is cross-domain capability;</li>
-          <li>AI sits on top of both.</li>
+          <li>the vertical bar is depth and first principles;</li>
+          <li>the horizontal bar is adjacent domains;</li>
+          <li>AI provides leverage across both.</li>
         </ul>
       </section>
 
       <section>
-        <h2>Fundamentals are the verification layer</h2>
-        <p>This may be one of the most important human roles in an AI-native organisation.</p>
-        <p>AI generates. Agents execute. Humans verify.</p>
-        <p>Verification requires a reference model of how reality works.</p>
+        <h2>Fundamentals as a verification layer</h2>
+        <p>
+          AI can generate an answer. An agent can execute a workflow. Someone still needs to
+          determine whether the result is credible. Fundamentals help provide a reference model.
+        </p>
         <ul>
+          <li>A statistician can question an invalid inference.</li>
+          <li>A software engineer can recognise a flawed architecture.</li>
+          <li>A security professional can identify a dangerous recommendation.</li>
           <li>
-            A physicist does not need AI to explain Newtonian mechanics before noticing that an
-            output violates basic physical constraints.
-          </li>
-          <li>
-            A software engineer does not need an AI security agent to see that certain input
-            handling creates an injection risk.
-          </li>
-          <li>
-            A statistician does not need an LLM to know that correlation does not establish
-            causation.
-          </li>
-          <li>
-            An ML engineer who understands optimisation can recognise when a training objective is
-            misaligned with the real-world objective.
+            An ML engineer can question whether the model&apos;s optimisation objective actually
+            corresponds to the real-world objective.
           </li>
         </ul>
         <p>
-          Fundamentals give professionals an internal error detector. The strongest AI users are
-          not necessarily the people who trust AI the most. They are often the people who know
-          enough to recognise when something sounds plausible but is fundamentally wrong.
+          The deeper the underlying understanding, the easier it can be to recognise when something
+          sounds plausible but does not make sense.
         </p>
-        <p>The deeper your foundations, the harder it is for an AI system to mislead you.</p>
       </section>
 
       <section>
-        <h2>Hybrid professionals become translators between AI and reality</h2>
-        <p>AI operates in the language of models, probabilities, code and data. Organisations operate in the language of risk, revenue, customers, regulation, strategy, operations, security and reputation.</p>
-        <p>Someone has to translate. The hybrid professional asks:</p>
+        <h2>Hybrid professionals as translators</h2>
+        <p>
+          AI systems speak in models, probabilities, code, data and tools. Organisations speak in
+          risk, revenue, customers, regulation, strategy, operations and security. Hybrids
+          translate.
+        </p>
+        <p>The work moves from:</p>
         <ul>
           <li>What is technically possible?</li>
-          <li>What does that mean economically?</li>
-          <li>What does regulation permit?</li>
-          <li>What could go wrong?</li>
-          <li>How should we architect the system?</li>
-          <li>How do we prove that it worked as intended?</li>
+          <li>What does that mean for the business?</li>
+          <li>What are the risks?</li>
+          <li>What constraints apply?</li>
+          <li>How should the system be designed?</li>
         </ul>
-        <p>That translation is much harder to automate than any individual task in the chain.</p>
       </section>
 
       <section>
-        <h2>The new scarce resource: systems judgment</h2>
+        <h2>The problem is moving upward in the stack</h2>
+        <p>Scarce skill may move from execution toward integration and judgment.</p>
+        <p>The old question was: “Can we perform this task?”</p>
         <p>
-          As agents proliferate, organisations will have more specialised intelligence than ever —
-          coding, research, analysis, security, legal, finance, marketing, testing, documentation,
-          monitoring. The problem becomes less “can we perform this task?” and more “should these
-          capabilities be connected this way?”
+          With agents: “Which capability should perform it, how should the capabilities interact,
+          and how do we know the result is reliable?”
         </p>
-        <p>
-          That is a systems question. It requires fundamentals, context, trade-off analysis, causal
-          reasoning, risk awareness and judgment — the capabilities a strong hybrid profile
-          develops.
-        </p>
+        <p>Those are systems questions: fundamentals → context → trade-offs → risk → judgment.</p>
       </section>
 
       <section>
-        <h2>Specialists will still matter</h2>
+        <h2>Specialists are not going away</h2>
         <p>
-          This is not a prediction that specialisation disappears. Deep specialists remain
-          essential, especially where errors are expensive. Their role may shift from being the
-          entire production system to becoming a high-value node inside a larger AI-enabled
-          system. The hybrid professional then orchestrates: specialist expertise as a capability,
-          AI as scalable execution, the hybrid as the connection.
+          Deep expertise remains important. Specialists may become high-value nodes; hybrids
+          connect them; AI provides scalable execution.
         </p>
       </section>
 
       <section>
-        <h2>The career strategy changes</h2>
+        <h2>A different career question</h2>
         <p>
-          The old question was what to specialise in. A better question for the AI era: what
-          fundamentals should I master, and which adjacent disciplines should I learn well enough
-          to connect?
+          “Which fundamentals should I understand deeply, and which adjacent disciplines should I
+          learn well enough to connect?”
         </p>
         <ul>
           <li>A software engineer might add AI, security and business.</li>
-          <li>A lawyer might add AI architecture, data and governance.</li>
-          <li>A data scientist might add product, economics and regulation.</li>
-          <li>An engineer might add software, AI and systems thinking.</li>
+          <li>A lawyer might add regulation, AI architecture and data.</li>
+          <li>A data scientist might add modelling, product and economics.</li>
+          <li>An engineer might add physical systems, software and AI.</li>
         </ul>
-        <p>
-          The objective is not to become the world&apos;s greatest expert in everything. It is to
-          become exceptionally strong at an intersection.
-        </p>
       </section>
 
       <section>
-        <h2>The winning formula</h2>
+        <h2>The emerging formula</h2>
         <div className="formula">
           <p>
             <strong>Fundamentals</strong> → understanding
@@ -285,29 +284,17 @@ export default function HybridProfiles() {
             <strong>Judgment</strong> → direction
           </p>
         </div>
-        <blockquote>Understanding + leverage + judgment = agency</blockquote>
         <p>
-          When everyone has access to intelligence, the differentiator is the ability to determine
-          which question to ask, which capability to deploy, which answer to trust, which
-          trade-off to accept — and when the machine is wrong.
+          Hybrids will not always outperform specialists. As AI makes specialised capabilities
+          accessible, connecting, evaluating and directing them may become relatively more
+          valuable.
         </p>
         <p>
-          The future does not belong to generalists who know a little about everything. Nor does
-          it necessarily belong to specialists confined to one domain. It belongs
-          disproportionately to the hybrid professional with deep fundamentals: enough
-          understanding of the underlying systems to challenge the machine, enough across adjacent
-          domains to connect them, and enough judgment to turn that intelligence into a coherent
-          outcome.
+          <strong>
+            AI gives you leverage. Fundamentals help you understand the machine. And hybrid thinking
+            helps you connect that understanding to the real world.
+          </strong>
         </p>
-        <p>
-          The more powerful the agents become, the more important it becomes to have someone who
-          understands what the agents are actually doing.
-        </p>
-        <p>
-          <strong>AI can give you leverage. Fundamentals tell you whether you should pull the
-          lever. Hybrid thinking tells you which lever to pull.</strong>
-        </p>
-        <p>Which fundamentals are you betting on — and which intersection are you building?</p>
       </section>
 
       <p className="note article-sources">
