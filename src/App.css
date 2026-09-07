@@ -1614,6 +1614,30 @@ a:hover {
   margin-top: 2.25rem;
 }
 
+.paper ul {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.paper li + li {
+  margin-top: 0.28rem;
+}
+
+.formula {
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+  padding: 0.85rem 1rem 0.95rem;
+  margin: 0 0 1.1rem;
+}
+
+.formula p {
+  margin: 0.35rem 0;
+}
+
+.article-sources {
+  margin: 2rem 0 0;
+}
+
 /* ——— Whitepaper teaser ——— */
 
 .paper-teaser {

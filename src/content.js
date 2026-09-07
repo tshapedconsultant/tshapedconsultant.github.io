@@ -86,6 +86,16 @@ export const ARTICLE = {
     "Agentic systems that reason, decide, execute and self-evaluate concentrate power in the model. Separation of powers — applied as Runtime Checks & Balances — is the condition for EU AI Act Art. 14 and DORA.",
 };
 
+export const HYBRID_ARTICLE = {
+  hash: "hybrid-profiles",
+  kicker: "Article",
+  title: "Why Hybrid Profiles Will Win in the Age of AI Agents",
+  standfirst: "AI makes application cheaper. Fundamentals become more valuable.",
+  meta: "Andrés Lage Freire · 7 September 2026",
+  excerpt:
+    "Agents lower the cost of producing an answer. They do not lower the cost of knowing whether it is correct. T-shaped professionals with deep fundamentals and cross-domain judgment are the verification layer.",
+};
+
 export const CASE_STUDIES = {
   lede: "A regulated-bank view of platform architecture, applied AI and model oversight — written for CTOs and Risk leaders who need to see how governance sits inside a production operating model.",
   items: [
@@ -122,12 +132,19 @@ export const CASE_STUDIES = {
 
 export const INSIGHTS = [
   {
+    title: HYBRID_ARTICLE.title,
+    text: HYBRID_ARTICLE.excerpt,
+    href: `#${HYBRID_ARTICLE.hash}`,
+    icon: "people",
+    internal: true,
+    featured: true,
+  },
+  {
     title: ARTICLE.title,
     text: ARTICLE.excerpt,
     href: `#${ARTICLE.hash}`,
     icon: "scales",
     internal: true,
-    featured: true,
   },
   {
     title: "Ethical Principles of Artificial Intelligence: The Imperative for Compliance",
@@ -408,6 +425,12 @@ export const CREDENTIAL_GROUPS = [
         title: "BBVA: Platform and AI Strategy",
         detail: "Independent strategic analysis · 2025",
         href: "#case-studies",
+      },
+      {
+        kind: "Article",
+        title: "Why Hybrid Profiles Will Win in the Age of AI Agents",
+        detail: "Fundamentals, T-shape and verification in agentic systems · 7 September 2026",
+        href: `#${HYBRID_ARTICLE.hash}`,
       },
       {
         kind: "Article",

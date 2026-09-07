@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import Whitepaper from "./Whitepaper.jsx";
 import Article from "./Article.jsx";
+import HybridProfiles from "./HybridProfiles.jsx";
 import { Icon } from "./Icons.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
 import {
   ABOUT_BLOCKS,
   APPROACH,
   ARTICLE,
+  HYBRID_ARTICLE,
   AUDIENCE,
   BEST_FIT,
   BRAND_DEFINITION,
@@ -49,13 +51,18 @@ function scrollBehavior() {
   return prefersReducedMotion() ? "auto" : "smooth";
 }
 
+const ARTICLE_PAGES = {
+  [ARTICLE.hash]: "article",
+  [HYBRID_ARTICLE.hash]: "hybrid",
+};
+
 function currentHash() {
   const raw = window.location.hash.replace(/^#/, "");
   if (raw === "whitepaper" || /^s\d{2}$/.test(raw)) {
     return "whitepaper";
   }
-  if (raw === ARTICLE.hash) {
-    return "article";
+  if (ARTICLE_PAGES[raw]) {
+    return ARTICLE_PAGES[raw];
   }
   return "home";
 }
@@ -63,8 +70,8 @@ function currentHash() {
 function scrollToHash() {
   const id = window.location.hash.replace(/^#/, "");
   requestAnimationFrame(() => {
-    if (!id || id === "whitepaper" || id === ARTICLE.hash || id === "top") {
-      if (id === "whitepaper" || id === ARTICLE.hash || !id) {
+    if (!id || id === "whitepaper" || ARTICLE_PAGES[id] || id === "top") {
+      if (id === "whitepaper" || ARTICLE_PAGES[id] || !id) {
         window.scrollTo({ top: 0, behavior: scrollBehavior() });
       }
       return;
@@ -437,6 +444,8 @@ export default function App() {
       document.title = "Probabilistic Models Require Deterministic Governance | tshapedconsultant";
     } else if (view === "article") {
       document.title = `${ARTICLE.title} | tshapedconsultant`;
+    } else if (view === "hybrid") {
+      document.title = `${HYBRID_ARTICLE.title} | tshapedconsultant`;
     } else {
       document.title = HOME_TITLE;
     }
@@ -663,6 +672,8 @@ export default function App() {
           <Whitepaper />
         ) : view === "article" ? (
           <Article />
+        ) : view === "hybrid" ? (
+          <HybridProfiles />
         ) : (
           <>
             <section className="hero region-dark" id="top">
