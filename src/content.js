@@ -1,5 +1,6 @@
 export const COVER = "/cover.png";
 export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Governance.pdf";
+export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
 export const CV_PDF = "/Andres-Lage-Freire-CV.pdf";
 
 export const LINKS = {
@@ -74,7 +75,60 @@ export const ENGAGEMENT = {
   ],
 };
 
+export const ARTICLE = {
+  hash: "agentic-ai-montesquieu",
+  kicker: "Article",
+  title: "Agentic AI and Montesquieu: Why Autonomous Systems Need Separation of Powers",
+  standfirst:
+    "Most critical AI incidents now happen at runtime. Without an independent power that can stop the system, agentic architecture concentrates control in the model itself.",
+  meta: "Andrés Lage Freire · 15 July 2026",
+  excerpt:
+    "Agentic systems that reason, decide, execute and self-evaluate concentrate power in the model. Separation of powers — applied as Runtime Checks & Balances — is the condition for EU AI Act Art. 14 and DORA.",
+};
+
+export const CASE_STUDIES = {
+  lede: "A regulated-bank view of platform architecture, applied AI and model oversight — written for CTOs and Risk leaders who need to see how governance sits inside a production operating model.",
+  items: [
+    {
+      id: "bbva-platform-ai",
+      kicker: "Case study · 2025",
+      client: "BBVA",
+      sector: "Global banking",
+      title: "Platform and AI strategy",
+      role: "Independent strategic analysis",
+      problem:
+        "A global incumbent cannot serve tens of millions of clients with hyper-personalised financial health — and cannot put generative AI into the workforce — unless the digital core, data platform and model estate are unified. Scale without a model inventory, bias controls and alignment to the EU AI Act and BCBS 239 spends the one asset banking cannot replace: trust.",
+      approach: [
+        "Treat the mobile app as the primary platform: a unified digital architecture (Horizon) across key geographies, with the ADA global data platform on AWS feeding models in real time.",
+        "Keep core IP in an in-house AI Factory for personalisation and risk, and partner for infrastructure and frontier tools — AWS, OpenAI ChatGPT Enterprise and Google Cloud Gemini.",
+        "Move from generic product screens to an AI Financial Coach: categorise transactions, predict balances and recommend specific actions rather than generic tips.",
+        "Put generative AI into employee workflows so legal, drafting and complex query work is accelerated, and human time is reallocated to high-touch advice and model governance.",
+      ],
+      outcome:
+        "By March 2025 the bank reported 78.1 million active clients, 79% mobile penetration and 61% of unit sales through digital channels. More than 11,000 employees used ChatGPT Enterprise, saving on average two hours a week. Corporate and Investment Banking revenue rose 36% in Q1 2025. In Mexico, 1.8 million fully digital accounts supported financial inclusion. A 2025 mobile overhaul cut response time by a factor of six and personalised the home screen to individual habits.",
+      governance:
+        "Governance is treated as a competitive edge, not a compliance overlay: a centralised AI model inventory for continuous monitoring, ongoing bias-reduction work (including Fair Learning), and proactive alignment with the EU AI Act and international standards. Innovation can accelerate only if oversight, evidence and accountability keep pace.",
+      metrics: [
+        { value: "78.1M", label: "Active clients (Mar 2025)" },
+        { value: "79%", label: "Mobile penetration" },
+        { value: "61%", label: "Digital unit sales" },
+        { value: "11,000+", label: "Employees on ChatGPT Enterprise" },
+      ],
+      note: "Independent case study by Andrés Lage Freire, 2025. Figures as reported in the analysis (March 2025 and Q1 2025).",
+      pdf: CASE_STUDY_PDF,
+    },
+  ],
+};
+
 export const INSIGHTS = [
+  {
+    title: ARTICLE.title,
+    text: ARTICLE.excerpt,
+    href: `#${ARTICLE.hash}`,
+    icon: "scales",
+    internal: true,
+    featured: true,
+  },
   {
     title: "Ethical Principles of Artificial Intelligence: The Imperative for Compliance",
     text: "Fairness, accountability, transparency and privacy as operational requirements — especially under EU rules.",
@@ -347,6 +401,19 @@ export const CREDENTIAL_GROUPS = [
         kind: "Publication",
         title: "Probabilistic Models Require Deterministic Governance",
         detail: "Whitepaper · tshapedconsultant",
+        href: "#whitepaper",
+      },
+      {
+        kind: "Case study",
+        title: "BBVA: Platform and AI Strategy",
+        detail: "Independent strategic analysis · 2025",
+        href: "#case-studies",
+      },
+      {
+        kind: "Article",
+        title: "Agentic AI and Montesquieu",
+        detail: "Why autonomous systems need separation of powers · 15 July 2026",
+        href: `#${ARTICLE.hash}`,
       },
       {
         kind: "Articles",

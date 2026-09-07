@@ -20,7 +20,7 @@
 
   Dark bands: Hero, Diagnostic, Guardrails, Whitepaper teaser, Contact, Footer.
   Light bands: Why this matters, Approach, Capabilities, Engagement,
-  Implementations, Credentials, About. Form fields are always light.
+  Case studies, Implementations, Insights, Credentials, About. Form fields are always light.
 */
 
 :root {
@@ -1467,6 +1467,153 @@ a:hover {
   margin-top: 1.25rem;
 }
 
+/* ——— Case studies ——— */
+
+.case-study {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--navy-800);
+  padding: 1.4rem 1.35rem 1.45rem;
+}
+
+.case-head {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.case-kicker,
+.case-role {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--blue-700);
+}
+
+.case-client {
+  margin: 0.35rem 0 0.45rem;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.case-head h3 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  color: var(--navy-900);
+}
+
+.case-role {
+  margin-top: 0.45rem;
+}
+
+.case-grid {
+  display: grid;
+  gap: 1.15rem;
+  margin-bottom: 1.15rem;
+}
+
+.case-grid h4,
+.case-gov h4 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--blue-700);
+}
+
+.case-grid p,
+.case-grid li,
+.case-gov p,
+.case-note {
+  margin: 0;
+  color: var(--slate-700);
+  font-size: 0.98rem;
+}
+
+.case-grid ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.case-grid li + li {
+  margin-top: 0.45rem;
+}
+
+.case-gov {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.1rem;
+  background: var(--navy-900);
+  color: var(--white);
+  color-scheme: dark;
+}
+
+.case-gov h4 {
+  color: var(--cyan-400);
+}
+
+.case-gov p {
+  color: var(--white);
+}
+
+.case-metrics {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin: 0 0 1.1rem;
+  padding: 0;
+}
+
+.case-metrics li {
+  margin: 0;
+  padding: 0.9rem 0.95rem;
+  background: var(--paper);
+  border: 1px solid var(--border);
+}
+
+.case-metrics strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.case-metrics span {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--slate-700);
+  font-size: 0.8rem;
+}
+
+.case-note {
+  margin: 0 0 1.1rem;
+  font-size: 0.88rem;
+}
+
+.insight-grid li.featured {
+  grid-column: span 2;
+}
+
+.insight-read {
+  margin: 0.75rem 0 0;
+  font-weight: 600;
+}
+
+.article-meta {
+  margin: 0 0 1.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.article-related {
+  margin-top: 2.25rem;
+}
+
 /* ——— Whitepaper teaser ——— */
 
 .paper-teaser {
@@ -1883,7 +2030,8 @@ a:hover {
   .dgom-timeline,
   .engagement-lines,
   .problem-grid,
-  .insight-grid {
+  .insight-grid,
+  .case-metrics {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -2061,11 +2209,13 @@ a:hover {
   .problem-grid,
   .insight-grid,
   .powers,
-  .powers-grid {
+  .powers-grid,
+  .case-metrics {
     grid-template-columns: 1fr;
   }
 
-  .validation-grid li.featured {
+  .validation-grid li.featured,
+  .insight-grid li.featured {
     grid-column: auto;
   }
 }

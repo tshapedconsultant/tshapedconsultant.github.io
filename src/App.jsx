@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import Whitepaper from "./Whitepaper.jsx";
+import Article from "./Article.jsx";
 import { Icon } from "./Icons.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
 import {
   ABOUT_BLOCKS,
   APPROACH,
+  ARTICLE,
   AUDIENCE,
   BEST_FIT,
   BRAND_DEFINITION,
   HERO_FOR,
   CAPABILITIES,
+  CASE_STUDIES,
   COVER,
   CREDENTIAL_GROUPS,
   CTA,
@@ -27,9 +30,13 @@ import {
   WHITEPAPER_PDF,
 } from "./content.js";
 
+const HOME_TITLE =
+  "Andres Lage – AI Governance & Responsible AI Architect | EU AI Act, ISO 42001";
+
 const NAV_SECTIONS = [
   { id: "about", label: "About" },
   { id: "approach", label: "Approach" },
+  { id: "case-studies", label: "Case studies" },
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
@@ -47,18 +54,27 @@ function currentHash() {
   if (raw === "whitepaper" || /^s\d{2}$/.test(raw)) {
     return "whitepaper";
   }
+  if (raw === ARTICLE.hash) {
+    return "article";
+  }
   return "home";
 }
 
 function scrollToHash() {
   const id = window.location.hash.replace(/^#/, "");
   requestAnimationFrame(() => {
-    if (!id || id === "whitepaper" || id === "top") {
-      if (id === "whitepaper" || !id) window.scrollTo({ top: 0, behavior: scrollBehavior() });
+    if (!id || id === "whitepaper" || id === ARTICLE.hash || id === "top") {
+      if (id === "whitepaper" || id === ARTICLE.hash || !id) {
+        window.scrollTo({ top: 0, behavior: scrollBehavior() });
+      }
       return;
     }
     document.getElementById(id)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
   });
+}
+
+function isHashLink(href) {
+  return typeof href === "string" && href.startsWith("#");
 }
 
 function isValidEmail(value) {
@@ -417,6 +433,16 @@ export default function App() {
   const headerRef = useRef(null);
 
   useEffect(() => {
+    if (view === "whitepaper") {
+      document.title = "Probabilistic Models Require Deterministic Governance | tshapedconsultant";
+    } else if (view === "article") {
+      document.title = `${ARTICLE.title} | tshapedconsultant`;
+    } else {
+      document.title = HOME_TITLE;
+    }
+  }, [view]);
+
+  useEffect(() => {
     const onHash = () => {
       const next = currentHash();
       setView((prev) => {
@@ -542,7 +568,7 @@ export default function App() {
   );
 
   return (
-    <div className={view === "whitepaper" ? "site site-paper" : "site"}>
+    <div className={view === "home" ? "site" : "site site-paper"}>
       <a className="skip" href="#main">
         Skip to content
       </a>
@@ -635,6 +661,8 @@ export default function App() {
       <main id="main" tabIndex={-1} inert={menuOpen ? true : undefined}>
         {view === "whitepaper" ? (
           <Whitepaper />
+        ) : view === "article" ? (
+          <Article />
         ) : (
           <>
             <section className="hero region-dark" id="top">
@@ -673,6 +701,16 @@ export default function App() {
                       </a>
                     </div>
                     <p className="cta-note">{CTA.note}</p>
+                    <a
+                      className="text-link"
+                      href="#case-studies"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goHomeSection("case-studies");
+                      }}
+                    >
+                      Read the BBVA case study
+                    </a>
                     <a
                       className="text-link"
                       href="#projects"
@@ -935,11 +973,69 @@ export default function App() {
               </div>
             </section>
 
-            <section id="projects" className="region region-light">
+            <section id="case-studies" className="region region-light">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
                     05
+                  </p>
+                  <h2>Case studies</h2>
+                </div>
+                <p className="section-lede">{CASE_STUDIES.lede}</p>
+                {CASE_STUDIES.items.map((study) => (
+                  <article className="case-study" key={study.id} aria-labelledby={`${study.id}-title`}>
+                    <header className="case-head">
+                      <p className="case-kicker">{study.kicker}</p>
+                      <p className="case-client">
+                        {study.client} · {study.sector}
+                      </p>
+                      <h3 id={`${study.id}-title`}>{study.title}</h3>
+                      <p className="case-role">{study.role}</p>
+                    </header>
+                    <div className="case-grid">
+                      <div>
+                        <h4>Problem</h4>
+                        <p>{study.problem}</p>
+                      </div>
+                      <div>
+                        <h4>What was done</h4>
+                        <ul>
+                          {study.approach.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4>Outcome</h4>
+                        <p>{study.outcome}</p>
+                      </div>
+                    </div>
+                    <aside className="case-gov">
+                      <h4>Governance</h4>
+                      <p>{study.governance}</p>
+                    </aside>
+                    <ul className="case-metrics">
+                      {study.metrics.map((metric) => (
+                        <li key={metric.label}>
+                          <strong>{metric.value}</strong>
+                          <span>{metric.label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="case-note">{study.note}</p>
+                    <a className="btn btn-ghost" href={study.pdf} download>
+                      Download case study (PDF)
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section id="projects" className="region region-light">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    06
                   </p>
                   <h2>Selected reference implementations</h2>
                 </div>
@@ -983,7 +1079,7 @@ export default function App() {
                 <div>
                   <div className="section-head">
                     <p className="num" aria-hidden="true">
-                      06
+                      07
                     </p>
                     <h2>Whitepaper</h2>
                   </div>
@@ -1032,21 +1128,31 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    07
+                    08
                   </p>
                   <h2>Insights</h2>
                 </div>
                 <p className="section-lede">
-                  Short essays on responsible AI, operating models and delivery — published on Medium.
+                  Essays on responsible AI, operating models and runtime governance — on this site
+                  and on Medium.
                 </p>
                 <ul className="insight-grid">
                   {INSIGHTS.map((item) => (
-                    <li key={item.href}>
+                    <li className={item.featured ? "featured" : undefined} key={item.href}>
                       <Icon name={item.icon} />
                       <h3>
-                        <ExternalLink href={item.href}>{item.title}</ExternalLink>
+                        {item.internal ? (
+                          <a href={item.href}>{item.title}</a>
+                        ) : (
+                          <ExternalLink href={item.href}>{item.title}</ExternalLink>
+                        )}
                       </h3>
                       <p>{item.text}</p>
+                      {item.internal ? (
+                        <p className="insight-read">
+                          <a href={item.href}>Read article</a>
+                        </p>
+                      ) : null}
                     </li>
                   ))}
                 </ul>
@@ -1062,7 +1168,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    08
+                    09
                   </p>
                   <h2>Credentials, publications and open work</h2>
                 </div>
@@ -1078,7 +1184,11 @@ export default function App() {
                           </p>
                           <h3>
                             {item.href ? (
-                              <ExternalLink href={item.href}>{item.title}</ExternalLink>
+                              isHashLink(item.href) ? (
+                                <a href={item.href}>{item.title}</a>
+                              ) : (
+                                <ExternalLink href={item.href}>{item.title}</ExternalLink>
+                              )
                             ) : (
                               item.title
                             )}
@@ -1113,7 +1223,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    09
+                    10
                   </p>
                   <h2>About Andrés</h2>
                 </div>
@@ -1146,7 +1256,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    10
+                    11
                   </p>
                   <h2>Contact</h2>
                 </div>
@@ -1217,6 +1327,7 @@ export default function App() {
           <a href={CV_PDF} download>
             CV
           </a>
+          <a href="#case-studies">Case studies</a>
           <a href="#whitepaper">Whitepaper</a>
         </p>
         <p>© {new Date().getFullYear()} Andrés Lage Freire · tshapedconsultant.com</p>
