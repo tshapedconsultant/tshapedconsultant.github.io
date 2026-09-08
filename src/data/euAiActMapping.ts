@@ -40,11 +40,11 @@ export const MAPPING_SUBSET_NOTE =
   "This is an engineering and audit-evidence subset of the Act. It is not exhaustive, and it is not a full legal interpretation.";
 
 export const MAPPING_DATES_NOTE =
-  "Application dates vary by category and role — for example Art. 50 transparency obligations from August 2026 versus later high-risk duties. This mapping is the control and evidence design expected when those obligations apply.";
+  "Application dates vary by category and role; this mapping is the control and evidence design expected when those obligations apply.";
 
 export const MAPPING_ROLE_BULLETS = [
   "Role is classified per system and use case — provider or deployer — and that role sets the obligation set. It is not a permanent company label.",
-  "Where high-risk obligations apply, Chapter III requires deeper controls and record-keeping. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties.",
+  "High-risk systems (Annex III examples: creditworthiness of natural persons, life and health insurance risk assessment and pricing, critical-infrastructure safety components) need the deeper Chapter III controls.",
   "Non-high-risk systems still need proportionate controls, aligned to ISO/IEC 42001 and risk appetite — not a full high-risk stack by default.",
 ];
 
@@ -58,7 +58,7 @@ export const MAPPING_STATUS_NOTE =
   "Status = implementation in reference projects, not regulatory applicability.";
 
 export const MAPPING_ART12_RETENTION =
-  "Art. 12 requires automatic, traceable event logs so the system's behaviour can be reconstructed. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 19 / Art. 26(6)). The reference controls use unique decision IDs and attribute events to the user, model version and data sources.";
+  "Art. 12 requires automatic, traceable event logs so the system's behaviour can be reconstructed. Logs are retained per applicable category — for example at least six months for many high-risk systems under Art. 19 (providers) and Art. 26(6) (deployers), unless other Union or national law requires more. The reference controls use unique decision IDs and attribute events to the user, model version and data sources.";
 
 export const MAPPING_ISO_NOTE =
   "ISO/IEC 42001 is an AI management system (AIMS). It structures governance; it does not by itself confer presumption of conformity under the AI Act. Where a high-risk quality-management system is required, align with applicable European standards as they become applicable (for example prEN 18286). The reference repositories do not implement prEN 18286.";
@@ -156,7 +156,7 @@ assert pack.model_details.version == release.git_sha`,
     evidence: "Chained hashes + DecisionRecord (user, model version, data sources)",
     status: "Implemented",
     requirement:
-      "High-risk systems must technically allow automatic event logs so authorities can reconstruct the system's behaviour (Art. 12). Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 19 / Art. 26(6)).",
+      "High-risk systems must technically allow automatic event logs so authorities can reconstruct the system's behaviour (Art. 12). Providers and deployers keep the logs under their control for a period appropriate to purpose — at least six months unless other Union or national law requires otherwise (Art. 19 / Art. 26(6)).",
     controlExample: `event = {
   decision_id, actor, model_version, data_source, payload
 }
@@ -287,7 +287,7 @@ ci.upload("evidence-pack.json")`,
     evidence: "Deployer runbook + named oversight log",
     status: "Planned",
     requirement:
-      "Deployers follow the provider’s instructions, keep humans able to stop the system, and own monitoring. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 26(6)).",
+      "Deployers follow the provider’s instructions, keep humans able to stop the system, and own monitoring. They retain automatically generated logs under their control for a period appropriate to purpose — at least six months unless other law requires otherwise (Art. 26(6)).",
     controlExample: `assign(oversight_role="underwriting_lead")
 require(human_can_override=True)
 monitor(drift_and_incidents)`,

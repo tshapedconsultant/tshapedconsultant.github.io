@@ -201,7 +201,8 @@ export default function EvidencePackSample() {
       <p className="evidence-pack-note">
         In CI, each control decision appends a canonical payload and the previous event hash. Unique
         decision IDs attribute the event to a user, model version and data source. The chain is
-        tamper-evident locally. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 19 / Art. 26(6)). Optional external anchors (Jira,
+        tamper-evident locally. Logs are retained per applicable category (for example at least six
+        months for many high-risk systems under Arts 19 and 26). Optional external anchors (Jira,
         Rekor, object-lock storage) exist in Enterprise AI Risk and are off by default — this sample
         does not write to them. Canonical form used for the digest: {pretty ? "sorted-key JSON." : "—"}
       </p>
