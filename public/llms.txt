@@ -2,7 +2,7 @@
 
 > AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.
 
-Andrés Lage Freire is a Responsible AI Architect. Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones. He helps CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy turn AI risk, regulatory obligations and accountability requirements into executable controls, lifecycle gates and verifiable evidence.
+Andrés Lage Freire is a Responsible AI Architect. Based in Madrid · Working remotely across EMEA. He helps CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy turn AI risk, regulatory obligations and accountability requirements into executable controls, lifecycle gates and verifiable evidence.
 
 Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems and agents.
 

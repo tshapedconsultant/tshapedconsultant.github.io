@@ -1,14 +1,14 @@
 # tshapedconsultant.com — outline
 
 Site: https://tshapedconsultant.com/
-Author: Andrés Lage Freire, Responsible AI Architect. Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones.
+Author: Andrés Lage Freire, Responsible AI Architect. Based in Madrid · Working remotely across EMEA.
 Practice: AI Governance Engineering — controls, accountability and evidence across the AI lifecycle.
 
 ## Pages
 
 ### Home — https://tshapedconsultant.com/
 - Positioning for CTOs, Heads of AI and Risk/Compliance in banking, insurance and energy
-- AI Governance Diagnostic (2–3 weeks): inventory, risk, control gaps, DGOM, 90-day roadmap
+- AI Governance Diagnostic (2–3 weeks): AI inventory and triage, control-gap assessment, 90-day implementation backlog
 - Approach: regulation → governance → engineering → runtime → evidence
 - Frameworks: EU AI Act, ISO/IEC 42001, NIST AI RMF, DORA + NIS2
 - Case study: BBVA platform and AI strategy (PDF)

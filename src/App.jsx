@@ -45,6 +45,7 @@ import {
   INSIGHTS,
   LINKS,
   LOCATION,
+  LOCATION_HERO,
   MAPPING_TEASER,
   PROBLEMS,
   PROJECTS,
@@ -807,7 +808,7 @@ export default function App() {
                 <div className="hero-copy">
                   <p className="eyebrow loc-line">
                     <span className="loc-short">Madrid · EMEA</span>
-                    <span className="loc-long">{LOCATION}</span>
+                    <span className="loc-long">{LOCATION_HERO}</span>
                   </p>
                   <h1>
                     Andrés Lage Freire
@@ -908,9 +909,9 @@ export default function App() {
                   </p>
                   <h2>Why this matters</h2>
                 </div>
-                <p className="why-lead">AI governance is moving from documentation to runtime assurance.</p>
+                <p className="why-lead">AI governance is moving from documentation to independent runtime controls.</p>
                 <p className="why-brutal">
-                  Enterprises don&apos;t need another policy document. They need controls that survive
+                  Enterprises don&apos;t need another policy document. They need enforceable limits that survive
                   deployment, runtime, audit and regulatory scrutiny.
                 </p>
                 <p className="why-close">I design the architecture that connects all four.</p>
@@ -931,15 +932,6 @@ export default function App() {
                   <p className="best-fit">
                     <span className="callout-label">Best fit</span>
                     {BEST_FIT.replace(/^Best fit:\s*/i, "")}
-                  </p>
-                  <p className="principle-callout">
-                    <span className="callout-label">
-                      <span className="principle-mark" aria-hidden="true">
-                        ∴
-                      </span>
-                      Principle
-                    </span>
-                    Probabilistic models require deterministic governance.
                   </p>
                 </aside>
                 <article className="mapping-teaser">
@@ -966,29 +958,34 @@ export default function App() {
 
             <section id="diagnostic" className="region region-dark diagnostic-band">
               <div className="region-inner diagnostic-layout">
-                <div className="diag-offer">
+                <article className="diag-panel">
                   <p className="eyebrow">Productised entry point</p>
                   <div className="diag-title-row">
                     <h2>{DIAGNOSTIC.title}</h2>
                     <p className="meta-badge">{DIAGNOSTIC.duration}</p>
                   </div>
-                  <p className="diag-lead">{DIAGNOSTIC.lead}</p>
-                  <ol className="diag-steps" aria-label="Diagnostic process">
-                    {DIAGNOSTIC.steps.map((step) => (
-                      <li key={step}>{step}</li>
-                    ))}
-                  </ol>
-                  <ul className="diag-list">
+                  <ul className="diag-product">
                     {DIAGNOSTIC.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                  <p className="diag-outcome">
-                    <strong>Outcome.</strong> {DIAGNOSTIC.outcome}
-                  </p>
                   <p className="diag-deliverables">{DIAGNOSTIC.deliverables}</p>
+                  <a
+                    className="btn btn-solid"
+                    href="#diagnostic-form"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      document.getElementById("diagnostic-form")?.scrollIntoView({
+                        behavior: scrollBehavior(),
+                        block: "start",
+                      });
+                      document.getElementById("diag-name")?.focus();
+                    }}
+                  >
+                    {CTA.primary}
+                  </a>
                   <p className="cta-note cta-note-repeat">{CTA.note}</p>
-                </div>
+                </article>
                 <DiagnosticForm />
               </div>
             </section>
@@ -1006,7 +1003,7 @@ export default function App() {
                     <p className="level-kicker">Business problem</p>
                     <p>
                       AI programmes often fail not because the model is weak, but because ownership,
-                      authority, evidence, controls and operational accountability are unclear.
+                      authority, decision traceability and operational accountability are unclear.
                     </p>
                   </article>
                   <article>
@@ -1018,6 +1015,7 @@ export default function App() {
                     </p>
                   </article>
                 </div>
+                <p className="approach-thesis">{HERO.principle}</p>
 
                 <ol className="arch-flow" aria-label="Regulation to evidence">
                   {APPROACH.map((step) => (
@@ -1111,7 +1109,7 @@ export default function App() {
                   <h2>What you get</h2>
                 </div>
                 <p className="section-lede">
-                  Capabilities you can buy — architecture, engineering, evidence and executive output —
+                  Capabilities you can buy — architecture, engineering, decision traceability and executive output —
                   not a policy workshop that ends in a slide deck.
                 </p>
                 <ul className="capability-strip">
@@ -1179,41 +1177,30 @@ export default function App() {
                       <h3 id={`${study.id}-title`}>{study.title}</h3>
                       <p className="case-role">{study.role}</p>
                     </header>
-                    <div className="case-grid">
-                      <div>
-                        <h4>Problem</h4>
-                        <p>{study.problem}</p>
-                      </div>
-                      <div>
-                        <h4>What was done</h4>
-                        <details className="mobile-disclose case-done">
-                          <summary>Show workstream</summary>
-                          <ul>
-                            {study.approach.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        </details>
-                      </div>
-                      <div>
-                        <h4>Outcome</h4>
-                        <p>{study.outcome}</p>
-                      </div>
+                    <div className="case-problem">
+                      <h4>Problem</h4>
+                      <p>{study.problem}</p>
                     </div>
+                    <h4 className="case-outcomes-label">Outcomes</h4>
+                    <ol className="case-outcomes">
+                      {study.outcomes.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ol>
+                    <details className="disclose-always case-done">
+                      <summary>What was done</summary>
+                      <ul>
+                        {study.approach.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </details>
                     <aside className="case-gov">
                       <h4>Governance</h4>
                       <p>{study.governance}</p>
                     </aside>
-                    <ul className="case-metrics">
-                      {study.metrics.map((metric) => (
-                        <li key={metric.label}>
-                          <strong>{metric.value}</strong>
-                          <span>{metric.label}</span>
-                        </li>
-                      ))}
-                    </ul>
                     <p className="case-note">{study.note}</p>
-                    <a className="btn btn-ghost" href={study.pdf} download>
+                    <a className="btn btn-solid" href={study.pdf} download>
                       Download case study (PDF)
                     </a>
                   </article>
@@ -1450,6 +1437,7 @@ export default function App() {
                 </div>
                 <p className="why-lead about-unusual">Why my background is unusual</p>
                 <p className="about-combo">Engineering + AI + Governance + Regulation</p>
+                <p className="about-location">{LOCATION}</p>
                 <div className="about-blocks">
                   {ABOUT_BLOCKS.map((item) => (
                     <article key={item.title}>
@@ -1477,8 +1465,8 @@ export default function App() {
                   <h2>Contact</h2>
                 </div>
                 <p className="closing">
-                  Your AI system becomes governed when policy is enforced in design, deployment and
-                  runtime—and when evidence proves that it happened.
+                  {HERO.principle} Your AI system becomes governed when policy is enforced in design,
+                  deployment and runtime—and when audit-ready evidence proves that it happened.
                 </p>
                 <div className="cta-primary">
                   <a

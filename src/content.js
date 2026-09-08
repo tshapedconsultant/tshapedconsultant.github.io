@@ -18,10 +18,13 @@ export const BRAND_DEFINITION =
   "AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.";
 
 export const LOCATION =
-  "Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones.";
+  "Based in Madrid · Working remotely across EMEA";
+
+export const LOCATION_HERO =
+  "Based in Madrid · EMEA remote";
 
 export const ABOUT_INTRO =
-  "Responsible AI Architect. Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through runtime evidence.";
+  "Responsible AI Architect. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through deployment.";
 
 export const HERO = {
   tagline: "Responsible AI Architect · From regulation to runtime assurance",
@@ -129,23 +132,20 @@ export const CASE_STUDIES = {
       title: "Platform and AI strategy",
       role: "Independent strategic analysis",
       problem:
-        "A global incumbent cannot serve tens of millions of clients with hyper-personalised financial health — and cannot put generative AI into the workforce — unless the digital core, data platform and model estate are unified. Scale without a model inventory, bias controls and alignment to the EU AI Act and BCBS 239 spends the one asset banking cannot replace: trust.",
+        "A global incumbent cannot serve tens of millions of clients with hyper-personalised financial health — or put generative AI into the workforce — unless the digital core, data platform and model estate are unified. Without a model inventory, bias controls and EU AI Act / BCBS 239 alignment, scale spends the one asset banking cannot replace: trust.",
       approach: [
         "Treat the mobile app as the primary platform: a unified digital architecture (Horizon) across key geographies, with the ADA global data platform on AWS feeding models in real time.",
         "Keep core IP in an in-house AI Factory for personalisation and risk, and partner for infrastructure and frontier tools — AWS, OpenAI ChatGPT Enterprise and Google Cloud Gemini.",
         "Move from generic product screens to an AI Financial Coach: categorise transactions, predict balances and recommend specific actions rather than generic tips.",
         "Put generative AI into employee workflows so legal, drafting and complex query work is accelerated, and human time is reallocated to high-touch advice and model governance.",
       ],
-      outcome:
-        "By March 2025 the bank reported 78.1 million active clients, 79% mobile penetration and 61% of unit sales through digital channels. More than 11,000 employees used ChatGPT Enterprise, saving on average two hours a week. Corporate and Investment Banking revenue rose 36% in Q1 2025. In Mexico, 1.8 million fully digital accounts supported financial inclusion. A 2025 mobile overhaul cut response time by a factor of six and personalised the home screen to individual habits.",
-      governance:
-        "Governance is treated as a competitive edge, not a compliance overlay: a centralised AI model inventory for continuous monitoring, ongoing bias-reduction work (including Fair Learning), and proactive alignment with the EU AI Act and international standards. Innovation can accelerate only if oversight, evidence and accountability keep pace.",
-      metrics: [
-        { value: "78.1M", label: "Active clients (Mar 2025)" },
-        { value: "79%", label: "Mobile penetration" },
-        { value: "61%", label: "Digital unit sales" },
-        { value: "11,000+", label: "Employees on ChatGPT Enterprise" },
+      outcomes: [
+        "78.1 million active clients, 79% mobile penetration and 61% of unit sales through digital channels (March 2025).",
+        "More than 11,000 employees on ChatGPT Enterprise, saving on average two hours a week.",
+        "Corporate and Investment Banking revenue up 36% in Q1 2025; 1.8 million fully digital accounts in Mexico; mobile response time cut by a factor of six.",
       ],
+      governance:
+        "Governance is treated as a competitive edge: a centralised AI model inventory, ongoing bias-reduction work, and proactive alignment with the EU AI Act — so innovation can accelerate only if oversight keeps pace.",
       note: "Independent strategic analysis by Andrés Lage Freire; not authored or endorsed by BBVA. Figures as reported in the analysis (March 2025 and Q1 2025).",
       pdf: CASE_STUDY_PDF,
     },
@@ -278,7 +278,7 @@ export const APPROACH = [
 export const MAPPING_TEASER = {
   kicker: "EU AI Act",
   title: "From article to evidence pack",
-  text: "See which obligations apply, the controls that implement them, and the evidence pack an auditor would inspect.",
+  text: "See which obligations apply, the independent runtime controls that implement them, and the artefacts an auditor would inspect.",
   cta: "Open the mapping",
 };
 
@@ -313,13 +313,13 @@ export const CAPABILITIES = [
     icon: "code",
   },
   {
-    title: "Runtime assurance",
-    text: "Independent runtime controls, kill switches and monitoring designed into the control architecture.",
+    title: "Independent runtime controls",
+    text: "Kill switches and monitoring designed into the control architecture.",
     icon: "monitor",
   },
   {
-    title: "Audit and evidence",
-    text: "Audit trails, evidence packs and control testing.",
+    title: "Audit-ready evidence",
+    text: "Decision traces, hashed artefacts and control testing.",
     icon: "clipboard",
   },
 ];
@@ -346,19 +346,12 @@ export const DELIVER = [
 export const DIAGNOSTIC = {
   title: "AI Governance Diagnostic",
   duration: "2–3 weeks",
-  lead: "A 2–3 week engagement to identify AI risk, control gaps and a practical path to governed deployment.",
-  outcome: "A board-ready risk view and an engineering-ready control plan.",
-  deliverables:
-    "Deliverables: board-ready risk view, control-gap report, and a prioritised 90-day implementation backlog—delivered as an executive pack and working session.",
-  steps: ["Assess", "Prioritise", "Architect", "Roadmap"],
   items: [
-    "AI inventory and use-case triage",
-    "Risk and regulatory applicability assessment",
-    "Governance, security and lifecycle control-gap analysis",
-    "DGOM maturity assessment",
-    "Prioritised 90-day roadmap",
-    "Executive readout and implementation backlog",
+    "AI inventory and triage",
+    "Control-gap assessment",
+    "90-day implementation backlog",
   ],
+  deliverables: "Delivered as an executive pack and working session.",
 };
 
 export const PROJECTS = [

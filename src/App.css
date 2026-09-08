@@ -815,7 +815,6 @@ a:hover {
 .arch-pipeline,
 .arch-flow,
 .dgom-timeline,
-.diag-steps,
 .guard-chain,
 .engagement-lines {
   list-style: none;
@@ -962,7 +961,7 @@ a:hover {
 
 .callout-pair {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -1046,6 +1045,55 @@ a:hover {
   margin: 0;
 }
 
+.diag-panel {
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+  padding: 1.25rem 1.3rem 1.35rem;
+}
+
+.diag-panel .eyebrow {
+  margin-bottom: 0.65rem;
+}
+
+.diag-panel .btn {
+  margin-top: 0.15rem;
+}
+
+.diag-panel .cta-note {
+  margin-top: 0.75rem;
+}
+
+.diag-product {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  counter-reset: diag-item;
+}
+
+.diag-product li {
+  counter-increment: diag-item;
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--navy-800);
+  font-weight: 600;
+  color: var(--white);
+}
+
+.diag-product li:first-child {
+  border-top: 1px solid var(--navy-800);
+}
+
+.diag-product li::before {
+  content: counter(diag-item, decimal-leading-zero);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--cyan-400);
+  font-weight: 600;
+}
+
 .meta-badge {
   margin: 0;
   font-size: 0.75rem;
@@ -1056,43 +1104,11 @@ a:hover {
   font-weight: 600;
 }
 
-.diag-lead {
-  max-width: 62ch;
-  color: var(--muted);
-}
-
-.diag-steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0;
-  margin: 1.15rem 0;
-}
-
-.diag-steps li {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--white);
-}
-
-.diag-steps li:not(:last-child)::after {
-  content: "→";
-  margin: 0 0.65rem;
-  color: var(--blue-500);
-  font-weight: 400;
-}
-
-.diag-list {
+.diag-deliverables {
   margin: 0 0 1.1rem;
-  padding-left: 1.15rem;
-  color: var(--white);
-}
-
-.diag-outcome {
-  margin: 0 0 1rem;
-  padding: 0.9rem 1rem;
-  border-left: 3px solid var(--success);
-  background: color-mix(in srgb, var(--success) 14%, var(--navy-900));
-  color: var(--white);
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 48ch;
 }
 
 .diag-form {
@@ -1243,6 +1259,15 @@ a:hover {
   max-width: 48ch;
   color: var(--slate-700);
   font-size: 0.82rem;
+}
+
+.approach-thesis {
+  margin: 1.25rem 0 0;
+  padding: 1rem 1.15rem;
+  background: var(--navy-900);
+  color: var(--white);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
 }
 
 /* ——— Approach ——— */
@@ -1639,13 +1664,13 @@ a:hover {
   margin-top: 0.45rem;
 }
 
-.case-grid {
-  display: grid;
-  gap: 1.15rem;
-  margin-bottom: 1.15rem;
+.case-problem,
+.disclose-always.case-done {
+  margin: 0 0 1.15rem;
 }
 
-.case-grid h4,
+.case-problem h4,
+.case-outcomes-label,
 .case-gov h4 {
   margin: 0 0 0.4rem;
   font-family: var(--font-sans);
@@ -1655,8 +1680,9 @@ a:hover {
   color: var(--blue-700);
 }
 
-.case-grid p,
-.case-grid li,
+.case-problem p,
+.case-outcomes li,
+.case-done li,
 .case-gov p,
 .case-note {
   margin: 0;
@@ -1664,12 +1690,80 @@ a:hover {
   font-size: 0.98rem;
 }
 
-.case-grid ul {
-  margin: 0;
+.case-outcomes-label {
+  margin: 0 0 0.15rem;
+}
+
+.case-outcomes {
+  list-style: none;
+  margin: 0 0 1.15rem;
+  padding: 0;
+  counter-reset: case-out;
+}
+
+.case-outcomes li {
+  counter-increment: case-out;
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: baseline;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.case-outcomes li:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.case-outcomes li::before {
+  content: counter(case-out);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--blue-700);
+}
+
+.disclose-always > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--blue-700);
+  padding: 0;
+  list-style: none;
+}
+
+.disclose-always > summary::-webkit-details-marker,
+.disclose-always > summary::marker {
+  display: none;
+  content: "";
+}
+
+.disclose-always > summary::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  flex: none;
+}
+
+.disclose-always[open] > summary::before {
+  transform: rotate(45deg);
+  margin-top: -0.15rem;
+}
+
+.disclose-always ul {
+  margin: 0.35rem 0 0;
   padding-left: 1.15rem;
 }
 
-.case-grid li + li {
+.disclose-always li + li {
   margin-top: 0.45rem;
 }
 
@@ -1923,9 +2017,15 @@ a:hover {
 }
 
 .about-combo {
-  margin: 0 0 1.15rem;
+  margin: 0 0 0.45rem;
   color: var(--blue-700);
   font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.about-location {
+  margin: 0 0 1.15rem;
+  color: var(--slate-700);
   font-size: 0.95rem;
 }
 
@@ -2363,13 +2463,6 @@ details.mobile-disclose.case-done > ul {
   max-width: 68ch;
   color: var(--cyan-200);
   font-style: italic;
-}
-
-.diag-deliverables {
-  margin: 0 0 1rem;
-  color: var(--muted);
-  font-size: 0.95rem;
-  max-width: 62ch;
 }
 
 .mapping-page {
@@ -3064,18 +3157,17 @@ details.mobile-disclose > summary:focus-visible {
 
   .hero-copy,
   .arch-diagram,
-  .diag-form {
+  .diag-form,
+  .diag-panel {
     min-width: 0;
     max-width: 100%;
   }
 
-  .arch-pipeline,
-  .diag-steps {
+  .arch-pipeline {
     flex-direction: column;
   }
 
-  .arch-pipeline li:not(:last-child)::after,
-  .diag-steps li:not(:last-child)::after {
+  .arch-pipeline li:not(:last-child)::after {
     content: "↓";
     margin: 0 0 0 0.4rem;
   }

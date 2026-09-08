@@ -26,7 +26,7 @@ export default function GovernancePipeline() {
     <figure className="gov-pipeline">
       <figcaption>
         <span className="arch-kicker">Deterministic path</span>
-        Probabilistic models require deterministic governance
+        From regulation to independent runtime controls
       </figcaption>
       <svg
         className="gov-pipeline-svg"

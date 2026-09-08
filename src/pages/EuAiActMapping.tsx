@@ -30,7 +30,7 @@ export default function EuAiActMapping() {
       <p className="paper-kicker">AI Governance Engineering</p>
       <h1>EU AI Act mapping</h1>
       <p className="paper-sub">{MAPPING_SUBTITLE}</p>
-      <p className="callout">Probabilistic models require deterministic governance.</p>
+      <p className="callout">Independent runtime controls turn selected duties into audit-ready evidence.</p>
       <p className="mapping-lead-short">{MAPPING_LEAD_SHORT}</p>
       <details className="mobile-disclose mapping-legal-more">
         <summary>Role, risk and schedule</summary>
