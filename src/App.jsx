@@ -660,7 +660,7 @@ export default function App() {
             <small className="mark-sub-full">
               {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
             </small>
-            <small className="mark-sub-short">AI Gov Eng.</small>
+            <small className="mark-sub-short">{locale === "es" ? "Ing. gob. IA" : "AI Gov Eng."}</small>
           </span>
         </Link>
         <a

@@ -34,7 +34,7 @@ export default function HybridProfilesEs() {
         <p>Volverse muy bueno en una sola cosa.</p>
         <p>
           Un ingeniero de software sólido podía diferenciarse por profundidad técnica. Un abogado,
-          por expertise jurídico. Un científico de datos, por modelización y estadística.
+          por pericia jurídica. Un científico de datos, por modelización y estadística.
         </p>
         <p>Eso sigue importando.</p>
         <p>Pero los agentes de IA pueden estar desplazando dónde reside parte de la ventaja.</p>
@@ -90,7 +90,7 @@ export default function HybridProfilesEs() {
         {" · "}
         <a href={localize(WHITEPAPER_PATH)}>Whitepaper en español</a>
         {" · "}
-        <a href={localize("/#diagnostic")}>Concertar un diagnóstico</a>.
+        <a href={localize("/#diagnostic")}>Consultar un diagnóstico</a>.
       </p>
     </article>
   );

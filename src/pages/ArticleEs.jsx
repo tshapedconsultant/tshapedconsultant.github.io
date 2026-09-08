@@ -27,8 +27,8 @@ export default function ArticleEs() {
           detener el sistema cuando se desvía de su finalidad.
         </p>
         <p>
-          Hace casi trescientos años, Montesquieu enunció una verdad estructural. Concentre todo el
-          control en una sola entidad y el abuso deja de ser una anomalía. Es una consecuencia del
+          Hace casi trescientos años, Montesquieu enunció una verdad estructural. Si se concentra todo el
+          control en una sola entidad, el abuso deja de ser una anomalía. Es una consecuencia del
           diseño. La IA agéntica se está construyendo sobre esa misma concentración de poder.
         </p>
       </section>

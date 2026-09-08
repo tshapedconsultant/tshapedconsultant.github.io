@@ -127,7 +127,7 @@ export const MAPPING_ROWS_ES: Record<
   "art-16-provider": {
     article: "Art. 16 – Obligaciones de los proveedores",
     systemType: "Proveedor",
-    control: "Perfiles YAML / compliance-as-code versionados en CI",
+    control: "Perfiles YAML / compliance-as-code (cumplimiento como código) versionados en CI",
     evidence: "rules/*.yaml + JSON de paquete de evidencia en CI con compuerta SHA-256 de despliegue",
     requirement:
       "Los proveedores incorporan los deberes de alto riesgo al diseño, a la gestión de la calidad y a la vigilancia poscomercialización — como artefactos versionados, no como diapositivas.",

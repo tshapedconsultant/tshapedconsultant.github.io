@@ -17,13 +17,13 @@ export const HOME_TITLE =
   "Andres Lage – AI Governance & Responsible AI Architect | EU AI Act, ISO 42001";
 
 export const HOME_TITLE_ES =
-  "Andrés Lage – Gobernanza de IA y arquitecto de IA responsable | EU AI Act, ISO 42001";
+  "Andrés Lage – Ingeniería de Gobernanza de IA y arquitecto de IA responsable | EU AI Act, ISO 42001";
 
 export const HOME_DESCRIPTION =
   "AI governance and Responsible AI architecture for regulated organisations. Andrés Lage Freire helps CTOs and Risk leaders implement EU AI Act and ISO 42001 controls across RAG systems, agents and high-accountability use cases.";
 
 export const HOME_DESCRIPTION_ES =
-  "Gobernanza de IA y arquitectura de IA responsable para organizaciones reguladas. Andrés Lage Freire ayuda a CTOs y líderes de Riesgo a implantar controles del EU AI Act e ISO 42001 en sistemas RAG, agentes y casos de alta responsabilidad.";
+  "Ingeniería de gobernanza de IA y arquitectura de IA responsable para organizaciones reguladas. Andrés Lage Freire ayuda a CTOs y líderes de Riesgo a implantar controles del EU AI Act e ISO 42001 en sistemas RAG, agentes y casos de alta responsabilidad.";
 
 export const PAGE_SEO = {
   "/": {
@@ -105,11 +105,11 @@ export function jsonLdForLocale(locale) {
   const article = locale === "es" ? ARTICLE_ES : ARTICLE;
   const personJob =
     locale === "es"
-      ? "Líder de gobernanza de IA | Arquitecto de IA responsable"
+      ? "Ingeniería de Gobernanza de IA | Arquitecto de IA responsable"
       : "AI Governance Lead | Responsible AI Architect";
   const personDesc =
     locale === "es"
-      ? "Líder de gobernanza de IA y arquitecto de IA responsable, especializado en EU AI Act, ISO 42001 y gobernanza nativa del SDLC para RAG, LLM y agentes autónomos."
+      ? "Ingeniería de gobernanza de IA y arquitecto de IA responsable, especializado en EU AI Act, ISO 42001 y gobernanza nativa del SDLC para RAG, LLM y agentes autónomos."
       : "AI Governance Lead and Responsible AI Architect specializing in EU AI Act, ISO 42001, and SDLC-native governance for RAG, LLMs and autonomous agents.";
   const serviceName = locale === "es" ? "Consultoría de gobernanza de IA" : "AI Governance Consulting";
   const serviceDesc =
@@ -118,7 +118,7 @@ export function jsonLdForLocale(locale) {
       : "Consulting on AI governance, EU AI Act compliance, ISO 42001 readiness, and SDLC-native governance for AI systems.";
   const practiceDesc =
     locale === "es"
-      ? "Consultoría de ingeniería de gobernanza de IA para CTOs, responsables de IA y líderes de Riesgo/Cumplimiento. EU AI Act, ISO/IEC 42001 y gobernanza en runtime de sistemas RAG y agentes."
+      ? "Consultoría de Ingeniería de Gobernanza de IA para CTOs, responsables de IA y líderes de Riesgo/Cumplimiento. EU AI Act, ISO/IEC 42001 y gobernanza en runtime de sistemas RAG y agentes."
       : "AI Governance Engineering consultancy for CTOs, Heads of AI and Risk/Compliance leaders. EU AI Act, ISO/IEC 42001 and runtime governance of RAG systems and agents.";
   const worksName =
     locale === "es" ? "Con sede en Madrid · Trabajo en remoto en EMEA" : "Based in Madrid · Working remotely across EMEA";

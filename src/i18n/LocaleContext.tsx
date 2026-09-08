@@ -12,22 +12,31 @@ import {
   type Locale,
 } from "../routes";
 
-export type I18nValue = {
+export type { Locale };
+
+/**
+ * Locale is derived from the URL (`/` vs `/es/...`). There is no setter —
+ * switching language navigates to the paired path.
+ */
+export interface LocaleContextType {
   locale: Locale;
+  setLocale?: never;
   t: (typeof UI)["en"];
   content: typeof enContent | typeof esContent;
   home: string;
   localize: (href: string) => string;
   localizedPath: (path: string) => string;
   switchTo: (target: Locale) => string;
-};
+}
 
-const LocaleContext = createContext<I18nValue | null>(null);
+export type I18nValue = LocaleContextType;
+
+const LocaleContext = createContext<LocaleContextType | null>(null);
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
-  const value = useMemo(() => {
-    const locale = localeFromPath(location.pathname);
+  const value = useMemo((): LocaleContextType => {
+    const locale: Locale = localeFromPath(location.pathname);
     return {
       locale,
       t: UI[locale],
@@ -42,10 +51,18 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }
 
-export function useI18n(): I18nValue {
+export function useI18n(): LocaleContextType {
   const ctx = useContext(LocaleContext);
   if (!ctx) {
     throw new Error("useI18n must be used within LocaleProvider");
   }
   return ctx;
+}
+
+export function useLocale(): Locale {
+  const ctx = useContext(LocaleContext);
+  if (!ctx) {
+    throw new Error("useLocale must be used within LocaleProvider");
+  }
+  return ctx.locale;
 }

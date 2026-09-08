@@ -20,7 +20,7 @@ export default function WhitepaperEs() {
       <p className="wings">Dédalo nos dio alas. Ícaro nos enseñó los límites.</p>
       <p className="paper-brand">
         Dédalo™ · Gobernanza determinista para IA probabilística · tshapedconsultant ·{" "}
-        <a href={localize("/#diagnostic")}>Concertar un diagnóstico</a>
+        <a href={localize("/#diagnostic")}>Consultar un diagnóstico</a>
       </p>
       <p className="paper-download">
         <a className="btn btn-solid" href={WHITEPAPER_PDF_ES} download>
@@ -79,7 +79,7 @@ export default function WhitepaperEs() {
 
       <section>
         <h2>
-          <span>06</span> La Jaula Determinista™
+          <span>06</span> La Jaula Determinista™ (Deterministic Cage)
         </h2>
         <p>La tesis central es simple:</p>
         <p className="callout">
@@ -87,7 +87,7 @@ export default function WhitepaperEs() {
           sus consecuencias.
         </p>
         <p>
-          La Jaula Determinista es un perímetro de control determinista que rodea un núcleo
+          La Jaula Determinista (Deterministic Cage) es un perímetro de control determinista que rodea un núcleo
           probabilístico. Su propósito no es mejorar la inteligencia del modelo. Su propósito es
           limitar la autoridad del modelo: Runtime Assurance, controles de veto en línea,
           observabilidad independiente, compuertas de umbral y autoridad humana.

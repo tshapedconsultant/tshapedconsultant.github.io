@@ -28,13 +28,13 @@ export const LOCATION = "Con sede en Madrid · Trabajo en remoto en EMEA";
 export const LOCATION_HERO = "Con sede en Madrid · EMEA en remoto";
 
 export const ABOUT_INTRO =
-  "Arquitecto de IA Responsable. Consultor estratégico independiente en IA desde junio de 2021. Antes, Cloud Implementation Specialist (Avaya Cloud Office en Concentrix). Trabajo en la intersección de ingeniería, sistemas de IA, gobernanza y regulación — de la arquitectura al despliegue.";
+  "Arquitecto de IA responsable. Consultor estratégico independiente en IA desde junio de 2021. Antes, Cloud Implementation Specialist (Avaya Cloud Office en Concentrix). Trabajo en la intersección de ingeniería, sistemas de IA, gobernanza y regulación — de la arquitectura al despliegue.";
 
 export const ABOUT_SITE =
-  "Este sitio lo he diseñado y construido yo, con programación asistida por IA, tratando la accesibilidad, la privacidad, el rendimiento y la auditabilidad como restricciones de primer orden.";
+  "Este sitio lo he diseñado y construido yo, con programación asistida por IA. Trato la accesibilidad, la privacidad, el rendimiento y la auditabilidad como requisitos de primer orden.";
 
 export const HERO = {
-  tagline: "Arquitecto de IA Responsable · De la regulación al aseguramiento en tiempo de ejecución",
+  tagline: "Arquitecto de IA responsable · De la regulación a la garantía en runtime",
   value:
     "Convierto las obligaciones del EU AI Act y el riesgo de IA en controles ejecutables, compuertas de ciclo de vida y evidencia verificable — de la política al runtime.",
   principle: "Los modelos probabilísticos requieren gobernanza determinista.",
@@ -50,12 +50,12 @@ export const HERO_FOR = {
 };
 
 export const CTA = {
-  primary: "Concertar un Diagnóstico de Gobernanza de IA",
+  primary: "Consultar un Diagnóstico de Gobernanza de IA",
   note: "Llamada introductoria de 30 minutos · Valorar encaje y siguientes pasos",
 };
 
 export const DIAGNOSTIC_FORM = {
-  kicker: "O envíe contexto primero",
+  kicker: "O envíe primero el contexto",
   submit: "Enviar consulta",
   sending: "Enviando…",
   success: "Gracias. Su consulta se ha enviado. Responderé al correo profesional que ha indicado.",
@@ -152,7 +152,7 @@ export const CASE_STUDIES = {
       ],
       governance:
         "La gobernanza se trata como ventaja competitiva: un inventario centralizado de modelos de IA, trabajo continuo de reducción de sesgo y alineación proactiva con el EU AI Act — de modo que la innovación solo acelere si la supervisión mantiene el ritmo.",
-      note: "Análisis estratégico independiente de Andrés Lage Freire; no redactado ni avalado por BBVA. Cifras según el análisis (marzo de 2025 y 1T 2025).",
+      note: "Análisis estratégico independiente de Andrés Lage Freire; no está redactado ni avalado por BBVA. Cifras según el análisis (marzo de 2025 y 1T 2025).",
       pdf: CASE_STUDY_PDF,
     },
   ],
@@ -350,7 +350,7 @@ export const DELIVER = [
     items: ["Pistas de auditoría", "Paquetes de evidencia", "Prueba de controles", "Monitorización continua"],
   },
   {
-    title: "Output ejecutivo",
+    title: "Entrega ejecutiva",
     items: ["Evaluación de madurez", "Registro de riesgos", "Reporting al consejo", "Hoja de ruta de implantación a 90 días"],
   },
 ];
@@ -528,7 +528,7 @@ export const CREDENTIAL_GROUPS = [
       {
         kind: "Caso",
         title: "BBVA: estrategia de plataforma e IA",
-        detail: "Análisis estratégico independiente de Andrés Lage Freire; no redactado ni avalado por BBVA · 2025",
+        detail: "Análisis estratégico independiente de Andrés Lage Freire; no está redactado ni avalado por BBVA · 2025",
         href: "#case-studies",
       },
       {

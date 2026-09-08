@@ -119,6 +119,7 @@ h1 .h1-specialty {
   margin-top: 0.22rem;
   font-size: 0.72em;
   line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 h2 {
@@ -418,6 +419,7 @@ a:hover {
   align-items: center;
   gap: 0.3rem;
   flex: none;
+  flex-shrink: 0;
   z-index: 2;
   font-size: 0.75rem;
   font-weight: 600;
@@ -476,6 +478,7 @@ a:hover {
   cursor: pointer;
   white-space: normal;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .btn-solid {
@@ -657,6 +660,7 @@ a:hover {
   font-size: clamp(1.05rem, 2vw, 1.25rem);
   font-style: italic;
   color: var(--white);
+  overflow-wrap: anywhere;
 }
 
 .brand-def,
@@ -3049,6 +3053,7 @@ details.mobile-disclose > summary:focus-visible {
     grid-column: 2;
     grid-row: 1;
     order: unset;
+    flex-shrink: 0;
   }
 
   .mark {

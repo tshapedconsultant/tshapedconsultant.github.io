@@ -339,12 +339,12 @@ export const UI = {
       mapping: "Mapeo del EU AI Act",
       bbva: "Leer el caso BBVA",
       implementations: "Ver implementaciones de referencia",
-      audienceLabel: "Elija su recorrido",
+      audienceLabel: "Elija su camino",
     },
     why: {
       num: "01",
       title: "Por qué importa",
-      lead: "La gobernanza de la IA está pasando de la documentación a controles independientes en tiempo de ejecución.",
+      lead: "La gobernanza de la IA está pasando de la documentación a controles independientes en runtime.",
       brutal:
         "Las empresas no necesitan otro documento de política. Necesitan límites exigibles que resistan el despliegue, el runtime, la auditoría y el escrutinio regulatorio.",
       close: "Diseño la arquitectura que conecta las cuatro.",
@@ -387,13 +387,13 @@ export const UI = {
         "Los programas de IA suelen fallar no porque el modelo sea débil, sino porque la titularidad, la autoridad, la trazabilidad de las decisiones y la rendición de cuentas operativa no están claras.",
       technical: "Enfoque técnico",
       technicalText:
-        "Los modelos fundacionales son probabilísticos. La gobernanza debe determinar, por tanto, a qué pueden acceder, qué pueden decidir, disparar y cambiar — y exigir esos límites de forma independiente en tiempo de ejecución.",
+        "Los modelos fundacionales son probabilísticos. La gobernanza debe determinar, por tanto, a qué pueden acceder, qué pueden decidir, disparar y cambiar — y exigir esos límites de forma independiente en runtime.",
       readiness:
         "Preparación para el AI Act y controles de gobernanza proporcionales a su rol, caso de uso y perfil de riesgo — no una afirmación de que todo sistema arrastra las mismas obligaciones.",
       operating: "Modelo operativo",
       dgomTitle: "Dual Governance Operating Model (DGOM™)",
       dgomSub: "De la rendición de cuentas del consejo a controles ejecutables. PLAN → BUILD → DEPLOY → MONITOR.",
-      cageTitle: "La Jaula Determinista",
+      cageTitle: "Deterministic Cage (Jaula Determinista)",
       cageText:
         "Controles independientes que limitan a qué puede acceder, qué puede decidir y qué puede ejecutar un sistema probabilístico.",
       constitutionTitle: "Arquitectura constitucional",
@@ -402,17 +402,17 @@ export const UI = {
     },
     diagram: {
       kicker: "Camino de control",
-      caption: "De la regulación al aseguramiento en tiempo de ejecución",
+      caption: "De la regulación a la garantía en runtime",
       primary: [
         { label: "Regulación", text: "Las obligaciones se convierten en requisitos de control." },
         { label: "Ingeniería", text: "Los requisitos se convierten en controles ejecutables." },
-        { label: "Runtime Assurance", text: "Límites independientes mientras el sistema opera." },
+        { label: "Garantía en runtime", text: "Límites independientes mientras el sistema opera." },
       ],
       pipeline: [
         "Política / riesgo",
         "Requisitos de control",
         "Límites del sistema",
-        "Runtime assurance",
+        "Garantía en runtime",
         "Pista de evidencia",
       ],
     },
@@ -433,7 +433,7 @@ export const UI = {
     deliver: {
       num: "04",
       title: "Qué obtiene",
-      lede: "Capacidades que puede contratar — arquitectura, ingeniería, trazabilidad de decisiones y output ejecutivo — no un taller de políticas que acaba en una presentación.",
+      lede: "Capacidades que puede contratar — arquitectura, ingeniería, trazabilidad de decisiones y entrega ejecutiva — no un taller de políticas que acaba en una presentación.",
       included: "Qué incluye",
     },
     cases: {
@@ -458,7 +458,7 @@ export const UI = {
       title: "Whitepaper",
       heading: "Modelos probabilísticos requieren gobernanza determinista",
       sub: "Por qué la IA empresarial y agéntica necesita una arquitectura constitucional — una separación entre política, ejecución y supervisión independiente.",
-      body: "El software determinista aspira a la misma salida para la misma entrada. Los modelos fundacionales no. No podemos hacer deterministas los sistemas probabilísticos. Sí podemos limitar su autoridad y acotar sus consecuencias con controles independientes en tiempo de ejecución: la Jaula Determinista.",
+      body: "El software determinista aspira a la misma salida para la misma entrada. Los modelos fundacionales no. No podemos hacer deterministas los sistemas probabilísticos. Sí podemos limitar su autoridad y acotar sus consecuencias con controles independientes en runtime: el Deterministic Cage (Jaula Determinista).",
       read: "Leer en este sitio",
       pdf: "Descargar PDF",
       also: "Más lectura:",
@@ -495,13 +495,13 @@ export const UI = {
         "Un sistema de IA queda gobernado cuando la política se exige en el diseño, el despliegue y el runtime — y cuando una evidencia lista para auditoría demuestra que ocurrió.",
       email: "Correo",
       medium: "Artículos en Medium",
-      tagline: "Ingeniería de Gobernanza de IA · De la regulación al aseguramiento en tiempo de ejecución",
+      tagline: "Ingeniería de Gobernanza de IA · De la regulación a la garantía en runtime",
     },
     mapping: {
       back: "← Volver al enfoque",
       kicker: "Ingeniería de Gobernanza de IA",
       title: "Mapeo del EU AI Act",
-      callout: "Los controles independientes en tiempo de ejecución convierten obligaciones seleccionadas en evidencia lista para auditoría.",
+      callout: "Los controles independientes en runtime convierten obligaciones seleccionadas en evidencia lista para auditoría.",
       roleSummary: "Rol, riesgo y calendario",
       path: "Ruta:",
       refs: "Implementaciones de referencia:",
@@ -550,7 +550,7 @@ export const UI = {
     },
     pipeline: {
       kicker: "Camino determinista",
-      caption: "De la regulación a controles independientes en tiempo de ejecución",
+      caption: "De la regulación a controles independientes en runtime",
       svgTitle: "De la regulación a la evidencia",
       steps: [
         {
@@ -563,10 +563,10 @@ export const UI = {
         },
         {
           title: "Compuertas SDLC",
-          text: "Codificar esos límites como pruebas, compliance-as-code y bloqueos de release. Un modelo que no supera la compuerta no se publica.",
+          text: "Codificar esos límites como pruebas, compliance-as-code (cumplimiento como código) y bloqueos de release. Un modelo que no supera la compuerta no se publica.",
         },
         {
-          title: "Runtime assurance",
+          title: "Garantía en runtime",
           text: "Controles independientes que acotan un modelo probabilístico mientras opera — incluidos kill switches y revisión humana.",
         },
         {
