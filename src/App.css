@@ -2059,6 +2059,338 @@ a:hover {
   font-weight: 600;
 }
 
+/* ——— EU AI Act mapping ——— */
+
+.mapping-teaser {
+  margin-top: 1.5rem;
+  padding: 1.2rem 1.25rem 1.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue-600);
+  color: var(--ink);
+}
+
+.mapping-teaser h3 {
+  margin: 0 0 0.45rem;
+}
+
+.mapping-teaser > p {
+  margin: 0 0 1rem;
+  color: var(--slate-700);
+  max-width: 62ch;
+}
+
+.mapping-teaser-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.mapping-teaser-refs {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--slate-700);
+}
+
+.mapping-teaser-refs a {
+  color: var(--blue-700);
+}
+
+.mapping-teaser-refs a:hover {
+  color: var(--blue-600);
+}
+
+.mapping-page {
+  width: min(72rem, calc(100% - 2.5rem));
+}
+
+.mapping-refs {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.mapping-refs a {
+  color: var(--cyan-200);
+}
+
+.gov-pipeline {
+  margin: 2.2rem 0 2.6rem;
+  padding: 1.15rem 1.2rem 1.3rem;
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+}
+
+.gov-pipeline figcaption {
+  margin: 0 0 1rem;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--white);
+}
+
+.gov-pipeline-svg {
+  display: block;
+  width: 100%;
+  max-width: 56rem;
+  height: auto;
+  margin: 0 0 1.1rem;
+}
+
+.gov-pipeline-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.gov-pipeline-steps h3 {
+  margin: 0.35rem 0 0.35rem;
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.gov-pipeline-steps p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.mapping-filters {
+  margin: 1.2rem 0 0.75rem;
+  padding: 0;
+  border: 0;
+}
+
+.mapping-filters fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.mapping-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1.4fr) repeat(4, minmax(8rem, 1fr));
+  gap: 0.75rem;
+}
+
+.mapping-filter-grid p {
+  margin: 0;
+}
+
+.mapping-filter-grid label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.mapping-filter-grid input,
+.mapping-filter-grid select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.45rem 0.6rem;
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--field-border);
+}
+
+.mapping-filter-grid input:focus-visible,
+.mapping-filter-grid select:focus-visible,
+.mapping-table th button:focus-visible,
+.mapping-expand button:focus-visible,
+.evidence-pack-actions .btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.mapping-count {
+  margin: 0 0 0.75rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.mapping-table-wrap {
+  margin: 0 0 2rem;
+}
+
+.mapping-table {
+  width: 100%;
+  min-width: 52rem;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.mapping-table caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.mapping-table th,
+.mapping-table td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--navy-800);
+  padding: 0.65rem 0.7rem 0.65rem 0;
+}
+
+.mapping-table th {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.mapping-table th button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0.35rem 0;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mapping-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--cyan-400) 6%, transparent);
+}
+
+.mapping-expand button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.35rem 0.55rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  background: var(--cyan-200);
+  border: 0;
+  cursor: pointer;
+}
+
+.mapping-expand button:hover {
+  background: var(--cyan-400);
+}
+
+.control-kind {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--cyan-200);
+  margin-bottom: 0.2rem;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.status-implemented,
+.status-allow {
+  color: #d8f3e6;
+  background: var(--success);
+}
+
+.status-reference,
+.status-human_review {
+  color: var(--navy-950);
+  background: var(--cyan-200);
+}
+
+.status-planned,
+.status-block {
+  color: #fde8e4;
+  background: var(--risk);
+}
+
+.mapping-detail {
+  margin-top: 0.85rem;
+  padding: 0.9rem 1rem;
+  background: var(--navy-950);
+  border: 1px solid var(--navy-800);
+}
+
+.mapping-detail p {
+  margin: 0 0 0.65rem;
+  color: var(--white);
+}
+
+.mapping-detail .rego {
+  margin: 0 0 0.85rem;
+}
+
+.evidence-pack {
+  margin: 2.5rem 0 1rem;
+}
+
+.evidence-pack-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+.evidence-pack-meta > div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--navy-800);
+}
+
+.evidence-pack-meta dt {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.evidence-pack-meta dd {
+  margin: 0;
+  color: var(--white);
+  overflow-wrap: anywhere;
+}
+
+.hash-value {
+  font-size: 0.82rem;
+}
+
+.evidence-pack-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+.evidence-json {
+  max-height: 22rem;
+  overflow: auto;
+}
+
+.evidence-pack-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 /* ——— Responsive ——— */
 
 @media (max-width: 1024px) {
@@ -2071,7 +2403,8 @@ a:hover {
   .engagement-lines,
   .problem-grid,
   .insight-grid,
-  .case-metrics {
+  .case-metrics,
+  .gov-pipeline-steps {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -2227,6 +2560,15 @@ a:hover {
     content: "↓";
     margin: 0 0 0 0.4rem;
   }
+
+  .gov-pipeline-svg {
+    display: none;
+  }
+
+  .gov-pipeline-steps,
+  .mapping-filter-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 720px) {
@@ -2251,6 +2593,60 @@ a:hover {
   .powers,
   .powers-grid,
   .case-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .mapping-page {
+    width: min(100% - 1.5rem, 70rem);
+  }
+
+  .mapping-table {
+    min-width: 0;
+  }
+
+  .mapping-table thead {
+    display: none;
+  }
+
+  .mapping-table,
+  .mapping-table tbody,
+  .mapping-table tr,
+  .mapping-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .mapping-table tr {
+    margin-bottom: 1rem;
+    padding: 0.55rem 0 0.2rem;
+    border: 1px solid var(--navy-800);
+    background: var(--navy-900);
+  }
+
+  .mapping-table td {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 0.35rem 0.75rem;
+    border: 0;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .mapping-table td::before {
+    content: attr(data-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .mapping-detail-row td,
+  .mapping-detail-row td::before {
+    display: block;
+    content: none;
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-pack-meta > div {
     grid-template-columns: 1fr;
   }
 

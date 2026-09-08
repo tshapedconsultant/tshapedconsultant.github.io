@@ -234,6 +234,13 @@ export const APPROACH = [
   },
 ];
 
+export const MAPPING_TEASER = {
+  kicker: "EU AI Act",
+  title: "From article to evidence pack",
+  text: "See which obligations the work covers, the executable controls that implement them, and how hash-chained evidence is produced.",
+  cta: "Open the mapping",
+};
+
 export const FRAMEWORKS = [
   { name: "EU AI Act", caption: "Risk-based obligations", icon: "stars" },
   { name: "ISO/IEC 42001", caption: "AI management system", icon: "globe" },

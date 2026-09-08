@@ -28,7 +28,10 @@ jobs:
         env:
           VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
       - name: SPA fallback
-        run: cp dist/index.html dist/404.html
+        run: |
+          cp dist/index.html dist/404.html
+          mkdir -p dist/governance/eu-ai-act-mapping
+          cp dist/index.html dist/governance/eu-ai-act-mapping/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

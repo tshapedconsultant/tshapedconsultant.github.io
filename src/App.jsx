@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Whitepaper from "./Whitepaper.jsx";
 import Article from "./Article.jsx";
 import HybridProfiles from "./HybridProfiles.jsx";
+import EuAiActMapping from "./pages/EuAiActMapping";
 import { Icon } from "./Icons.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
+import { EU_AI_ACT_MAPPING_PATH, isEuAiActMappingHash, isEuAiActMappingPath } from "./routes";
 import {
   ABOUT_BLOCKS,
   APPROACH,
@@ -27,6 +30,7 @@ import {
   FRAMEWORKS,
   INSIGHTS,
   LINKS,
+  MAPPING_TEASER,
   PROBLEMS,
   PROJECTS,
   WHITEPAPER_PDF,
@@ -56,8 +60,10 @@ const ARTICLE_PAGES = {
   [HYBRID_ARTICLE.hash]: "hybrid",
 };
 
-function currentHash() {
-  const raw = window.location.hash.replace(/^#/, "");
+function viewFromLocation(pathname, hash) {
+  if (isEuAiActMappingPath(pathname)) return "mapping";
+  if (isEuAiActMappingHash(hash)) return "mapping";
+  const raw = hash.replace(/^#/, "");
   if (raw === "whitepaper" || /^s\d{2}$/.test(raw)) {
     return "whitepaper";
   }
@@ -67,10 +73,19 @@ function currentHash() {
   return "home";
 }
 
+function currentView() {
+  if (typeof window === "undefined") return "home";
+  return viewFromLocation(window.location.pathname, window.location.hash);
+}
+
 function scrollToHash() {
+  if (isEuAiActMappingPath(window.location.pathname)) {
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
+    return;
+  }
   const id = window.location.hash.replace(/^#/, "");
   requestAnimationFrame(() => {
-    if (!id || id === "whitepaper" || ARTICLE_PAGES[id] || id === "top") {
+    if (!id || id === "whitepaper" || ARTICLE_PAGES[id] || id === "top" || isEuAiActMappingHash(`#${id}`)) {
       if (id === "whitepaper" || ARTICLE_PAGES[id] || !id) {
         window.scrollTo({ top: 0, behavior: scrollBehavior() });
       }
@@ -430,7 +445,9 @@ function ExternalLink({ href, children, className }) {
 }
 
 export default function App() {
-  const [view, setView] = useState(() => (typeof window === "undefined" ? "home" : currentHash()));
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [view, setView] = useState(() => currentView());
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -446,24 +463,26 @@ export default function App() {
       document.title = `${ARTICLE.title} | tshapedconsultant`;
     } else if (view === "hybrid") {
       document.title = `${HYBRID_ARTICLE.title} | tshapedconsultant`;
+    } else if (view === "mapping") {
+      document.title = "EU AI Act mapping | tshapedconsultant";
     } else {
       document.title = HOME_TITLE;
     }
   }, [view]);
 
   useEffect(() => {
-    const onHash = () => {
-      const next = currentHash();
-      setView((prev) => {
-        if (prev === next) scrollToHash();
-        return next;
-      });
-      setMenuOpen(false);
-      setMoreOpen(false);
-    };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
+    if (location.pathname === "/" && isEuAiActMappingHash(location.hash)) {
+      navigate({ pathname: EU_AI_ACT_MAPPING_PATH, hash: "" }, { replace: true });
+      return;
+    }
+    const next = viewFromLocation(location.pathname, location.hash);
+    setView((prev) => {
+      if (prev === next) scrollToHash();
+      return next;
+    });
+    setMenuOpen(false);
+    setMoreOpen(false);
+  }, [location.hash, location.pathname, navigate]);
 
   useEffect(() => {
     scrollToHash();
@@ -551,8 +570,13 @@ export default function App() {
   function goHomeSection(id) {
     setMenuOpen(false);
     setMoreOpen(false);
+    const hash = id || "top";
+    if (location.pathname !== "/") {
+      navigate(`/#${hash}`);
+      return;
+    }
     if (view !== "home") {
-      window.location.hash = id;
+      navigate(`/#${hash}`);
       return;
     }
     document.getElementById(id)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
@@ -582,12 +606,12 @@ export default function App() {
         Skip to content
       </a>
       <header className="top" ref={headerRef}>
-        <a
+        <Link
           className="mark"
-          href="#top"
+          to="/#top"
           onClick={() => {
-            setView("home");
             setMenuOpen(false);
+            setMoreOpen(false);
           }}
         >
           <Icon name="shield" className="icon mark-icon" />
@@ -595,7 +619,7 @@ export default function App() {
             tshapedconsultant
             <small>AI Governance Engineering</small>
           </span>
-        </a>
+        </Link>
         <button
           className="menu-toggle"
           type="button"
@@ -624,8 +648,19 @@ export default function App() {
               {item.label}
             </a>
           ))}
+          <Link
+            to={EU_AI_ACT_MAPPING_PATH}
+            className={view === "mapping" ? "is-active" : undefined}
+            aria-current={view === "mapping" ? "page" : undefined}
+            onClick={() => {
+              setMenuOpen(false);
+              setMoreOpen(false);
+            }}
+          >
+            EU AI Act
+          </Link>
           <a
-            href="#whitepaper"
+            href="/#whitepaper"
             className={view === "whitepaper" ? "is-active" : undefined}
             aria-current={view === "whitepaper" ? "page" : undefined}
           >
@@ -668,7 +703,9 @@ export default function App() {
       </header>
 
       <main id="main" tabIndex={-1} inert={menuOpen ? true : undefined}>
-        {view === "whitepaper" ? (
+        {view === "mapping" ? (
+          <EuAiActMapping />
+        ) : view === "whitepaper" ? (
           <Whitepaper />
         ) : view === "article" ? (
           <Article />
@@ -789,6 +826,25 @@ export default function App() {
                     Probabilistic models require deterministic governance.
                   </p>
                 </aside>
+                <article className="mapping-teaser">
+                  <p className="callout-label">{MAPPING_TEASER.kicker}</p>
+                  <h3>{MAPPING_TEASER.title}</h3>
+                  <p>{MAPPING_TEASER.text}</p>
+                  <div className="mapping-teaser-actions">
+                    <Link className="btn btn-solid" to={EU_AI_ACT_MAPPING_PATH}>
+                      {MAPPING_TEASER.cta}
+                    </Link>
+                    <a className="btn btn-ghost" href="/#whitepaper">
+                      Whitepaper
+                    </a>
+                  </div>
+                  <p className="mapping-teaser-refs">
+                    Reference implementations:{" "}
+                    <ExternalLink href={PROJECTS[2].href}>{PROJECTS[2].name}</ExternalLink>
+                    {" · "}
+                    <ExternalLink href={PROJECTS[0].href}>{PROJECTS[0].name}</ExternalLink>
+                  </p>
+                </article>
               </div>
             </section>
 
@@ -1301,10 +1357,6 @@ export default function App() {
             href="#diagnostic"
             onClick={(event) => {
               event.preventDefault();
-              if (view !== "home") {
-                window.location.hash = "diagnostic";
-                return;
-              }
               goHomeSection("diagnostic");
             }}
           >
@@ -1315,10 +1367,6 @@ export default function App() {
             href="#diagnostic"
             onClick={(event) => {
               event.preventDefault();
-              if (view !== "home") {
-                window.location.hash = "diagnostic";
-                return;
-              }
               goHomeSection("diagnostic");
             }}
           >
@@ -1338,8 +1386,9 @@ export default function App() {
           <a href={CV_PDF} download>
             CV
           </a>
-          <a href="#case-studies">Case studies</a>
-          <a href="#whitepaper">Whitepaper</a>
+          <a href="/#case-studies">Case studies</a>
+          <Link to={EU_AI_ACT_MAPPING_PATH}>EU AI Act mapping</Link>
+          <a href="/#whitepaper">Whitepaper</a>
         </p>
         <p>© {new Date().getFullYear()} Andrés Lage Freire · tshapedconsultant.com</p>
         <p>AI Governance Engineering · From regulation to runtime assurance</p>
