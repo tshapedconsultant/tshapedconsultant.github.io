@@ -1,0 +1,26 @@
+# tshapedconsultant — Andrés Lage Freire
+
+> AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.
+
+Andrés Lage Freire is a Responsible AI Architect based in Madrid (EMEA / remote). He helps CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy turn AI risk, regulatory obligations and accountability requirements into executable controls, lifecycle gates and verifiable evidence.
+
+Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems and agents.
+
+The practice argument is that probabilistic models require deterministic governance — independent runtime limits on what a system may access, decide and execute, with evidence generated at the control boundary.
+
+## Canonical pages
+
+- [Home](https://tshapedconsultant.com/): Positioning, diagnostic offer, approach, case studies and contact
+- [EU AI Act mapping](https://tshapedconsultant.com/governance/eu-ai-act-mapping): Articles covered, executable controls, and how hash-chained evidence is produced
+- [Whitepaper (on-site)](https://tshapedconsultant.com/#whitepaper): Probabilistic Models Require Deterministic Governance
+- [Whitepaper (PDF)](https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf)
+- [BBVA case study (PDF)](https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf)
+- [Hybrid profiles article](https://tshapedconsultant.com/#hybrid-profiles)
+- [Agentic AI and Montesquieu](https://tshapedconsultant.com/#agentic-ai-montesquieu)
+
+## Contact
+
+- Introductory call: AI Governance Diagnostic (2–3 weeks) — https://tshapedconsultant.com/#diagnostic
+- Email: andreslage@tshapedconsultant.com
+- LinkedIn: https://www.linkedin.com/in/andres-lage-freire-4562a91b1/
+- GitHub: https://github.com/tshapedconsultant
