@@ -2,7 +2,7 @@ import EvidencePackSample from "../components/EvidencePackSample";
 import GovernancePipeline from "../components/GovernancePipeline";
 import MappingTable from "../components/MappingTable";
 import { MAPPING_SOURCE_NOTE } from "../data/euAiActMapping";
-import { EU_AI_ACT_MAPPING_PATH } from "../routes";
+import { EU_AI_ACT_MAPPING_PATH, WHITEPAPER_PATH } from "../routes";
 
 const PORTO = "https://github.com/tshapedconsultant/porto-seguro-compliance-hub";
 const RISK = "https://github.com/tshapedconsultant/enterprise-ai-risk";
@@ -42,7 +42,7 @@ export default function EuAiActMapping() {
           <span className="visually-hidden"> (opens in a new tab)</span>
         </a>
         {" · "}
-        <a href="/#whitepaper">Whitepaper</a>
+        <a href={WHITEPAPER_PATH}>Whitepaper</a>
       </p>
 
       <GovernancePipeline />

@@ -16,4 +16,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://tshapedconsultant.com/sitemap.txt
+Sitemap: https://tshapedconsultant.com/sitemap.xml

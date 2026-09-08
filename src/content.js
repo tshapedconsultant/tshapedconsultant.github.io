@@ -139,7 +139,7 @@ export const INSIGHTS = [
   {
     title: HYBRID_ARTICLE.title,
     text: HYBRID_ARTICLE.excerpt,
-    href: `#${HYBRID_ARTICLE.hash}`,
+    href: "/hybrid-profiles",
     icon: "people",
     internal: true,
     featured: true,
@@ -147,7 +147,7 @@ export const INSIGHTS = [
   {
     title: ARTICLE.title,
     text: ARTICLE.excerpt,
-    href: `#${ARTICLE.hash}`,
+    href: "/agentic-ai-montesquieu",
     icon: "scales",
     internal: true,
   },
@@ -430,7 +430,7 @@ export const CREDENTIAL_GROUPS = [
         kind: "Publication",
         title: "Probabilistic Models Require Deterministic Governance",
         detail: "Whitepaper · tshapedconsultant",
-        href: "#whitepaper",
+        href: "/whitepaper",
       },
       {
         kind: "Case study",
@@ -442,13 +442,13 @@ export const CREDENTIAL_GROUPS = [
         kind: "Article",
         title: "Why Hybrid Profiles May Have an Advantage in the Age of AI Agents",
         detail: "Fundamentals, T-shape and judgment in agentic systems · 7 September 2026",
-        href: `#${HYBRID_ARTICLE.hash}`,
+        href: "/hybrid-profiles",
       },
       {
         kind: "Article",
         title: "Agentic AI and Montesquieu",
         detail: "Why autonomous systems need separation of powers · 15 July 2026",
-        href: `#${ARTICLE.hash}`,
+        href: "/agentic-ai-montesquieu",
       },
       {
         kind: "Articles",

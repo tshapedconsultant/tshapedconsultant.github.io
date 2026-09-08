@@ -4,7 +4,7 @@ export default function Whitepaper() {
   return (
     <article className="paper">
       <p className="paper-nav">
-        <a href="#about">← Back to tshapedconsultant.com</a>
+        <a href="/#about">← Back to tshapedconsultant.com</a>
       </p>
       <p className="paper-kicker">AI Governance</p>
       <h1>Probabilistic Models Require Deterministic Governance</h1>
@@ -15,7 +15,7 @@ export default function Whitepaper() {
       </blockquote>
       <p className="wings">Daedalus gave us wings. Icarus taught us the limits.</p>
       <p className="paper-brand">
-        Dédalo™ · Deterministic Governance for Probabilistic AI ·         tshapedconsultant · <a href="#diagnostic">Discuss a diagnostic</a>
+        Dédalo™ · Deterministic Governance for Probabilistic AI ·         tshapedconsultant · <a href="/#diagnostic">Discuss a diagnostic</a>
       </p>
       <p className="paper-download">
         <a className="btn btn-solid" href={WHITEPAPER_PDF} download>

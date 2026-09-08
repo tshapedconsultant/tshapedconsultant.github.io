@@ -1,0 +1,34 @@
+# tshapedconsultant.com — outline
+
+Site: https://tshapedconsultant.com/
+Author: Andrés Lage Freire, Responsible AI Architect (Madrid / EMEA remote)
+Practice: AI Governance Engineering — controls, accountability and evidence across the AI lifecycle.
+
+## Pages
+
+### Home — https://tshapedconsultant.com/
+- Positioning for CTOs, Heads of AI and Risk/Compliance in banking, insurance and energy
+- AI Governance Diagnostic (2–3 weeks): inventory, risk, control gaps, DGOM, 90-day roadmap
+- Approach: regulation → governance → engineering → runtime → evidence
+- Frameworks: EU AI Act, ISO/IEC 42001, NIST AI RMF, DORA + NIS2
+- Case study: BBVA platform and AI strategy (PDF)
+- Reference implementations: Enterprise AI Risk Console, Enterprise Data Analyst Agent, Porto Seguro Compliance Hub
+- Contact: https://tshapedconsultant.com/#diagnostic
+
+### Whitepaper — https://tshapedconsultant.com/whitepaper
+Probabilistic Models Require Deterministic Governance. Constitutional architecture: policy, execution and independent oversight. The Deterministic Cage. PDF: https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf
+
+### Hybrid profiles — https://tshapedconsultant.com/hybrid-profiles
+Why Hybrid Profiles May Have an Advantage in the Age of AI Agents (7 September 2026). Fundamentals, specialist depth, cross-domain judgment and AI-agent leverage.
+
+### Agentic AI and Montesquieu — https://tshapedconsultant.com/agentic-ai-montesquieu
+Why autonomous systems need separation of powers (15 July 2026). Runtime Checks & Balances; EU AI Act Art. 14 and DORA.
+
+### EU AI Act mapping — https://tshapedconsultant.com/governance/eu-ai-act-mapping
+Which articles the work covers, executable controls, and hash-chained evidence. References: Porto Seguro Compliance Hub; Enterprise AI Risk.
+
+## Also
+- CV: https://tshapedconsultant.com/Andres-Lage-Freire-CV.pdf
+- Short summary: https://tshapedconsultant.com/llms.txt
+- LinkedIn: https://www.linkedin.com/in/andres-lage-freire-4562a91b1/
+- GitHub: https://github.com/tshapedconsultant

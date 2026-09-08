@@ -4,7 +4,7 @@ export default function Article() {
   return (
     <article className="paper article-page">
       <p className="paper-nav">
-        <a href="#insights">← Back to Insights</a>
+        <a href="/#insights">← Back to Insights</a>
       </p>
       <p className="paper-kicker">{ARTICLE.kicker}</p>
       <h1>{ARTICLE.title}</h1>
@@ -122,7 +122,7 @@ export default function Article() {
 
       <p className="paper-also article-related">
         Developed at length in the whitepaper:{" "}
-        <a href="#whitepaper">Probabilistic Models Require Deterministic Governance</a>.
+        <a href="/whitepaper">Probabilistic Models Require Deterministic Governance</a>.
       </p>
     </article>
   );

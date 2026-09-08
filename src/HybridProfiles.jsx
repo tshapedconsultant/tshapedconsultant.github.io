@@ -4,7 +4,7 @@ export default function HybridProfiles() {
   return (
     <article className="paper article-page">
       <p className="paper-nav">
-        <a href="#insights">← Back to Insights</a>
+        <a href="/#insights">← Back to Insights</a>
       </p>
       <p className="paper-kicker">{HYBRID_ARTICLE.kicker}</p>
       <h1>{HYBRID_ARTICLE.title}</h1>
@@ -328,9 +328,9 @@ export default function HybridProfiles() {
 
       <p className="paper-also article-related">
         Building a T-shaped practice in AI governance:{" "}
-        <a href="#whitepaper">Probabilistic Models Require Deterministic Governance</a>
+        <a href="/whitepaper">Probabilistic Models Require Deterministic Governance</a>
         {" · "}
-        <a href="#diagnostic">Discuss a diagnostic</a>.
+        <a href="/#diagnostic">Discuss a diagnostic</a>.
       </p>
     </article>
   );

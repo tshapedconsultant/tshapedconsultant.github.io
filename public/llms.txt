@@ -12,11 +12,12 @@ The practice argument is that probabilistic models require deterministic governa
 
 - [Home](https://tshapedconsultant.com/): Positioning, diagnostic offer, approach, case studies and contact
 - [EU AI Act mapping](https://tshapedconsultant.com/governance/eu-ai-act-mapping): Articles covered, executable controls, and how hash-chained evidence is produced
-- [Whitepaper (on-site)](https://tshapedconsultant.com/#whitepaper): Probabilistic Models Require Deterministic Governance
+- [Whitepaper (on-site)](https://tshapedconsultant.com/whitepaper): Probabilistic Models Require Deterministic Governance
 - [Whitepaper (PDF)](https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf)
 - [BBVA case study (PDF)](https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf)
-- [Hybrid profiles article](https://tshapedconsultant.com/#hybrid-profiles)
-- [Agentic AI and Montesquieu](https://tshapedconsultant.com/#agentic-ai-montesquieu)
+- [Hybrid profiles article](https://tshapedconsultant.com/hybrid-profiles)
+- [Agentic AI and Montesquieu](https://tshapedconsultant.com/agentic-ai-montesquieu)
+- [Full outline](https://tshapedconsultant.com/llms-full.txt)
 
 ## Contact
 

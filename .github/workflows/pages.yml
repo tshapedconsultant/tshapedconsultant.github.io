@@ -30,7 +30,10 @@ jobs:
       - name: SPA fallback
         run: |
           cp dist/index.html dist/404.html
-          mkdir -p dist/governance/eu-ai-act-mapping
+          mkdir -p dist/whitepaper dist/hybrid-profiles dist/agentic-ai-montesquieu dist/governance/eu-ai-act-mapping
+          cp dist/index.html dist/whitepaper/index.html
+          cp dist/index.html dist/hybrid-profiles/index.html
+          cp dist/index.html dist/agentic-ai-montesquieu/index.html
           cp dist/index.html dist/governance/eu-ai-act-mapping/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

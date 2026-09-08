@@ -6,7 +6,17 @@ import HybridProfiles from "./HybridProfiles.jsx";
 import EuAiActMapping from "./pages/EuAiActMapping";
 import { Icon } from "./Icons.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
-import { EU_AI_ACT_MAPPING_PATH, isEuAiActMappingHash, isEuAiActMappingPath } from "./routes";
+import {
+  EU_AI_ACT_MAPPING_PATH,
+  WHITEPAPER_PATH,
+  hashToPathRoute,
+  isEuAiActMappingHash,
+  isEuAiActMappingPath,
+  isHybridProfilesPath,
+  isMontesquieuPath,
+  isWhitepaperPath,
+} from "./routes";
+import { pageSeoFor } from "./seo.js";
 import {
   ABOUT_BLOCKS,
   APPROACH,
@@ -36,9 +46,6 @@ import {
   WHITEPAPER_PDF,
 } from "./content.js";
 
-const HOME_TITLE =
-  "Andres Lage – AI Governance & Responsible AI Architect | EU AI Act, ISO 42001";
-
 const NAV_SECTIONS = [
   { id: "about", label: "About" },
   { id: "approach", label: "Approach" },
@@ -61,8 +68,10 @@ const ARTICLE_PAGES = {
 };
 
 function viewFromLocation(pathname, hash) {
-  if (isEuAiActMappingPath(pathname)) return "mapping";
-  if (isEuAiActMappingHash(hash)) return "mapping";
+  if (isEuAiActMappingPath(pathname) || isEuAiActMappingHash(hash)) return "mapping";
+  if (isWhitepaperPath(pathname)) return "whitepaper";
+  if (isHybridProfilesPath(pathname)) return "hybrid";
+  if (isMontesquieuPath(pathname)) return "article";
   const raw = hash.replace(/^#/, "");
   if (raw === "whitepaper" || /^s\d{2}$/.test(raw)) {
     return "whitepaper";
@@ -73,14 +82,22 @@ function viewFromLocation(pathname, hash) {
   return "home";
 }
 
-function currentView() {
-  if (typeof window === "undefined") return "home";
-  return viewFromLocation(window.location.pathname, window.location.hash);
-}
-
 function scrollToHash() {
-  if (isEuAiActMappingPath(window.location.pathname)) {
-    window.scrollTo({ top: 0, behavior: scrollBehavior() });
+  const pathname = window.location.pathname;
+  if (
+    isEuAiActMappingPath(pathname) ||
+    isWhitepaperPath(pathname) ||
+    isHybridProfilesPath(pathname) ||
+    isMontesquieuPath(pathname)
+  ) {
+    const section = window.location.hash.replace(/^#/, "");
+    requestAnimationFrame(() => {
+      if (section && document.getElementById(section)) {
+        document.getElementById(section).scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+        return;
+      }
+      window.scrollTo({ top: 0, behavior: scrollBehavior() });
+    });
     return;
   }
   const id = window.location.hash.replace(/^#/, "");
@@ -95,8 +112,8 @@ function scrollToHash() {
   });
 }
 
-function isHashLink(href) {
-  return typeof href === "string" && href.startsWith("#");
+function isInternalHref(href) {
+  return typeof href === "string" && (href.startsWith("#") || (href.startsWith("/") && !href.startsWith("//")));
 }
 
 function isValidEmail(value) {
@@ -447,7 +464,7 @@ function ExternalLink({ href, children, className }) {
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [view, setView] = useState(() => currentView());
+  const [view, setView] = useState(() => viewFromLocation(location.pathname, location.hash));
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -457,23 +474,16 @@ export default function App() {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    if (view === "whitepaper") {
-      document.title = "Probabilistic Models Require Deterministic Governance | tshapedconsultant";
-    } else if (view === "article") {
-      document.title = `${ARTICLE.title} | tshapedconsultant`;
-    } else if (view === "hybrid") {
-      document.title = `${HYBRID_ARTICLE.title} | tshapedconsultant`;
-    } else if (view === "mapping") {
-      document.title = "EU AI Act mapping | tshapedconsultant";
-    } else {
-      document.title = HOME_TITLE;
-    }
-  }, [view]);
+    document.title = pageSeoFor(location.pathname).title;
+  }, [view, location.pathname]);
 
   useEffect(() => {
-    if (location.pathname === "/" && isEuAiActMappingHash(location.hash)) {
-      navigate({ pathname: EU_AI_ACT_MAPPING_PATH, hash: "" }, { replace: true });
-      return;
+    if (location.pathname === "/") {
+      const routed = hashToPathRoute(location.hash);
+      if (routed) {
+        navigate({ pathname: routed.pathname, hash: routed.hash }, { replace: true });
+        return;
+      }
     }
     const next = viewFromLocation(location.pathname, location.hash);
     setView((prev) => {
@@ -659,13 +669,17 @@ export default function App() {
           >
             EU AI Act
           </Link>
-          <a
-            href="/#whitepaper"
+          <Link
+            to={WHITEPAPER_PATH}
             className={view === "whitepaper" ? "is-active" : undefined}
             aria-current={view === "whitepaper" ? "page" : undefined}
+            onClick={() => {
+              setMenuOpen(false);
+              setMoreOpen(false);
+            }}
           >
             Whitepaper
-          </a>
+          </Link>
           <a
             className="nav-cta"
             href="#diagnostic"
@@ -744,7 +758,7 @@ export default function App() {
                       >
                         {CTA.primary}
                       </a>
-                      <a className="btn btn-ghost" href="#whitepaper">
+                      <a className="btn btn-ghost" href={WHITEPAPER_PATH}>
                         Read the whitepaper
                       </a>
                     </div>
@@ -834,7 +848,7 @@ export default function App() {
                     <Link className="btn btn-solid" to={EU_AI_ACT_MAPPING_PATH}>
                       {MAPPING_TEASER.cta}
                     </Link>
-                    <a className="btn btn-ghost" href="/#whitepaper">
+                    <a className="btn btn-ghost" href={WHITEPAPER_PATH}>
                       Whitepaper
                     </a>
                   </div>
@@ -1164,7 +1178,7 @@ export default function App() {
                     </p>
                   </div>
                   <div className="hero-actions">
-                    <a className="btn btn-solid" href="#whitepaper">
+                    <a className="btn btn-solid" href={WHITEPAPER_PATH}>
                       Read on this site
                     </a>
                     <a className="btn btn-ghost" href={WHITEPAPER_PDF} download>
@@ -1251,7 +1265,7 @@ export default function App() {
                           </p>
                           <h3>
                             {item.href ? (
-                              isHashLink(item.href) ? (
+                              isInternalHref(item.href) ? (
                                 <a href={item.href}>{item.title}</a>
                               ) : (
                                 <ExternalLink href={item.href}>{item.title}</ExternalLink>
@@ -1388,7 +1402,7 @@ export default function App() {
           </a>
           <a href="/#case-studies">Case studies</a>
           <Link to={EU_AI_ACT_MAPPING_PATH}>EU AI Act mapping</Link>
-          <a href="/#whitepaper">Whitepaper</a>
+          <Link to={WHITEPAPER_PATH}>Whitepaper</Link>
         </p>
         <p>© {new Date().getFullYear()} Andrés Lage Freire · tshapedconsultant.com</p>
         <p>AI Governance Engineering · From regulation to runtime assurance</p>
