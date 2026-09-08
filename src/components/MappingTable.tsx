@@ -189,7 +189,7 @@ export default function MappingTable() {
                 <option value="">{ui.allRoles}</option>
                 {ROLE_OPTIONS.map((option) => (
                   <option key={option} value={option}>
-                    {option}
+                    {ui.roles[option]}
                   </option>
                 ))}
               </select>
@@ -259,7 +259,7 @@ export default function MappingTable() {
                   <th key={column.key} scope="col" aria-sort={active ? (sortDir === "asc" ? "ascending" : "descending") : "none"}>
                     <button type="button" onClick={() => toggleSort(column.key)}>
                       {column.label}
-                      <span aria-hidden="true">{active ? (sortDir === "asc" ? " â†‘" : " â†“") : " â†•"}</span>
+                      <span aria-hidden="true">{active ? (sortDir === "asc" ? " ↑" : " ↓") : " ↕"}</span>
                       <span className="visually-hidden">
                         {active ? (sortDir === "asc" ? ui.sortedAsc : ui.sortedDesc) : ui.sort}
                       </span>
@@ -336,7 +336,7 @@ export default function MappingTable() {
             return (
               <li key={row.id} className="mapping-card">
                 <header className="mapping-card-head">
-                  <p className="mapping-card-article">{row.article.replace(" â€“ ", " Â· ")}</p>
+                  <p className="mapping-card-article">{row.article.replace(" – ", " · ")}</p>
                   <StatusPill status={row.status} />
                 </header>
                 <p className="mapping-card-role">{row.systemType}</p>

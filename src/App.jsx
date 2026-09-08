@@ -20,6 +20,7 @@ import {
   EU_AI_ACT_MAPPING_PATH,
   WHITEPAPER_PATH,
   hashToPathRoute,
+  isAppPath,
   isEuAiActMappingHash,
   isEuAiActMappingPath,
   isHybridProfilesPath,
@@ -54,6 +55,7 @@ function viewFromLocation(pathname, hash) {
   if (ARTICLE_PAGES[raw]) {
     return ARTICLE_PAGES[raw];
   }
+  if (!isAppPath(pathname)) return "notfound";
   return "home";
 }
 
@@ -436,6 +438,21 @@ function ExternalLink({ href, children, className }) {
   );
 }
 
+function NotFound() {
+  const { t, home, localizedPath } = useI18n();
+  return (
+    <article className="paper">
+      <h1>{t.notFound.title}</h1>
+      <p>{t.notFound.body}</p>
+      <p className="paper-also">
+        <a href={`${home}#top`}>{t.notFound.home}</a>
+        {" · "}
+        <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
+      </p>
+    </article>
+  );
+}
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -626,7 +643,7 @@ export default function App() {
   const secondaryLinks = (
     <>
       <a href={CV_PDF} download>
-        CV
+        {t.cv}
       </a>
       <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer">
         LinkedIn<span className="visually-hidden">{t.opensNewTab}</span>
@@ -674,11 +691,21 @@ export default function App() {
           {t.discuss}
         </a>
         <nav className="lang-switch" aria-label={t.language}>
-          <Link to={switchTo("en")} hrefLang="en-GB" lang="en-GB" aria-current={locale === "en" ? "true" : undefined}>
+          <Link
+            to={switchTo("en")}
+            hrefLang="en-GB"
+            lang="en-GB"
+            aria-current={locale === "en" ? "true" : undefined}
+          >
             {t.langEn}
           </Link>
           <span aria-hidden="true">|</span>
-          <Link to={switchTo("es")} hrefLang="es" lang="es" aria-current={locale === "es" ? "true" : undefined}>
+          <Link
+            to={switchTo("es")}
+            hrefLang="es"
+            lang="es"
+            aria-current={locale === "es" ? "true" : undefined}
+          >
             {t.langEs}
           </Link>
         </nav>
@@ -695,7 +722,7 @@ export default function App() {
         >
           {menuOpen ? t.close : t.menu}
         </button>
-        <nav id="site-nav" className={menuOpen ? "open" : undefined} aria-label="Primary">
+        <nav id="site-nav" className={menuOpen ? "open" : undefined} aria-label={t.nav.primary}>
           <div className="nav-desktop">
             {navSections.map((item) => (
               <a
@@ -820,6 +847,8 @@ export default function App() {
           locale === "es" ? <ArticleEs /> : <Article />
         ) : view === "hybrid" ? (
           locale === "es" ? <HybridProfilesEs /> : <HybridProfiles />
+        ) : view === "notfound" ? (
+          <NotFound />
         ) : (
           <>
             <section className="hero region-dark" id="top">
@@ -903,14 +932,14 @@ export default function App() {
               </div>
             </section>
 
-            <aside className="proof-strip region-dark" aria-label="Recognition and references">
+            <aside className="proof-strip region-dark" aria-label={t.proof}>
               <ul>
                 {SOCIAL_PROOF.map((item) => (
                   <li key={item.id}>
                     {item.external ? (
                       <a href={item.href} target="_blank" rel="noopener noreferrer">
                         {item.text}
-                        <span className="visually-hidden"> (opens in a new tab)</span>
+                        <span className="visually-hidden">{t.opensNewTab}</span>
                       </a>
                     ) : (
                       <a href={item.href} download={item.download ? true : undefined}>
@@ -1028,7 +1057,7 @@ export default function App() {
                 </div>
                 <p className="approach-thesis">{HERO.principle}</p>
 
-                <ol className="arch-flow" aria-label="Regulation to evidence">
+                <ol className="arch-flow" aria-label={t.pipeline.svgTitle}>
                   {APPROACH.map((step) => (
                     <li key={step.id}>
                       <Icon name={step.icon} />
@@ -1501,7 +1530,7 @@ export default function App() {
             <span className="visually-hidden">{t.opensNewTab}</span>
           </a>
           <a href={CV_PDF} download>
-            CV
+            {t.cv}
           </a>
           <a href={`${home}#case-studies`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>

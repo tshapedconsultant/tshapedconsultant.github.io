@@ -14,6 +14,10 @@ import {
 
 export type { Locale };
 
+/** Fail `tsc` if Spanish chrome drifts from the English key set. */
+const _uiParity: { en: (typeof UI)["en"]; es: (typeof UI)["en"] } = UI;
+void _uiParity;
+
 /**
  * Locale is derived from the URL (`/` vs `/es/...`). There is no setter —
  * switching language navigates to the paired path.

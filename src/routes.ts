@@ -82,6 +82,40 @@ export function isMontesquieuPath(pathname: string): boolean {
   return stripLocale(pathname) === MONTEQUIEU_PATH;
 }
 
+const APP_PATHS = new Set<string>([
+  "/",
+  WHITEPAPER_PATH,
+  HYBRID_PROFILES_PATH,
+  MONTEQUIEU_PATH,
+  EU_AI_ACT_MAPPING_PATH,
+]);
+
+export function isAppPath(pathname: string): boolean {
+  return APP_PATHS.has(stripLocale(pathname));
+}
+
+/** Used at build time so the language switcher cannot silently drop path or hash. */
+export function assertLocaleSwitch(): void {
+  const cases: Array<[string, string, Locale, string]> = [
+    ["/es/whitepaper", "#s00", "en", "/whitepaper#s00"],
+    ["/whitepaper", "#s00", "es", "/es/whitepaper#s00"],
+    ["/es", "#diagnostic", "en", "/#diagnostic"],
+    ["/", "#diagnostic", "es", "/es#diagnostic"],
+    ["/es/", "#diagnostic", "en", "/#diagnostic"],
+    ["/es/hybrid-profiles", "", "en", "/hybrid-profiles"],
+    ["/hybrid-profiles", "", "es", "/es/hybrid-profiles"],
+    ["/es/agentic-ai-montesquieu", "", "en", "/agentic-ai-montesquieu"],
+    ["/governance/eu-ai-act-mapping", "#art-9", "es", "/es/governance/eu-ai-act-mapping#art-9"],
+    ["/es/governance/eu-ai-act-mapping/", "", "en", "/governance/eu-ai-act-mapping"],
+  ];
+  for (const [pathname, hash, target, want] of cases) {
+    const got = switchLocalePath(pathname, hash, target);
+    if (got !== want) {
+      throw new Error(`switchLocalePath(${pathname}, ${hash}, ${target}) => ${got}, expected ${want}`);
+    }
+  }
+}
+
 /** Map legacy homepage hashes to path routes. Whitepaper section hashes (#s00) stay on /whitepaper. */
 export function hashToPathRoute(hash: string): { pathname: string; hash: string } | null {
   const raw = hash.replace(/^#/, "");

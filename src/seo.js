@@ -23,7 +23,7 @@ export const HOME_DESCRIPTION =
   "AI governance and Responsible AI architecture for regulated organisations. Andrés Lage Freire helps CTOs and Risk leaders implement EU AI Act and ISO 42001 controls across RAG systems, agents and high-accountability use cases.";
 
 export const HOME_DESCRIPTION_ES =
-  "Ingeniería de gobernanza de IA y arquitectura de IA responsable para organizaciones reguladas. Andrés Lage Freire ayuda a CTOs y líderes de Riesgo a implantar controles del EU AI Act e ISO 42001 en sistemas RAG, agentes y casos de alta responsabilidad.";
+  "Ingeniería de Gobernanza de IA y arquitectura de IA responsable para organizaciones reguladas. Andrés Lage Freire ayuda a CTOs y líderes de Riesgo a implantar el EU AI Act e ISO 42001: cumplimiento, sistemas RAG, agentes y casos de alta responsabilidad.";
 
 export const PAGE_SEO = {
   "/": {
@@ -56,22 +56,24 @@ export const PAGE_SEO_ES = {
     description: HOME_DESCRIPTION_ES,
   },
   [WHITEPAPER_PATH]: {
-    title: "Modelos probabilísticos requieren gobernanza determinista | tshapedconsultant",
+    title: "Gobernanza de IA: modelos probabilísticos y arquitectura constitucional | tshapedconsultant",
     description:
-      "Por qué la IA empresarial necesita una arquitectura constitucional. Whitepaper en español: gobernanza determinista para modelos probabilísticos.",
+      "Whitepaper de gobernanza de IA: por qué los modelos probabilísticos requieren una arquitectura constitucional. Deterministic Cage (Jaula Determinista), EU AI Act, garantía en runtime y cumplimiento.",
   },
   [HYBRID_PROFILES_PATH]: {
     title: `${HYBRID_ARTICLE_ES.title} | tshapedconsultant`,
-    description: HYBRID_ARTICLE_ES.excerpt,
+    description:
+      "Ensayo sobre perfiles híbridos y agentes de IA: fundamentos, forma en T y juicio entre dominios. Gobernanza de IA cuando la ejecución especializada se abarata.",
   },
   [MONTEQUIEU_PATH]: {
     title: `${ARTICLE_ES.title} | tshapedconsultant`,
-    description: ARTICLE_ES.excerpt,
+    description:
+      "IA agéntica y separación de poderes: Runtime Checks & Balances, art. 14 del EU AI Act y DORA. Gobernanza de IA para agentes autónomos con supervisión independiente.",
   },
   [EU_AI_ACT_MAPPING_PATH]: {
-    title: "Mapeo del EU AI Act | tshapedconsultant",
+    title: "Mapeo del EU AI Act | gobernanza de IA y cumplimiento | tshapedconsultant",
     description:
-      "Deberes seleccionados del EU AI Act mapeados a controles ejecutables y paquetes de evidencia con hash — para CTOs, responsables de IA y líderes de Riesgo.",
+      "Mapeo del EU AI Act a controles ejecutables y evidencia con hash. Gobernanza de IA, ISO 42001, cumplimiento y sistemas de alto riesgo — para CTOs y líderes de Riesgo.",
   },
 };
 
@@ -79,14 +81,27 @@ export function pageSeoFor(pathname) {
   const locale = localeFromPath(pathname);
   const path = stripLocale(pathname);
   const table = locale === "es" ? PAGE_SEO_ES : PAGE_SEO;
-  return table[path] || table["/"];
+  if (table[path]) return table[path];
+  if (path !== "/") {
+    return locale === "es"
+      ? {
+          title: "Página no encontrada | tshapedconsultant",
+          description: "Esa dirección no corresponde a una página de este sitio. Gobernanza de IA, EU AI Act e ISO 42001 en tshapedconsultant.com.",
+        }
+      : {
+          title: "Page not found | tshapedconsultant",
+          description: "That address is not a page on this site. AI governance, EU AI Act and ISO 42001 at tshapedconsultant.com.",
+        };
+  }
+  return table["/"];
 }
 
 export function absoluteUrl(pathname) {
   const p = pathname.replace(/\/+$/, "") || "/";
   if (p === "/") return `${ORIGIN}/`;
   if (p === "/es") return `${ORIGIN}/es/`;
-  return `${ORIGIN}${p}`;
+  // GitHub Pages serves nested index.html as directories, so live URLs end with /.
+  return `${ORIGIN}${p}/`;
 }
 
 export function alternateUrls(pathname) {

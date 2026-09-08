@@ -47,10 +47,13 @@ After each deploy that changes routes or `sitemap.xml`:
 1. [Google Search Console](https://search.google.com/search-console) — property `https://tshapedconsultant.com/`
 2. Confirm ownership (HTML file or DNS TXT). The domain already points at GitHub Pages.
 3. Sitemaps → submit `https://tshapedconsultant.com/sitemap.xml`
-4. URL inspection → request indexing for `/`, `/whitepaper`, `/hybrid-profiles`, `/agentic-ai-montesquieu`, `/governance/eu-ai-act-mapping`
-5. [Bing Webmaster Tools](https://www.bing.com/webmasters) — add the same property and submit the same sitemap
+4. URL inspection → request indexing for `/`, `/whitepaper/`, `/hybrid-profiles/`, `/agentic-ai-montesquieu/`, `/governance/eu-ai-act-mapping/`, and the Spanish pair `/es/`, `/es/whitepaper/`, `/es/hybrid-profiles/`, `/es/agentic-ai-montesquieu/`, `/es/governance/eu-ai-act-mapping/`
+5. Confirm hreflang: each HTML page should advertise `en-GB`, `es`, and `x-default` (English). Google’s Rich Results Test is a manual step in Search Console / the [Rich Results Test](https://search.google.com/test/rich-results) — run it on a Spanish URL after deploy if you want a visual check; the tags are already in `index.html`, nested SPA fallbacks, and `applyDocumentHead`.
+6. [Bing Webmaster Tools](https://www.bing.com/webmasters) — add the same property and submit the same sitemap
 
 `robots.txt` allows crawlers (including GPTBot and ClaudeBot) and points at the XML sitemap.
+
+`Gobernanza-Determinista-IA.pdf` is listed in `sitemap.xml` with `lastmod` and linked from `/es/whitepaper/` with a descriptive Spanish title. Do not rewrite the PDF binary unless the Spanish text itself changes.
 
 ## Routes
 
@@ -61,12 +64,16 @@ After each deploy that changes routes or `sitemap.xml`:
 | `/whitepaper` | Whitepaper (legacy `#whitepaper` redirects here) |
 | `/es/whitepaper` | Spanish whitepaper landing + PDF |
 | `/hybrid-profiles` | Essay |
-| `/es/hybrid-profiles` | Spanish intro + link to English essay |
+| `/es/hybrid-profiles` | Spanish essay (full Castilian; English remains canonical) |
 | `/agentic-ai-montesquieu` | Essay |
 | `/es/agentic-ai-montesquieu` | Spanish essay |
 | `/governance/eu-ai-act-mapping` | EU AI Act mapping |
 | `/es/governance/eu-ai-act-mapping` | Spanish mapping page |
 
-The header language switcher (EN | ES) keeps the current page. Hash URLs such as `/#whitepaper` and `/es#whitepaper` still work; they replace to the path routes above.
+The header language switcher (EN | ES) keeps the current path and hash on every route — mapping, whitepaper (including `#s00`), essays, and home `#diagnostic`.
+
+### Spanish locale and partial translation
+
+English remains canonical. Core commercial pages under `/es/` (home, EU AI Act mapping, whitepaper landing) are fully translated into Castilian (Spain). Essays are fully in Spanish when a publication-grade version exists (Montesquieu and hybrid profiles); Medium insight cards keep the English article URLs and use Spanish titles and excerpts until an original Spanish post exists. Mapping statuses stay **Implemented / Reference / Planned**. Keep **EU AI Act**, **ISO**, **DGOM™**, and **compliance-as-code** in English (with a short gloss where needed). Do not invent Spanish client testimonials.
 
 A Calendly booking link can be added later when a real URL exists. The hero already has **Discuss an AI Governance Diagnostic**.

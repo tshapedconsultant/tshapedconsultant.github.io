@@ -2,6 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
+import { PAGE_SEO, PAGE_SEO_ES } from "./src/seo.js";
+import { assertLocaleSwitch } from "./src/routes.ts";
+
+assertLocaleSwitch();
 
 /** GitHub Pages custom domain is served from `/`. Never use the repo-name base. */
 const SPA_FALLBACK_DIRS = [
@@ -18,88 +22,79 @@ const SPA_FALLBACK_DIRS = [
 
 const ORIGIN = "https://tshapedconsultant.com";
 
-const PAGE_HEAD = {
-  "/": {
-    en: {
-      title: "Andres Lage – AI Governance &amp; Responsible AI Architect | EU AI Act, ISO 42001",
-      description:
-        "AI governance and Responsible AI architecture for regulated organisations. Andrés Lage Freire helps CTOs and Risk leaders implement EU AI Act and ISO 42001 controls across RAG systems, agents and high-accountability use cases.",
-    },
-    es: {
-      title:
-        "Andrés Lage – Ingeniería de Gobernanza de IA y arquitecto de IA responsable | EU AI Act, ISO 42001",
-      description:
-        "Ingeniería de gobernanza de IA y arquitectura de IA responsable para organizaciones reguladas. Andrés Lage Freire ayuda a CTOs y líderes de Riesgo a implantar controles del EU AI Act e ISO 42001 en sistemas RAG, agentes y casos de alta responsabilidad.",
-    },
-  },
-  "/whitepaper": {
-    en: {
-      title: "Probabilistic Models Require Deterministic Governance | tshapedconsultant",
-      description:
-        "Why enterprise and agentic AI needs a constitutional architecture — independent runtime controls, the Deterministic Cage, and a separation of policy, execution and oversight.",
-    },
-    es: {
-      title: "Modelos probabilísticos requieren gobernanza determinista | tshapedconsultant",
-      description:
-        "Por qué la IA empresarial necesita una arquitectura constitucional. Whitepaper en español: gobernanza determinista para modelos probabilísticos.",
-    },
-  },
-  "/hybrid-profiles": {
-    en: {
-      title: "Why Hybrid Profiles May Have an Advantage in the Age of AI Agents | tshapedconsultant",
-      description:
-        "As AI agents make specialised execution cheaper, the advantage may shift toward people who can connect specialist capabilities, understand the underlying systems and exercise judgment across domains.",
-    },
-    es: {
-      title: "Por qué los perfiles híbridos pueden tener ventaja en la era de los agentes de IA | tshapedconsultant",
-      description:
-        "A medida que los agentes de IA abaratan la ejecución especializada, la ventaja puede desplazarse hacia quienes conectan capacidades de especialista, entienden los sistemas de base y ejercen juicio entre dominios.",
-    },
-  },
-  "/agentic-ai-montesquieu": {
-    en: {
-      title: "Agentic AI and Montesquieu: Why Autonomous Systems Need Separation of Powers | tshapedconsultant",
-      description:
-        "Agentic systems that reason, decide, execute and self-evaluate concentrate power in the model. Separation of powers — applied as Runtime Checks &amp; Balances — is the condition for EU AI Act Art. 14 and DORA.",
-    },
-    es: {
-      title:
-        "IA agéntica y Montesquieu: por qué los sistemas autónomos necesitan separación de poderes | tshapedconsultant",
-      description:
-        "Los sistemas agénticos que razonan, deciden, ejecutan y se autoevalúan concentran el poder en el modelo. La separación de poderes — aplicada como Runtime Checks &amp; Balances — es la condición del art. 14 del EU AI Act y de DORA.",
-    },
-  },
-  "/governance/eu-ai-act-mapping": {
-    en: {
-      title: "EU AI Act mapping | tshapedconsultant",
-      description:
-        "Selected EU AI Act duties mapped to executable controls and hashed evidence packs — for CTOs, Heads of AI and Risk leaders.",
-    },
-    es: {
-      title: "Mapeo del EU AI Act | tshapedconsultant",
-      description:
-        "Deberes seleccionados del EU AI Act mapeados a controles ejecutables y paquetes de evidencia con hash — para CTOs, responsables de IA y líderes de Riesgo.",
-    },
-  },
-};
+const NOSCRIPT_ES = `<noscript>
+      <main>
+        <p>Con sede en Madrid · Trabajo en remoto en EMEA</p>
+        <h1>Andrés Lage Freire — Ingeniería de Gobernanza de IA</h1>
+        <p>Arquitecto de IA responsable · De la regulación a la garantía en runtime</p>
+        <p>
+          Ingeniería de Gobernanza de IA: el diseño e implantación de controles, rendición de
+          cuentas y evidencia a lo largo del ciclo de vida de la IA.
+        </p>
+        <p>
+          Ayudo a las organizaciones a convertir el riesgo de IA, las obligaciones regulatorias y
+          los requisitos de rendición de cuentas en controles ejecutables, compuertas de ciclo de
+          vida y evidencia verificable.
+        </p>
+        <p>
+          Para CTOs, responsables de IA y líderes de Riesgo/Cumplimiento en banca, seguros y
+          energía. Trabajo típico: preparación para el EU AI Act, ISO/IEC 42001 y gobernanza de
+          sistemas RAG y agentes.
+        </p>
+        <p>
+          <a href="https://www.lavozdegalicia.es/noticia/educacion/2018/03/15/alumnos-fp-unen-empresas-estudiantes-resolver-retos/0003_201803H15C6991.htm">Premio al Emprendimiento de la Fundación Repsol, 2018</a>
+          ·
+          <a href="/bbva-platform-ai-strategy-case-study.pdf">Caso: estrategia de plataforma e IA de BBVA</a>
+          ·
+          <a href="/Gobernanza-Determinista-IA.pdf">Gobernanza determinista para IA probabilística (PDF)</a>
+        </p>
+        <nav>
+          <ul>
+            <li><a href="/es/#diagnostic">Diagnóstico de Gobernanza de IA</a></li>
+            <li><a href="/es/governance/eu-ai-act-mapping/">Mapeo del EU AI Act</a></li>
+            <li><a href="/es/whitepaper/">Whitepaper</a></li>
+            <li><a href="/es/#case-studies">Casos</a></li>
+            <li><a href="/es/hybrid-profiles/">Perfiles híbridos</a></li>
+            <li><a href="/es/agentic-ai-montesquieu/">IA agéntica y Montesquieu</a></li>
+            <li><a href="/es/#contact">Contacto</a></li>
+            <li><a href="/llms.txt">Resumen en texto plano para modelos de lenguaje</a></li>
+          </ul>
+        </nav>
+        <p>
+          Contacto:
+          <a href="mailto:andreslage@tshapedconsultant.com">andreslage@tshapedconsultant.com</a>
+        </p>
+      </main>
+    </noscript>`;
+
+function htmlAttr(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+}
+
+function pageUrl(pathname, locale) {
+  if (pathname === "/") return locale === "es" ? `${ORIGIN}/es/` : `${ORIGIN}/`;
+  return locale === "es" ? `${ORIGIN}/es${pathname}/` : `${ORIGIN}${pathname}/`;
+}
 
 function pathsForDir(dir) {
   const isEs = dir === "es" || dir.startsWith("es/");
   const stripped = dir === "es" ? "/" : isEs ? `/${dir.slice("es/".length)}` : `/${dir}`;
-  const enUrl = stripped === "/" ? `${ORIGIN}/` : `${ORIGIN}${stripped}`;
-  const esUrl = stripped === "/" ? `${ORIGIN}/es/` : `${ORIGIN}/es${stripped}`;
+  const enUrl = pageUrl(stripped, "en");
+  const esUrl = pageUrl(stripped, "es");
   return { isEs, enUrl, esUrl, canonical: isEs ? esUrl : enUrl, pagePath: stripped };
 }
 
 function replaceAttr(html, pattern, replacement) {
-  const next = html.replace(pattern, replacement);
-  return next;
+  return html.replace(pattern, replacement);
 }
 
 function patchFallbackHtml(html, dir) {
   const { isEs, enUrl, esUrl, canonical, pagePath } = pathsForDir(dir);
-  const locale = isEs ? "es" : "en";
-  const meta = PAGE_HEAD[pagePath]?.[locale];
+  const table = isEs ? PAGE_SEO_ES : PAGE_SEO;
+  const meta = table[pagePath] || table["/"];
   let out = html;
   out = replaceAttr(out, /<html lang="[^"]*">/, `<html lang="${isEs ? "es" : "en-GB"}">`);
   out = replaceAttr(
@@ -138,20 +133,31 @@ function patchFallbackHtml(html, dir) {
       /<meta property="og:locale:alternate" content="[^"]*" \/>/,
       '<meta property="og:locale:alternate" content="en_GB" />'
     );
+    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_ES);
   }
   if (meta) {
-    out = replaceAttr(out, /<title>[^<]*<\/title>/, `<title>${meta.title}</title>`);
+    const title = htmlAttr(meta.title);
+    const description = htmlAttr(meta.description);
+    out = replaceAttr(out, /<title>[^<]*<\/title>/, `<title>${title}</title>`);
     out = out.replace(
       /<meta\s+name="description"\s+content="[^"]*"\s*\/>/s,
-      `<meta name="description" content="${meta.description}" />`
+      `<meta name="description" content="${description}" />`
     );
     out = out.replace(
       /<meta property="og:title" content="[^"]*" \/>/,
-      `<meta property="og:title" content="${meta.title}" />`
+      `<meta property="og:title" content="${title}" />`
     );
     out = out.replace(
       /<meta\s+property="og:description"\s+content="[^"]*"\s*\/>/s,
-      `<meta property="og:description" content="${meta.description}" />`
+      `<meta property="og:description" content="${description}" />`
+    );
+    out = out.replace(
+      /<meta name="twitter:title" content="[^"]*" \/>/,
+      `<meta name="twitter:title" content="${title}" />`
+    );
+    out = out.replace(
+      /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/s,
+      `<meta name="twitter:description" content="${description}" />`
     );
   }
   return out;

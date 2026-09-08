@@ -23,8 +23,8 @@ export default function WhitepaperEs() {
         <a href={localize("/#diagnostic")}>Consultar un diagnóstico</a>
       </p>
       <p className="paper-download">
-        <a className="btn btn-solid" href={WHITEPAPER_PDF_ES} download>
-          Descargar el PDF en español
+        <a className="btn btn-solid" href={WHITEPAPER_PDF_ES} download title={t.paper.pdfLong}>
+          {t.paper.pdfLong}
         </a>
       </p>
 
