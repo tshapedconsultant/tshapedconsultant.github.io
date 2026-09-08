@@ -584,6 +584,38 @@ a:hover {
   margin: 1.1rem 0 0;
 }
 
+.proof-strip {
+  padding: 0 1.25rem 1.5rem;
+}
+
+.proof-strip ul {
+  width: min(70rem, 100%);
+  margin: 0 auto;
+  padding: 0.8rem 0 0;
+  border-top: 1px solid var(--navy-800);
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.4rem;
+}
+
+.proof-strip li {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.proof-strip a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+
+.proof-strip a:hover {
+  color: var(--cyan-200);
+}
+
 .hero-cta-row {
   display: flex;
   flex-wrap: wrap;
@@ -1642,9 +1674,13 @@ a:hover {
   margin: 0 0 2rem;
 }
 
+.article-figure picture,
 .article-figure img {
   display: block;
   width: 100%;
+}
+
+.article-figure img {
   border: 1px solid var(--navy-800);
 }
 
@@ -1678,6 +1714,11 @@ a:hover {
 }
 
 .paper-cover-quiet {
+  display: block;
+  width: 100%;
+}
+
+.paper-cover-quiet img {
   display: block;
   width: 100%;
   border: 1px solid var(--navy-800);
@@ -2480,6 +2521,10 @@ a:hover {
 
   .hero {
     padding: 1.2rem 1.1rem 2rem;
+  }
+
+  .proof-strip {
+    padding-inline: 1.1rem;
   }
 
   .hero h1 {

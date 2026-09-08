@@ -5,6 +5,7 @@ import Article from "./Article.jsx";
 import HybridProfiles from "./HybridProfiles.jsx";
 import EuAiActMapping from "./pages/EuAiActMapping";
 import { Icon } from "./Icons.jsx";
+import Picture from "./components/Picture.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
 import {
   EU_AI_ACT_MAPPING_PATH,
@@ -29,6 +30,8 @@ import {
   CAPABILITIES,
   CASE_STUDIES,
   COVER,
+  COVER_AVIF,
+  COVER_WEBP,
   CREDENTIAL_GROUPS,
   CTA,
   CV_PDF,
@@ -43,6 +46,7 @@ import {
   MAPPING_TEASER,
   PROBLEMS,
   PROJECTS,
+  SOCIAL_PROOF,
   WHITEPAPER_PDF,
 } from "./content.js";
 
@@ -802,6 +806,25 @@ export default function App() {
               </div>
             </section>
 
+            <aside className="proof-strip region-dark" aria-label="Recognition and references">
+              <ul>
+                {SOCIAL_PROOF.map((item) => (
+                  <li key={item.id}>
+                    {item.external ? (
+                      <a href={item.href} target="_blank" rel="noopener noreferrer">
+                        {item.text}
+                        <span className="visually-hidden"> (opens in a new tab)</span>
+                      </a>
+                    ) : (
+                      <a href={item.href} download={item.download ? true : undefined}>
+                        {item.text}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+
             <section id="why" className="region region-light">
               <div className="region-inner">
                 <div className="section-head">
@@ -1193,14 +1216,15 @@ export default function App() {
                     </a>
                   </p>
                 </div>
-                <img
+                <Picture
                   className="paper-cover-quiet"
                   src={COVER}
+                  avif={COVER_AVIF}
+                  webp={COVER_WEBP}
                   alt=""
-                  width="960"
-                  height="540"
-                  loading="lazy"
-                  decoding="async"
+                  width="1024"
+                  height="486"
+                  lazy
                 />
               </div>
             </section>

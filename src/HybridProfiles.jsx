@@ -1,4 +1,5 @@
 import { HYBRID_ARTICLE } from "./content.js";
+import Picture from "./components/Picture.jsx";
 
 export default function HybridProfiles() {
   return (
@@ -12,11 +13,14 @@ export default function HybridProfiles() {
       <p className="article-meta">{HYBRID_ARTICLE.meta}</p>
 
       <figure className="article-figure">
-        <img
+        <Picture
           src={HYBRID_ARTICLE.figure}
+          avif={HYBRID_ARTICLE.figureAvif}
+          webp={HYBRID_ARTICLE.figureWebp}
           alt={HYBRID_ARTICLE.figureAlt}
           width="1024"
           height="682"
+          lazy={false}
         />
         <figcaption>{HYBRID_ARTICLE.figureCaption}</figcaption>
       </figure>

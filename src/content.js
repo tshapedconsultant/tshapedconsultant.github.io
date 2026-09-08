@@ -1,4 +1,6 @@
 export const COVER = "/cover.png";
+export const COVER_WEBP = "/cover.webp";
+export const COVER_AVIF = "/cover.avif";
 export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Governance.pdf";
 export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
 export const CV_PDF = "/Andres-Lage-Freire-CV.pdf";
@@ -95,6 +97,8 @@ export const HYBRID_ARTICLE = {
   excerpt:
     "As AI agents make specialised execution cheaper, the advantage may shift toward people who can connect specialist capabilities, understand the underlying systems and exercise judgment across domains.",
   figure: "/hybrid-profiles-ai-agents.jpg",
+  figureWebp: "/hybrid-profiles-ai-agents.webp",
+  figureAvif: "/hybrid-profiles-ai-agents.avif",
   figureAlt:
     "Infographic of a hybrid professional on a bridge between specialist depth — engineering, data science, security, business and regulation — and AI-agent leverage: research, code, analyse, plan, test, execute, monitor and document. Labels: understand, connect, evaluate, integrate, direct.",
   figureCaption:
@@ -134,6 +138,27 @@ export const CASE_STUDIES = {
     },
   ],
 };
+
+export const SOCIAL_PROOF = [
+  {
+    id: "repsol-award",
+    text: "Repsol Foundation Entrepreneurship Award · 2018",
+    href: LINKS.pressRepsol,
+    external: true,
+  },
+  {
+    id: "bbva-case",
+    text: "Case study: BBVA platform and AI strategy",
+    href: CASE_STUDY_PDF,
+    download: true,
+  },
+  {
+    id: "whitepaper",
+    text: "Whitepaper: Probabilistic Models Require Deterministic Governance",
+    href: WHITEPAPER_PDF,
+    download: true,
+  },
+];
 
 export const INSIGHTS = [
   {
