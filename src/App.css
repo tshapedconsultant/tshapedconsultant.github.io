@@ -2142,6 +2142,100 @@ a:hover {
   color: var(--blue-600);
 }
 
+.act-role-list {
+  margin: 0.75rem 0 1rem;
+  padding-left: 1.2rem;
+  max-width: 72ch;
+}
+
+.act-role-list li {
+  margin: 0 0 0.45rem;
+}
+
+.act-role-list li:last-child {
+  margin-bottom: 0;
+}
+
+.mapping-teaser .act-role-list,
+.mapping-iso-home,
+.mapping-scope-home {
+  color: var(--slate-700);
+  font-size: 0.92rem;
+}
+
+.mapping-iso-home,
+.mapping-scope-home {
+  margin: 0 0 0.75rem;
+  max-width: 68ch;
+}
+
+.mapping-art12,
+.mapping-iso {
+  max-width: 72ch;
+}
+
+.mapping-scope {
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--navy-800);
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 72ch;
+}
+
+.exemplar-section {
+  margin: 2rem 0 2.4rem;
+}
+
+.exemplar-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.exemplar-table caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.exemplar-table th,
+.exemplar-table td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--navy-800);
+  padding: 0.7rem 0.75rem 0.7rem 0;
+}
+
+.exemplar-table thead th {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.exemplar-table tbody th {
+  font-weight: 600;
+  color: var(--white);
+  padding-right: 1rem;
+  white-space: nowrap;
+}
+
+.hero-principle {
+  margin: 0.55rem 0 0;
+  max-width: 68ch;
+  color: var(--cyan-200);
+  font-style: italic;
+}
+
+.diag-deliverables {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 62ch;
+}
+
 .mapping-page {
   width: min(72rem, calc(100% - 2.5rem));
 }
@@ -2677,6 +2771,47 @@ a:hover {
   }
 
   .mapping-table td::before {
+    content: attr(data-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .exemplar-table {
+    min-width: 0;
+  }
+
+  .exemplar-table thead {
+    display: none;
+  }
+
+  .exemplar-table,
+  .exemplar-table tbody,
+  .exemplar-table tr,
+  .exemplar-table th,
+  .exemplar-table td {
+    display: block;
+    width: 100%;
+    white-space: normal;
+  }
+
+  .exemplar-table tr {
+    margin-bottom: 1rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--navy-800);
+    background: var(--navy-900);
+  }
+
+  .exemplar-table td {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 0.35rem 0.75rem;
+    border: 0;
+    padding: 0.35rem 0;
+  }
+
+  .exemplar-table td::before {
     content: attr(data-label);
     font-size: 0.72rem;
     font-weight: 600;

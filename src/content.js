@@ -17,6 +17,13 @@ export const LINKS = {
 export const BRAND_DEFINITION =
   "AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.";
 
+export const HERO = {
+  tagline: "Responsible AI Architect · From regulation to runtime assurance",
+  value:
+    "Turning EU AI Act obligations and AI risk into executable controls, lifecycle gates, and verifiable evidence — from policy to runtime.",
+  principle: "Probabilistic models require deterministic governance.",
+};
+
 export const BEST_FIT =
   "Best fit: regulated and high-accountability AI use cases in financial services, insurance, critical operations, enterprise knowledge systems and agentic workflows.";
 
@@ -133,7 +140,7 @@ export const CASE_STUDIES = {
         { value: "61%", label: "Digital unit sales" },
         { value: "11,000+", label: "Employees on ChatGPT Enterprise" },
       ],
-      note: "Independent case study by Andrés Lage Freire, 2025. Figures as reported in the analysis (March 2025 and Q1 2025).",
+      note: "Independent strategic analysis by Andrés Lage Freire; not authored or endorsed by BBVA. Figures as reported in the analysis (March 2025 and Q1 2025).",
       pdf: CASE_STUDY_PDF,
     },
   ],
@@ -248,7 +255,7 @@ export const APPROACH = [
   {
     id: "runtime",
     title: "Runtime",
-    text: "Enforce limits independently while the system operates.",
+    text: "Independent limits on access, decision and execution while the system operates.",
     icon: "shield",
   },
   {
@@ -276,7 +283,7 @@ export const FRAMEWORKS = [
 export const DGOM = [
   { id: "plan", title: "PLAN", text: "Scope, ownership and risk appetite before build." },
   { id: "build", title: "BUILD", text: "Encode controls into design, SDLC and system boundaries." },
-  { id: "deploy", title: "DEPLOY", text: "Independent gates, human approval and runtime enforcement." },
+  { id: "deploy", title: "DEPLOY", text: "Independent gates, human approval and runtime assurance." },
   { id: "monitor", title: "MONITOR", text: "Drift, evidence, residual risk and recalibration." },
 ];
 
@@ -298,7 +305,7 @@ export const CAPABILITIES = [
   },
   {
     title: "Runtime assurance",
-    text: "Independent enforcement, kill switches and monitoring designed into the control architecture.",
+    text: "Independent runtime assurance, kill switches and monitoring designed into the control architecture.",
     icon: "monitor",
   },
   {
@@ -332,6 +339,8 @@ export const DIAGNOSTIC = {
   duration: "2–3 weeks",
   lead: "A 2–3 week engagement to identify AI risk, control gaps and a practical path to governed deployment.",
   outcome: "A board-ready risk view and an engineering-ready control plan.",
+  deliverables:
+    "Deliverables: board-ready risk view, control-gap report, and a 90-day implementation backlog (PDF + working session).",
   steps: ["Assess", "Prioritise", "Architect", "Roadmap"],
   items: [
     "AI inventory and use-case triage",
@@ -403,12 +412,58 @@ export const CREDENTIAL_GROUPS = [
     ],
   },
   {
-    label: "Education and credentials",
+    label: "Governance credentials",
     items: [
       {
-        kind: "Education",
-        title: "Chemical Engineering (Plan Superior)",
-        detail: "IQS School of Engineering – Universitat Ramon Llull · 247.5 ECTS",
+        kind: "Programme",
+        title: "Oxford Saïd — AI Governance",
+        detail: "Online programme",
+      },
+      {
+        kind: "Programme",
+        title: "Oxford Saïd · UNESCO — AI, Justice, and the Rule of Law",
+        detail: "Online programme · September 2026",
+      },
+      {
+        kind: "Programme",
+        title: "AI and European Union Law: Navigating Regulatory Compliance",
+        detail: "Online programme · October 2025",
+      },
+      {
+        kind: "Programme",
+        title: "Wharton Online — AI Strategy and Governance",
+        detail: "August 2025",
+      },
+      {
+        kind: "Programme",
+        title: "Trustworthy AI: Managing Bias, Ethics, and Accountability",
+        detail: "Johns Hopkins · August 2025",
+      },
+      {
+        kind: "Credential",
+        title: "IAPP AIGP",
+        detail: "In progress · exam scheduled 30 November 2026",
+        inProgress: true,
+      },
+    ],
+  },
+  {
+    label: "Technical programmes and education",
+    items: [
+      {
+        kind: "Programme",
+        title: "DeepLearning.AI — Retrieval Augmented Generation (RAG)",
+        detail: "Online programme · August 2026",
+      },
+      {
+        kind: "Programme",
+        title: "DeepLearning.AI — Agentic AI with Andrew Ng",
+        detail: "Online programme · November 2025",
+      },
+      {
+        kind: "Programme",
+        title: "Artificial Intelligence: Industrial Control Systems Security",
+        detail: "Johns Hopkins · March 2026",
       },
       {
         kind: "Programme",
@@ -422,29 +477,18 @@ export const CREDENTIAL_GROUPS = [
       },
       {
         kind: "Programme",
-        title: "Oxford Saïd · UNESCO — AI, Justice, and the Rule of Law",
-        detail: "2026",
+        title: "Stanford — Advanced Learning Algorithms · AI Awakening",
+        detail: "Online programme",
+      },
+      {
+        kind: "Education",
+        title: "Chemical Engineering (Plan Superior)",
+        detail: "IQS School of Engineering – Universitat Ramon Llull · 247.5 ECTS",
       },
       {
         kind: "Programme",
         title: "Harvard Online — Innovation Strategy",
         detail: "Private Beta Cohort",
-      },
-      {
-        kind: "Programme",
-        title: "Oxford Saïd — AI Governance",
-        detail: "Online programme",
-      },
-      {
-        kind: "Programme",
-        title: "Stanford — Advanced Learning Algorithms · AI Awakening",
-        detail: "Online programme",
-      },
-      {
-        kind: "Credential",
-        title: "IAPP AIGP",
-        detail: "In progress · exam scheduled 30 November 2026",
-        inProgress: true,
       },
     ],
   },
@@ -460,7 +504,7 @@ export const CREDENTIAL_GROUPS = [
       {
         kind: "Case study",
         title: "BBVA: Platform and AI Strategy",
-        detail: "Independent strategic analysis · 2025",
+        detail: "Independent strategic analysis · not authored or endorsed by BBVA · 2025",
         href: "#case-studies",
       },
       {

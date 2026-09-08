@@ -4,8 +4,12 @@ import { canonicalStringify, hashEvidencePayload } from "../lib/canonicalHash";
 export type EvidenceDecision = "ALLOW" | "BLOCK" | "HUMAN_REVIEW";
 
 export type EvidencePack = {
+  decision_id: string;
   control_id: string;
   policy_version: string;
+  model_version: string;
+  actor: string;
+  data_source: string;
   timestamp: string;
   input_summary: string;
   decision: EvidenceDecision;
@@ -17,12 +21,6 @@ export type EvidencePack = {
     };
   };
   evidence_hash: string;
-  anchoring: {
-    jira_key: string;
-    s3_object: string;
-    rekor_log_index: number;
-    rekor_uuid: string;
-  };
 };
 
 function roundMetric(value: number, digits = 4): number {
@@ -35,8 +33,12 @@ function buildUnsignedPack(seed: number): Omit<EvidencePack, "evidence_hash"> {
   const decision: EvidenceDecision = drift >= 0.09 ? "BLOCK" : drift >= 0.06 ? "HUMAN_REVIEW" : "ALLOW";
   const stamp = new Date(Date.now() - (seed % 7) * 1000).toISOString();
   return {
+    decision_id: `DEC-${String(1000000 + seed).slice(-6)}`,
     control_id: "CTRL-DRIFT-CLAIM-PRED",
     policy_version: "drift-gate-v1.4",
+    model_version: "claim-prediction-ebm-1.0.0",
+    actor: "underwriting.lead@example.com",
+    data_source: "train.csv · Porto Seguro Safe Driver Prediction",
     timestamp: stamp,
     input_summary:
       "Batch of 10,000 anonymised policy features for the claim-prediction model. No names, IDs or contact data.",
@@ -47,12 +49,6 @@ function buildUnsignedPack(seed: number): Omit<EvidencePack, "evidence_hash"> {
         demographic_parity_delta: roundMetric(0.0011 + (seed % 13) / 10000),
         equalized_odds_tpr_delta: roundMetric(0.0075 + (seed % 11) / 10000),
       },
-    },
-    anchoring: {
-      jira_key: "AIGOV-1842",
-      s3_object: `s3://ai-gov-evidence/packs/CTRL-DRIFT-CLAIM-PRED/${stamp.slice(0, 10)}/pack.json`,
-      rekor_log_index: 912384 + (seed % 50),
-      rekor_uuid: `a7c2e91d-4b18-5e60-9f3a-${(0x100000000000 + seed).toString(16).slice(-12)}`,
     },
   };
 }
@@ -117,10 +113,32 @@ export default function EvidencePackSample() {
       {pack ? (
         <dl className="evidence-pack-meta">
           <div>
+            <dt>decision_id</dt>
+            <dd>
+              <code>{pack.decision_id}</code>
+            </dd>
+          </div>
+          <div>
             <dt>control_id</dt>
             <dd>
               <code>{pack.control_id}</code>
             </dd>
+          </div>
+          <div>
+            <dt>model_version</dt>
+            <dd>
+              <code>{pack.model_version}</code>
+            </dd>
+          </div>
+          <div>
+            <dt>actor</dt>
+            <dd>
+              <code>{pack.actor}</code>
+            </dd>
+          </div>
+          <div>
+            <dt>data_source</dt>
+            <dd>{pack.data_source}</dd>
           </div>
           <div>
             <dt>policy_version</dt>
@@ -158,13 +176,6 @@ export default function EvidencePackSample() {
               <code className="hash-value">{pack.evidence_hash}</code>
             </dd>
           </div>
-          <div>
-            <dt>anchoring</dt>
-            <dd>
-              {pack.anchoring.jira_key} · {pack.anchoring.s3_object} · Rekor index{" "}
-              {pack.anchoring.rekor_log_index} ({pack.anchoring.rekor_uuid})
-            </dd>
-          </div>
         </dl>
       ) : (
         <p role="status">Computing evidence hash…</p>
@@ -188,10 +199,11 @@ export default function EvidencePackSample() {
         </pre>
       ) : null}
       <p className="evidence-pack-note">
-        In CI, each control decision appends a canonical payload and the previous event hash. The
-        resulting chain is tamper-evident locally; Jira, Rekor or object-lock storage can attest the
-        head. Auditors verify the chain and the external root — they do not take a dashboard
-        screenshot as proof. Canonical form used for the digest: {pretty ? "sorted-key JSON." : "—"}
+        In CI, each control decision appends a canonical payload and the previous event hash. Unique
+        decision IDs attribute the event to a user, model version and data source. The chain is
+        tamper-evident locally. Optional external anchors (Jira, Rekor, object-lock storage) exist in
+        Enterprise AI Risk and are off by default — this sample does not write to them. Canonical
+        form used for the digest: {pretty ? "sorted-key JSON." : "—"}
       </p>
     </section>
   );

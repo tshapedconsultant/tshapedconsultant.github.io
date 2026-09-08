@@ -28,7 +28,30 @@ export type MappingRow = {
 };
 
 export const MAPPING_SOURCE_NOTE =
-  "Rows follow the structure of the Porto Seguro conformity pack (model card, drift, fairness, robustness, Annex-style documentation) and the Enterprise AI Risk evidence model (hash-chained ledger, Jira gates, external anchors). Copy is original.";
+  "Rows follow the Porto Seguro conformity pack (model card, drift, fairness, robustness, Annex-style documentation) and the Enterprise AI Risk evidence model (hash-chained ledger, unique decision IDs, Jira human gates). External anchors such as Rekor or S3 are optional in that repository and off by default. Copy is original.";
+
+export const MAPPING_ROLE_BULLETS = [
+  "Role is classified per system and use case — provider or deployer — and that role sets the obligation set. It is not a permanent company label.",
+  "High-risk systems (Annex III examples: creditworthiness of natural persons, life and health insurance risk assessment and pricing, critical-infrastructure safety components) need the deeper Chapter III controls, including logs kept at least six months.",
+  "Non-high-risk systems still need proportionate controls, aligned to ISO/IEC 42001 and risk appetite — not a full high-risk stack by default.",
+];
+
+export const MAPPING_ART12_RETENTION =
+  "Art. 12 requires automatic, traceable event logs. For high-risk systems those logs are kept for a period appropriate to purpose — at least six months (Art. 19 for providers, Art. 26(6) for deployers), unless other Union or national law requires more. The reference controls use unique decision IDs and attribute events to the user, model version and data sources.";
+
+export const MAPPING_ISO_NOTE =
+  "ISO/IEC 42001 is an AI management system (AIMS). It structures governance; it does not by itself confer presumption of conformity under the AI Act. Where a high-risk quality-management system is required, align with applicable European standards as they become applicable (for example prEN 18286). The reference repositories do not implement prEN 18286.";
+
+export const MAPPING_ISO_NOTE_SHORT =
+  "ISO/IEC 42001 is an AIMS: it structures governance; it does not by itself confer presumption of conformity under the AI Act.";
+
+export const MAPPING_OUT_OF_SCOPE =
+  "Not legal advice. Not a notified body. This work does not certify AI systems. It prepares control design, engineering and evidence for assessments and audits.";
+
+export const MAPPING_OUT_OF_SCOPE_SHORT =
+  "Not legal advice and not a certification — control design and evidence for assessments.";
+
+export const EXEMPLAR_IDS = ["art-9-risk", "art-12-logs", "art-14-oversight"] as const;
 
 export const EU_AI_ACT_MAPPING_ROWS: MappingRow[] = [
   {
@@ -103,19 +126,23 @@ assert pack.model_details.version == release.git_sha`,
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "audit ledger",
-    control: "Append-only, hash-chained audit ledger",
-    evidence: "Chained event hashes + optional Rekor / S3 / Jira anchors",
+    control: "Append-only, hash-chained audit ledger with unique decision IDs",
+    evidence: "Chained hashes + DecisionRecord (user, model version, data sources)",
     status: "Implemented",
     requirement:
-      "Automatic logs of system operation for an appropriate period, in a form that can be traced and checked — not a spreadsheet rebuilt after the incident.",
-    controlExample: `event.hash = sha256(canonical(payload) + prev.hash)
-store.append(event)
-anchor(root_hash, sinks=["jira", "rekor", "s3"])`,
+      "High-risk systems must technically allow automatic event logs for traceability (Art. 12). Providers and deployers keep the logs under their control for a period appropriate to purpose — at least six months unless other Union or national law requires otherwise (Art. 19 / Art. 26(6)).",
+    controlExample: `event = {
+  decision_id, actor, model_version, data_source, payload
+}
+event.hash = sha256(canonical(event) + prev.hash)
+store.append(event)  # retain ≥ 6 months when high-risk`,
     evidenceExample: {
-      seq: 1842,
+      decision_id: "DEC-001842",
+      actor: "underwriting.lead@example.com",
+      model_version: "claim-prediction-ebm-1.0.0",
+      data_source: "train.csv",
       prev_hash: "9c1f…",
-      root_hash: "a3e8…",
-      sinks: ["jira", "rekor"],
+      event_hash: "a3e8…",
     },
   },
   {
@@ -234,7 +261,7 @@ ci.upload("evidence-pack.json")`,
     evidence: "Deployer runbook + named oversight log",
     status: "Planned",
     requirement:
-      "Deployers assign competent oversight, follow the provider’s instructions, and keep humans able to intervene — including when the system is embedded in an insurance or banking process.",
+      "Deployers assign competent oversight, follow the provider’s instructions, keep humans able to intervene, and retain automatically generated logs under their control for a period appropriate to purpose — at least six months unless other law requires otherwise (Art. 26(6)).",
     controlExample: `assign(oversight_role="underwriting_lead")
 require(human_can_override=True)
 monitor(drift_and_incidents)`,
@@ -266,3 +293,9 @@ ci.retain(pack, years=10)`,
     },
   },
 ];
+
+export function mappingExemplars(): MappingRow[] {
+  return EXEMPLAR_IDS.map((id) => EU_AI_ACT_MAPPING_ROWS.find((row) => row.id === id)).filter(
+    (row): row is MappingRow => Boolean(row)
+  );
+}

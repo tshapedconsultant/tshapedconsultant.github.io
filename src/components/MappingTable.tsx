@@ -96,7 +96,7 @@ export default function MappingTable() {
 
   return (
     <section className="mapping-table-section" aria-labelledby="mapping-table-title">
-      <h2 id="mapping-table-title">Article → control → evidence</h2>
+      <h2 id="mapping-table-title">Full mapping table</h2>
       <p>
         Eleven obligations that show up in due diligence for high-risk and high-accountability
         systems. Filter for a conversation; expand a row for the control sketch and a minimal pack.

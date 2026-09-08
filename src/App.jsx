@@ -25,7 +25,7 @@ import {
   HYBRID_ARTICLE,
   AUDIENCE,
   BEST_FIT,
-  BRAND_DEFINITION,
+  HERO,
   HERO_FOR,
   CAPABILITIES,
   CASE_STUDIES,
@@ -49,6 +49,11 @@ import {
   SOCIAL_PROOF,
   WHITEPAPER_PDF,
 } from "./content.js";
+import {
+  MAPPING_ISO_NOTE_SHORT,
+  MAPPING_OUT_OF_SCOPE_SHORT,
+  MAPPING_ROLE_BULLETS,
+} from "./data/euAiActMapping";
 
 const NAV_SECTIONS = [
   { id: "about", label: "About" },
@@ -174,7 +179,7 @@ function GovernanceDiagram() {
     "Policy / risk",
     "Control requirements",
     "System boundaries",
-    "Runtime enforcement",
+    "Runtime assurance",
     "Evidence trail",
   ];
 
@@ -739,13 +744,9 @@ export default function App() {
                     Andrés Lage Freire
                     <span className="h1-specialty">AI Governance Engineering</span>
                   </h1>
-                  <p className="tagline">Responsible AI Architect · From regulation to runtime assurance</p>
-                  <p className="brand-def">{BRAND_DEFINITION}</p>
-                  <p className="value-prop">
-                    I help organisations turn <strong>AI risk</strong>,{" "}
-                    <strong>regulatory obligations</strong> and <strong>accountability requirements</strong>{" "}
-                    into executable controls, lifecycle gates and verifiable evidence.
-                  </p>
+                  <p className="tagline">{HERO.tagline}</p>
+                  <p className="value-prop">{HERO.value}</p>
+                  <p className="hero-principle">{HERO.principle}</p>
                   <div className="hero-for">
                     <p>{HERO_FOR.audience}</p>
                     <p>{HERO_FOR.problems}</p>
@@ -833,7 +834,7 @@ export default function App() {
                   </p>
                   <h2>Why this matters</h2>
                 </div>
-                <p className="why-lead">AI governance is moving from documentation to enforcement.</p>
+                <p className="why-lead">AI governance is moving from documentation to runtime assurance.</p>
                 <p className="why-brutal">
                   Enterprises don&apos;t need another policy document. They need controls that survive
                   deployment, runtime, audit and regulatory scrutiny.
@@ -867,6 +868,13 @@ export default function App() {
                   <p className="callout-label">{MAPPING_TEASER.kicker}</p>
                   <h3>{MAPPING_TEASER.title}</h3>
                   <p>{MAPPING_TEASER.text}</p>
+                  <ul className="act-role-list">
+                    {MAPPING_ROLE_BULLETS.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p className="mapping-iso-home">{MAPPING_ISO_NOTE_SHORT}</p>
+                  <p className="mapping-scope-home">{MAPPING_OUT_OF_SCOPE_SHORT}</p>
                   <div className="mapping-teaser-actions">
                     <Link className="btn btn-solid" to={EU_AI_ACT_MAPPING_PATH}>
                       {MAPPING_TEASER.cta}
@@ -907,6 +915,7 @@ export default function App() {
                   <p className="diag-outcome">
                     <strong>Outcome.</strong> {DIAGNOSTIC.outcome}
                   </p>
+                  <p className="diag-deliverables">{DIAGNOSTIC.deliverables}</p>
                   <p className="cta-note">{CTA.note}</p>
                 </div>
                 <DiagnosticForm />
@@ -965,10 +974,10 @@ export default function App() {
 
                 <div className="dgom-block">
                   <p className="level-kicker">Operating model</p>
-                  <h3>DGOM™</h3>
+                  <h3>Dual Governance Operating Model (DGOM™)</h3>
                   <p className="dgom-sub">
-                    Dual Governance Operating Model — from board-level accountability to executable
-                    controls. PLAN → BUILD → DEPLOY → MONITOR.
+                    From board-level accountability to executable controls. PLAN → BUILD → DEPLOY →
+                    MONITOR.
                   </p>
                   <ol className="dgom-timeline">
                     {DGOM.map((phase) => (

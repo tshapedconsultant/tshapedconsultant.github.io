@@ -12,7 +12,7 @@ const STEPS = [
     text: "Encode those limits as tests, policy-as-code and release blockers. A model that misses the gate does not ship.",
   },
   {
-    title: "Runtime enforcement",
+    title: "Runtime assurance",
     text: "Independent controls constrain a probabilistic model while it runs — including kill switches and human review.",
   },
   {
