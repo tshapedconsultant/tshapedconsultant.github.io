@@ -17,6 +17,12 @@ export const LINKS = {
 export const BRAND_DEFINITION =
   "AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.";
 
+export const LOCATION =
+  "Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones.";
+
+export const ABOUT_INTRO =
+  "Responsible AI Architect. Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through runtime evidence.";
+
 export const HERO = {
   tagline: "Responsible AI Architect · From regulation to runtime assurance",
   value:
@@ -269,7 +275,7 @@ export const APPROACH = [
 export const MAPPING_TEASER = {
   kicker: "EU AI Act",
   title: "From article to evidence pack",
-  text: "See which obligations the work covers, the executable controls that implement them, and how hash-chained evidence is produced.",
+  text: "See which obligations apply, the controls that implement them, and the evidence pack an auditor would inspect.",
   cta: "Open the mapping",
 };
 
@@ -283,7 +289,7 @@ export const FRAMEWORKS = [
 export const DGOM = [
   { id: "plan", title: "PLAN", text: "Scope, ownership and risk appetite before build." },
   { id: "build", title: "BUILD", text: "Encode controls into design, SDLC and system boundaries." },
-  { id: "deploy", title: "DEPLOY", text: "Independent gates, human approval and runtime assurance." },
+  { id: "deploy", title: "DEPLOY", text: "Independent gates, human approval and runtime controls." },
   { id: "monitor", title: "MONITOR", text: "Drift, evidence, residual risk and recalibration." },
 ];
 
@@ -305,7 +311,7 @@ export const CAPABILITIES = [
   },
   {
     title: "Runtime assurance",
-    text: "Independent runtime assurance, kill switches and monitoring designed into the control architecture.",
+    text: "Independent runtime controls, kill switches and monitoring designed into the control architecture.",
     icon: "monitor",
   },
   {
@@ -340,7 +346,7 @@ export const DIAGNOSTIC = {
   lead: "A 2–3 week engagement to identify AI risk, control gaps and a practical path to governed deployment.",
   outcome: "A board-ready risk view and an engineering-ready control plan.",
   deliverables:
-    "Deliverables: board-ready risk view, control-gap report, and a 90-day implementation backlog (PDF + working session).",
+    "Deliverables: board-ready risk view, control-gap report, and a prioritised 90-day implementation backlog—delivered as an executive pack and working session.",
   steps: ["Assess", "Prioritise", "Architect", "Roadmap"],
   items: [
     "AI inventory and use-case triage",
@@ -425,7 +431,7 @@ export const CREDENTIAL_GROUPS = [
       {
         kind: "Programme",
         title: "AI Governance · Oxford Saïd",
-        detail: "Online programme",
+        detail: "Online programme · Completed 2026",
       },
       {
         kind: "Programme",
@@ -513,7 +519,7 @@ export const CREDENTIAL_GROUPS = [
       {
         kind: "Case study",
         title: "BBVA: Platform and AI Strategy",
-        detail: "Independent strategic analysis · not authored or endorsed by BBVA · 2025",
+        detail: "Independent strategic analysis by Andrés Lage Freire; not authored or endorsed by BBVA · 2025",
         href: "#case-studies",
       },
       {

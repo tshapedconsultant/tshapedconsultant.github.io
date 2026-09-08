@@ -1,7 +1,7 @@
 # tshapedconsultant.com — outline
 
 Site: https://tshapedconsultant.com/
-Author: Andrés Lage Freire, Responsible AI Architect (Madrid / EMEA remote)
+Author: Andrés Lage Freire, Responsible AI Architect. Based in Madrid · Remote-first across EMEA, with on-site workshops for key milestones.
 Practice: AI Governance Engineering — controls, accountability and evidence across the AI lifecycle.
 
 ## Pages
@@ -25,7 +25,7 @@ Why Hybrid Profiles May Have an Advantage in the Age of AI Agents (7 September 2
 Why autonomous systems need separation of powers (15 July 2026). Runtime Checks & Balances; EU AI Act Art. 14 and DORA.
 
 ### EU AI Act mapping — https://tshapedconsultant.com/governance/eu-ai-act-mapping
-Which articles the work covers, executable controls, and hash-chained evidence. References: Porto Seguro Compliance Hub; Enterprise AI Risk.
+Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect. References: Porto Seguro Compliance Hub; Enterprise AI Risk.
 
 ## Also
 - CV: https://tshapedconsultant.com/Andres-Lage-Freire-CV.pdf

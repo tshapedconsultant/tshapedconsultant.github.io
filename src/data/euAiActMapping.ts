@@ -30,14 +30,35 @@ export type MappingRow = {
 export const MAPPING_SOURCE_NOTE =
   "Rows follow the Porto Seguro conformity pack (model card, drift, fairness, robustness, Annex-style documentation) and the Enterprise AI Risk evidence model (hash-chained ledger, unique decision IDs, Jira human gates). External anchors such as Rekor or S3 are optional in that repository and off by default. Copy is original.";
 
+export const MAPPING_SUBTITLE =
+  "Selected EU AI Act duties mapped to executable controls that emit a hashed evidence pack — for CTOs, Heads of AI and Risk leaders.";
+
+export const MAPPING_INTRO =
+  "This page shows which obligations apply to a given role and system, the executable controls that implement them, and the minimal evidence pack an auditor would inspect.";
+
+export const MAPPING_SUBSET_NOTE =
+  "This is an engineering and audit-evidence subset of the Act. It is not exhaustive, and it is not a full legal interpretation.";
+
+export const MAPPING_DATES_NOTE =
+  "Application dates vary by category and role — for example Art. 50 transparency obligations from August 2026 versus later high-risk duties. This mapping is the control and evidence design expected when those obligations apply.";
+
 export const MAPPING_ROLE_BULLETS = [
   "Role is classified per system and use case — provider or deployer — and that role sets the obligation set. It is not a permanent company label.",
-  "High-risk systems (Annex III examples: creditworthiness of natural persons, life and health insurance risk assessment and pricing, critical-infrastructure safety components) need the deeper Chapter III controls, including logs kept at least six months.",
+  "Where high-risk obligations apply, Chapter III requires deeper controls and record-keeping. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties.",
   "Non-high-risk systems still need proportionate controls, aligned to ISO/IEC 42001 and risk appetite — not a full high-risk stack by default.",
 ];
 
+export const MAPPING_ROLE_FOOTNOTE =
+  "Provider and deployer follow the AI Act definitions. A single organisation can be both, depending on how the system is placed on the market or put into service.";
+
+export const MAPPING_FILTER_HELP =
+  "Filter by system type to see the obligations that typically apply to that role.";
+
+export const MAPPING_STATUS_NOTE =
+  "Status = implementation in reference projects, not regulatory applicability.";
+
 export const MAPPING_ART12_RETENTION =
-  "Art. 12 requires automatic, traceable event logs. For high-risk systems those logs are kept for a period appropriate to purpose — at least six months (Art. 19 for providers, Art. 26(6) for deployers), unless other Union or national law requires more. The reference controls use unique decision IDs and attribute events to the user, model version and data sources.";
+  "Art. 12 requires automatic, traceable event logs so the system's behaviour can be reconstructed. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 19 / Art. 26(6)). The reference controls use unique decision IDs and attribute events to the user, model version and data sources.";
 
 export const MAPPING_ISO_NOTE =
   "ISO/IEC 42001 is an AI management system (AIMS). It structures governance; it does not by itself confer presumption of conformity under the AI Act. Where a high-risk quality-management system is required, align with applicable European standards as they become applicable (for example prEN 18286). The reference repositories do not implement prEN 18286.";
@@ -61,11 +82,11 @@ export const EU_AI_ACT_MAPPING_ROWS: MappingRow[] = [
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "drift gate",
-    control: "Production compliance gate with KS drift thresholds",
+    control: "Lifecycle risk process with continuous KS drift gates",
     evidence: "Drift JSON pack + hash-chained audit event",
     status: "Implemented",
     requirement:
-      "A living risk process for high-risk systems: identify residual risk, set limits, and keep those limits under review while the model is in production.",
+      "A continuous, lifecycle risk process for high-risk systems: identify residual risk, set limits, and keep those limits under review while the model is in production.",
     controlExample: `if ks_statistic(feature) > policy.drift_threshold:
     emit_evidence(pack)
     return BLOCK  # or HUMAN_REVIEW`,
@@ -83,19 +104,24 @@ export const EU_AI_ACT_MAPPING_ROWS: MappingRow[] = [
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "data governance",
-    control: "Dataset lineage, split discipline, and quality scoring",
-    evidence: "Training-data card in the conformity JSON",
+    control: "Dataset lineage, representativeness checks, and bias metrics",
+    evidence: "Training-data card and fairness tests in the conformity JSON",
     status: "Reference",
     requirement:
-      "Training, validation and testing data must be relevant, sufficiently representative, and traceable — including how the split was made and what is out of scope.",
+      "Training, validation and testing data must be relevant, sufficiently representative, and traceable — including how the split was made, what is out of scope, and bias checks recorded in the conformity pack.",
     controlExample: `assert stratified_split(seed=42, ratio="80/20")
 assert lineage.source == "train.csv"
-record(data_quality_score, missing_value_columns)`,
+record(data_quality_score, missing_value_columns)
+record(fairness.demographic_parity, fairness.equalized_odds)`,
     evidenceExample: {
       dataset: "Porto Seguro Safe Driver Prediction",
       records: 595212,
       train_test_split: "80/20 stratified",
       data_quality_score: 0.7797,
+      fairness: {
+        demographic_parity_overall: true,
+        equalized_odds_tpr_delta: 0.0075,
+      },
     },
   },
   {
@@ -126,16 +152,16 @@ assert pack.model_details.version == release.git_sha`,
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "audit ledger",
-    control: "Append-only, hash-chained audit ledger with unique decision IDs",
+    control: "Tamper-evident hash-chained ledger for reconstructing behaviour",
     evidence: "Chained hashes + DecisionRecord (user, model version, data sources)",
     status: "Implemented",
     requirement:
-      "High-risk systems must technically allow automatic event logs for traceability (Art. 12). Providers and deployers keep the logs under their control for a period appropriate to purpose — at least six months unless other Union or national law requires otherwise (Art. 19 / Art. 26(6)).",
+      "High-risk systems must technically allow automatic event logs so authorities can reconstruct the system's behaviour (Art. 12). Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 19 / Art. 26(6)).",
     controlExample: `event = {
   decision_id, actor, model_version, data_source, payload
 }
 event.hash = sha256(canonical(event) + prev.hash)
-store.append(event)  # retain ≥ 6 months when high-risk`,
+store.append(event)  # retain per category; ≥6 months for many high-risk systems (Arts 19/26)`,
     evidenceExample: {
       decision_id: "DEC-001842",
       actor: "underwriting.lead@example.com",
@@ -152,11 +178,11 @@ store.append(event)  # retain ≥ 6 months when high-risk`,
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "explainability",
-    control: "Glass-box scores with global and local explanations",
+    control: "Technical explanations supporting user transparency and internal oversight",
     evidence: "Explanation artefacts in the evidence pack",
     status: "Implemented",
     requirement:
-      "Deployers and overseers must be able to interpret output and use the system appropriately — including what the score is, and is not, authorised to do.",
+      "Transparency so deployers can interpret output and use the system appropriately — including what the score is, and is not, authorised to do. Technical explanations (global and local scores) support that duty for users and internal overseers; the Act does not always require technical XAI.",
     controlExample: `explain = ebm.explain_local(row)
 pack.explanations = { global: top_features, local: explain }
 return score, explain  # never a silent decision`,
@@ -174,11 +200,11 @@ return score, explain  # never a silent decision`,
     roles: ["provider", "deployer", "high-risk"],
     systemType: "Provider / deployer · high-risk",
     controlKind: "human approval",
-    control: "Independent human gates (Jira) with allow-listed approvers",
+    control: "Human gates so operators can monitor, interpret, override and stop",
     evidence: "DecisionRecord + webhook timestamps",
     status: "Implemented",
     requirement:
-      "Natural persons must be able to understand, override and stop the system. Closing a department ticket is not a business approval unless a named human says so.",
+      "Natural persons must be able to monitor and interpret the system, override its output, and stop it. Closing a department ticket is not a business approval unless a named human says so.",
     controlExample: `if decision in {"BLOCK", "HUMAN_REVIEW"}:
     open_jira_gate(department)
     wait_hmac_webhook()
@@ -216,11 +242,11 @@ fail_pipeline() if not robustness_passed`,
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "runtime kill switch",
-    control: "Independent runtime stop-path (kill switch / execution guard)",
+    control: "Kill switch plus security monitoring on an independent stop-path",
     evidence: "Kill-switch audit event with actor and reason",
     status: "Reference",
     requirement:
-      "Resilience against attempts to alter use or performance — including a stop-path that does not depend on the model agreeing to be stopped.",
+      "Resilience against attempts to alter use or performance — including a stop-path that does not depend on the model agreeing to be stopped, with security monitoring of that path.",
     controlExample: `if not policy.allows(action):
     kill_switch("unauthorised_tool")
     log(actor="runtime_guard", decision="BLOCK")`,
@@ -261,7 +287,7 @@ ci.upload("evidence-pack.json")`,
     evidence: "Deployer runbook + named oversight log",
     status: "Planned",
     requirement:
-      "Deployers assign competent oversight, follow the provider’s instructions, keep humans able to intervene, and retain automatically generated logs under their control for a period appropriate to purpose — at least six months unless other law requires otherwise (Art. 26(6)).",
+      "Deployers follow the provider’s instructions, keep humans able to stop the system, and own monitoring. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 26(6)).",
     controlExample: `assign(oversight_role="underwriting_lead")
 require(human_can_override=True)
 monitor(drift_and_incidents)`,
@@ -278,11 +304,11 @@ monitor(drift_and_incidents)`,
     roles: ["provider", "high-risk"],
     systemType: "Provider · high-risk",
     controlKind: "SDLC gate",
-    control: "CI export of SHA-256-addressed evidence packs",
-    evidence: "Annex-style pack: model, data, tests, hashes",
+    control: "CI export of SHA-256 packs as an Annex IV–style documentation set",
+    evidence: "Annex IV–style set: model, data, tests, hashes",
     status: "Implemented",
     requirement:
-      "A file that can be handed to an auditor: system description, design, data, monitoring and the hashes that bind those artefacts to a release.",
+      "An Annex IV–style documentation set that can be handed to an auditor: system description, design, data, monitoring and the SHA-256 hashes that bind those artefacts to a release.",
     controlExample: `pack = build_annex_iv(model, data, tests, drift)
 pack.evidence_hash = sha256(canonical(pack))
 ci.retain(pack, years=10)`,

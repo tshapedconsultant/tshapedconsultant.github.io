@@ -20,6 +20,7 @@ import {
 import { pageSeoFor } from "./seo.js";
 import {
   ABOUT_BLOCKS,
+  ABOUT_INTRO,
   APPROACH,
   ARTICLE,
   HYBRID_ARTICLE,
@@ -43,17 +44,13 @@ import {
   FRAMEWORKS,
   INSIGHTS,
   LINKS,
+  LOCATION,
   MAPPING_TEASER,
   PROBLEMS,
   PROJECTS,
   SOCIAL_PROOF,
   WHITEPAPER_PDF,
 } from "./content.js";
-import {
-  MAPPING_ISO_NOTE_SHORT,
-  MAPPING_OUT_OF_SCOPE_SHORT,
-  MAPPING_ROLE_BULLETS,
-} from "./data/euAiActMapping";
 
 const NAV_SECTIONS = [
   { id: "about", label: "About" },
@@ -739,7 +736,7 @@ export default function App() {
             <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
-                  <p className="eyebrow">Madrid / EMEA remote</p>
+                  <p className="eyebrow">{LOCATION}</p>
                   <h1>
                     Andrés Lage Freire
                     <span className="h1-specialty">AI Governance Engineering</span>
@@ -868,13 +865,6 @@ export default function App() {
                   <p className="callout-label">{MAPPING_TEASER.kicker}</p>
                   <h3>{MAPPING_TEASER.title}</h3>
                   <p>{MAPPING_TEASER.text}</p>
-                  <ul className="act-role-list">
-                    {MAPPING_ROLE_BULLETS.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <p className="mapping-iso-home">{MAPPING_ISO_NOTE_SHORT}</p>
-                  <p className="mapping-scope-home">{MAPPING_OUT_OF_SCOPE_SHORT}</p>
                   <div className="mapping-teaser-actions">
                     <Link className="btn btn-solid" to={EU_AI_ACT_MAPPING_PATH}>
                       {MAPPING_TEASER.cta}
@@ -1354,12 +1344,7 @@ export default function App() {
                   ))}
                 </div>
                 <div className="prose about-bio">
-                  <p>
-                    Responsible AI Architect based in Madrid, open to EMEA / remote. Independent
-                    Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist
-                    (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI
-                    systems, governance and regulation — from architecture through runtime evidence.
-                  </p>
+                  <p>{ABOUT_INTRO}</p>
                 </div>
                 <a className="btn btn-ghost" href={CV_PDF} download>
                   Download CV (PDF)
@@ -1439,6 +1424,7 @@ export default function App() {
           <Link to={WHITEPAPER_PATH}>Whitepaper</Link>
         </p>
         <p>© {new Date().getFullYear()} Andrés Lage Freire · tshapedconsultant.com</p>
+        <p>{LOCATION}</p>
         <p>AI Governance Engineering · From regulation to runtime assurance</p>
       </footer>
     </div>

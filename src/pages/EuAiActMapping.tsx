@@ -4,10 +4,15 @@ import GovernancePipeline from "../components/GovernancePipeline";
 import MappingTable from "../components/MappingTable";
 import {
   MAPPING_ART12_RETENTION,
+  MAPPING_DATES_NOTE,
+  MAPPING_INTRO,
   MAPPING_ISO_NOTE,
   MAPPING_OUT_OF_SCOPE,
   MAPPING_ROLE_BULLETS,
+  MAPPING_ROLE_FOOTNOTE,
   MAPPING_SOURCE_NOTE,
+  MAPPING_SUBSET_NOTE,
+  MAPPING_SUBTITLE,
 } from "../data/euAiActMapping";
 import { EU_AI_ACT_MAPPING_PATH, WHITEPAPER_PATH } from "../routes";
 
@@ -22,22 +27,17 @@ export default function EuAiActMapping() {
       </p>
       <p className="paper-kicker">AI Governance Engineering</p>
       <h1>EU AI Act mapping</h1>
-      <p className="paper-sub">
-        Which articles the offer covers, which executable controls implement them, and how evidence
-        is generated — for CTOs, Heads of AI and Risk leaders.
-      </p>
+      <p className="paper-sub">{MAPPING_SUBTITLE}</p>
       <p className="callout">Probabilistic models require deterministic governance.</p>
-      <p>
-        High-risk and high-accountability systems do not become governable by restating the
-        regulation. They become governable when each duty has a control that can fail a pipeline,
-        stop a runtime action, or force a human decision — and when that event leaves a hashed
-        pack.
-      </p>
+      <p>{MAPPING_INTRO}</p>
+      <p className="mapping-iso">{MAPPING_SUBSET_NOTE}</p>
+      <p className="mapping-iso">{MAPPING_DATES_NOTE}</p>
       <ul className="act-role-list">
         {MAPPING_ROLE_BULLETS.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>
+      <p className="mapping-footnote">{MAPPING_ROLE_FOOTNOTE}</p>
       <p className="mapping-art12">{MAPPING_ART12_RETENTION}</p>
       <p className="mapping-iso">{MAPPING_ISO_NOTE}</p>
       <p className="note">
@@ -65,6 +65,10 @@ export default function EuAiActMapping() {
       <EvidencePackSample />
 
       <p className="mapping-scope">{MAPPING_OUT_OF_SCOPE}</p>
+      <p className="mapping-cta">
+        If you want this mapping applied to your AI inventory, start with an{" "}
+        <a href="/#diagnostic">AI Governance Diagnostic</a>.
+      </p>
     </article>
   );
 }

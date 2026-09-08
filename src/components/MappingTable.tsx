@@ -1,6 +1,8 @@
 import { Fragment, useMemo, useState } from "react";
 import {
   EU_AI_ACT_MAPPING_ROWS,
+  MAPPING_FILTER_HELP,
+  MAPPING_STATUS_NOTE,
   type ControlKind,
   type MappingRow,
   type MappingStatus,
@@ -164,6 +166,7 @@ export default function MappingTable() {
           </div>
         </fieldset>
       </form>
+      <p className="mapping-help">{MAPPING_FILTER_HELP}</p>
 
       <p className="mapping-count" role="status">
         Showing {rows.length} of {EU_AI_ACT_MAPPING_ROWS.length} obligations
@@ -255,6 +258,7 @@ export default function MappingTable() {
           </tbody>
         </table>
       </div>
+      <p className="mapping-status-note">{MAPPING_STATUS_NOTE}</p>
     </section>
   );
 }

@@ -101,9 +101,9 @@ export default function EvidencePackSample() {
     <section className="evidence-pack" aria-labelledby="evidence-pack-title">
       <h2 id="evidence-pack-title">Sample evidence pack</h2>
       <p>
-        Hypothetical drift gate for a claim-prediction model. The SHA-256 hash is computed in the
-        browser over canonical JSON (sorted keys, hash field omitted). Nothing here is production
-        evidence.
+        Hypothetical sample — not production evidence. A drift gate for a claim-prediction model.
+        The SHA-256 hash is computed in the browser over canonical JSON (sorted keys, hash field
+        omitted).
       </p>
       {error ? (
         <p className="field-error" role="alert">
@@ -201,9 +201,9 @@ export default function EvidencePackSample() {
       <p className="evidence-pack-note">
         In CI, each control decision appends a canonical payload and the previous event hash. Unique
         decision IDs attribute the event to a user, model version and data source. The chain is
-        tamper-evident locally. Optional external anchors (Jira, Rekor, object-lock storage) exist in
-        Enterprise AI Risk and are off by default — this sample does not write to them. Canonical
-        form used for the digest: {pretty ? "sorted-key JSON." : "—"}
+        tamper-evident locally. Automatically generated logs under the deployer's control are generally retained for at least six months, subject to the applicable system category and other legal retention duties (Art. 19 / Art. 26(6)). Optional external anchors (Jira,
+        Rekor, object-lock storage) exist in Enterprise AI Risk and are off by default — this sample
+        does not write to them. Canonical form used for the digest: {pretty ? "sorted-key JSON." : "—"}
       </p>
     </section>
   );

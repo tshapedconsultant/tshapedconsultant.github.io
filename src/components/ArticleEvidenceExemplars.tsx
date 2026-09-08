@@ -7,8 +7,8 @@ export default function ArticleEvidenceExemplars() {
     <section className="exemplar-section" aria-labelledby="exemplar-title">
       <h2 id="exemplar-title">Article → control → evidence</h2>
       <p>
-        Three high-risk exemplars. Each line is the same mapping as the table below — scannable in
-        seconds.
+        Three high-risk exemplars. Each line is the same mapping as the table below — article, executable
+        control, and the evidence an auditor would inspect.
       </p>
       <div className="table-wrap exemplar-wrap">
         <table className="exemplar-table">
