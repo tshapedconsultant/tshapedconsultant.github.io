@@ -1754,6 +1754,13 @@ a:hover {
   font-weight: 600;
 }
 
+.cred-intro {
+  margin: -0.25rem 0 0.9rem;
+  max-width: 62ch;
+  color: var(--slate-700);
+  font-size: 0.95rem;
+}
+
 .validation-grid {
   list-style: none;
   margin: 0;

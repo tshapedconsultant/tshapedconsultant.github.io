@@ -1289,6 +1289,7 @@ export default function App() {
                 {CREDENTIAL_GROUPS.map((group) => (
                   <div className="cred-group" key={group.label}>
                     <p className="cred-label">{group.label}</p>
+                    {group.intro ? <p className="cred-intro">{group.intro}</p> : null}
                     <ul className="validation-grid">
                       {group.items.map((item) => (
                         <li className={item.featured ? "featured" : undefined} key={item.title}>

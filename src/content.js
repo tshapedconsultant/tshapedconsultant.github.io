@@ -413,16 +413,19 @@ export const CREDENTIAL_GROUPS = [
   },
   {
     label: "Governance credentials",
+    intro:
+      "Governance credentials focused on EU AI Act, ISO/IEC 42001-style AI management systems, bias/ethics, and organisational accountability.",
     items: [
       {
-        kind: "Programme",
-        title: "Oxford Saïd — AI Governance",
-        detail: "Online programme",
+        kind: "Credential",
+        title: "IAPP AIGP",
+        detail: "In progress · exam scheduled 30 November 2026",
+        inProgress: true,
       },
       {
         kind: "Programme",
-        title: "Oxford Saïd · UNESCO — AI, Justice, and the Rule of Law",
-        detail: "Online programme · September 2026",
+        title: "AI Governance · Oxford Saïd",
+        detail: "Online programme",
       },
       {
         kind: "Programme",
@@ -431,64 +434,70 @@ export const CREDENTIAL_GROUPS = [
       },
       {
         kind: "Programme",
-        title: "Wharton Online — AI Strategy and Governance",
-        detail: "August 2025",
+        title: "AI, Justice, and the Rule of Law · Oxford Saïd · UNESCO",
+        detail: "Online programme · September 2026",
       },
       {
         kind: "Programme",
-        title: "Trustworthy AI: Managing Bias, Ethics, and Accountability",
-        detail: "Johns Hopkins · August 2025",
+        title: "AI Strategy and Governance · Wharton Online",
+        detail: "Online programme · August 2025",
       },
       {
-        kind: "Credential",
-        title: "IAPP AIGP",
-        detail: "In progress · exam scheduled 30 November 2026",
-        inProgress: true,
+        kind: "Programme",
+        title: "Trustworthy AI: Managing Bias, Ethics, and Accountability · Johns Hopkins",
+        detail: "Online programme · August 2025",
       },
     ],
   },
   {
-    label: "Technical programmes and education",
+    label: "Technical programmes",
     items: [
       {
         kind: "Programme",
-        title: "DeepLearning.AI — Retrieval Augmented Generation (RAG)",
-        detail: "Online programme · August 2026",
-      },
-      {
-        kind: "Programme",
-        title: "DeepLearning.AI — Agentic AI with Andrew Ng",
+        title: "Agentic AI with Andrew Ng · DeepLearning.AI",
         detail: "Online programme · November 2025",
       },
       {
         kind: "Programme",
-        title: "Artificial Intelligence: Industrial Control Systems Security",
-        detail: "Johns Hopkins · March 2026",
+        title: "Retrieval Augmented Generation (RAG) · DeepLearning.AI",
+        detail: "Online programme · August 2026",
       },
       {
         kind: "Programme",
-        title: "Harvard SEAS — Agentic AI Foundations",
-        detail: "2026",
+        title: "Agentic AI Foundations · Harvard SEAS",
+        detail: "Online programme · 2026",
       },
       {
         kind: "Programme",
-        title: "Stanford Online — Cybersecurity and Executive Strategy",
-        detail: "2026 · XACS302",
+        title: "Artificial Intelligence: Industrial Control Systems Security · Johns Hopkins",
+        detail: "Online programme · March 2026",
       },
       {
         kind: "Programme",
-        title: "Stanford — Advanced Learning Algorithms · AI Awakening",
+        title: "Cybersecurity and Executive Strategy · Stanford Online",
+        detail: "Online programme · 2026 · XACS302",
+      },
+      {
+        kind: "Programme",
+        title: "Advanced Learning Algorithms · AI Awakening · Stanford",
         detail: "Online programme",
       },
       {
-        kind: "Education",
-        title: "Chemical Engineering (Plan Superior)",
-        detail: "IQS School of Engineering – Universitat Ramon Llull · 247.5 ECTS",
-      },
-      {
         kind: "Programme",
-        title: "Harvard Online — Innovation Strategy",
-        detail: "Private Beta Cohort",
+        title: "Innovation Strategy · Harvard Online",
+        detail: "Online programme · Private Beta Cohort",
+      },
+    ],
+  },
+  {
+    label: "Education",
+    intro:
+      "Engineering foundation with strong quantitative and systems focus; later specialisation in AI, governance and regulation.",
+    items: [
+      {
+        kind: "Education",
+        title: "Chemical Engineering (Plan Superior) · IQS School of Engineering – Universitat Ramon Llull",
+        detail: "247.5 ECTS",
       },
     ],
   },
