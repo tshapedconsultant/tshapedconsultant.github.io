@@ -63,6 +63,7 @@ export default function EvidencePackSample() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [generation, setGeneration] = useState(1);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,6 +86,11 @@ export default function EvidencePackSample() {
 
   const pretty = useMemo(() => (pack ? `${canonicalStringify(pack)}` : ""), [pack]);
   const formatted = useMemo(() => (pack ? JSON.stringify(pack, null, 2) : ""), [pack]);
+  const shortHash = pack?.evidence_hash
+    ? pack.evidence_hash.length > 20
+      ? `${pack.evidence_hash.slice(0, 10)}…${pack.evidence_hash.slice(-8)}`
+      : pack.evidence_hash
+    : "";
 
   function download() {
     if (!pack) return;
@@ -95,6 +101,17 @@ export default function EvidencePackSample() {
     link.download = `${pack.control_id}-${pack.timestamp.replace(/[:.]/g, "-")}.json`;
     link.click();
     URL.revokeObjectURL(url);
+  }
+
+  async function copyHash() {
+    if (!pack?.evidence_hash) return;
+    try {
+      await navigator.clipboard.writeText(pack.evidence_hash);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
   }
 
   return (
@@ -112,57 +129,57 @@ export default function EvidencePackSample() {
       ) : null}
       {pack ? (
         <dl className="evidence-pack-meta">
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>decision_id</dt>
             <dd>
               <code>{pack.decision_id}</code>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-primary ev-control">
             <dt>control_id</dt>
             <dd>
               <code>{pack.control_id}</code>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>model_version</dt>
             <dd>
               <code>{pack.model_version}</code>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>actor</dt>
             <dd>
               <code>{pack.actor}</code>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>data_source</dt>
             <dd>{pack.data_source}</dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>policy_version</dt>
             <dd>
               <code>{pack.policy_version}</code>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-primary ev-timestamp">
             <dt>timestamp</dt>
             <dd>
               <time dateTime={pack.timestamp}>{pack.timestamp}</time>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-primary ev-decision">
             <dt>decision</dt>
             <dd>
               <span className={`status-pill status-${pack.decision.toLowerCase()}`}>{pack.decision}</span>
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>input_summary</dt>
             <dd>{pack.input_summary}</dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-extra">
             <dt>metrics</dt>
             <dd>
               drift_score {pack.metrics.drift_score} · demographic_parity_delta{" "}
@@ -170,10 +187,11 @@ export default function EvidencePackSample() {
               {pack.metrics.fairness_metrics.equalized_odds_tpr_delta}
             </dd>
           </div>
-          <div>
+          <div className="evidence-field evidence-field-primary ev-hash">
             <dt>evidence_hash</dt>
             <dd>
-              <code className="hash-value">{pack.evidence_hash}</code>
+              <code className="hash-value hash-full">{pack.evidence_hash}</code>
+              <span className="hash-abbr">{shortHash}</span>
             </dd>
           </div>
         </dl>
@@ -192,11 +210,17 @@ export default function EvidencePackSample() {
         <button className="btn btn-ghost" type="button" disabled={!pack} onClick={download}>
           Download JSON
         </button>
+        <button className="btn btn-ghost" type="button" disabled={!pack} onClick={() => void copyHash()}>
+          {copied ? "Hash copied" : "Copy hash"}
+        </button>
       </div>
       {formatted ? (
-        <pre className="rego evidence-json" tabIndex={0}>
-          {formatted}
-        </pre>
+        <details className="evidence-json-disclose">
+          <summary>View JSON</summary>
+          <pre className="rego evidence-json" tabIndex={0}>
+            {formatted}
+          </pre>
+        </details>
       ) : null}
       <p className="evidence-pack-note">
         In CI, each control decision appends a canonical payload and the previous event hash. Unique

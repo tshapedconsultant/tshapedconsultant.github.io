@@ -258,6 +258,54 @@ export default function MappingTable() {
           </tbody>
         </table>
       </div>
+
+      <ul className="mapping-cards">
+        {rows.length ? (
+          rows.map((row) => {
+            const panelId = `${row.id}-card-detail`;
+            return (
+              <li key={row.id} className="mapping-card">
+                <p className="mapping-card-article">{row.article}</p>
+                <p className="mapping-card-meta">
+                  <span className="mapping-card-label">Role</span>
+                  {row.systemType}
+                </p>
+                <p className="mapping-card-meta">
+                  <span className="mapping-card-label">Status</span>
+                  <span className={`status-pill status-${row.status.toLowerCase()}`}>{row.status}</span>
+                </p>
+                <p className="mapping-card-meta">
+                  <span className="mapping-card-label">Control</span>
+                  <span className="control-kind">{row.controlKind}</span>
+                  {row.control}
+                </p>
+                <p className="mapping-card-meta">
+                  <span className="mapping-card-label">Evidence</span>
+                  {row.evidence}
+                </p>
+                <details className="mapping-card-sketch">
+                  <summary>Control sketch</summary>
+                  <div className="mapping-detail" id={panelId}>
+                    <p>
+                      <strong>Requirement.</strong> {row.requirement}
+                    </p>
+                    <p>
+                      <strong>Control sketch.</strong>
+                    </p>
+                    <pre className="rego">{row.controlExample}</pre>
+                    <p>
+                      <strong>Evidence example.</strong>
+                    </p>
+                    <pre className="rego">{JSON.stringify(row.evidenceExample, null, 2)}</pre>
+                  </div>
+                </details>
+              </li>
+            );
+          })
+        ) : (
+          <li className="mapping-card mapping-card-empty">No obligations match these filters.</li>
+        )}
+      </ul>
       <p className="mapping-status-note">{MAPPING_STATUS_NOTE}</p>
     </section>
   );

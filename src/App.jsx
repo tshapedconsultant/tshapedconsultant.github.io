@@ -60,6 +60,16 @@ const NAV_SECTIONS = [
   { id: "contact", label: "Contact" },
 ];
 
+const MOBILE_NAV = [
+  { id: "approach", label: "Approach" },
+  { to: EU_AI_ACT_MAPPING_PATH, label: "EU AI Act mapping", view: "mapping" },
+  { id: "case-studies", label: "Case study" },
+  { id: "projects", label: "Reference implementations" },
+  { to: WHITEPAPER_PATH, label: "Whitepaper", view: "whitepaper" },
+  { id: "validation", label: "About / credentials" },
+  { id: "contact", label: "Contact" },
+];
+
 function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
@@ -171,7 +181,11 @@ function enquiryMailtoHref({ name, company, email, govern, stageLabel }) {
 }
 
 function GovernanceDiagram() {
-  const primary = ["Regulation", "Engineering", "Runtime Assurance"];
+  const primary = [
+    { label: "Regulation", text: "Obligations become control requirements." },
+    { label: "Engineering", text: "Requirements become executable controls." },
+    { label: "Runtime Assurance", text: "Independent limits while the system runs." },
+  ];
   const pipeline = [
     "Policy / risk",
     "Control requirements",
@@ -187,12 +201,13 @@ function GovernanceDiagram() {
         From regulation to runtime assurance
       </figcaption>
       <ol className="arch-primary">
-        {primary.map((label, index) => (
-          <li key={label}>
+        {primary.map((step, index) => (
+          <li key={step.label}>
             <span className="arch-index" aria-hidden="true">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className="arch-label">{label}</span>
+            <span className="arch-label">{step.label}</span>
+            <span className="arch-sentence">{step.text}</span>
           </li>
         ))}
       </ol>
@@ -636,6 +651,16 @@ export default function App() {
             <small>AI Governance Engineering</small>
           </span>
         </Link>
+        <a
+          className="nav-cta nav-cta-bar"
+          href="#diagnostic"
+          onClick={(event) => {
+            event.preventDefault();
+            goHomeSection("diagnostic");
+          }}
+        >
+          Discuss
+        </a>
         <button
           className="menu-toggle"
           type="button"
@@ -650,75 +675,118 @@ export default function App() {
           {menuOpen ? "Close" : "Menu"}
         </button>
         <nav id="site-nav" className={menuOpen ? "open" : undefined} aria-label="Primary">
-          {NAV_SECTIONS.map((item) => (
+          <div className="nav-desktop">
+            {NAV_SECTIONS.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={activeSection === item.id && view === "home" ? "is-active" : undefined}
+                aria-current={activeSection === item.id && view === "home" ? "location" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  goHomeSection(item.id);
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+            <Link
+              to={EU_AI_ACT_MAPPING_PATH}
+              className={view === "mapping" ? "is-active" : undefined}
+              aria-current={view === "mapping" ? "page" : undefined}
+              onClick={() => {
+                setMenuOpen(false);
+                setMoreOpen(false);
+              }}
+            >
+              EU AI Act
+            </Link>
+            <Link
+              to={WHITEPAPER_PATH}
+              className={view === "whitepaper" ? "is-active" : undefined}
+              aria-current={view === "whitepaper" ? "page" : undefined}
+              onClick={() => {
+                setMenuOpen(false);
+                setMoreOpen(false);
+              }}
+            >
+              Whitepaper
+            </Link>
             <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={activeSection === item.id && view === "home" ? "is-active" : undefined}
-              aria-current={activeSection === item.id && view === "home" ? "location" : undefined}
+              className="nav-cta"
+              href="#diagnostic"
               onClick={(event) => {
                 event.preventDefault();
-                goHomeSection(item.id);
+                goHomeSection("diagnostic");
               }}
             >
-              {item.label}
+              Discuss
             </a>
-          ))}
-          <Link
-            to={EU_AI_ACT_MAPPING_PATH}
-            className={view === "mapping" ? "is-active" : undefined}
-            aria-current={view === "mapping" ? "page" : undefined}
-            onClick={() => {
-              setMenuOpen(false);
-              setMoreOpen(false);
-            }}
-          >
-            EU AI Act
-          </Link>
-          <Link
-            to={WHITEPAPER_PATH}
-            className={view === "whitepaper" ? "is-active" : undefined}
-            aria-current={view === "whitepaper" ? "page" : undefined}
-            onClick={() => {
-              setMenuOpen(false);
-              setMoreOpen(false);
-            }}
-          >
-            Whitepaper
-          </Link>
-          <a
-            className="nav-cta"
-            href="#diagnostic"
-            onClick={(event) => {
-              event.preventDefault();
-              goHomeSection("diagnostic");
-            }}
-          >
-            Discuss
-          </a>
-          <div className="more-wrap" ref={moreWrapRef}>
-            <button
-              className="more-toggle"
-              type="button"
-              ref={moreBtnRef}
-              aria-expanded={moreOpen}
-              aria-haspopup="true"
-              aria-controls="more-menu"
-              onClick={() => setMoreOpen((open) => !open)}
-              onKeyDown={(event) => {
-                if (event.key !== "ArrowDown") return;
-                event.preventDefault();
-                setMoreOpen(true);
-                requestAnimationFrame(() => moreWrapRef.current?.querySelector("a")?.focus());
-              }}
-            >
-              Resources
-            </button>
-            <div id="more-menu" className={moreOpen ? "more-menu open" : "more-menu"} hidden={!moreOpen}>
-              {secondaryLinks}
+            <div className="more-wrap" ref={moreWrapRef}>
+              <button
+                className="more-toggle"
+                type="button"
+                ref={moreBtnRef}
+                aria-expanded={moreOpen}
+                aria-haspopup="true"
+                aria-controls="more-menu"
+                onClick={() => setMoreOpen((open) => !open)}
+                onKeyDown={(event) => {
+                  if (event.key !== "ArrowDown") return;
+                  event.preventDefault();
+                  setMoreOpen(true);
+                  requestAnimationFrame(() => moreWrapRef.current?.querySelector("a")?.focus());
+                }}
+              >
+                Resources
+              </button>
+              <div id="more-menu" className={moreOpen ? "more-menu open" : "more-menu"} hidden={!moreOpen}>
+                {secondaryLinks}
+              </div>
             </div>
           </div>
-          <div className="nav-secondary">{secondaryLinks}</div>
+          <div className="nav-mobile">
+            {MOBILE_NAV.map((item) =>
+              item.to ? (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={view === item.view ? "is-active" : undefined}
+                  aria-current={view === item.view ? "page" : undefined}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setMoreOpen(false);
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={activeSection === item.id && view === "home" ? "is-active" : undefined}
+                  aria-current={activeSection === item.id && view === "home" ? "location" : undefined}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    goHomeSection(item.id);
+                  }}
+                >
+                  {item.label}
+                </a>
+              )
+            )}
+            <a
+              className="nav-cta"
+              href="#diagnostic"
+              onClick={(event) => {
+                event.preventDefault();
+                goHomeSection("diagnostic");
+              }}
+            >
+              Discuss
+            </a>
+            <div className="nav-secondary">{secondaryLinks}</div>
+          </div>
         </nav>
       </header>
 
@@ -760,31 +828,36 @@ export default function App() {
                       >
                         {CTA.primary}
                       </a>
-                      <a className="btn btn-ghost" href={WHITEPAPER_PATH}>
+                      <a className="btn btn-ghost hero-secondary-desktop" href={WHITEPAPER_PATH}>
                         Read the whitepaper
                       </a>
+                      <Link className="btn btn-ghost hero-secondary-mobile" to={EU_AI_ACT_MAPPING_PATH}>
+                        EU AI Act mapping
+                      </Link>
                     </div>
                     <p className="cta-note">{CTA.note}</p>
-                    <a
-                      className="text-link"
-                      href="#case-studies"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        goHomeSection("case-studies");
-                      }}
-                    >
-                      Read the BBVA case study
-                    </a>
-                    <a
-                      className="text-link"
-                      href="#projects"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        goHomeSection("projects");
-                      }}
-                    >
-                      View reference implementations
-                    </a>
+                    <div className="hero-later-links">
+                      <a
+                        className="text-link"
+                        href="#case-studies"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("case-studies");
+                        }}
+                      >
+                        Read the BBVA case study
+                      </a>
+                      <a
+                        className="text-link"
+                        href="#projects"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("projects");
+                        }}
+                      >
+                        View reference implementations
+                      </a>
+                    </div>
                     <ul className="audience" aria-label="Choose your path">
                       {AUDIENCE.map((item) => (
                         <li key={item.id}>
@@ -842,7 +915,10 @@ export default function App() {
                     <article className="risk-panel" key={item.title}>
                       <Icon name={item.icon} />
                       <h3>{item.title}</h3>
-                      <p>{item.text}</p>
+                      <details className="mobile-disclose risk-body">
+                        <summary>Read more</summary>
+                        <p>{item.text}</p>
+                      </details>
                     </article>
                   ))}
                 </div>
@@ -906,7 +982,7 @@ export default function App() {
                     <strong>Outcome.</strong> {DIAGNOSTIC.outcome}
                   </p>
                   <p className="diag-deliverables">{DIAGNOSTIC.deliverables}</p>
-                  <p className="cta-note">{CTA.note}</p>
+                  <p className="cta-note cta-note-repeat">{CTA.note}</p>
                 </div>
                 <DiagnosticForm />
               </div>
@@ -1048,11 +1124,14 @@ export default function App() {
                   {DELIVER.map((group) => (
                     <article key={group.title}>
                       <h3>{group.title}</h3>
-                      <ul>
-                        {group.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
+                      <details className="mobile-disclose deliver-body">
+                        <summary>What’s included</summary>
+                        <ul>
+                          {group.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </details>
                     </article>
                   ))}
                 </div>
@@ -1102,11 +1181,14 @@ export default function App() {
                       </div>
                       <div>
                         <h4>What was done</h4>
-                        <ul>
-                          {study.approach.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
+                        <details className="mobile-disclose case-done">
+                          <summary>Show workstream</summary>
+                          <ul>
+                            {study.approach.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </details>
                       </div>
                       <div>
                         <h4>Outcome</h4>
@@ -1241,8 +1323,13 @@ export default function App() {
                   and on Medium.
                 </p>
                 <ul className="insight-grid">
-                  {INSIGHTS.map((item) => (
-                    <li className={item.featured ? "featured" : undefined} key={item.href}>
+                  {INSIGHTS.map((item, index) => (
+                    <li
+                      className={[item.featured ? "featured" : "", index >= 2 ? "insight-extra" : ""]
+                        .filter(Boolean)
+                        .join(" ") || undefined}
+                      key={item.href}
+                    >
                       <Icon name={item.icon} />
                       <h3>
                         {item.internal ? (
@@ -1260,6 +1347,12 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
+                <details className="mobile-disclose insights-toggle">
+                  <summary>
+                    <span className="when-closed">View all insights</span>
+                    <span className="when-open">Show fewer insights</span>
+                  </summary>
+                </details>
                 <p className="more-repos">
                   <ExternalLink className="btn btn-ghost" href={LINKS.medium}>
                     All articles on Medium
@@ -1276,51 +1369,69 @@ export default function App() {
                   </p>
                   <h2>Credentials, publications and open work</h2>
                 </div>
-                {CREDENTIAL_GROUPS.map((group) => (
-                  <div className="cred-group" key={group.label}>
-                    <p className="cred-label">{group.label}</p>
-                    {group.intro ? <p className="cred-intro">{group.intro}</p> : null}
-                    <ul className="validation-grid">
-                      {group.items.map((item) => (
-                        <li className={item.featured ? "featured" : undefined} key={item.title}>
-                          <p className="val-kind">
-                            {item.kind}
-                            {item.inProgress ? <span className="in-progress">In progress</span> : null}
-                          </p>
-                          <h3>
-                            {item.href ? (
-                              isInternalHref(item.href) ? (
-                                <a href={item.href}>{item.title}</a>
-                              ) : (
-                                <ExternalLink href={item.href}>{item.title}</ExternalLink>
-                              )
-                            ) : (
-                              item.title
-                            )}
-                          </h3>
-                          <p>{item.detail}</p>
-                          {item.note ? <p className="val-note">{item.note}</p> : null}
-                          {item.skills ? (
-                            <ul className="val-skills">
-                              {item.skills.map((skill) => (
-                                <li key={skill}>{skill}</li>
-                              ))}
-                            </ul>
-                          ) : null}
-                          {item.sourceHref ? (
-                            <p className="val-source">
-                              Press:{" "}
-                              <a href={item.sourceHref} target="_blank" rel="noopener noreferrer">
-                                {item.sourceLabel}
-                                <span className="visually-hidden"> (opens in a new tab)</span>
-                              </a>
-                            </p>
-                          ) : null}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                {(() => {
+                  let credentialIndex = 0;
+                  return CREDENTIAL_GROUPS.map((group) => (
+                    <div className="cred-group" key={group.label}>
+                      <p className="cred-label">{group.label}</p>
+                      {group.intro ? <p className="cred-intro">{group.intro}</p> : null}
+                      <ul className="validation-grid">
+                        {group.items.map((item) => {
+                          const extra = credentialIndex >= 6;
+                          credentialIndex += 1;
+                          return (
+                            <li
+                              className={[item.featured ? "featured" : "", extra ? "cred-extra" : ""]
+                                .filter(Boolean)
+                                .join(" ") || undefined}
+                              key={item.title}
+                            >
+                              <p className="val-kind">
+                                {item.kind}
+                                {item.inProgress ? <span className="in-progress">In progress</span> : null}
+                              </p>
+                              <h3>
+                                {item.href ? (
+                                  isInternalHref(item.href) ? (
+                                    <a href={item.href}>{item.title}</a>
+                                  ) : (
+                                    <ExternalLink href={item.href}>{item.title}</ExternalLink>
+                                  )
+                                ) : (
+                                  item.title
+                                )}
+                              </h3>
+                              <p>{item.detail}</p>
+                              {item.note ? <p className="val-note">{item.note}</p> : null}
+                              {item.skills ? (
+                                <ul className="val-skills">
+                                  {item.skills.map((skill) => (
+                                    <li key={skill}>{skill}</li>
+                                  ))}
+                                </ul>
+                              ) : null}
+                              {item.sourceHref ? (
+                                <p className="val-source">
+                                  Press:{" "}
+                                  <a href={item.sourceHref} target="_blank" rel="noopener noreferrer">
+                                    {item.sourceLabel}
+                                    <span className="visually-hidden"> (opens in a new tab)</span>
+                                  </a>
+                                </p>
+                              ) : null}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ));
+                })()}
+                <details className="mobile-disclose cred-toggle">
+                  <summary>
+                    <span className="when-closed">View all education and programmes</span>
+                    <span className="when-open">Show fewer credentials</span>
+                  </summary>
+                </details>
               </div>
             </section>
 
@@ -1375,7 +1486,7 @@ export default function App() {
                   >
                     {CTA.primary}
                   </a>
-                  <p className="cta-note">{CTA.note}</p>
+                  <p className="cta-note cta-note-repeat">{CTA.note}</p>
                 </div>
               </div>
             </section>
@@ -1395,6 +1506,7 @@ export default function App() {
           >
             Discuss
           </a>
+          <p className="cta-note foot-cta-note">{CTA.note}</p>
           <a
             className="foot-email"
             href="#diagnostic"
