@@ -13,7 +13,7 @@ type SortKey = "article" | "systemType" | "control" | "evidence" | "status";
 type SortDir = "asc" | "desc";
 
 const CONTROL_OPTIONS: ControlKind[] = [
-  "policy-as-code",
+  "compliance-as-code",
   "SDLC gate",
   "runtime kill switch",
   "human approval",

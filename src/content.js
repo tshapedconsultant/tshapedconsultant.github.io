@@ -334,7 +334,7 @@ export const DELIVER = [
   },
   {
     title: "Engineering",
-    items: ["Policy-as-code", "SDLC gates", "Runtime controls", "Kill switches", "Human approval gates"],
+    items: ["Compliance-as-code", "SDLC gates", "Runtime controls", "Kill switches", "Human approval gates"],
   },
   {
     title: "Evidence",

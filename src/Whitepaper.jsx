@@ -51,7 +51,7 @@ export default function Whitepaper() {
           <li><a href="#s22">22 Practical cases</a></li>
           <li><a href="#s23">23 Executive decision matrix</a></li>
           <li><a href="#s24">24 Conclusion</a></li>
-          <li><a href="#s25">25 Technical appendix: policy as code</a></li>
+          <li><a href="#s25">25 Technical appendix: compliance as code</a></li>
         </ol>
       </nav>
 
@@ -984,7 +984,7 @@ export default function Whitepaper() {
       </section>
 
       <section id="s25">
-        <h2><span>25</span> Technical appendix: policy as code</h2>
+        <h2><span>25</span> Technical appendix: compliance as code</h2>
         <p>
           The Runtime Assurance architecture described in this paper is not theoretical. Policies can
           be expressed as executable code and enforced at every trust boundary. The following Open
