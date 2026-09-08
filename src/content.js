@@ -223,17 +223,20 @@ export const AUDIENCE = [
 
 export const PROBLEMS = [
   {
-    title: "Unmanaged risk",
+    title: "Unmanaged AI risk",
+    subtitle: "No owner, no residual-risk view — until an incident.",
     text: "Ownership, authority and residual risk sit nowhere — until an incident or a regulator asks.",
     icon: "shield",
   },
   {
     title: "Ungoverned agents",
+    subtitle: "They retrieve, decide and act with no independent stop.",
     text: "Systems can retrieve, recommend and act without independent limits on access, decision or execution.",
     icon: "gears",
   },
   {
-    title: "Missing audit evidence",
+    title: "No audit evidence",
+    subtitle: "Proof is rebuilt after the fact, not generated at runtime.",
     text: "Proof is reconstructed after the fact instead of being generated continuously at the control boundary.",
     icon: "clipboard",
   },

@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from "react";
 import {
   EU_AI_ACT_MAPPING_ROWS,
   MAPPING_FILTER_HELP,
-  MAPPING_STATUS_NOTE,
+  MAPPING_STATUS_LEGEND,
   type ControlKind,
   type MappingRow,
   type MappingStatus,
@@ -39,6 +39,50 @@ function compareRows(a: MappingRow, b: MappingRow, key: SortKey, dir: SortDir): 
   const right = key === "control" ? b.control : b[key];
   const result = String(left).localeCompare(String(right), "en-GB");
   return dir === "asc" ? result : -result;
+}
+
+function StatusGlyph({ status }: { status: MappingStatus }) {
+  const common = {
+    className: "status-glyph",
+    viewBox: "0 0 16 16",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.7",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true as const,
+    focusable: false as const,
+  };
+  if (status === "Implemented") {
+    return (
+      <svg {...common}>
+        <path d="M3 8.5 6.5 12 13 4" />
+      </svg>
+    );
+  }
+  if (status === "Reference") {
+    return (
+      <svg {...common}>
+        <rect x="2.75" y="2.75" width="10.5" height="10.5" rx="1.2" />
+        <path d="M2.75 6.5h10.5M6.5 2.75v10.5" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      <circle cx="8" cy="8" r="5.4" />
+      <path d="M8 5v3.4l2.4 1.4" />
+    </svg>
+  );
+}
+
+function StatusPill({ status }: { status: MappingStatus }) {
+  return (
+    <span className={`status-pill status-${status.toLowerCase()}`}>
+      <StatusGlyph status={status} />
+      {status}
+    </span>
+  );
 }
 
 export default function MappingTable() {
@@ -94,6 +138,16 @@ export default function MappingTable() {
 
   function toggleExpand(id: string) {
     setExpanded((current) => (current === id ? null : id));
+  }
+
+  const filtersActive = Boolean(query || article || role || control || status);
+
+  function resetFilters() {
+    setQuery("");
+    setArticle("");
+    setRole("");
+    setControl("");
+    setStatus("");
   }
 
   return (
@@ -164,12 +218,32 @@ export default function MappingTable() {
               </select>
             </p>
           </div>
+          <p className="mapping-filter-actions">
+            <button
+              className="btn btn-ghost mapping-filter-reset"
+              type="button"
+              onClick={resetFilters}
+              disabled={!filtersActive}
+            >
+              Reset filters
+            </button>
+          </p>
         </fieldset>
       </form>
       <p className="mapping-help">{MAPPING_FILTER_HELP}</p>
+      <div className="status-legend">
+        <p className="mapping-status-note">{MAPPING_STATUS_LEGEND}</p>
+        <ul className="status-legend-list" aria-label="Status key">
+          {STATUS_OPTIONS.map((option) => (
+            <li key={option}>
+              <StatusPill status={option} />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <p className="mapping-count" role="status">
-        Showing {rows.length} of {EU_AI_ACT_MAPPING_ROWS.length} obligations
+      <p className="mapping-count" role="status" aria-live="polite" aria-atomic="true">
+        {rows.length} obligations shown
       </p>
 
       <div className="table-wrap mapping-table-wrap">
@@ -225,7 +299,7 @@ export default function MappingTable() {
                       </td>
                       <td data-label="Evidence generated">{row.evidence}</td>
                       <td data-label="Status">
-                        <span className={`status-pill status-${row.status.toLowerCase()}`}>{row.status}</span>
+                        <StatusPill status={row.status} />
                       </td>
                     </tr>
                     {open ? (
@@ -265,15 +339,11 @@ export default function MappingTable() {
             const panelId = `${row.id}-card-detail`;
             return (
               <li key={row.id} className="mapping-card">
-                <p className="mapping-card-article">{row.article}</p>
-                <p className="mapping-card-meta">
-                  <span className="mapping-card-label">Role</span>
-                  {row.systemType}
-                </p>
-                <p className="mapping-card-meta">
-                  <span className="mapping-card-label">Status</span>
-                  <span className={`status-pill status-${row.status.toLowerCase()}`}>{row.status}</span>
-                </p>
+                <header className="mapping-card-head">
+                  <p className="mapping-card-article">{row.article.replace(" – ", " · ")}</p>
+                  <StatusPill status={row.status} />
+                </header>
+                <p className="mapping-card-role">{row.systemType}</p>
                 <p className="mapping-card-meta">
                   <span className="mapping-card-label">Control</span>
                   <span className="control-kind">{row.controlKind}</span>
@@ -284,7 +354,7 @@ export default function MappingTable() {
                   {row.evidence}
                 </p>
                 <details className="mapping-card-sketch">
-                  <summary>Control sketch</summary>
+                  <summary>View control sketch</summary>
                   <div className="mapping-detail" id={panelId}>
                     <p>
                       <strong>Requirement.</strong> {row.requirement}
@@ -306,7 +376,6 @@ export default function MappingTable() {
           <li className="mapping-card mapping-card-empty">No obligations match these filters.</li>
         )}
       </ul>
-      <p className="mapping-status-note">{MAPPING_STATUS_NOTE}</p>
     </section>
   );
 }

@@ -646,9 +646,10 @@ export default function App() {
           }}
         >
           <Icon name="shield" className="icon mark-icon" />
-          <span>
-            tshapedconsultant
-            <small>AI Governance Engineering</small>
+          <span className="mark-text">
+            <span className="mark-name">tshapedconsultant</span>
+            <small className="mark-sub-full">AI Governance Engineering</small>
+            <small className="mark-sub-short">AI Gov Eng.</small>
           </span>
         </Link>
         <a
@@ -804,7 +805,10 @@ export default function App() {
             <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
-                  <p className="eyebrow">{LOCATION}</p>
+                  <p className="eyebrow loc-line">
+                    <span className="loc-short">Madrid · EMEA</span>
+                    <span className="loc-long">{LOCATION}</span>
+                  </p>
                   <h1>
                     Andrés Lage Freire
                     <span className="h1-specialty">AI Governance Engineering</span>
@@ -915,6 +919,7 @@ export default function App() {
                     <article className="risk-panel" key={item.title}>
                       <Icon name={item.icon} />
                       <h3>{item.title}</h3>
+                      <p className="risk-sub">{item.subtitle}</p>
                       <details className="mobile-disclose risk-body">
                         <summary>Read more</summary>
                         <p>{item.text}</p>

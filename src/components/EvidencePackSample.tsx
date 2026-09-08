@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { canonicalStringify, hashEvidencePayload } from "../lib/canonicalHash";
 
 export type EvidenceDecision = "ALLOW" | "BLOCK" | "HUMAN_REVIEW";
@@ -64,6 +64,9 @@ export default function EvidencePackSample() {
   const [error, setError] = useState("");
   const [generation, setGeneration] = useState(1);
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const jsonRef = useRef<HTMLDetailsElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -108,9 +111,13 @@ export default function EvidencePackSample() {
     try {
       await navigator.clipboard.writeText(pack.evidence_hash);
       setCopied(true);
+      setCopyFailed(false);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
+      setCopyFailed(true);
+      if (jsonRef.current) jsonRef.current.open = true;
+      requestAnimationFrame(() => preRef.current?.focus());
     }
   }
 
@@ -157,13 +164,13 @@ export default function EvidencePackSample() {
             <dt>data_source</dt>
             <dd>{pack.data_source}</dd>
           </div>
-          <div className="evidence-field evidence-field-extra">
+          <div className="evidence-field evidence-field-primary ev-policy">
             <dt>policy_version</dt>
             <dd>
               <code>{pack.policy_version}</code>
             </dd>
           </div>
-          <div className="evidence-field evidence-field-primary ev-timestamp">
+          <div className="evidence-field evidence-field-extra ev-timestamp">
             <dt>timestamp</dt>
             <dd>
               <time dateTime={pack.timestamp}>{pack.timestamp}</time>
@@ -214,10 +221,15 @@ export default function EvidencePackSample() {
           {copied ? "Hash copied" : "Copy hash"}
         </button>
       </div>
+      {copyFailed ? (
+        <p className="evidence-copy-fallback" role="status">
+          Copy unavailable. The full hash is selectable in View JSON.
+        </p>
+      ) : null}
       {formatted ? (
-        <details className="evidence-json-disclose">
+        <details className="evidence-json-disclose" ref={jsonRef}>
           <summary>View JSON</summary>
-          <pre className="rego evidence-json" tabIndex={0}>
+          <pre className="rego evidence-json" tabIndex={0} ref={preRef}>
             {formatted}
           </pre>
         </details>
