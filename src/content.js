@@ -26,6 +26,9 @@ export const LOCATION_HERO =
 export const ABOUT_INTRO =
   "Responsible AI Architect. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through deployment.";
 
+export const ABOUT_SITE =
+  "This site was designed and built by me with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.";
+
 export const HERO = {
   tagline: "Responsible AI Architect · From regulation to runtime assurance",
   value:

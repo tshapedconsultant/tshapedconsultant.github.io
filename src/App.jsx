@@ -21,6 +21,7 @@ import { pageSeoFor } from "./seo.js";
 import {
   ABOUT_BLOCKS,
   ABOUT_INTRO,
+  ABOUT_SITE,
   APPROACH,
   ARTICLE,
   HYBRID_ARTICLE,
@@ -1449,6 +1450,7 @@ export default function App() {
                 </div>
                 <div className="prose about-bio">
                   <p>{ABOUT_INTRO}</p>
+                  <p>{ABOUT_SITE}</p>
                 </div>
                 <a className="btn btn-ghost" href={CV_PDF} download>
                   Download CV (PDF)

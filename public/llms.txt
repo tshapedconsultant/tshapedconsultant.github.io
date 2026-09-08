@@ -4,6 +4,8 @@
 
 Andrés Lage Freire is a Responsible AI Architect. Based in Madrid · Working remotely across EMEA. He helps CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy turn AI risk, regulatory obligations and accountability requirements into executable controls, lifecycle gates and verifiable evidence.
 
+This site was designed and built by Andrés with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.
+
 Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems and agents.
 
 The practice argument is that probabilistic models require deterministic governance — independent runtime limits on what a system may access, decide and execute, with evidence generated at the control boundary.
