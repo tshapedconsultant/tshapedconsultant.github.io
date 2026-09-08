@@ -408,12 +408,12 @@ export const CREDENTIAL_GROUPS = [
       {
         kind: "Programme",
         title: "Oxford Saïd — AI Governance",
-        detail: "Executive programme",
+        detail: "Online programme",
       },
       {
         kind: "Programme",
         title: "Stanford — Advanced Learning Algorithms · AI Awakening",
-        detail: "Executive / online",
+        detail: "Online programme",
       },
       {
         kind: "Credential",
