@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { canonicalStringify, hashEvidencePayload } from "../lib/canonicalHash";
+import { useI18n } from "../i18n/LocaleContext";
 
 export type EvidenceDecision = "ALLOW" | "BLOCK" | "HUMAN_REVIEW";
 
@@ -59,6 +60,8 @@ async function signPack(unsigned: Omit<EvidencePack, "evidence_hash">): Promise<
 }
 
 export default function EvidencePackSample() {
+  const { t } = useI18n();
+  const ui = t.evidence;
   const [pack, setPack] = useState<EvidencePack | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -77,7 +80,7 @@ export default function EvidencePackSample() {
         if (!cancelled) setPack(next);
       })
       .catch(() => {
-        if (!cancelled) setError("The evidence hash could not be computed in this browser.");
+        if (!cancelled) setError(ui.hashError);
       })
       .finally(() => {
         if (!cancelled) setBusy(false);
@@ -123,12 +126,8 @@ export default function EvidencePackSample() {
 
   return (
     <section className="evidence-pack" aria-labelledby="evidence-pack-title">
-      <h2 id="evidence-pack-title">Sample evidence pack</h2>
-      <p>
-        Hypothetical sample — not production evidence. A drift gate for a claim-prediction model.
-        The SHA-256 hash is computed in the browser over canonical JSON (sorted keys, hash field
-        omitted).
-      </p>
+      <h2 id="evidence-pack-title">{ui.title}</h2>
+      <p>{ui.intro}</p>
       {error ? (
         <p className="field-error" role="alert">
           {error}
@@ -203,7 +202,7 @@ export default function EvidencePackSample() {
           </div>
         </dl>
       ) : (
-        <p role="status">Computing evidence hash…</p>
+        <p role="status">{ui.hashing}</p>
       )}
       <div className="evidence-pack-actions">
         <button
@@ -212,35 +211,30 @@ export default function EvidencePackSample() {
           disabled={busy}
           onClick={() => setGeneration((n) => n + 1)}
         >
-          {busy ? "Hashing…" : "Generate new evidence pack"}
+          {busy ? ui.generateBusy : ui.generate}
         </button>
         <button className="btn btn-ghost" type="button" disabled={!pack} onClick={download}>
-          Download JSON
+          {ui.download}
         </button>
         <button className="btn btn-ghost" type="button" disabled={!pack} onClick={() => void copyHash()}>
-          {copied ? "Hash copied" : "Copy hash"}
+          {copied ? ui.copied : ui.copy}
         </button>
       </div>
       {copyFailed ? (
         <p className="evidence-copy-fallback" role="status">
-          Copy unavailable. The full hash is selectable in View JSON.
+          {ui.copyFail}
         </p>
       ) : null}
       {formatted ? (
         <details className="evidence-json-disclose" ref={jsonRef}>
-          <summary>View JSON</summary>
+          <summary>{ui.viewJson}</summary>
           <pre className="rego evidence-json" tabIndex={0} ref={preRef}>
             {formatted}
           </pre>
         </details>
       ) : null}
       <p className="evidence-pack-note">
-        In CI, each control decision appends a canonical payload and the previous event hash. Unique
-        decision IDs attribute the event to a user, model version and data source. The chain is
-        tamper-evident locally. Logs are retained per applicable category (for example at least six
-        months for many high-risk systems under Arts 19 and 26). Optional external anchors (Jira,
-        Rekor, object-lock storage) exist in Enterprise AI Risk and are off by default — this sample
-        does not write to them. Canonical form used for the digest: {pretty ? "sorted-key JSON." : "—"}
+        {ui.note} {pretty ? ui.sorted : "—"}
       </p>
     </section>
   );

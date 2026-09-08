@@ -1,32 +1,14 @@
-const STEPS = [
-  {
-    title: "Regulation",
-    text: "Turn EU AI Act duties into risk-based requirements for a named system and role — not a generic checklist.",
-  },
-  {
-    title: "Control design",
-    text: "Specify deterministic limits: who may act, on what, under which threshold, and who can stop the system.",
-  },
-  {
-    title: "SDLC gates",
-    text: "Encode those limits as tests, compliance-as-code and release blockers. A model that misses the gate does not ship.",
-  },
-  {
-    title: "Runtime assurance",
-    text: "Independent controls constrain a probabilistic model while it runs — including kill switches and human review.",
-  },
-  {
-    title: "Evidence",
-    text: "Each decision emits a hashed pack. The chain is the audit trail; screenshots are not.",
-  },
-] as const;
+import { useI18n } from "../i18n/LocaleContext";
 
 export default function GovernancePipeline() {
+  const { t } = useI18n();
+  const steps = t.pipeline.steps;
+
   return (
     <figure className="gov-pipeline">
       <figcaption>
-        <span className="arch-kicker">Deterministic path</span>
-        From regulation to independent runtime controls
+        <span className="arch-kicker">{t.pipeline.kicker}</span>
+        {t.pipeline.caption}
       </figcaption>
       <svg
         className="gov-pipeline-svg"
@@ -35,7 +17,7 @@ export default function GovernancePipeline() {
         aria-hidden="true"
         focusable="false"
       >
-        <title>Regulation to evidence</title>
+        <title>{t.pipeline.svgTitle}</title>
         <defs>
           <marker id="gov-arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
             <path d="M0 0 L8 4 L0 8 Z" fill="#55c8ff" />
@@ -53,7 +35,7 @@ export default function GovernancePipeline() {
             markerEnd="url(#gov-arrow)"
           />
         ))}
-        {STEPS.map((step, index) => (
+        {steps.map((step, index) => (
           <g key={step.title}>
             <rect
               x={12 + index * 184}
@@ -78,7 +60,7 @@ export default function GovernancePipeline() {
         ))}
       </svg>
       <ol className="gov-pipeline-steps">
-        {STEPS.map((step, index) => (
+        {steps.map((step, index) => (
           <li key={step.title}>
             <span className="arch-index" aria-hidden="true">
               {String(index + 1).padStart(2, "0")}

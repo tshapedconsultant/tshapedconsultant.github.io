@@ -1,0 +1,80 @@
+import {
+  EU_AI_ACT_MAPPING_ROWS,
+  MAPPING_ART12_RETENTION,
+  MAPPING_DATES_NOTE,
+  MAPPING_FILTER_HELP,
+  MAPPING_INTRO,
+  MAPPING_ISO_NOTE,
+  MAPPING_LEAD_SHORT,
+  MAPPING_OUT_OF_SCOPE,
+  MAPPING_PHASED_DATES_NOTE,
+  MAPPING_ROLE_BULLETS,
+  MAPPING_ROLE_FOOTNOTE,
+  MAPPING_SOURCE_NOTE,
+  MAPPING_STATUS_LEGEND,
+  MAPPING_SUBSET_NOTE,
+  MAPPING_SUBTITLE,
+  type MappingRow,
+} from "./euAiActMapping";
+import {
+  MAPPING_ART12_RETENTION_ES,
+  MAPPING_DATES_NOTE_ES,
+  MAPPING_FILTER_HELP_ES,
+  MAPPING_INTRO_ES,
+  MAPPING_ISO_NOTE_ES,
+  MAPPING_LEAD_SHORT_ES,
+  MAPPING_OUT_OF_SCOPE_ES,
+  MAPPING_PHASED_DATES_NOTE_ES,
+  MAPPING_ROLE_BULLETS_ES,
+  MAPPING_ROLE_FOOTNOTE_ES,
+  MAPPING_ROWS_ES,
+  MAPPING_SOURCE_NOTE_ES,
+  MAPPING_STATUS_LEGEND_ES,
+  MAPPING_SUBSET_NOTE_ES,
+  MAPPING_SUBTITLE_ES,
+} from "./euAiActMapping.es";
+
+export function mappingRowsFor(locale: "en" | "es"): MappingRow[] {
+  if (locale !== "es") return EU_AI_ACT_MAPPING_ROWS;
+  return EU_AI_ACT_MAPPING_ROWS.map((row) => ({
+    ...row,
+    ...(MAPPING_ROWS_ES[row.id] ?? {}),
+  }));
+}
+
+export function mappingCopy(locale: "en" | "es") {
+  if (locale === "es") {
+    return {
+      source: MAPPING_SOURCE_NOTE_ES,
+      subtitle: MAPPING_SUBTITLE_ES,
+      intro: MAPPING_INTRO_ES,
+      subset: MAPPING_SUBSET_NOTE_ES,
+      dates: MAPPING_DATES_NOTE_ES,
+      roleBullets: MAPPING_ROLE_BULLETS_ES,
+      roleFootnote: MAPPING_ROLE_FOOTNOTE_ES,
+      filterHelp: MAPPING_FILTER_HELP_ES,
+      statusLegend: MAPPING_STATUS_LEGEND_ES,
+      leadShort: MAPPING_LEAD_SHORT_ES,
+      phasedDates: MAPPING_PHASED_DATES_NOTE_ES,
+      art12: MAPPING_ART12_RETENTION_ES,
+      iso: MAPPING_ISO_NOTE_ES,
+      outOfScope: MAPPING_OUT_OF_SCOPE_ES,
+    };
+  }
+  return {
+    source: MAPPING_SOURCE_NOTE,
+    subtitle: MAPPING_SUBTITLE,
+    intro: MAPPING_INTRO,
+    subset: MAPPING_SUBSET_NOTE,
+    dates: MAPPING_DATES_NOTE,
+    roleBullets: MAPPING_ROLE_BULLETS,
+    roleFootnote: MAPPING_ROLE_FOOTNOTE,
+    filterHelp: MAPPING_FILTER_HELP,
+    statusLegend: MAPPING_STATUS_LEGEND,
+    leadShort: MAPPING_LEAD_SHORT,
+    phasedDates: MAPPING_PHASED_DATES_NOTE,
+    art12: MAPPING_ART12_RETENTION,
+    iso: MAPPING_ISO_NOTE,
+    outOfScope: MAPPING_OUT_OF_SCOPE,
+  };
+}

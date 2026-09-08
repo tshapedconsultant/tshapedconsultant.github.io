@@ -2,68 +2,59 @@ import ArticleEvidenceExemplars from "../components/ArticleEvidenceExemplars";
 import EvidencePackSample from "../components/EvidencePackSample";
 import GovernancePipeline from "../components/GovernancePipeline";
 import MappingTable from "../components/MappingTable";
-import {
-  MAPPING_ART12_RETENTION,
-  MAPPING_DATES_NOTE,
-  MAPPING_INTRO,
-  MAPPING_ISO_NOTE,
-  MAPPING_LEAD_SHORT,
-  MAPPING_OUT_OF_SCOPE,
-  MAPPING_PHASED_DATES_NOTE,
-  MAPPING_ROLE_BULLETS,
-  MAPPING_ROLE_FOOTNOTE,
-  MAPPING_SOURCE_NOTE,
-  MAPPING_SUBSET_NOTE,
-  MAPPING_SUBTITLE,
-} from "../data/euAiActMapping";
+import { mappingCopy } from "../data/mappingI18n";
+import { useI18n } from "../i18n/LocaleContext";
 import { EU_AI_ACT_MAPPING_PATH, WHITEPAPER_PATH } from "../routes";
 
 const PORTO = "https://github.com/tshapedconsultant/porto-seguro-compliance-hub";
 const RISK = "https://github.com/tshapedconsultant/enterprise-ai-risk";
 
 export default function EuAiActMapping() {
+  const { locale, t, localize, localizedPath } = useI18n();
+  const copy = mappingCopy(locale);
+
   return (
     <article className="paper mapping-page">
       <p className="paper-nav">
-        <a href="/#approach">← Back to Approach</a>
+        <a href={localize("/#approach")}>{t.mapping.back}</a>
       </p>
-      <p className="paper-kicker">AI Governance Engineering</p>
-      <h1>EU AI Act mapping</h1>
-      <p className="paper-sub">{MAPPING_SUBTITLE}</p>
-      <p className="callout">Independent runtime controls turn selected duties into audit-ready evidence.</p>
-      <p className="mapping-lead-short">{MAPPING_LEAD_SHORT}</p>
+      <p className="paper-kicker">{t.mapping.kicker}</p>
+      <h1>{t.mapping.title}</h1>
+      <p className="paper-sub">{copy.subtitle}</p>
+      <p className="callout">{t.mapping.callout}</p>
+      <p className="mapping-lead-short">{copy.leadShort}</p>
       <details className="mobile-disclose mapping-legal-more">
-        <summary>Role, risk and schedule</summary>
-        <p>{MAPPING_INTRO}</p>
-        <p className="mapping-iso">{MAPPING_SUBSET_NOTE}</p>
+        <summary>{t.mapping.roleSummary}</summary>
+        <p>{copy.intro}</p>
+        <p className="mapping-iso">{copy.subset}</p>
         <ul className="act-role-list">
-          {MAPPING_ROLE_BULLETS.map((item) => (
+          {copy.roleBullets.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <p className="mapping-footnote">{MAPPING_ROLE_FOOTNOTE}</p>
-        <p className="mapping-iso">{MAPPING_DATES_NOTE}</p>
-        <p className="mapping-iso">{MAPPING_PHASED_DATES_NOTE}</p>
-        <p className="mapping-art12">{MAPPING_ART12_RETENTION}</p>
-        <p className="mapping-iso">{MAPPING_ISO_NOTE}</p>
+        <p className="mapping-footnote">{copy.roleFootnote}</p>
+        <p className="mapping-iso">{copy.dates}</p>
+        <p className="mapping-iso">{copy.phasedDates}</p>
+        <p className="mapping-art12">{copy.art12}</p>
+        <p className="mapping-iso">{copy.iso}</p>
       </details>
       <p className="note">
-        {MAPPING_SOURCE_NOTE} Path:{" "}
-        <a href={EU_AI_ACT_MAPPING_PATH}>{EU_AI_ACT_MAPPING_PATH}</a>.
+        {copy.source} {t.mapping.path}{" "}
+        <a href={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{localizedPath(EU_AI_ACT_MAPPING_PATH)}</a>.
       </p>
       <p className="mapping-refs">
-        Reference implementations:{" "}
+        {t.mapping.refs}{" "}
         <a href={PORTO} target="_blank" rel="noopener noreferrer">
           Porto Seguro Compliance Hub
-          <span className="visually-hidden"> (opens in a new tab)</span>
+          <span className="visually-hidden">{t.opensNewTab}</span>
         </a>
         {" · "}
         <a href={RISK} target="_blank" rel="noopener noreferrer">
           Enterprise AI Risk
-          <span className="visually-hidden"> (opens in a new tab)</span>
+          <span className="visually-hidden">{t.opensNewTab}</span>
         </a>
         {" · "}
-        <a href={WHITEPAPER_PATH}>Whitepaper</a>
+        <a href={localizedPath(WHITEPAPER_PATH)}>{t.mapping.whitepaper}</a>
       </p>
 
       <GovernancePipeline />
@@ -71,10 +62,12 @@ export default function EuAiActMapping() {
       <MappingTable />
       <EvidencePackSample />
 
-      <p className="mapping-scope">{MAPPING_OUT_OF_SCOPE}</p>
+      <p className="mapping-scope">{copy.outOfScope}</p>
+      <p className="mapping-implemented">{t.mapping.implementedNote}</p>
       <p className="mapping-cta">
-        If you want this mapping applied to your AI inventory, start with an{" "}
-        <a href="/#diagnostic">AI Governance Diagnostic</a>.
+        {t.mapping.ctaBefore}{" "}
+        <a href={localize("/#diagnostic")}>{t.mapping.ctaLink}</a>
+        {t.mapping.ctaAfter}
       </p>
     </article>
   );

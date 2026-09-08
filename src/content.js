@@ -2,6 +2,7 @@ export const COVER = "/cover.png";
 export const COVER_WEBP = "/cover.webp";
 export const COVER_AVIF = "/cover.avif";
 export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Governance.pdf";
+export const WHITEPAPER_PDF_ES = "/Gobernanza-Determinista-IA.pdf";
 export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
 export const CV_PDF = "/Andres-Lage-Freire-CV.pdf";
 

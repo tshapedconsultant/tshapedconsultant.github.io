@@ -1,31 +1,33 @@
-import { mappingExemplars } from "../data/euAiActMapping";
+import { mappingRowsFor } from "../data/mappingI18n";
+import { useI18n } from "../i18n/LocaleContext";
 
 export default function ArticleEvidenceExemplars() {
-  const rows = mappingExemplars();
+  const { locale, t } = useI18n();
+  const rows = mappingRowsFor(locale).filter((row) =>
+    ["art-9-risk", "art-12-logs", "art-14-oversight"].includes(row.id)
+  );
+  const ui = t.exemplars;
 
   return (
     <section className="exemplar-section" aria-labelledby="exemplar-title">
-      <h2 id="exemplar-title">Article → control → evidence</h2>
-      <p>
-        Three high-risk exemplars. Each line is the same mapping as the table below — article, executable
-        control, and the evidence an auditor would inspect.
-      </p>
+      <h2 id="exemplar-title">{ui.title}</h2>
+      <p>{ui.intro}</p>
       <div className="table-wrap exemplar-wrap">
         <table className="exemplar-table">
-          <caption>Art. 9 risk management, Art. 12 record-keeping, and Art. 14 human oversight.</caption>
+          <caption>{ui.caption}</caption>
           <thead>
             <tr>
-              <th scope="col">Article</th>
-              <th scope="col">Control</th>
-              <th scope="col">Evidence</th>
+              <th scope="col">{ui.article}</th>
+              <th scope="col">{ui.control}</th>
+              <th scope="col">{ui.evidence}</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
                 <th scope="row">{row.article}</th>
-                <td data-label="Control">{row.control}</td>
-                <td data-label="Evidence">{row.evidence}</td>
+                <td data-label={ui.control}>{row.control}</td>
+                <td data-label={ui.evidence}>{row.evidence}</td>
               </tr>
             ))}
           </tbody>

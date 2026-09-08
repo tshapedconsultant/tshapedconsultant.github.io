@@ -4,9 +4,18 @@ import Whitepaper from "./Whitepaper.jsx";
 import Article from "./Article.jsx";
 import HybridProfiles from "./HybridProfiles.jsx";
 import EuAiActMapping from "./pages/EuAiActMapping";
+import WhitepaperEs from "./pages/WhitepaperEs.jsx";
+import ArticleEs from "./pages/ArticleEs.jsx";
+import HybridProfilesEs from "./pages/HybridProfilesEs.jsx";
 import { Icon } from "./Icons.jsx";
 import Picture from "./components/Picture.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
+import { useI18n } from "./i18n/LocaleContext";
+import { applyDocumentHead } from "./i18n/documentHead.js";
+import {
+  ARTICLE,
+  HYBRID_ARTICLE,
+} from "./content.js";
 import {
   EU_AI_ACT_MAPPING_PATH,
   WHITEPAPER_PATH,
@@ -16,61 +25,9 @@ import {
   isHybridProfilesPath,
   isMontesquieuPath,
   isWhitepaperPath,
+  localeFromPath,
+  withLocale,
 } from "./routes";
-import { pageSeoFor } from "./seo.js";
-import {
-  ABOUT_BLOCKS,
-  ABOUT_INTRO,
-  ABOUT_SITE,
-  APPROACH,
-  ARTICLE,
-  HYBRID_ARTICLE,
-  AUDIENCE,
-  BEST_FIT,
-  HERO,
-  HERO_FOR,
-  CAPABILITIES,
-  CASE_STUDIES,
-  COVER,
-  COVER_AVIF,
-  COVER_WEBP,
-  CREDENTIAL_GROUPS,
-  CTA,
-  CV_PDF,
-  DELIVER,
-  DGOM,
-  DIAGNOSTIC,
-  DIAGNOSTIC_FORM,
-  ENGAGEMENT,
-  FRAMEWORKS,
-  INSIGHTS,
-  LINKS,
-  LOCATION,
-  LOCATION_HERO,
-  MAPPING_TEASER,
-  PROBLEMS,
-  PROJECTS,
-  SOCIAL_PROOF,
-  WHITEPAPER_PDF,
-} from "./content.js";
-
-const NAV_SECTIONS = [
-  { id: "about", label: "About" },
-  { id: "approach", label: "Approach" },
-  { id: "case-studies", label: "Case studies" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
-];
-
-const MOBILE_NAV = [
-  { id: "approach", label: "Approach" },
-  { to: EU_AI_ACT_MAPPING_PATH, label: "EU AI Act mapping", view: "mapping" },
-  { id: "case-studies", label: "Case study" },
-  { id: "projects", label: "Reference implementations" },
-  { to: WHITEPAPER_PATH, label: "Whitepaper", view: "whitepaper" },
-  { id: "validation", label: "About / credentials" },
-  { id: "contact", label: "Contact" },
-];
 
 function prefersReducedMotion() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -159,48 +116,39 @@ function mailtoSafeBody(value, max = 2000) {
     .slice(0, max);
 }
 
-function enquiryMailtoHref({ name, company, email, govern, stageLabel }) {
-  const subject = encodeURIComponent("AI Governance Diagnostic enquiry");
+function enquiryMailtoHref({ name, company, email, govern, stageLabel, copy }) {
+  const subject = encodeURIComponent(copy.mailtoSubject);
   const body = encodeURIComponent(
     [
-      "AI Governance Diagnostic enquiry",
-      "Source: tshapedconsultant.com",
+      copy.mailtoIntro,
+      copy.mailtoSource,
       "",
-      `Name: ${mailtoSafeLine(name)}`,
-      `Company: ${mailtoSafeLine(company) || "Not specified"}`,
-      `Email: ${mailtoSafeLine(email, 254)}`,
+      `${copy.name}: ${mailtoSafeLine(name)}`,
+      `${copy.company}: ${mailtoSafeLine(company) || copy.mailtoNotSpecified}`,
+      `${copy.email}: ${mailtoSafeLine(email, 254)}`,
       "",
-      "What they are trying to govern:",
+      copy.mailtoGovern,
       mailtoSafeBody(govern),
       "",
-      `Current stage and likely scope: ${stageLabel || "Not specified"}`,
+      `${copy.mailtoStage} ${stageLabel || copy.mailtoNotSpecified}`,
       "",
       "—",
-      "Prepared from the site enquiry form. No mailing list; used only to respond.",
+      copy.mailtoFooter,
     ].join("\n")
   );
   return `mailto:${contactEmail()}?subject=${subject}&body=${body}`;
 }
 
 function GovernanceDiagram() {
-  const primary = [
-    { label: "Regulation", text: "Obligations become control requirements." },
-    { label: "Engineering", text: "Requirements become executable controls." },
-    { label: "Runtime Assurance", text: "Independent limits while the system runs." },
-  ];
-  const pipeline = [
-    "Policy / risk",
-    "Control requirements",
-    "System boundaries",
-    "Runtime assurance",
-    "Evidence trail",
-  ];
+  const { t } = useI18n();
+  const primary = t.diagram.primary;
+  const pipeline = t.diagram.pipeline;
 
   return (
     <figure className="arch-diagram">
       <figcaption>
-        <span className="arch-kicker">Control path</span>
-        From regulation to runtime assurance
+        <span className="arch-kicker">{t.diagram.kicker}</span>
+        {t.diagram.caption}
       </figcaption>
       <ol className="arch-primary">
         {primary.map((step, index) => (
@@ -223,6 +171,8 @@ function GovernanceDiagram() {
 }
 
 function DiagnosticForm() {
+  const { t, content } = useI18n();
+  const { DIAGNOSTIC_FORM } = content;
   const summaryRef = useRef(null);
   const [values, setValues] = useState({
     name: "",
@@ -253,10 +203,10 @@ function DiagnosticForm() {
 
   function validate(data) {
     const next = {};
-    if (!data.name.trim()) next.name = "Enter your name.";
-    if (!data.email.trim()) next.email = "Enter your work email address.";
-    else if (!isValidEmail(data.email.trim())) next.email = "Enter a valid work email address.";
-    if (!data.govern.trim()) next.govern = "Describe what you are trying to govern.";
+    if (!data.name.trim()) next.name = t.form.errors.name;
+    if (!data.email.trim()) next.email = t.form.errors.email;
+    else if (!isValidEmail(data.email.trim())) next.email = t.form.errors.emailInvalid;
+    if (!data.govern.trim()) next.govern = t.form.errors.govern;
     return next;
   }
 
@@ -301,6 +251,7 @@ function DiagnosticForm() {
             email: values.email,
             govern: values.govern,
             stageLabel,
+            copy: t.form,
           })
         );
       }
@@ -309,9 +260,9 @@ function DiagnosticForm() {
   }
 
   const errorEntries = [
-    ["name", "Name", errors.name, "#diag-name"],
-    ["email", "Work email", errors.email, "#diag-email"],
-    ["govern", "What are you trying to govern?", errors.govern, "#diag-govern"],
+    ["name", t.form.name, errors.name, "#diag-name"],
+    ["email", t.form.email, errors.email, "#diag-email"],
+    ["govern", t.form.govern, errors.govern, "#diag-govern"],
   ].filter(([, , message]) => message);
 
   return (
@@ -334,7 +285,7 @@ function DiagnosticForm() {
           ) : null}
           {errorEntries.length ? (
             <>
-              <p>Please correct the following:</p>
+              <p>{t.form.correct}</p>
               <ul>
                 {errorEntries.map(([key, label, message, href]) => (
                   <li key={key}>
@@ -355,7 +306,7 @@ function DiagnosticForm() {
         </div>
       ) : null}
       <div className="hp" aria-hidden="true">
-        <label htmlFor="diag-hp">Company confirmation</label>
+        <label htmlFor="diag-hp">{t.form.hp}</label>
         <input
           id="diag-hp"
           name="diag_hp"
@@ -372,7 +323,7 @@ function DiagnosticForm() {
       <div className="diag-form-grid">
         <div>
           <label htmlFor="diag-name">
-            Name <span className="req">required</span>
+            {t.form.name} <span className="req">{t.required}</span>
           </label>
           <input
             id="diag-name"
@@ -394,7 +345,7 @@ function DiagnosticForm() {
         </div>
         <div>
           <label htmlFor="diag-company">
-            Company <span className="opt">optional</span>
+            {t.form.company} <span className="opt">{t.optional}</span>
           </label>
           <input
             id="diag-company"
@@ -408,7 +359,7 @@ function DiagnosticForm() {
         </div>
         <div>
           <label htmlFor="diag-email">
-            Work email <span className="req">required</span>
+            {t.form.email} <span className="req">{t.required}</span>
           </label>
           <input
             id="diag-email"
@@ -430,7 +381,7 @@ function DiagnosticForm() {
         </div>
         <div>
           <label htmlFor="diag-stage">
-            {DIAGNOSTIC_FORM.stageLabel} <span className="opt">optional</span>
+            {DIAGNOSTIC_FORM.stageLabel} <span className="opt">{t.optional}</span>
           </label>
           <select id="diag-stage" name="stage" value={values.stage} onChange={update("stage")}>
             {DIAGNOSTIC_FORM.stages.map((option) => (
@@ -442,7 +393,7 @@ function DiagnosticForm() {
         </div>
         <div className="diag-form-wide">
           <label htmlFor="diag-govern">
-            What are you trying to govern? <span className="req">required</span>
+            {t.form.govern} <span className="req">{t.required}</span>
           </label>
           <textarea
             id="diag-govern"
@@ -475,11 +426,12 @@ function DiagnosticForm() {
 }
 
 function ExternalLink({ href, children, className }) {
+  const { t } = useI18n();
   return (
     <a className={className} href={href} target="_blank" rel="noopener noreferrer">
       {children}
       <Icon name="external" />
-      <span className="visually-hidden"> (opens in a new tab)</span>
+      <span className="visually-hidden">{t.opensNewTab}</span>
     </a>
   );
 }
@@ -487,6 +439,57 @@ function ExternalLink({ href, children, className }) {
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { locale, t, content, home, localize, localizedPath, switchTo } = useI18n();
+  const {
+    ABOUT_BLOCKS,
+    ABOUT_INTRO,
+    ABOUT_SITE,
+    APPROACH,
+    AUDIENCE,
+    BEST_FIT,
+    HERO,
+    HERO_FOR,
+    CAPABILITIES,
+    CASE_STUDIES,
+    COVER,
+    COVER_AVIF,
+    COVER_WEBP,
+    CREDENTIAL_GROUPS,
+    CTA,
+    CV_PDF,
+    DELIVER,
+    DGOM,
+    DIAGNOSTIC,
+    ENGAGEMENT,
+    FRAMEWORKS,
+    INSIGHTS,
+    LINKS,
+    LOCATION,
+    LOCATION_HERO,
+    MAPPING_TEASER,
+    PROBLEMS,
+    PROJECTS,
+    SOCIAL_PROOF,
+    WHITEPAPER_PDF,
+    WHITEPAPER_PDF_ES,
+  } = content;
+  const paperPdf = locale === "es" ? WHITEPAPER_PDF_ES : WHITEPAPER_PDF;
+  const navSections = [
+    { id: "about", label: t.nav.about },
+    { id: "approach", label: t.nav.approach },
+    { id: "case-studies", label: t.nav.caseStudies },
+    { id: "projects", label: t.nav.projects },
+    { id: "contact", label: t.nav.contact },
+  ];
+  const mobileNav = [
+    { id: "approach", label: t.mobile.approach },
+    { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
+    { id: "case-studies", label: t.mobile.caseStudy },
+    { id: "projects", label: t.mobile.projects },
+    { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
+    { id: "validation", label: t.mobile.about },
+    { id: "contact", label: t.mobile.contact },
+  ];
   const [view, setView] = useState(() => viewFromLocation(location.pathname, location.hash));
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -497,14 +500,18 @@ export default function App() {
   const headerRef = useRef(null);
 
   useEffect(() => {
-    document.title = pageSeoFor(location.pathname).title;
+    applyDocumentHead(location.pathname);
   }, [view, location.pathname]);
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    const path = location.pathname.replace(/\/+$/, "") || "/";
+    if (path === "/" || path === "/es") {
       const routed = hashToPathRoute(location.hash);
       if (routed) {
-        navigate({ pathname: routed.pathname, hash: routed.hash }, { replace: true });
+        navigate(
+          { pathname: withLocale(routed.pathname, localeFromPath(location.pathname)), hash: routed.hash },
+          { replace: true }
+        );
         return;
       }
     }
@@ -583,7 +590,7 @@ export default function App() {
 
   useEffect(() => {
     if (view !== "home") return undefined;
-    const ids = NAV_SECTIONS.map((item) => item.id);
+    const ids = navSections.map((item) => item.id);
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (!elements.length) return undefined;
 
@@ -604,12 +611,12 @@ export default function App() {
     setMenuOpen(false);
     setMoreOpen(false);
     const hash = id || "top";
-    if (location.pathname !== "/") {
-      navigate(`/#${hash}`);
+    if (location.pathname !== home) {
+      navigate(`${home}#${hash}`);
       return;
     }
     if (view !== "home") {
-      navigate(`/#${hash}`);
+      navigate(`${home}#${hash}`);
       return;
     }
     document.getElementById(id)?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
@@ -622,13 +629,13 @@ export default function App() {
         CV
       </a>
       <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer">
-        LinkedIn<span className="visually-hidden"> (opens in a new tab)</span>
+        LinkedIn<span className="visually-hidden">{t.opensNewTab}</span>
       </a>
       <a href={LINKS.github} target="_blank" rel="noopener noreferrer">
-        GitHub<span className="visually-hidden"> (opens in a new tab)</span>
+        GitHub<span className="visually-hidden">{t.opensNewTab}</span>
       </a>
       <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
-        Medium<span className="visually-hidden"> (opens in a new tab)</span>
+        Medium<span className="visually-hidden">{t.opensNewTab}</span>
       </a>
     </>
   );
@@ -636,12 +643,12 @@ export default function App() {
   return (
     <div className={view === "home" ? "site" : "site site-paper"}>
       <a className="skip" href="#main">
-        Skip to content
+        {t.skip}
       </a>
       <header className="top" ref={headerRef}>
         <Link
           className="mark"
-          to="/#top"
+          to={`${home}#top`}
           onClick={() => {
             setMenuOpen(false);
             setMoreOpen(false);
@@ -650,7 +657,9 @@ export default function App() {
           <Icon name="shield" className="icon mark-icon" />
           <span className="mark-text">
             <span className="mark-name">tshapedconsultant</span>
-            <small className="mark-sub-full">AI Governance Engineering</small>
+            <small className="mark-sub-full">
+              {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
+            </small>
             <small className="mark-sub-short">AI Gov Eng.</small>
           </span>
         </Link>
@@ -662,8 +671,17 @@ export default function App() {
             goHomeSection("diagnostic");
           }}
         >
-          Discuss
+          {t.discuss}
         </a>
+        <nav className="lang-switch" aria-label={t.language}>
+          <Link to={switchTo("en")} hrefLang="en-GB" lang="en-GB" aria-current={locale === "en" ? "true" : undefined}>
+            {t.langEn}
+          </Link>
+          <span aria-hidden="true">|</span>
+          <Link to={switchTo("es")} hrefLang="es" lang="es" aria-current={locale === "es" ? "true" : undefined}>
+            {t.langEs}
+          </Link>
+        </nav>
         <button
           className="menu-toggle"
           type="button"
@@ -675,11 +693,11 @@ export default function App() {
             setMoreOpen(false);
           }}
         >
-          {menuOpen ? "Close" : "Menu"}
+          {menuOpen ? t.close : t.menu}
         </button>
         <nav id="site-nav" className={menuOpen ? "open" : undefined} aria-label="Primary">
           <div className="nav-desktop">
-            {NAV_SECTIONS.map((item) => (
+            {navSections.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
@@ -694,7 +712,7 @@ export default function App() {
               </a>
             ))}
             <Link
-              to={EU_AI_ACT_MAPPING_PATH}
+              to={localizedPath(EU_AI_ACT_MAPPING_PATH)}
               className={view === "mapping" ? "is-active" : undefined}
               aria-current={view === "mapping" ? "page" : undefined}
               onClick={() => {
@@ -702,10 +720,10 @@ export default function App() {
                 setMoreOpen(false);
               }}
             >
-              EU AI Act
+              {t.nav.euAiAct}
             </Link>
             <Link
-              to={WHITEPAPER_PATH}
+              to={localizedPath(WHITEPAPER_PATH)}
               className={view === "whitepaper" ? "is-active" : undefined}
               aria-current={view === "whitepaper" ? "page" : undefined}
               onClick={() => {
@@ -713,7 +731,7 @@ export default function App() {
                 setMoreOpen(false);
               }}
             >
-              Whitepaper
+              {t.nav.whitepaper}
             </Link>
             <a
               className="nav-cta"
@@ -723,7 +741,7 @@ export default function App() {
                 goHomeSection("diagnostic");
               }}
             >
-              Discuss
+              {t.discuss}
             </a>
             <div className="more-wrap" ref={moreWrapRef}>
               <button
@@ -741,7 +759,7 @@ export default function App() {
                   requestAnimationFrame(() => moreWrapRef.current?.querySelector("a")?.focus());
                 }}
               >
-                Resources
+                {t.resources}
               </button>
               <div id="more-menu" className={moreOpen ? "more-menu open" : "more-menu"} hidden={!moreOpen}>
                 {secondaryLinks}
@@ -749,7 +767,7 @@ export default function App() {
             </div>
           </div>
           <div className="nav-mobile">
-            {MOBILE_NAV.map((item) =>
+            {mobileNav.map((item) =>
               item.to ? (
                 <Link
                   key={item.to}
@@ -786,7 +804,7 @@ export default function App() {
                 goHomeSection("diagnostic");
               }}
             >
-              Discuss
+              {t.discuss}
             </a>
             <div className="nav-secondary">{secondaryLinks}</div>
           </div>
@@ -797,11 +815,11 @@ export default function App() {
         {view === "mapping" ? (
           <EuAiActMapping />
         ) : view === "whitepaper" ? (
-          <Whitepaper />
+          locale === "es" ? <WhitepaperEs /> : <Whitepaper />
         ) : view === "article" ? (
-          <Article />
+          locale === "es" ? <ArticleEs /> : <Article />
         ) : view === "hybrid" ? (
-          <HybridProfiles />
+          locale === "es" ? <HybridProfilesEs /> : <HybridProfiles />
         ) : (
           <>
             <section className="hero region-dark" id="top">
@@ -813,7 +831,9 @@ export default function App() {
                   </p>
                   <h1>
                     Andrés Lage Freire
-                    <span className="h1-specialty">AI Governance Engineering</span>
+                    <span className="h1-specialty">
+                      {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
+                    </span>
                   </h1>
                   <p className="tagline">{HERO.tagline}</p>
                   <p className="value-prop">{HERO.value}</p>
@@ -834,11 +854,11 @@ export default function App() {
                       >
                         {CTA.primary}
                       </a>
-                      <a className="btn btn-ghost hero-secondary-desktop" href={WHITEPAPER_PATH}>
-                        Read the whitepaper
+                      <a className="btn btn-ghost hero-secondary-desktop" href={localizedPath(WHITEPAPER_PATH)}>
+                        {t.hero.readWhitepaper}
                       </a>
-                      <Link className="btn btn-ghost hero-secondary-mobile" to={EU_AI_ACT_MAPPING_PATH}>
-                        EU AI Act mapping
+                      <Link className="btn btn-ghost hero-secondary-mobile" to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>
+                        {t.hero.mapping}
                       </Link>
                     </div>
                     <p className="cta-note">{CTA.note}</p>
@@ -851,7 +871,7 @@ export default function App() {
                           goHomeSection("case-studies");
                         }}
                       >
-                        Read the BBVA case study
+                        {t.hero.bbva}
                       </a>
                       <a
                         className="text-link"
@@ -861,10 +881,10 @@ export default function App() {
                           goHomeSection("projects");
                         }}
                       >
-                        View reference implementations
+                        {t.hero.implementations}
                       </a>
                     </div>
-                    <ul className="audience" aria-label="Choose your path">
+                    <ul className="audience" aria-label={t.hero.audienceLabel}>
                       {AUDIENCE.map((item) => (
                         <li key={item.id}>
                           <button
@@ -908,14 +928,11 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     01
                   </p>
-                  <h2>Why this matters</h2>
+                  <h2>{t.why.title}</h2>
                 </div>
-                <p className="why-lead">AI governance is moving from documentation to independent runtime controls.</p>
-                <p className="why-brutal">
-                  Enterprises don&apos;t need another policy document. They need enforceable limits that survive
-                  deployment, runtime, audit and regulatory scrutiny.
-                </p>
-                <p className="why-close">I design the architecture that connects all four.</p>
+                <p className="why-lead">{t.why.lead}</p>
+                <p className="why-brutal">{t.why.brutal}</p>
+                <p className="why-close">{t.why.close}</p>
                 <div className="problem-grid">
                   {PROBLEMS.map((item) => (
                     <article className="risk-panel" key={item.title}>
@@ -923,7 +940,7 @@ export default function App() {
                       <h3>{item.title}</h3>
                       <p className="risk-sub">{item.subtitle}</p>
                       <details className="mobile-disclose risk-body">
-                        <summary>Read more</summary>
+                        <summary>{t.why.readMore}</summary>
                         <p>{item.text}</p>
                       </details>
                     </article>
@@ -931,8 +948,8 @@ export default function App() {
                 </div>
                 <aside className="callout-pair">
                   <p className="best-fit">
-                    <span className="callout-label">Best fit</span>
-                    {BEST_FIT.replace(/^Best fit:\s*/i, "")}
+                    <span className="callout-label">{t.why.bestFit}</span>
+                    {BEST_FIT.replace(/^(Best fit|Mejor encaje):\s*/i, "")}
                   </p>
                 </aside>
                 <article className="mapping-teaser">
@@ -940,15 +957,15 @@ export default function App() {
                   <h3>{MAPPING_TEASER.title}</h3>
                   <p>{MAPPING_TEASER.text}</p>
                   <div className="mapping-teaser-actions">
-                    <Link className="btn btn-solid" to={EU_AI_ACT_MAPPING_PATH}>
+                    <Link className="btn btn-solid" to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>
                       {MAPPING_TEASER.cta}
                     </Link>
-                    <a className="btn btn-ghost" href={WHITEPAPER_PATH}>
-                      Whitepaper
+                    <a className="btn btn-ghost" href={localizedPath(WHITEPAPER_PATH)}>
+                      {t.mappingTeaser.whitepaper}
                     </a>
                   </div>
                   <p className="mapping-teaser-refs">
-                    Reference implementations:{" "}
+                    {t.mappingTeaser.refs}{" "}
                     <ExternalLink href={PROJECTS[2].href}>{PROJECTS[2].name}</ExternalLink>
                     {" · "}
                     <ExternalLink href={PROJECTS[0].href}>{PROJECTS[0].name}</ExternalLink>
@@ -960,7 +977,7 @@ export default function App() {
             <section id="diagnostic" className="region region-dark diagnostic-band">
               <div className="region-inner diagnostic-layout">
                 <article className="diag-panel">
-                  <p className="eyebrow">Productised entry point</p>
+                  <p className="eyebrow">{t.diagnostic.kicker}</p>
                   <div className="diag-title-row">
                     <h2>{DIAGNOSTIC.title}</h2>
                     <p className="meta-badge">{DIAGNOSTIC.duration}</p>
@@ -997,23 +1014,16 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     02
                   </p>
-                  <h2>The approach</h2>
+                  <h2>{t.approach.title}</h2>
                 </div>
                 <div className="two-level">
                   <article>
-                    <p className="level-kicker">Business problem</p>
-                    <p>
-                      AI programmes often fail not because the model is weak, but because ownership,
-                      authority, decision traceability and operational accountability are unclear.
-                    </p>
+                    <p className="level-kicker">{t.approach.business}</p>
+                    <p>{t.approach.businessText}</p>
                   </article>
                   <article>
-                    <p className="level-kicker">Technical approach</p>
-                    <p>
-                      Foundation models are probabilistic. Governance must therefore determine what they
-                      may access, decide, trigger and change—and enforce those limits independently at
-                      runtime.
-                    </p>
+                    <p className="level-kicker">{t.approach.technical}</p>
+                    <p>{t.approach.technicalText}</p>
                   </article>
                 </div>
                 <p className="approach-thesis">{HERO.principle}</p>
@@ -1037,18 +1047,12 @@ export default function App() {
                     </article>
                   ))}
                 </div>
-                <p className="reg-line">
-                  AI Act readiness and governance controls proportionate to your role, use case and risk
-                  profile — not a claim that every system carries the same obligations.
-                </p>
+                <p className="reg-line">{t.approach.readiness}</p>
 
                 <div className="dgom-block">
-                  <p className="level-kicker">Operating model</p>
-                  <h3>Dual Governance Operating Model (DGOM™)</h3>
-                  <p className="dgom-sub">
-                    From board-level accountability to executable controls. PLAN → BUILD → DEPLOY →
-                    MONITOR.
-                  </p>
+                  <p className="level-kicker">{t.approach.operating}</p>
+                  <h3>{t.approach.dgomTitle}</h3>
+                  <p className="dgom-sub">{t.approach.dgomSub}</p>
                   <ol className="dgom-timeline">
                     {DGOM.map((phase) => (
                       <li key={phase.id}>
@@ -1061,18 +1065,12 @@ export default function App() {
 
                 <div className="term-grid">
                   <article>
-                    <h3>The Deterministic Cage</h3>
-                    <p>
-                      Independent controls that limit what a probabilistic system can access, decide and
-                      execute.
-                    </p>
+                    <h3>{t.approach.cageTitle}</h3>
+                    <p>{t.approach.cageText}</p>
                   </article>
                   <article>
-                    <h3>Constitutional architecture</h3>
-                    <p>
-                      A separation of policy, execution and independent oversight across the AI
-                      lifecycle.
-                    </p>
+                    <h3>{t.approach.constitutionTitle}</h3>
+                    <p>{t.approach.constitutionText}</p>
                   </article>
                 </div>
               </div>
@@ -1084,20 +1082,16 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     03
                   </p>
-                  <h2>Guardrails are not governance</h2>
+                  <h2>{t.guard.title}</h2>
                 </div>
-                <p className="guard-lead">Guardrails constrain model behaviour.</p>
-                <p className="guard-determines">Governance determines:</p>
+                <p className="guard-lead">{t.guard.lead}</p>
+                <p className="guard-determines">{t.guard.determines}</p>
                 <ol className="guard-chain">
-                  <li>who can act</li>
-                  <li>what they can do</li>
-                  <li>under which conditions</li>
-                  <li>who can stop them</li>
-                  <li>what evidence remains</li>
+                  {t.guard.chain.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ol>
-                <p className="principle-line">
-                  Model safety is a component. Control architecture is the system.
-                </p>
+                <p className="principle-line">{t.guard.principle}</p>
               </div>
             </section>
 
@@ -1107,12 +1101,9 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     04
                   </p>
-                  <h2>What you get</h2>
+                  <h2>{t.deliver.title}</h2>
                 </div>
-                <p className="section-lede">
-                  Capabilities you can buy — architecture, engineering, decision traceability and executive output —
-                  not a policy workshop that ends in a slide deck.
-                </p>
+                <p className="section-lede">{t.deliver.lede}</p>
                 <ul className="capability-strip">
                   {CAPABILITIES.map((item) => (
                     <li key={item.title}>
@@ -1129,7 +1120,7 @@ export default function App() {
                     <article key={group.title}>
                       <h3>{group.title}</h3>
                       <details className="mobile-disclose deliver-body">
-                        <summary>What’s included</summary>
+                        <summary>{t.deliver.included}</summary>
                         <ul>
                           {group.items.map((item) => (
                             <li key={item}>{item}</li>
@@ -1165,7 +1156,7 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     05
                   </p>
-                  <h2>Case studies</h2>
+                  <h2>{t.cases.title}</h2>
                 </div>
                 <p className="section-lede">{CASE_STUDIES.lede}</p>
                 {CASE_STUDIES.items.map((study) => (
@@ -1179,17 +1170,17 @@ export default function App() {
                       <p className="case-role">{study.role}</p>
                     </header>
                     <div className="case-problem">
-                      <h4>Problem</h4>
+                      <h4>{t.cases.problem}</h4>
                       <p>{study.problem}</p>
                     </div>
-                    <h4 className="case-outcomes-label">Outcomes</h4>
+                    <h4 className="case-outcomes-label">{t.cases.outcomes}</h4>
                     <ol className="case-outcomes">
                       {study.outcomes.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
                     </ol>
                     <details className="disclose-always case-done">
-                      <summary>What was done</summary>
+                      <summary>{t.cases.done}</summary>
                       <ul>
                         {study.approach.map((item) => (
                           <li key={item}>{item}</li>
@@ -1197,12 +1188,12 @@ export default function App() {
                       </ul>
                     </details>
                     <aside className="case-gov">
-                      <h4>Governance</h4>
+                      <h4>{t.cases.governance}</h4>
                       <p>{study.governance}</p>
                     </aside>
                     <p className="case-note">{study.note}</p>
                     <a className="btn btn-solid" href={study.pdf} download>
-                      Download case study (PDF)
+                      {t.cases.download}
                     </a>
                   </article>
                 ))}
@@ -1215,12 +1206,9 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     06
                   </p>
-                  <h2>Selected reference implementations</h2>
+                  <h2>{t.projects.title}</h2>
                 </div>
-                <p className="section-lede">
-                  Three flagship systems that show vendor risk, agentic runtime controls, and regulated
-                  evidence — not a catalogue of every repository.
-                </p>
+                <p className="section-lede">{t.projects.lede}</p>
                 <div className="project-grid">
                   {PROJECTS.map((project) => (
                     <article className="project" key={project.href}>
@@ -1236,17 +1224,17 @@ export default function App() {
                         ))}
                       </ul>
                       <p className="outcome">
-                        <strong>Outcome.</strong> {project.outcome}
+                        <strong>{t.projects.outcome}</strong> {project.outcome}
                       </p>
                       <ExternalLink className="project-link" href={project.href}>
-                        View implementation
+                        {t.projects.view}
                       </ExternalLink>
                     </article>
                   ))}
                 </div>
                 <p className="more-repos">
                   <ExternalLink className="btn btn-ghost" href={LINKS.githubRepos}>
-                    View all reference implementations on GitHub
+                    {t.projects.all}
                   </ExternalLink>
                 </p>
               </div>
@@ -1259,34 +1247,26 @@ export default function App() {
                     <p className="num" aria-hidden="true">
                       07
                     </p>
-                    <h2>Whitepaper</h2>
+                    <h2>{t.paper.title}</h2>
                   </div>
-                  <p className="paper-title-line">Probabilistic Models Require Deterministic Governance</p>
-                  <p className="paper-sub-line">
-                    Why enterprise and agentic AI needs a constitutional architecture — a separation of
-                    policy, execution and independent oversight.
-                  </p>
+                  <p className="paper-title-line">{t.paper.heading}</p>
+                  <p className="paper-sub-line">{t.paper.sub}</p>
                   <div className="prose">
-                    <p>
-                      Deterministic software aims for the same output for the same input. Foundation
-                      models do not. We cannot make probabilistic systems deterministic. We can constrain
-                      their authority and bound their consequences with independent runtime controls — the
-                      Deterministic Cage.
-                    </p>
+                    <p>{t.paper.body}</p>
                   </div>
                   <div className="hero-actions">
-                    <a className="btn btn-solid" href={WHITEPAPER_PATH}>
-                      Read on this site
+                    <a className="btn btn-solid" href={localizedPath(WHITEPAPER_PATH)}>
+                      {t.paper.read}
                     </a>
-                    <a className="btn btn-ghost" href={WHITEPAPER_PDF} download>
-                      Download PDF
+                    <a className="btn btn-ghost" href={paperPdf} download>
+                      {t.paper.pdf}
                     </a>
                   </div>
                   <p className="paper-also">
-                    Further reading:{" "}
+                    {t.paper.also}{" "}
                     <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
-                      articles on Medium
-                      <span className="visually-hidden"> (opens in a new tab)</span>
+                      {t.paper.medium}
+                      <span className="visually-hidden">{t.opensNewTab}</span>
                     </a>
                   </p>
                 </div>
@@ -1309,12 +1289,9 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     08
                   </p>
-                  <h2>Insights</h2>
+                  <h2>{t.insights.title}</h2>
                 </div>
-                <p className="section-lede">
-                  Essays on responsible AI, operating models and runtime governance — on this site
-                  and on Medium.
-                </p>
+                <p className="section-lede">{t.insights.lede}</p>
                 <ul className="insight-grid">
                   {INSIGHTS.map((item, index) => (
                     <li
@@ -1326,7 +1303,7 @@ export default function App() {
                       <Icon name={item.icon} />
                       <h3>
                         {item.internal ? (
-                          <a href={item.href}>{item.title}</a>
+                          <a href={localize(item.href)}>{item.title}</a>
                         ) : (
                           <ExternalLink href={item.href}>{item.title}</ExternalLink>
                         )}
@@ -1334,7 +1311,7 @@ export default function App() {
                       <p>{item.text}</p>
                       {item.internal ? (
                         <p className="insight-read">
-                          <a href={item.href}>Read article</a>
+                          <a href={localize(item.href)}>{t.insights.read}</a>
                         </p>
                       ) : null}
                     </li>
@@ -1342,13 +1319,13 @@ export default function App() {
                 </ul>
                 <details className="mobile-disclose insights-toggle">
                   <summary>
-                    <span className="when-closed">View all insights</span>
-                    <span className="when-open">Show fewer insights</span>
+                    <span className="when-closed">{t.insights.more}</span>
+                    <span className="when-open">{t.insights.fewer}</span>
                   </summary>
                 </details>
                 <p className="more-repos">
                   <ExternalLink className="btn btn-ghost" href={LINKS.medium}>
-                    All articles on Medium
+                    {t.insights.allMedium}
                   </ExternalLink>
                 </p>
               </div>
@@ -1360,7 +1337,7 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     09
                   </p>
-                  <h2>Credentials, publications and open work</h2>
+                  <h2>{t.creds.title}</h2>
                 </div>
                 {(() => {
                   let credentialIndex = 0;
@@ -1381,12 +1358,12 @@ export default function App() {
                             >
                               <p className="val-kind">
                                 {item.kind}
-                                {item.inProgress ? <span className="in-progress">In progress</span> : null}
+                                {item.inProgress ? <span className="in-progress">{t.creds.inProgress}</span> : null}
                               </p>
                               <h3>
                                 {item.href ? (
                                   isInternalHref(item.href) ? (
-                                    <a href={item.href}>{item.title}</a>
+                                    <a href={localize(item.href)}>{item.title}</a>
                                   ) : (
                                     <ExternalLink href={item.href}>{item.title}</ExternalLink>
                                   )
@@ -1405,10 +1382,10 @@ export default function App() {
                               ) : null}
                               {item.sourceHref ? (
                                 <p className="val-source">
-                                  Press:{" "}
+                                  {t.creds.press}{" "}
                                   <a href={item.sourceHref} target="_blank" rel="noopener noreferrer">
                                     {item.sourceLabel}
-                                    <span className="visually-hidden"> (opens in a new tab)</span>
+                                    <span className="visually-hidden">{t.opensNewTab}</span>
                                   </a>
                                 </p>
                               ) : null}
@@ -1421,8 +1398,8 @@ export default function App() {
                 })()}
                 <details className="mobile-disclose cred-toggle">
                   <summary>
-                    <span className="when-closed">View all education and programmes</span>
-                    <span className="when-open">Show fewer credentials</span>
+                    <span className="when-closed">{t.creds.more}</span>
+                    <span className="when-open">{t.creds.fewer}</span>
                   </summary>
                 </details>
               </div>
@@ -1434,10 +1411,10 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     10
                   </p>
-                  <h2>About Andrés</h2>
+                  <h2>{t.about.title}</h2>
                 </div>
-                <p className="why-lead about-unusual">Why my background is unusual</p>
-                <p className="about-combo">Engineering + AI + Governance + Regulation</p>
+                <p className="why-lead about-unusual">{t.about.unusual}</p>
+                <p className="about-combo">{t.about.combo}</p>
                 <p className="about-location">{LOCATION}</p>
                 <div className="about-blocks">
                   {ABOUT_BLOCKS.map((item) => (
@@ -1453,7 +1430,7 @@ export default function App() {
                   <p>{ABOUT_SITE}</p>
                 </div>
                 <a className="btn btn-ghost" href={CV_PDF} download>
-                  Download CV (PDF)
+                  {t.about.cv}
                 </a>
               </div>
             </section>
@@ -1464,11 +1441,10 @@ export default function App() {
                   <p className="num" aria-hidden="true">
                     11
                   </p>
-                  <h2>Contact</h2>
+                  <h2>{t.contact.title}</h2>
                 </div>
                 <p className="closing">
-                  {HERO.principle} Your AI system becomes governed when policy is enforced in design,
-                  deployment and runtime—and when audit-ready evidence proves that it happened.
+                  {HERO.principle} {t.contact.closing}
                 </p>
                 <div className="cta-primary">
                   <a
@@ -1499,7 +1475,7 @@ export default function App() {
               goHomeSection("diagnostic");
             }}
           >
-            Discuss
+            {t.discuss}
           </a>
           <p className="cta-note foot-cta-note">{CTA.note}</p>
           <a
@@ -1510,29 +1486,30 @@ export default function App() {
               goHomeSection("diagnostic");
             }}
           >
-            Email
+            {t.contact.email}
           </a>
         </div>
         <p className="foot-links">
           <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer">
-            LinkedIn<span className="visually-hidden"> (opens in a new tab)</span>
+            LinkedIn<span className="visually-hidden">{t.opensNewTab}</span>
           </a>
           <a href={LINKS.github} target="_blank" rel="noopener noreferrer">
-            GitHub<span className="visually-hidden"> (opens in a new tab)</span>
+            GitHub<span className="visually-hidden">{t.opensNewTab}</span>
           </a>
           <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
-            Articles on Medium<span className="visually-hidden"> (opens in a new tab)</span>
+            {t.contact.medium}
+            <span className="visually-hidden">{t.opensNewTab}</span>
           </a>
           <a href={CV_PDF} download>
             CV
           </a>
-          <a href="/#case-studies">Case studies</a>
-          <Link to={EU_AI_ACT_MAPPING_PATH}>EU AI Act mapping</Link>
-          <Link to={WHITEPAPER_PATH}>Whitepaper</Link>
+          <a href={`${home}#case-studies`}>{t.nav.caseStudies}</a>
+          <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
+          <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>
         </p>
         <p>© {new Date().getFullYear()} Andrés Lage Freire · tshapedconsultant.com</p>
         <p>{LOCATION}</p>
-        <p>AI Governance Engineering · From regulation to runtime assurance</p>
+        <p>{t.contact.tagline}</p>
       </footer>
     </div>
   );

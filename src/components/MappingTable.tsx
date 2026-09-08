@@ -1,13 +1,12 @@
-import { Fragment, useMemo, useState } from "react";
+﻿import { Fragment, useMemo, useState } from "react";
 import {
-  EU_AI_ACT_MAPPING_ROWS,
-  MAPPING_FILTER_HELP,
-  MAPPING_STATUS_LEGEND,
   type ControlKind,
   type MappingRow,
   type MappingStatus,
   type SystemRole,
 } from "../data/euAiActMapping";
+import { mappingCopy, mappingRowsFor } from "../data/mappingI18n";
+import { useI18n } from "../i18n/LocaleContext";
 
 type SortKey = "article" | "systemType" | "control" | "evidence" | "status";
 type SortDir = "asc" | "desc";
@@ -26,18 +25,10 @@ const CONTROL_OPTIONS: ControlKind[] = [
 const STATUS_OPTIONS: MappingStatus[] = ["Implemented", "Reference", "Planned"];
 const ROLE_OPTIONS: SystemRole[] = ["provider", "deployer", "high-risk"];
 
-const COLUMNS: { key: SortKey; label: string }[] = [
-  { key: "article", label: "Article / obligation" },
-  { key: "systemType", label: "System type / role" },
-  { key: "control", label: "Executable control" },
-  { key: "evidence", label: "Evidence generated" },
-  { key: "status", label: "Status" },
-];
-
-function compareRows(a: MappingRow, b: MappingRow, key: SortKey, dir: SortDir): number {
+function compareRows(a: MappingRow, b: MappingRow, key: SortKey, dir: SortDir, locale: string): number {
   const left = key === "control" ? a.control : a[key];
   const right = key === "control" ? b.control : b[key];
-  const result = String(left).localeCompare(String(right), "en-GB");
+  const result = String(left).localeCompare(String(right), locale === "es" ? "es" : "en-GB");
   return dir === "asc" ? result : -result;
 }
 
@@ -86,6 +77,17 @@ function StatusPill({ status }: { status: MappingStatus }) {
 }
 
 export default function MappingTable() {
+  const { locale, t } = useI18n();
+  const copy = mappingCopy(locale);
+  const ui = t.mappingTable;
+  const rowsSource = mappingRowsFor(locale);
+  const columns: { key: SortKey; label: string }[] = [
+    { key: "article", label: ui.colArticle },
+    { key: "systemType", label: ui.colRole },
+    { key: "control", label: ui.colControl },
+    { key: "evidence", label: ui.colEvidence },
+    { key: "status", label: ui.colStatus },
+  ];
   const [query, setQuery] = useState("");
   const [article, setArticle] = useState("");
   const [role, setRole] = useState("");
@@ -97,15 +99,15 @@ export default function MappingTable() {
 
   const articles = useMemo(() => {
     const unique = new Map<string, string>();
-    for (const row of EU_AI_ACT_MAPPING_ROWS) {
+    for (const row of rowsSource) {
       if (!unique.has(row.articleKey)) unique.set(row.articleKey, row.article);
     }
     return [...unique.entries()];
-  }, []);
+  }, [rowsSource]);
 
   const rows = useMemo(() => {
     const needle = query.trim().toLowerCase();
-    const filtered = EU_AI_ACT_MAPPING_ROWS.filter((row) => {
+    const filtered = rowsSource.filter((row) => {
       if (article && row.articleKey !== article) return false;
       if (role && !row.roles.includes(role as SystemRole)) return false;
       if (control && row.controlKind !== control) return false;
@@ -124,8 +126,8 @@ export default function MappingTable() {
         .toLowerCase();
       return haystack.includes(needle);
     });
-    return [...filtered].sort((a, b) => compareRows(a, b, sortKey, sortDir));
-  }, [article, control, query, role, sortDir, sortKey, status]);
+    return [...filtered].sort((a, b) => compareRows(a, b, sortKey, sortDir, locale));
+  }, [article, control, locale, query, role, rowsSource, sortDir, sortKey, status]);
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) {
@@ -152,31 +154,28 @@ export default function MappingTable() {
 
   return (
     <section className="mapping-table-section" aria-labelledby="mapping-table-title">
-      <h2 id="mapping-table-title">Full mapping table</h2>
-      <p>
-        Eleven obligations that show up in due diligence for high-risk and high-accountability
-        systems. Filter for a conversation; expand a row for the control sketch and a minimal pack.
-      </p>
+      <h2 id="mapping-table-title">{ui.title}</h2>
+      <p>{ui.intro}</p>
 
       <form className="mapping-filters" onSubmit={(event) => event.preventDefault()}>
         <fieldset>
-          <legend className="visually-hidden">Filter the EU AI Act mapping</legend>
+          <legend className="visually-hidden">{ui.filterLegend}</legend>
           <div className="mapping-filter-grid">
             <p>
-              <label htmlFor="map-search">Search</label>
+              <label htmlFor="map-search">{ui.search}</label>
               <input
                 id="map-search"
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Article, control, evidence…"
+                placeholder={ui.searchPh}
                 autoComplete="off"
               />
             </p>
             <p>
-              <label htmlFor="map-article">Article</label>
+              <label htmlFor="map-article">{ui.article}</label>
               <select id="map-article" value={article} onChange={(event) => setArticle(event.target.value)}>
-                <option value="">All articles</option>
+                <option value="">{ui.allArticles}</option>
                 {articles.map(([key, label]) => (
                   <option key={key} value={key}>
                     {label}
@@ -185,9 +184,9 @@ export default function MappingTable() {
               </select>
             </p>
             <p>
-              <label htmlFor="map-role">System type</label>
+              <label htmlFor="map-role">{ui.systemType}</label>
               <select id="map-role" value={role} onChange={(event) => setRole(event.target.value)}>
-                <option value="">All roles</option>
+                <option value="">{ui.allRoles}</option>
                 {ROLE_OPTIONS.map((option) => (
                   <option key={option} value={option}>
                     {option}
@@ -196,9 +195,9 @@ export default function MappingTable() {
               </select>
             </p>
             <p>
-              <label htmlFor="map-control">Control</label>
+              <label htmlFor="map-control">{ui.control}</label>
               <select id="map-control" value={control} onChange={(event) => setControl(event.target.value)}>
-                <option value="">All controls</option>
+                <option value="">{ui.allControls}</option>
                 {CONTROL_OPTIONS.map((option) => (
                   <option key={option} value={option}>
                     {option}
@@ -207,9 +206,9 @@ export default function MappingTable() {
               </select>
             </p>
             <p>
-              <label htmlFor="map-status">Status</label>
+              <label htmlFor="map-status">{ui.status}</label>
               <select id="map-status" value={status} onChange={(event) => setStatus(event.target.value)}>
-                <option value="">All statuses</option>
+                <option value="">{ui.allStatuses}</option>
                 {STATUS_OPTIONS.map((option) => (
                   <option key={option} value={option}>
                     {option}
@@ -225,15 +224,15 @@ export default function MappingTable() {
               onClick={resetFilters}
               disabled={!filtersActive}
             >
-              Reset filters
+              {ui.reset}
             </button>
           </p>
         </fieldset>
       </form>
-      <p className="mapping-help">{MAPPING_FILTER_HELP}</p>
+      <p className="mapping-help">{copy.filterHelp}</p>
       <div className="status-legend">
-        <p className="mapping-status-note">{MAPPING_STATUS_LEGEND}</p>
-        <ul className="status-legend-list" aria-label="Status key">
+        <p className="mapping-status-note">{copy.statusLegend}</p>
+        <ul className="status-legend-list" aria-label={ui.statusKey}>
           {STATUS_OPTIONS.map((option) => (
             <li key={option}>
               <StatusPill status={option} />
@@ -243,29 +242,26 @@ export default function MappingTable() {
       </div>
 
       <p className="mapping-count" role="status" aria-live="polite" aria-atomic="true">
-        {rows.length} obligations shown
+        {ui.count(rows.length)}
       </p>
 
       <div className="table-wrap mapping-table-wrap">
         <table className="mapping-table">
-          <caption>
-            Mapping of selected EU AI Act articles to executable controls and the evidence they
-            generate.
-          </caption>
+          <caption>{ui.caption}</caption>
           <thead>
             <tr>
               <th scope="col">
-                <span className="visually-hidden">Expand</span>
+                <span className="visually-hidden">{ui.expand}</span>
               </th>
-              {COLUMNS.map((column) => {
+              {columns.map((column) => {
                 const active = sortKey === column.key;
                 return (
                   <th key={column.key} scope="col" aria-sort={active ? (sortDir === "asc" ? "ascending" : "descending") : "none"}>
                     <button type="button" onClick={() => toggleSort(column.key)}>
                       {column.label}
-                      <span aria-hidden="true">{active ? (sortDir === "asc" ? " ↑" : " ↓") : " ↕"}</span>
+                      <span aria-hidden="true">{active ? (sortDir === "asc" ? " â†‘" : " â†“") : " â†•"}</span>
                       <span className="visually-hidden">
-                        {active ? `, sorted ${sortDir === "asc" ? "ascending" : "descending"}` : ", sort"}
+                        {active ? (sortDir === "asc" ? ui.sortedAsc : ui.sortedDesc) : ui.sort}
                       </span>
                     </button>
                   </th>
@@ -281,24 +277,24 @@ export default function MappingTable() {
                 return (
                   <Fragment key={row.id}>
                     <tr className={open ? "is-expanded" : undefined}>
-                      <td className="mapping-expand" data-label="Details">
+                      <td className="mapping-expand" data-label={ui.expand}>
                         <button
                           type="button"
                           aria-expanded={open}
                           aria-controls={panelId}
                           onClick={() => toggleExpand(row.id)}
                         >
-                          {open ? "Hide details" : "Show details"}
+                          {open ? ui.hide : ui.show}
                         </button>
                       </td>
-                      <td data-label="Article / obligation">{row.article}</td>
-                      <td data-label="System type / role">{row.systemType}</td>
-                      <td data-label="Executable control">
+                      <td data-label={ui.colArticle}>{row.article}</td>
+                      <td data-label={ui.colRole}>{row.systemType}</td>
+                      <td data-label={ui.colControl}>
                         <span className="control-kind">{row.controlKind}</span>
                         {row.control}
                       </td>
-                      <td data-label="Evidence generated">{row.evidence}</td>
-                      <td data-label="Status">
+                      <td data-label={ui.colEvidence}>{row.evidence}</td>
+                      <td data-label={ui.colStatus}>
                         <StatusPill status={row.status} />
                       </td>
                     </tr>
@@ -307,14 +303,14 @@ export default function MappingTable() {
                         <td colSpan={6}>
                           <div className="mapping-detail" id={panelId}>
                             <p>
-                              <strong>Requirement.</strong> {row.requirement}
+                              <strong>{ui.requirement}</strong> {row.requirement}
                             </p>
                             <p>
-                              <strong>Control sketch.</strong>
+                              <strong>{ui.sketch}</strong>
                             </p>
                             <pre className="rego">{row.controlExample}</pre>
                             <p>
-                              <strong>Evidence example.</strong>
+                              <strong>{ui.evidenceEx}</strong>
                             </p>
                             <pre className="rego">{JSON.stringify(row.evidenceExample, null, 2)}</pre>
                           </div>
@@ -326,7 +322,7 @@ export default function MappingTable() {
               })
             ) : (
               <tr>
-                <td colSpan={6}>No obligations match these filters.</td>
+                <td colSpan={6}>{ui.empty}</td>
               </tr>
             )}
           </tbody>
@@ -340,31 +336,31 @@ export default function MappingTable() {
             return (
               <li key={row.id} className="mapping-card">
                 <header className="mapping-card-head">
-                  <p className="mapping-card-article">{row.article.replace(" – ", " · ")}</p>
+                  <p className="mapping-card-article">{row.article.replace(" â€“ ", " Â· ")}</p>
                   <StatusPill status={row.status} />
                 </header>
                 <p className="mapping-card-role">{row.systemType}</p>
                 <p className="mapping-card-meta">
-                  <span className="mapping-card-label">Control</span>
+                  <span className="mapping-card-label">{ui.control}</span>
                   <span className="control-kind">{row.controlKind}</span>
                   {row.control}
                 </p>
                 <p className="mapping-card-meta">
-                  <span className="mapping-card-label">Evidence</span>
+                  <span className="mapping-card-label">{ui.colEvidence.split(" ")[0]}</span>
                   {row.evidence}
                 </p>
                 <details className="mapping-card-sketch">
-                  <summary>View control sketch</summary>
+                  <summary>{ui.viewSketch}</summary>
                   <div className="mapping-detail" id={panelId}>
                     <p>
-                      <strong>Requirement.</strong> {row.requirement}
+                      <strong>{ui.requirement}</strong> {row.requirement}
                     </p>
                     <p>
-                      <strong>Control sketch.</strong>
+                      <strong>{ui.sketch}</strong>
                     </p>
                     <pre className="rego">{row.controlExample}</pre>
                     <p>
-                      <strong>Evidence example.</strong>
+                      <strong>{ui.evidenceEx}</strong>
                     </p>
                     <pre className="rego">{JSON.stringify(row.evidenceExample, null, 2)}</pre>
                   </div>
@@ -373,7 +369,7 @@ export default function MappingTable() {
             );
           })
         ) : (
-          <li className="mapping-card mapping-card-empty">No obligations match these filters.</li>
+          <li className="mapping-card mapping-card-empty">{ui.empty}</li>
         )}
       </ul>
     </section>

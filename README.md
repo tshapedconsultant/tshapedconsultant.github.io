@@ -56,12 +56,17 @@ After each deploy that changes routes or `sitemap.xml`:
 
 | Path | Content |
 | --- | --- |
-| `/` | Home |
+| `/` | Home (English, canonical) |
+| `/es/` | Home (Spanish) |
 | `/whitepaper` | Whitepaper (legacy `#whitepaper` redirects here) |
+| `/es/whitepaper` | Spanish whitepaper landing + PDF |
 | `/hybrid-profiles` | Essay |
+| `/es/hybrid-profiles` | Spanish intro + link to English essay |
 | `/agentic-ai-montesquieu` | Essay |
+| `/es/agentic-ai-montesquieu` | Spanish essay |
 | `/governance/eu-ai-act-mapping` | EU AI Act mapping |
+| `/es/governance/eu-ai-act-mapping` | Spanish mapping page |
 
-Hash URLs such as `/#whitepaper` still work; they replace to the path routes above.
+The header language switcher (EN | ES) keeps the current page. Hash URLs such as `/#whitepaper` and `/es#whitepaper` still work; they replace to the path routes above.
 
 A Calendly booking link can be added later when a real URL exists. The hero already has **Discuss an AI Governance Diagnostic**.
