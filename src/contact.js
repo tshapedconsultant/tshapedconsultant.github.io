@@ -42,6 +42,10 @@ function parseJsonBody(text) {
   }
 }
 
+function inboxEndpoint() {
+  return `https://formsubmit.co/ajax/${contactEmail()}`;
+}
+
 /**
  * Formspree prints JSON keys as email headings, so user-facing labels stay readable.
  * `email` / `_replyto` are Formspree specials for Reply-To. Empty optionals are omitted.
@@ -72,19 +76,31 @@ export function buildEnquiryPayload({ name, company, email, govern, stage }) {
   return payload;
 }
 
-/**
- * Formspree accepts the POST then may respond with JSON { ok: true } or a 3xx redirect
- * to a thank-you page. Following that redirect in fetch() often hits a CORS wall even
- * though the enquiry was delivered — treat 2xx/3xx as success unless JSON explicitly says ok: false.
- */
-export async function submitEnquiry(fields) {
-  const endpoint = import.meta.env.VITE_FORM_ENDPOINT?.trim();
-  if (!endpoint) {
-    throw new FormNotConfiguredError();
+function formsubmitPayload(payload) {
+  return {
+    ...payload,
+    _captcha: "false",
+    _template: "table",
+  };
+}
+
+function isDelivered(result, kind) {
+  if (!result) return false;
+  if (kind === "formspree") {
+    return result.ok !== false;
   }
+  if (result.success === true || result.success === "true") return true;
+  const message = String(result.message || "").toLowerCase();
+  // First use only arms the inbox; Formspree still holds the enquiry.
+  return message.includes("activate");
+}
 
-  const payload = buildEnquiryPayload(fields);
-
+/**
+ * POST JSON to Formspree / FormSubmit. Treat 2xx/3xx as a transport success, then
+ * read the JSON body. Following a thank-you redirect in fetch() often hits CORS
+ * even when the enquiry was stored — hence redirect: "manual".
+ */
+async function postEnquiry(endpoint, payload) {
   let response;
   try {
     response = await fetch(endpoint, {
@@ -102,18 +118,45 @@ export async function submitEnquiry(fields) {
   }
 
   if (response.type === "opaqueredirect" || (response.status >= 300 && response.status < 400)) {
-    return;
+    return { ok: true };
   }
 
   const bodyText = await response.text();
   const result = parseJsonBody(bodyText);
 
   if (response.ok) {
-    if (result?.ok === false) {
-      throw new Error(result.error || result.message || "Enquiry could not be sent.");
-    }
-    return;
+    return result || { ok: true };
   }
 
   throw new Error(result?.error || result?.message || "Enquiry could not be sent.");
+}
+
+export async function submitEnquiry(fields) {
+  const formspree = import.meta.env.VITE_FORM_ENDPOINT?.trim();
+  if (!formspree) {
+    throw new FormNotConfiguredError();
+  }
+
+  const payload = buildEnquiryPayload(fields);
+  const attempts = await Promise.allSettled([
+    postEnquiry(formspree, payload).then((result) => {
+      if (!isDelivered(result, "formspree")) {
+        throw new Error(result.error || result.message || "Enquiry could not be sent.");
+      }
+      return "formspree";
+    }),
+    postEnquiry(inboxEndpoint(), formsubmitPayload(payload)).then((result) => {
+      if (!isDelivered(result, "formsubmit")) {
+        throw new Error(result.error || result.message || "Enquiry could not be sent.");
+      }
+      return "formsubmit";
+    }),
+  ]);
+
+  if (attempts.some((attempt) => attempt.status === "fulfilled")) {
+    return;
+  }
+
+  const reason = attempts.find((attempt) => attempt.status === "rejected")?.reason;
+  throw reason instanceof Error ? reason : new Error("Enquiry could not be sent.");
 }

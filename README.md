@@ -38,7 +38,7 @@ npm run build
 npm run preview
 ```
 
-Enquiry form: set `VITE_FORM_ENDPOINT` (Formspree) in `.env` locally and as the `VITE_FORM_ENDPOINT` GitHub Actions secret for production.
+Enquiry form: set `VITE_FORM_ENDPOINT` (Formspree) in `.env` locally and as the `VITE_FORM_ENDPOINT` GitHub Actions secret for production. Submissions are also posted to FormSubmit so they arrive at `andreslage@tshapedconsultant.com`. The Formspree dashboard **Target Email** should be that same address (verified). FormSubmit sends a one-time **Activate Form** mail to that inbox on first use — click it or the domain copy will not arrive. Check spam for both `formspree.io` and `formsubmit.co`.
 
 ## Search Console and Bing
 
