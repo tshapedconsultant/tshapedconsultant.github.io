@@ -32,7 +32,9 @@ export const ABOUT_SITE =
 export const HERO = {
   tagline: "Responsible AI Architect · From regulation to runtime assurance",
   value:
-    "Turning EU AI Act obligations and AI risk into executable controls, lifecycle gates and verifiable evidence — from policy to runtime.",
+    "I help CTOs, Heads of AI and Risk leaders turn AI obligations into controls that engineering can implement, test and evidence.",
+  scope:
+    "From AI inventory and EU AI Act readiness to governed agents, RAG security and runtime assurance.",
   principle: "Probabilistic models require deterministic governance.",
 };
 
@@ -349,34 +351,53 @@ export const DELIVER = [
 export const DIAGNOSTIC = {
   title: "AI Governance Diagnostic",
   duration: "2–3 weeks",
-  items: [
-    "AI inventory and triage",
-    "Control-gap assessment",
-    "90-day implementation backlog",
-  ],
-  deliverables: "Delivered as an executive pack and working session.",
+  lead:
+    "Two ways in: a focused Diagnostic to establish the starting point, or the Diagnostic plus an Assurance Blueprint when you are ready to design the controls.",
   position:
-    "I complement a law firm on the technical side, and I am faster and cheaper than a Big Four slide programme that typically bills a junior at around €900–€1,200 a day — this Diagnostic is priced at €500 a day, with working systems public on GitHub rather than a deck.",
+    "I work directly with those who design and build the controls, without splitting strategy, implementation and evidence across several layers.",
+  negatives: [
+    "Not a law-firm memo.",
+    "Not a Big Four slide deck.",
+    "Not another layer of committee delay.",
+  ],
   hybrid:
-    "Building the control is now cheaper than having the meeting about the control — a hybrid who decides across legal, business and engineering, not a thousand meetings between those three rooms.",
+    "One senior practitioner turns AI decisions into executable controls, lifecycle gates and evidence — without the hand-offs.",
   bands: [
     {
-      id: "one-system",
-      name: "One system",
+      id: "diagnostic",
+      name: "AI Governance Diagnostic",
       price: "€4,500",
       vat: "excl. VAT",
-      scope: "About 9 days · one in-scope AI use case.",
+      for: "For organisations that need a clear starting point.",
+      includesLabel: "Includes",
+      includes: [
+        "AI inventory and use-case triage",
+        "Initial risk and obligation view",
+        "Priority control-gap assessment",
+        "90-day implementation backlog",
+        "Executive readout",
+      ],
+      delivery: "Typical delivery: 2 weeks.",
     },
     {
-      id: "inventory-slice",
-      name: "Inventory slice",
+      id: "blueprint",
+      name: "Diagnostic + Assurance Blueprint",
       price: "€6,500",
       vat: "excl. VAT",
-      scope: "About 13 days · a defined set of related systems.",
+      for: "For organisations ready to design the controls.",
+      includesLabel: "Includes everything in the Diagnostic, plus",
+      includes: [
+        "Detailed control architecture",
+        "EU AI Act / ISO/IEC 42001 mapping",
+        "Evidence design",
+        "Agent or RAG assurance review",
+        "Engineering and Risk working session",
+      ],
+      delivery: "Typical delivery: 3 weeks.",
     },
   ],
   priceNote: "€500/day equivalent. The introductory call is unpaid. Scope is confirmed in writing before work starts.",
-  bandsLabel: "Diagnostic fees",
+  bandsLabel: "Diagnostic offers",
 };
 
 export const PROJECTS = [

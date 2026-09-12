@@ -60,7 +60,7 @@ export const UI = {
       refs: "Reference implementations:",
     },
     diagnostic: {
-      kicker: "Productised entry point",
+      kicker: "Start with a focused diagnostic",
     },
     form: {
       name: "Name",
@@ -389,7 +389,7 @@ export const UI = {
       refs: "Implementaciones de referencia:",
     },
     diagnostic: {
-      kicker: "Punto de entrada productizado",
+      kicker: "Empiece por un diagnóstico acotado",
     },
     form: {
       name: "Nombre",

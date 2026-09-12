@@ -906,6 +906,7 @@ export default function App() {
                   </h1>
                   <p className="tagline">{HERO.tagline}</p>
                   <p className="value-prop">{HERO.value}</p>
+                  <p className="value-scope">{HERO.scope}</p>
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
@@ -985,15 +986,15 @@ export default function App() {
                     <h2>{DIAGNOSTIC.title}</h2>
                     <p className="meta-badge">{DIAGNOSTIC.duration}</p>
                   </div>
-                  <ul className="diag-product">
-                    {DIAGNOSTIC.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <p className="diag-deliverables">{DIAGNOSTIC.deliverables}</p>
+                  <p className="diag-lead">{DIAGNOSTIC.lead}</p>
                   <div className="diag-position-block">
-                    <p className="diag-position">{DIAGNOSTIC.position}</p>
+                    <ul className="diag-nots">
+                      {DIAGNOSTIC.negatives.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
                     <p className="diag-hybrid">{DIAGNOSTIC.hybrid}</p>
+                    <p className="diag-position">{DIAGNOSTIC.position}</p>
                   </div>
                   <ul className="diag-bands" aria-label={DIAGNOSTIC.bandsLabel}>
                     {DIAGNOSTIC.bands.map((band) => (
@@ -1003,7 +1004,14 @@ export default function App() {
                           {band.price}{" "}
                           <span className="diag-band-vat">{band.vat}</span>
                         </p>
-                        <p className="diag-band-scope">{band.scope}</p>
+                        <p className="diag-band-for">{band.for}</p>
+                        <p className="diag-band-includes-label">{band.includesLabel}</p>
+                        <ul>
+                          {band.includes.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                        <p className="diag-band-delivery">{band.delivery}</p>
                       </li>
                     ))}
                   </ul>

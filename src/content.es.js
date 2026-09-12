@@ -36,7 +36,9 @@ export const ABOUT_SITE =
 export const HERO = {
   tagline: "Arquitecto de IA responsable · De la regulación a la garantía en runtime",
   value:
-    "Convierto las obligaciones del EU AI Act y el riesgo de IA en controles ejecutables, compuertas de ciclo de vida y evidencia verificable — de la política al runtime.",
+    "Ayudo a CTOs, responsables de IA y líderes de Riesgo a convertir obligaciones de IA en controles que ingeniería puede implantar, probar y evidenciar.",
+  scope:
+    "Del inventario de IA y la preparación para el EU AI Act a agentes gobernados, seguridad de RAG y garantía en runtime.",
   principle: "Los modelos probabilísticos requieren gobernanza determinista.",
 };
 
@@ -358,34 +360,53 @@ export const DELIVER = [
 export const DIAGNOSTIC = {
   title: "Diagnóstico de Gobernanza de IA",
   duration: "2–3 semanas",
-  items: [
-    "Inventario de IA y triaje",
-    "Evaluación de lagunas de control",
-    "Backlog de implantación a 90 días",
-  ],
-  deliverables: "Se entrega como pack ejecutivo y sesión de trabajo.",
+  lead:
+    "Dos entradas: un Diagnóstico acotado para fijar el punto de partida, o el Diagnóstico más un Assurance Blueprint cuando esté listo para diseñar los controles.",
   position:
-    "Complemento al despacho en la parte técnica, y soy más rápido y barato que un programa de diapositivas de las Big Four que suele facturar un junior a unos 900–1.200 € al día: este Diagnóstico está tarifado a 500 €/día, con sistemas públicos en GitHub en lugar de un PowerPoint.",
+    "Trabajo directamente con quien diseña y construye los controles, sin separar estrategia, implantación y evidencia en varias capas.",
+  negatives: [
+    "No es un memo de despacho.",
+    "No es un deck de diapositivas de las Big Four.",
+    "No es otra capa de retraso por comité.",
+  ],
   hybrid:
-    "Construir el control es ahora más barato que tener la reunión sobre el control: un perfil híbrido que decide en legal, negocio e ingeniería, no mil reuniones entre esas tres funciones.",
+    "Un profesional senior convierte decisiones de IA en controles ejecutables, compuertas de ciclo de vida y evidencia — sin los traspasos.",
   bands: [
     {
-      id: "one-system",
-      name: "Un sistema",
+      id: "diagnostic",
+      name: "Diagnóstico de Gobernanza de IA",
       price: "4.500 €",
       vat: "+ IVA",
-      scope: "Unos 9 días · un caso de uso de IA acotado.",
+      for: "Para organizaciones que necesitan un punto de partida claro.",
+      includesLabel: "Incluye",
+      includes: [
+        "Inventario de IA y triaje de casos de uso",
+        "Vista inicial de riesgo y obligaciones",
+        "Evaluación priorizada de lagunas de control",
+        "Backlog de implantación a 90 días",
+        "Lectura ejecutiva",
+      ],
+      delivery: "Entrega típica: 2 semanas.",
     },
     {
-      id: "inventory-slice",
-      name: "Inventario acotado",
+      id: "blueprint",
+      name: "Diagnóstico + Assurance Blueprint",
       price: "6.500 €",
       vat: "+ IVA",
-      scope: "Unos 13 días · un conjunto definido de sistemas relacionados.",
+      for: "Para organizaciones listas para diseñar los controles.",
+      includesLabel: "Incluye todo el Diagnóstico, más",
+      includes: [
+        "Arquitectura de control detallada",
+        "Mapeo EU AI Act / ISO/IEC 42001",
+        "Diseño de evidencia",
+        "Revisión de aseguramiento de agentes o RAG",
+        "Sesión de trabajo con Ingeniería y Riesgo",
+      ],
+      delivery: "Entrega típica: 3 semanas.",
     },
   ],
   priceNote: "Equivalente a 500 €/día. La llamada introductoria no tiene coste. El alcance se confirma por escrito antes de empezar.",
-  bandsLabel: "Honorarios del diagnóstico",
+  bandsLabel: "Ofertas del diagnóstico",
 };
 
 export const PROJECTS = [
