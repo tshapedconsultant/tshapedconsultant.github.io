@@ -939,7 +939,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="why" className="region region-light">
+            <section id="why" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -974,33 +974,10 @@ export default function App() {
                     {BEST_FIT.replace(/^(Best fit|Mejor encaje):\s*/i, "")}
                   </p>
                 </aside>
-                <article className="mapping-teaser">
-                  <p className="callout-label">{MAPPING_TEASER.kicker}</p>
-                  <h3>{MAPPING_TEASER.title}</h3>
-                  <p className="mapping-teaser-text">{MAPPING_TEASER.text}</p>
-                  <div className="mapping-teaser-actions">
-                    <Link className="btn btn-solid" to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>
-                      {MAPPING_TEASER.cta}
-                    </Link>
-                    <a className="btn btn-ghost mapping-teaser-paper-btn" href={localizedPath(WHITEPAPER_PATH)}>
-                      {t.mappingTeaser.whitepaper}
-                    </a>
-                  </div>
-                  <p className="mapping-teaser-refs">
-                    <a className="mapping-teaser-paper-inline" href={localizedPath(WHITEPAPER_PATH)}>
-                      {t.mappingTeaser.whitepaper}
-                    </a>
-                    <span className="mapping-teaser-paper-sep"> · </span>
-                    {t.mappingTeaser.refs}{" "}
-                    <ExternalLink href={PROJECTS[2].href}>{PROJECTS[2].name}</ExternalLink>
-                    {" · "}
-                    <ExternalLink href={PROJECTS[0].href}>{PROJECTS[0].name}</ExternalLink>
-                  </p>
-                </article>
               </div>
             </section>
 
-            <section id="diagnostic" className="region region-dark diagnostic-band">
+            <section id="diagnostic" className="region region-dark diagnostic-band region-major">
               <div className="region-inner diagnostic-layout">
                 <article className="diag-panel">
                   <p className="eyebrow">{t.diagnostic.kicker}</p>
@@ -1053,7 +1030,35 @@ export default function App() {
               </ul>
             </aside>
 
-            <section id="guardrails" className="region region-dark guard-band">
+            <aside className="region region-light region-quiet mapping-teaser-band" aria-labelledby="mapping-teaser-title">
+              <div className="region-inner">
+                <article className="mapping-teaser">
+                  <p className="callout-label">{MAPPING_TEASER.kicker}</p>
+                  <h3 id="mapping-teaser-title">{MAPPING_TEASER.title}</h3>
+                  <p className="mapping-teaser-text">{MAPPING_TEASER.text}</p>
+                  <div className="mapping-teaser-actions">
+                    <Link className="btn btn-solid" to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>
+                      {MAPPING_TEASER.cta}
+                    </Link>
+                    <a className="btn btn-ghost mapping-teaser-paper-btn" href={localizedPath(WHITEPAPER_PATH)}>
+                      {t.mappingTeaser.whitepaper}
+                    </a>
+                  </div>
+                  <p className="mapping-teaser-refs">
+                    <a className="mapping-teaser-paper-inline" href={localizedPath(WHITEPAPER_PATH)}>
+                      {t.mappingTeaser.whitepaper}
+                    </a>
+                    <span className="mapping-teaser-paper-sep"> · </span>
+                    {t.mappingTeaser.refs}{" "}
+                    <ExternalLink href={PROJECTS[2].href}>{PROJECTS[2].name}</ExternalLink>
+                    {" · "}
+                    <ExternalLink href={PROJECTS[0].href}>{PROJECTS[0].name}</ExternalLink>
+                  </p>
+                </article>
+              </div>
+            </aside>
+
+            <section id="guardrails" className="region region-dark guard-band region-quiet">
               <div className="region-inner guard-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1077,7 +1082,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="approach" className="region region-light">
+            <section id="approach" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1150,7 +1155,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="deliver" className="region region-light">
+            <section id="deliver" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1202,7 +1207,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="case-studies" className="region region-light region-mist">
+            <section id="case-studies" className="region region-light region-mist region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1257,7 +1262,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="projects" className="region region-light">
+            <section id="projects" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1297,7 +1302,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="whitepaper-teaser" className="region region-dark paper-band">
+            <section id="whitepaper-teaser" className="region region-dark paper-band region-quiet">
               <div className="region-inner paper-teaser">
                 <div>
                   <div className="section-head">
@@ -1340,7 +1345,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="insights" className="region region-light">
+            <section id="insights" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1388,7 +1393,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="validation" className="region region-light">
+            <section id="validation" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1462,7 +1467,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="about" className="region region-light">
+            <section id="about" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1495,7 +1500,7 @@ export default function App() {
               </div>
             </section>
 
-            <section id="contact" className="region region-dark contact-band">
+            <section id="contact" className="region region-dark contact-band region-major">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">

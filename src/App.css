@@ -633,6 +633,35 @@ a:hover {
   margin: 0;
 }
 
+.region-major {
+  --region-pad-block-start: 6rem;
+  --region-pad-block-end: 5.5rem;
+}
+
+.region-major .section-head h2,
+.region-major .diag-title-row h2 {
+  font-size: clamp(1.85rem, 3.2vw, 2.55rem);
+}
+
+.region-quiet {
+  --region-pad-block-start: 5.75rem;
+  --region-pad-block-end: 5.25rem;
+}
+
+.region-quiet .section-head h2 {
+  font-size: clamp(1.32rem, 2.1vw, 1.65rem);
+}
+
+.region-quiet .num {
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.mapping-teaser-band {
+  --region-pad-block-start: 2.75rem;
+  --region-pad-block-end: 2.5rem;
+}
+
 .section-lede,
 .prose p {
   color: var(--muted);
@@ -731,12 +760,14 @@ a:hover {
   margin: 1.1rem 0 0;
 }
 
-.diagnostic-band .region-inner {
-  padding-bottom: 0.75rem;
+.diagnostic-band {
+  background: var(--navy-900);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--cyan-400) 42%, transparent);
 }
 
 .proof-strip {
-  padding: 0 var(--page-gutter) 1.1rem;
+  padding: 1.35rem var(--page-gutter) 2rem;
+  background: var(--navy-950);
 }
 
 .proof-strip ul {
@@ -1079,9 +1110,9 @@ a:hover {
 }
 
 .diag-panel {
-  background: var(--navy-900);
-  border: 1px solid var(--navy-800);
-  padding: 1.25rem 1.3rem 1.35rem;
+  background: var(--navy-950);
+  border: 1px solid color-mix(in srgb, var(--cyan-400) 38%, var(--navy-800));
+  padding: 1.45rem 1.4rem 1.5rem;
 }
 
 .diag-panel .eyebrow {
@@ -1400,6 +1431,12 @@ a:hover {
   margin: 1rem 0 1.75rem;
 }
 
+.dgom-block {
+  margin-top: 2.75rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+
 .dgom-block h3 {
   font-size: 1.45rem;
   margin: 0 0 0.45rem;
@@ -1436,8 +1473,10 @@ a:hover {
 .term-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--border);
 }
 
 /* ——— Guardrails ——— */
@@ -2365,7 +2404,7 @@ details.mobile-disclose.case-done > ul {
 /* ——— EU AI Act mapping ——— */
 
 .mapping-teaser {
-  margin-top: 1.5rem;
+  margin-top: 0;
   padding: 1.2rem 1.25rem 1.3rem;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -3277,6 +3316,27 @@ details.mobile-disclose > summary:focus-visible {
     padding: 0.85rem var(--page-gutter) 1.15rem;
   }
 
+  .hero .tagline,
+  .hero .cta-note,
+  .hero-recruiter {
+    display: none;
+  }
+
+  .region-major {
+    --region-pad-block-start: 2.75rem;
+    --region-pad-block-end: 2.5rem;
+  }
+
+  .region-quiet {
+    --region-pad-block-start: 2.25rem;
+    --region-pad-block-end: 2rem;
+  }
+
+  .mapping-teaser-band {
+    --region-pad-block-start: 1.5rem;
+    --region-pad-block-end: 1.35rem;
+  }
+
   .cta-note-repeat {
     display: none;
   }
@@ -3308,7 +3368,7 @@ details.mobile-disclose > summary:focus-visible {
   }
 
   .proof-strip {
-    padding: 0 var(--page-gutter) 1.15rem;
+    padding: 0.85rem var(--page-gutter) 1.5rem;
   }
 
   .why-more,
