@@ -10,6 +10,8 @@ export const UI = {
     language: "Language",
     langEn: "EN",
     langEs: "ES",
+    switchToEn: "Switch to English",
+    switchToEs: "Switch to Spanish",
     opensNewTab: " (opens in a new tab)",
     required: "required",
     optional: "optional",
@@ -26,12 +28,13 @@ export const UI = {
       whitepaper: "Whitepaper",
     },
     mobile: {
+      diagnostic: "Diagnostic",
       approach: "Approach",
-      mapping: "EU AI Act mapping",
+      mapping: "EU AI Act",
       caseStudy: "Case study",
-      projects: "Reference implementations",
+      projects: "Projects",
       whitepaper: "Whitepaper",
-      about: "About / credentials",
+      about: "About",
       contact: "Contact",
     },
     hero: {
@@ -40,6 +43,7 @@ export const UI = {
       bbva: "Read the BBVA case study",
       implementations: "View reference implementations",
       audienceLabel: "Choose your path",
+      recruiter: "Recruiters: background and CV",
     },
     why: {
       num: "01",
@@ -80,7 +84,7 @@ export const UI = {
       mailtoFooter: "Prepared from the site enquiry form. No mailing list; used only to respond.",
     },
     approach: {
-      num: "02",
+      num: "03",
       title: "The approach",
       business: "Business problem",
       businessText:
@@ -99,9 +103,11 @@ export const UI = {
       constitutionTitle: "Constitutional architecture",
       constitutionText:
         "A separation of policy, execution and independent oversight across the AI lifecycle.",
+      details: "Method details",
     },
     diagram: {
       kicker: "Control path",
+      how: "How the control path works",
       caption: "From regulation to runtime assurance",
       primary: [
         { label: "Regulation", text: "Obligations become control requirements." },
@@ -117,9 +123,10 @@ export const UI = {
       ],
     },
     guard: {
-      num: "03",
+      num: "02",
       title: "Guardrails are not governance",
       lead: "Guardrails constrain model behaviour.",
+      cageSummary: "What the cage determines",
       determines: "Governance determines:",
       chain: [
         "who can act",
@@ -144,6 +151,7 @@ export const UI = {
       done: "What was done",
       governance: "Governance",
       download: "Download case study (PDF)",
+      more: "More about this case",
     },
     projects: {
       num: "06",
@@ -187,6 +195,7 @@ export const UI = {
       title: "About Andrés",
       unusual: "Why my background is unusual",
       combo: "Engineering + AI + Governance + Regulation",
+      bio: "Read background",
       cv: "Download CV (PDF)",
     },
     contact: {
@@ -214,9 +223,11 @@ export const UI = {
     },
     mappingTable: {
       title: "Full mapping table",
+      titleNarrow: "Full mapping",
       intro:
         "Eleven obligations that show up in due diligence for high-risk and high-accountability systems. Filter for a conversation; expand a row for the control sketch and a minimal pack.",
       filterLegend: "Filter the EU AI Act mapping",
+      filters: "Filter mapping",
       search: "Search",
       searchPh: "Article, control, evidence…",
       article: "Article",
@@ -328,6 +339,8 @@ export const UI = {
     language: "Idioma",
     langEn: "EN",
     langEs: "ES",
+    switchToEn: "Cambiar a inglés",
+    switchToEs: "Cambiar a español",
     opensNewTab: " (se abre en una pestaña nueva)",
     required: "obligatorio",
     optional: "opcional",
@@ -344,12 +357,13 @@ export const UI = {
       whitepaper: "Whitepaper",
     },
     mobile: {
+      diagnostic: "Diagnóstico",
       approach: "Enfoque",
-      mapping: "Mapeo del EU AI Act",
+      mapping: "EU AI Act",
       caseStudy: "Caso",
-      projects: "Implementaciones de referencia",
+      projects: "Proyectos",
       whitepaper: "Whitepaper",
-      about: "Sobre mí / credenciales",
+      about: "Sobre mí",
       contact: "Contacto",
     },
     hero: {
@@ -358,6 +372,7 @@ export const UI = {
       bbva: "Leer el caso BBVA",
       implementations: "Ver implementaciones de referencia",
       audienceLabel: "Elija su camino",
+      recruiter: "Reclutadores: trayectoria y CV",
     },
     why: {
       num: "01",
@@ -398,7 +413,7 @@ export const UI = {
       mailtoFooter: "Preparado desde el formulario del sitio. Sin lista de correo; se usa solo para responder.",
     },
     approach: {
-      num: "02",
+      num: "03",
       title: "El enfoque",
       business: "Problema de negocio",
       businessText:
@@ -417,9 +432,11 @@ export const UI = {
       constitutionTitle: "Arquitectura constitucional",
       constitutionText:
         "Una separación entre política, ejecución y supervisión independiente a lo largo del ciclo de vida de la IA.",
+      details: "Detalle del método",
     },
     diagram: {
       kicker: "Camino de control",
+      how: "Cómo funciona el control path",
       caption: "De la regulación a la garantía en runtime",
       primary: [
         { label: "Regulación", text: "Las obligaciones se convierten en requisitos de control." },
@@ -435,9 +452,10 @@ export const UI = {
       ],
     },
     guard: {
-      num: "03",
+      num: "02",
       title: "Los guardrails no son gobernanza",
       lead: "Los guardrails restringen el comportamiento del modelo.",
+      cageSummary: "Qué determina la jaula",
       determines: "La gobernanza determina:",
       chain: [
         "quién puede actuar",
@@ -462,6 +480,7 @@ export const UI = {
       done: "Qué se hizo",
       governance: "Gobernanza",
       download: "Descargar caso (PDF)",
+      more: "Más sobre este caso",
     },
     projects: {
       num: "06",
@@ -505,6 +524,7 @@ export const UI = {
       title: "Sobre Andrés",
       unusual: "Por qué este perfil es poco habitual",
       combo: "Ingeniería + IA + Gobernanza + Regulación",
+      bio: "Leer la trayectoria",
       cv: "Descargar CV (PDF)",
     },
     contact: {
@@ -532,9 +552,11 @@ export const UI = {
     },
     mappingTable: {
       title: "Tabla completa de mapeo",
+      titleNarrow: "Mapeo completo",
       intro:
         "Once obligaciones que aparecen en la diligencia debida de sistemas de alto riesgo y alta responsabilidad. Filtre para la conversación; despliegue una fila para el boceto de control y un paquete mínimo.",
       filterLegend: "Filtrar el mapeo del EU AI Act",
+      filters: "Filtrar mapeo",
       search: "Buscar",
       searchPh: "Artículo, control, evidencia…",
       article: "Artículo",

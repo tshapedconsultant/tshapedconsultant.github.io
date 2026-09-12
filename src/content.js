@@ -21,8 +21,7 @@ export const BRAND_DEFINITION =
 export const LOCATION =
   "Based in Madrid · Working remotely across EMEA";
 
-export const LOCATION_HERO =
-  "Based in Madrid · EMEA remote";
+export const LOCATION_HERO = "Madrid · EMEA remote";
 
 export const ABOUT_INTRO =
   "Responsible AI Architect. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through deployment.";
@@ -33,7 +32,7 @@ export const ABOUT_SITE =
 export const HERO = {
   tagline: "Responsible AI Architect · From regulation to runtime assurance",
   value:
-    "Turning EU AI Act obligations and AI risk into executable controls, lifecycle gates, and verifiable evidence — from policy to runtime.",
+    "Turning EU AI Act obligations and AI risk into executable controls, lifecycle gates and verifiable evidence — from policy to runtime.",
   principle: "Probabilistic models require deterministic governance.",
 };
 

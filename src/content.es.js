@@ -25,7 +25,7 @@ export const BRAND_DEFINITION =
 
 export const LOCATION = "Con sede en Madrid · Trabajo en remoto en EMEA";
 
-export const LOCATION_HERO = "Con sede en Madrid · EMEA en remoto";
+export const LOCATION_HERO = "Madrid · EMEA en remoto";
 
 export const ABOUT_INTRO =
   "Arquitecto de IA responsable. Consultor estratégico independiente en IA desde junio de 2021. Antes, Cloud Implementation Specialist (Avaya Cloud Office en Concentrix). Trabajo en la intersección de ingeniería, sistemas de IA, gobernanza y regulación — de la arquitectura al despliegue.";

@@ -462,10 +462,8 @@ export default function App() {
     ABOUT_INTRO,
     ABOUT_SITE,
     APPROACH,
-    AUDIENCE,
     BEST_FIT,
     HERO,
-    HERO_FOR,
     CAPABILITIES,
     CASE_STUDIES,
     COVER,
@@ -491,21 +489,22 @@ export default function App() {
     WHITEPAPER_PDF_ES,
   } = content;
   const paperPdf = locale === "es" ? WHITEPAPER_PDF_ES : WHITEPAPER_PDF;
+  const otherLocale = locale === "es" ? "en" : "es";
   const navSections = [
-    { id: "about", label: t.nav.about },
     { id: "approach", label: t.nav.approach },
     { id: "case-studies", label: t.nav.caseStudies },
     { id: "projects", label: t.nav.projects },
     { id: "contact", label: t.nav.contact },
   ];
   const mobileNav = [
+    { id: "diagnostic", label: t.mobile.diagnostic },
     { id: "approach", label: t.mobile.approach },
-    { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
     { id: "case-studies", label: t.mobile.caseStudy },
     { id: "projects", label: t.mobile.projects },
-    { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
-    { id: "validation", label: t.mobile.about },
     { id: "contact", label: t.mobile.contact },
+    { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
+    { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
+    { id: "about", label: t.mobile.about },
   ];
   const [view, setView] = useState(() => viewFromLocation(location.pathname, location.hash));
   const [menuOpen, setMenuOpen] = useState(false);
@@ -624,6 +623,20 @@ export default function App() {
     return () => observer.disconnect();
   }, [view]);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 769px)");
+    function apply() {
+      document
+        .querySelectorAll("details.mobile-disclose:not(.insights-toggle):not(.cred-toggle)")
+        .forEach((el) => {
+          el.open = mq.matches;
+        });
+    }
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, [view]);
+
   function goHomeSection(id) {
     setMenuOpen(false);
     setMoreOpen(false);
@@ -640,7 +653,7 @@ export default function App() {
     window.history.replaceState(null, "", `#${id}`);
   }
 
-  const secondaryLinks = (
+  const identityLinks = (
     <>
       <a href={CV_PDF} download>
         {t.cv}
@@ -656,6 +669,20 @@ export default function App() {
       </a>
     </>
   );
+  const resourceLinks = (
+    <>
+      <a
+        href="#about"
+        onClick={(event) => {
+          event.preventDefault();
+          goHomeSection("about");
+        }}
+      >
+        {t.nav.about}
+      </a>
+      {identityLinks}
+    </>
+  );
 
   return (
     <div className={view === "home" ? "site" : "site site-paper"}>
@@ -666,6 +693,11 @@ export default function App() {
         <Link
           className="mark"
           to={`${home}#top`}
+          aria-label={
+            locale === "es"
+              ? "tshapedconsultant, Ingeniería de Gobernanza de IA"
+              : "tshapedconsultant, AI Governance Engineering"
+          }
           onClick={() => {
             setMenuOpen(false);
             setMoreOpen(false);
@@ -673,7 +705,10 @@ export default function App() {
         >
           <Icon name="shield" className="icon mark-icon" />
           <span className="mark-text">
-            <span className="mark-name">tshapedconsultant</span>
+            <span className="mark-name">
+              <span className="mark-name-full">tshapedconsultant</span>
+              <span className="mark-name-short">tshaped</span>
+            </span>
             <small className="mark-sub-full">
               {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
             </small>
@@ -692,21 +727,17 @@ export default function App() {
         </a>
         <nav className="lang-switch" aria-label={t.language}>
           <Link
-            to={switchTo("en")}
-            hrefLang="en-GB"
-            lang="en-GB"
-            aria-current={locale === "en" ? "true" : undefined}
+            className="lang-btn"
+            to={switchTo(otherLocale)}
+            hrefLang={otherLocale === "es" ? "es" : "en-GB"}
+            lang={otherLocale === "es" ? "es" : "en-GB"}
+            aria-label={otherLocale === "es" ? t.switchToEs : t.switchToEn}
+            onClick={() => {
+              setMenuOpen(false);
+              setMoreOpen(false);
+            }}
           >
-            {t.langEn}
-          </Link>
-          <span aria-hidden="true">|</span>
-          <Link
-            to={switchTo("es")}
-            hrefLang="es"
-            lang="es"
-            aria-current={locale === "es" ? "true" : undefined}
-          >
-            {t.langEs}
+            {otherLocale === "es" ? t.langEs : t.langEn}
           </Link>
         </nav>
         <button
@@ -789,7 +820,7 @@ export default function App() {
                 {t.resources}
               </button>
               <div id="more-menu" className={moreOpen ? "more-menu open" : "more-menu"} hidden={!moreOpen}>
-                {secondaryLinks}
+                {resourceLinks}
               </div>
             </div>
           </div>
@@ -833,7 +864,19 @@ export default function App() {
             >
               {t.discuss}
             </a>
-            <div className="nav-secondary">{secondaryLinks}</div>
+            <div className="nav-secondary">{identityLinks}</div>
+            <Link
+              className="lang-menu-btn"
+              to={switchTo(otherLocale)}
+              hrefLang={otherLocale === "es" ? "es" : "en-GB"}
+              lang={otherLocale === "es" ? "es" : "en-GB"}
+              onClick={() => {
+                setMenuOpen(false);
+                setMoreOpen(false);
+              }}
+            >
+              {otherLocale === "es" ? t.switchToEs : t.switchToEn}
+            </Link>
           </div>
         </nav>
       </header>
@@ -854,10 +897,7 @@ export default function App() {
             <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
-                  <p className="eyebrow loc-line">
-                    <span className="loc-short">Madrid · EMEA</span>
-                    <span className="loc-long">{LOCATION_HERO}</span>
-                  </p>
+                  <p className="eyebrow loc-line">{LOCATION_HERO}</p>
                   <h1>
                     Andrés Lage Freire
                     <span className="h1-specialty">
@@ -866,11 +906,6 @@ export default function App() {
                   </h1>
                   <p className="tagline">{HERO.tagline}</p>
                   <p className="value-prop">{HERO.value}</p>
-                  <p className="hero-principle">{HERO.principle}</p>
-                  <div className="hero-for">
-                    <p>{HERO_FOR.audience}</p>
-                    <p>{HERO_FOR.problems}</p>
-                  </div>
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
@@ -883,85 +918,43 @@ export default function App() {
                       >
                         {CTA.primary}
                       </a>
-                      <a className="btn btn-ghost hero-secondary-desktop" href={localizedPath(WHITEPAPER_PATH)}>
-                        {t.hero.readWhitepaper}
-                      </a>
-                      <Link className="btn btn-ghost hero-secondary-mobile" to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>
-                        {t.hero.mapping}
-                      </Link>
                     </div>
                     <p className="cta-note">{CTA.note}</p>
-                    <div className="hero-later-links">
-                      <a
-                        className="text-link"
-                        href="#case-studies"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          goHomeSection("case-studies");
-                        }}
-                      >
-                        {t.hero.bbva}
-                      </a>
-                      <a
-                        className="text-link"
-                        href="#projects"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          goHomeSection("projects");
-                        }}
-                      >
-                        {t.hero.implementations}
-                      </a>
-                    </div>
-                    <ul className="audience" aria-label={t.hero.audienceLabel}>
-                      {AUDIENCE.map((item) => (
-                        <li key={item.id}>
-                          <button
-                            type="button"
-                            onClick={() => goHomeSection(item.target)}
-                            aria-label={`${item.label}: ${item.action}`}
-                          >
-                            {item.label}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
+                    <a
+                      className="text-link hero-recruiter"
+                      href="#about"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goHomeSection("about");
+                      }}
+                    >
+                      {t.hero.recruiter}
+                    </a>
                   </div>
                 </div>
-                <GovernanceDiagram />
+                <details className="mobile-disclose hero-diagram">
+                  <summary>{t.diagram.how}</summary>
+                  <GovernanceDiagram />
+                </details>
               </div>
             </section>
-
-            <aside className="proof-strip region-dark" aria-label={t.proof}>
-              <ul>
-                {SOCIAL_PROOF.map((item) => (
-                  <li key={item.id}>
-                    {item.external ? (
-                      <a href={item.href} target="_blank" rel="noopener noreferrer">
-                        {item.text}
-                        <span className="visually-hidden">{t.opensNewTab}</span>
-                      </a>
-                    ) : (
-                      <a href={item.href} download={item.download ? true : undefined}>
-                        {item.text}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </aside>
 
             <section id="why" className="region region-light">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    01
+                    {t.why.num}
                   </p>
                   <h2>{t.why.title}</h2>
                 </div>
                 <p className="why-lead">{t.why.lead}</p>
-                <p className="why-brutal">{t.why.brutal}</p>
-                <p className="why-close">{t.why.close}</p>
+                <details className="mobile-disclose why-more">
+                  <summary>{t.why.readMore}</summary>
+                  <div>
+                    <p className="why-brutal">{t.why.brutal}</p>
+                    <p className="why-close">{t.why.close}</p>
+                  </div>
+                </details>
                 <div className="problem-grid">
                   {PROBLEMS.map((item) => (
                     <article className="risk-panel" key={item.title}>
@@ -984,16 +977,20 @@ export default function App() {
                 <article className="mapping-teaser">
                   <p className="callout-label">{MAPPING_TEASER.kicker}</p>
                   <h3>{MAPPING_TEASER.title}</h3>
-                  <p>{MAPPING_TEASER.text}</p>
+                  <p className="mapping-teaser-text">{MAPPING_TEASER.text}</p>
                   <div className="mapping-teaser-actions">
                     <Link className="btn btn-solid" to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>
                       {MAPPING_TEASER.cta}
                     </Link>
-                    <a className="btn btn-ghost" href={localizedPath(WHITEPAPER_PATH)}>
+                    <a className="btn btn-ghost mapping-teaser-paper-btn" href={localizedPath(WHITEPAPER_PATH)}>
                       {t.mappingTeaser.whitepaper}
                     </a>
                   </div>
                   <p className="mapping-teaser-refs">
+                    <a className="mapping-teaser-paper-inline" href={localizedPath(WHITEPAPER_PATH)}>
+                      {t.mappingTeaser.whitepaper}
+                    </a>
+                    <span className="mapping-teaser-paper-sep"> · </span>
                     {t.mappingTeaser.refs}{" "}
                     <ExternalLink href={PROJECTS[2].href}>{PROJECTS[2].name}</ExternalLink>
                     {" · "}
@@ -1037,11 +1034,54 @@ export default function App() {
               </div>
             </section>
 
+            <aside className="proof-strip region-dark" aria-label={t.proof}>
+              <ul>
+                {SOCIAL_PROOF.map((item) => (
+                  <li key={item.id}>
+                    {item.external ? (
+                      <a href={item.href} target="_blank" rel="noopener noreferrer">
+                        {item.text}
+                        <span className="visually-hidden">{t.opensNewTab}</span>
+                      </a>
+                    ) : (
+                      <a href={item.href} download={item.download ? true : undefined}>
+                        {item.text}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+
+            <section id="guardrails" className="region region-dark guard-band">
+              <div className="region-inner guard-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    {t.guard.num}
+                  </p>
+                  <h2>{t.guard.title}</h2>
+                </div>
+                <p className="guard-lead">{t.guard.lead}</p>
+                <p className="principle-line">{t.guard.principle}</p>
+                <details className="mobile-disclose guard-more">
+                  <summary>{t.guard.cageSummary}</summary>
+                  <div>
+                    <p className="guard-determines">{t.guard.determines}</p>
+                    <ol className="guard-chain">
+                      {t.guard.chain.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </section>
+
             <section id="approach" className="region region-light">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    02
+                    {t.approach.num}
                   </p>
                   <h2>{t.approach.title}</h2>
                 </div>
@@ -1067,60 +1107,46 @@ export default function App() {
                   ))}
                 </ol>
 
-                <div className="frameworks">
-                  {FRAMEWORKS.map((item) => (
-                    <article key={item.name}>
-                      <Icon name={item.icon} />
-                      <h3>{item.name}</h3>
-                      <p>{item.caption}</p>
-                    </article>
-                  ))}
-                </div>
-                <p className="reg-line">{t.approach.readiness}</p>
+                <details className="mobile-disclose approach-more">
+                  <summary>{t.approach.details}</summary>
+                  <div className="approach-extra">
+                    <div className="frameworks">
+                      {FRAMEWORKS.map((item) => (
+                        <article key={item.name}>
+                          <Icon name={item.icon} />
+                          <h3>{item.name}</h3>
+                          <p>{item.caption}</p>
+                        </article>
+                      ))}
+                    </div>
+                    <p className="reg-line">{t.approach.readiness}</p>
 
-                <div className="dgom-block">
-                  <p className="level-kicker">{t.approach.operating}</p>
-                  <h3>{t.approach.dgomTitle}</h3>
-                  <p className="dgom-sub">{t.approach.dgomSub}</p>
-                  <ol className="dgom-timeline">
-                    {DGOM.map((phase) => (
-                      <li key={phase.id}>
-                        <h4>{phase.title}</h4>
-                        <p>{phase.text}</p>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+                    <div className="dgom-block">
+                      <p className="level-kicker">{t.approach.operating}</p>
+                      <h3>{t.approach.dgomTitle}</h3>
+                      <p className="dgom-sub">{t.approach.dgomSub}</p>
+                      <ol className="dgom-timeline">
+                        {DGOM.map((phase) => (
+                          <li key={phase.id}>
+                            <h4>{phase.title}</h4>
+                            <p>{phase.text}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
 
-                <div className="term-grid">
-                  <article>
-                    <h3>{t.approach.cageTitle}</h3>
-                    <p>{t.approach.cageText}</p>
-                  </article>
-                  <article>
-                    <h3>{t.approach.constitutionTitle}</h3>
-                    <p>{t.approach.constitutionText}</p>
-                  </article>
-                </div>
-              </div>
-            </section>
-
-            <section id="guardrails" className="region region-dark guard-band">
-              <div className="region-inner guard-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    03
-                  </p>
-                  <h2>{t.guard.title}</h2>
-                </div>
-                <p className="guard-lead">{t.guard.lead}</p>
-                <p className="guard-determines">{t.guard.determines}</p>
-                <ol className="guard-chain">
-                  {t.guard.chain.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ol>
-                <p className="principle-line">{t.guard.principle}</p>
+                    <div className="term-grid">
+                      <article>
+                        <h3>{t.approach.cageTitle}</h3>
+                        <p>{t.approach.cageText}</p>
+                      </article>
+                      <article>
+                        <h3>{t.approach.constitutionTitle}</h3>
+                        <p>{t.approach.constitutionText}</p>
+                      </article>
+                    </div>
+                  </div>
+                </details>
               </div>
             </section>
 
@@ -1128,7 +1154,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    04
+                    {t.deliver.num}
                   </p>
                   <h2>{t.deliver.title}</h2>
                 </div>
@@ -1159,31 +1185,28 @@ export default function App() {
                     </article>
                   ))}
                 </div>
+                <div className="engagement-block" id="engagement">
+                  <h2 id="engagement-heading" className="engagement-title">
+                    {ENGAGEMENT.title}
+                  </h2>
+                  <ol className="engagement-lines">
+                    {ENGAGEMENT.lines.map((line) => (
+                      <li key={line.label}>
+                        <Icon name={line.icon} />
+                        <strong>{line.label}</strong>
+                        <span>{line.text}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               </div>
             </section>
 
-            <section id="engagement" className="region region-light engagement-band">
-              <div className="region-inner">
-                <h2 id="engagement-heading" className="engagement-title">
-                  {ENGAGEMENT.title}
-                </h2>
-                <ol className="engagement-lines">
-                  {ENGAGEMENT.lines.map((line) => (
-                    <li key={line.label}>
-                      <Icon name={line.icon} />
-                      <strong>{line.label}</strong>
-                      <span>{line.text}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </section>
-
-            <section id="case-studies" className="region region-light">
+            <section id="case-studies" className="region region-light region-mist">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    05
+                    {t.cases.num}
                   </p>
                   <h2>{t.cases.title}</h2>
                 </div>
@@ -1208,19 +1231,24 @@ export default function App() {
                         <li key={item}>{item}</li>
                       ))}
                     </ol>
-                    <details className="disclose-always case-done">
-                      <summary>{t.cases.done}</summary>
-                      <ul>
-                        {study.approach.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
+                    <details className="mobile-disclose case-extra">
+                      <summary>{t.cases.more}</summary>
+                      <div>
+                        <details className="disclose-always case-done">
+                          <summary>{t.cases.done}</summary>
+                          <ul>
+                            {study.approach.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </details>
+                        <aside className="case-gov">
+                          <h4>{t.cases.governance}</h4>
+                          <p>{study.governance}</p>
+                        </aside>
+                        <p className="case-note">{study.note}</p>
+                      </div>
                     </details>
-                    <aside className="case-gov">
-                      <h4>{t.cases.governance}</h4>
-                      <p>{study.governance}</p>
-                    </aside>
-                    <p className="case-note">{study.note}</p>
                     <a className="btn btn-solid" href={study.pdf} download>
                       {t.cases.download}
                     </a>
@@ -1233,7 +1261,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    06
+                    {t.projects.num}
                   </p>
                   <h2>{t.projects.title}</h2>
                 </div>
@@ -1274,7 +1302,7 @@ export default function App() {
                 <div>
                   <div className="section-head">
                     <p className="num" aria-hidden="true">
-                      07
+                      {t.paper.num}
                     </p>
                     <h2>{t.paper.title}</h2>
                   </div>
@@ -1316,7 +1344,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    08
+                    {t.insights.num}
                   </p>
                   <h2>{t.insights.title}</h2>
                 </div>
@@ -1364,7 +1392,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    09
+                    {t.creds.num}
                   </p>
                   <h2>{t.creds.title}</h2>
                 </div>
@@ -1376,7 +1404,7 @@ export default function App() {
                       {group.intro ? <p className="cred-intro">{group.intro}</p> : null}
                       <ul className="validation-grid">
                         {group.items.map((item) => {
-                          const extra = credentialIndex >= 6;
+                          const extra = credentialIndex >= 3;
                           credentialIndex += 1;
                           return (
                             <li
@@ -1438,7 +1466,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    10
+                    {t.about.num}
                   </p>
                   <h2>{t.about.title}</h2>
                 </div>
@@ -1454,10 +1482,13 @@ export default function App() {
                     </article>
                   ))}
                 </div>
-                <div className="prose about-bio">
-                  <p>{ABOUT_INTRO}</p>
-                  <p>{ABOUT_SITE}</p>
-                </div>
+                <details className="mobile-disclose about-bio-wrap">
+                  <summary>{t.about.bio}</summary>
+                  <div className="prose about-bio">
+                    <p>{ABOUT_INTRO}</p>
+                    <p>{ABOUT_SITE}</p>
+                  </div>
+                </details>
                 <a className="btn btn-ghost" href={CV_PDF} download>
                   {t.about.cv}
                 </a>
@@ -1468,7 +1499,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    11
+                    {t.contact.num}
                   </p>
                   <h2>{t.contact.title}</h2>
                 </div>

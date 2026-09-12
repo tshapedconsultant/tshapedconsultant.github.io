@@ -38,7 +38,7 @@ function StatusGlyph({ status }: { status: MappingStatus }) {
     viewBox: "0 0 16 16",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: "1.7",
+    strokeWidth: "2",
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
     "aria-hidden": true as const,
@@ -154,11 +154,16 @@ export default function MappingTable() {
 
   return (
     <section className="mapping-table-section" aria-labelledby="mapping-table-title">
-      <h2 id="mapping-table-title">{ui.title}</h2>
+      <h2 id="mapping-table-title">
+        <span className="mapping-title-wide">{ui.title}</span>
+        <span className="mapping-title-narrow">{ui.titleNarrow}</span>
+      </h2>
       <p>{ui.intro}</p>
 
       <form className="mapping-filters" onSubmit={(event) => event.preventDefault()}>
-        <fieldset>
+        <details className="mobile-disclose mapping-filters-more">
+          <summary>{ui.filters}</summary>
+          <fieldset>
           <legend className="visually-hidden">{ui.filterLegend}</legend>
           <div className="mapping-filter-grid">
             <p>
@@ -228,8 +233,9 @@ export default function MappingTable() {
             </button>
           </p>
         </fieldset>
+          <p className="mapping-help">{copy.filterHelp}</p>
+        </details>
       </form>
-      <p className="mapping-help">{copy.filterHelp}</p>
       <div className="status-legend">
         <p className="mapping-status-note">{copy.statusLegend}</p>
         <ul className="status-legend-list" aria-label={ui.statusKey}>
