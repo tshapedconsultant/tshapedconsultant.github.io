@@ -991,6 +991,23 @@ export default function App() {
                     ))}
                   </ul>
                   <p className="diag-deliverables">{DIAGNOSTIC.deliverables}</p>
+                  <div className="diag-position-block">
+                    <p className="diag-position">{DIAGNOSTIC.position}</p>
+                    <p className="diag-hybrid">{DIAGNOSTIC.hybrid}</p>
+                  </div>
+                  <ul className="diag-bands" aria-label={DIAGNOSTIC.bandsLabel}>
+                    {DIAGNOSTIC.bands.map((band) => (
+                      <li key={band.id}>
+                        <p className="diag-band-name">{band.name}</p>
+                        <p className="diag-band-price">
+                          {band.price}{" "}
+                          <span className="diag-band-vat">{band.vat}</span>
+                        </p>
+                        <p className="diag-band-scope">{band.scope}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="diag-price-note">{DIAGNOSTIC.priceNote}</p>
                   <a
                     className="btn btn-solid"
                     href="#diagnostic-form"

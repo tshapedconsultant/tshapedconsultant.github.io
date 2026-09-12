@@ -364,6 +364,28 @@ export const DIAGNOSTIC = {
     "Backlog de implantación a 90 días",
   ],
   deliverables: "Se entrega como pack ejecutivo y sesión de trabajo.",
+  position:
+    "Complemento al despacho en la parte técnica, y soy más rápido y barato que un programa de diapositivas de las Big Four que suele facturar un junior a unos 900–1.200 € al día: este Diagnóstico está tarifado a 500 €/día, con sistemas públicos en GitHub en lugar de un PowerPoint.",
+  hybrid:
+    "Construir el control es ahora más barato que tener la reunión sobre el control: un perfil híbrido que decide en legal, negocio e ingeniería, no mil reuniones entre esas tres funciones.",
+  bands: [
+    {
+      id: "one-system",
+      name: "Un sistema",
+      price: "4.500 €",
+      vat: "+ IVA",
+      scope: "Unos 9 días · un caso de uso de IA acotado.",
+    },
+    {
+      id: "inventory-slice",
+      name: "Inventario acotado",
+      price: "6.500 €",
+      vat: "+ IVA",
+      scope: "Unos 13 días · un conjunto definido de sistemas relacionados.",
+    },
+  ],
+  priceNote: "Equivalente a 500 €/día. La llamada introductoria no tiene coste. El alcance se confirma por escrito antes de empezar.",
+  bandsLabel: "Honorarios del diagnóstico",
 };
 
 export const PROJECTS = [

@@ -355,6 +355,28 @@ export const DIAGNOSTIC = {
     "90-day implementation backlog",
   ],
   deliverables: "Delivered as an executive pack and working session.",
+  position:
+    "I complement a law firm on the technical side, and I am faster and cheaper than a Big Four slide programme that typically bills a junior at around €900–€1,200 a day — this Diagnostic is priced at €500 a day, with working systems public on GitHub rather than a deck.",
+  hybrid:
+    "Building the control is now cheaper than having the meeting about the control — a hybrid who decides across legal, business and engineering, not a thousand meetings between those three rooms.",
+  bands: [
+    {
+      id: "one-system",
+      name: "One system",
+      price: "€4,500",
+      vat: "excl. VAT",
+      scope: "About 9 days · one in-scope AI use case.",
+    },
+    {
+      id: "inventory-slice",
+      name: "Inventory slice",
+      price: "€6,500",
+      vat: "excl. VAT",
+      scope: "About 13 days · a defined set of related systems.",
+    },
+  ],
+  priceNote: "€500/day equivalent. The introductory call is unpaid. Scope is confirmed in writing before work starts.",
+  bandsLabel: "Diagnostic fees",
 };
 
 export const PROJECTS = [
