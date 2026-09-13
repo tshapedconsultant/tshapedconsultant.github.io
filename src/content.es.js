@@ -549,6 +549,8 @@ export const CREDENTIAL_GROUPS = [
   },
   {
     label: "Formación",
+    quote: "El aprendizaje rápido es la clave del éxito.",
+    cite: "Eric Schmidt, ex CEO de Google · citado por Salim Ismail y Peter Diamandis, Moonshots (ExO 3.0)",
     intro:
       "Base de ingeniería con fuerte foco cuantitativo y de sistemas; especialización posterior en IA, gobernanza y regulación.",
     items: [

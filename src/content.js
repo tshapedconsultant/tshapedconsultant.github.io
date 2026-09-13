@@ -539,6 +539,8 @@ export const CREDENTIAL_GROUPS = [
   },
   {
     label: "Education",
+    quote: "Rapid learning is the key to success.",
+    cite: "Eric Schmidt, former CEO of Google · cited by Salim Ismail and Peter Diamandis, Moonshots (ExO 3.0)",
     intro:
       "Engineering foundation with strong quantitative and systems focus; later specialisation in AI, governance and regulation.",
     items: [

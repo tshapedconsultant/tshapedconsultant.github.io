@@ -1431,6 +1431,12 @@ export default function App() {
                   return CREDENTIAL_GROUPS.map((group) => (
                     <div className="cred-group" key={group.label}>
                       <p className="cred-label">{group.label}</p>
+                      {group.quote ? (
+                        <blockquote className="epigraph cred-epigraph">
+                          {locale === "es" ? `«${group.quote}»` : `“${group.quote}”`}
+                          {group.cite ? <cite>{group.cite}</cite> : null}
+                        </blockquote>
+                      ) : null}
                       {group.intro ? <p className="cred-intro">{group.intro}</p> : null}
                       <ul className="validation-grid">
                         {group.items.map((item) => {

@@ -2166,6 +2166,12 @@ a:hover {
   font-size: 0.95rem;
 }
 
+.cred-epigraph {
+  margin: 0 0 0.85rem;
+  max-width: 62ch;
+  font-size: 1.02rem;
+}
+
 .validation-grid {
   list-style: none;
   margin: 0;
@@ -3610,7 +3616,7 @@ details.mobile-disclose > summary:focus-visible {
     display: none;
   }
 
-  .cred-group:not(:has(li:not(.cred-extra))) {
+  .cred-group:not(:has(li:not(.cred-extra))):not(:has(.cred-epigraph)) {
     display: none;
   }
 
