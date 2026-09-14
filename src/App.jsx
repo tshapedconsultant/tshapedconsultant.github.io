@@ -1614,7 +1614,10 @@ export default function App() {
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
           <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>
         </p>
-        <p>© {new Date().getFullYear()} Andrés Lage Freire · tshapedconsultant.com</p>
+        <p className="foot-copyright">
+          {t.footer.copyright.replace("{year}", String(new Date().getFullYear()))}
+        </p>
+        <p className="foot-notice">{t.footer.notice}</p>
         <p>{LOCATION}</p>
         <p>{t.contact.tagline}</p>
       </footer>

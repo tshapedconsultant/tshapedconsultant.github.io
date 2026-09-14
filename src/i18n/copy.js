@@ -332,6 +332,11 @@ export const UI = {
       body: "That address is not a page on this site. Return home, or open the EU AI Act mapping.",
       home: "Back to home",
     },
+    footer: {
+      copyright: "© {year} Andrés Lage Freire. All rights reserved.",
+      notice:
+        "Provided for information purposes only. No part may be reproduced, adapted or commercialised without written permission.",
+    },
   },
   es: {
     skip: "Saltar al contenido",
@@ -663,6 +668,11 @@ export const UI = {
       title: "Página no encontrada",
       body: "Esa dirección no corresponde a una página de este sitio. Vuelva al inicio o abra el mapeo del EU AI Act.",
       home: "Volver al inicio",
+    },
+    footer: {
+      copyright: "© {year} Andrés Lage Freire. Todos los derechos reservados.",
+      notice:
+        "Facilitado únicamente con fines informativos. Queda prohibida su reproducción, adaptación o comercialización sin autorización escrita.",
     },
   },
 };

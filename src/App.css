@@ -2336,6 +2336,19 @@ details.mobile-disclose.case-done > ul {
   color: var(--cyan-200);
 }
 
+.foot-copyright {
+  margin-top: 0.85rem;
+  color: var(--white);
+}
+
+.foot-notice {
+  max-width: 52ch;
+  margin: 0.25rem 0 0.65rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 /* ——— Whitepaper article ——— */
 
 .paper {
