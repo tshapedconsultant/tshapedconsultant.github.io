@@ -16,6 +16,7 @@ The practice argument is that probabilistic models require deterministic governa
 - [EU AI Act mapping](https://tshapedconsultant.com/governance/eu-ai-act-mapping): Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect
 - [Whitepaper (on-site)](https://tshapedconsultant.com/whitepaper): Probabilistic Models Require Deterministic Governance
 - [Whitepaper (PDF)](https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf)
+- [Dédalo™ Executive Brief (PDF)](https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf)
 - [BBVA case study (PDF)](https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf)
 - [Hybrid profiles article](https://tshapedconsultant.com/hybrid-profiles)
 - [Agentic AI and Montesquieu](https://tshapedconsultant.com/agentic-ai-montesquieu)

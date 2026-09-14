@@ -3,6 +3,7 @@ export const COVER_WEBP = "/cover.webp";
 export const COVER_AVIF = "/cover.avif";
 export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Governance.pdf";
 export const WHITEPAPER_PDF_ES = "/Gobernanza-Determinista-IA.pdf";
+export const EXECUTIVE_BRIEF_PDF = "/Dedalo-Executive-Brief.pdf";
 export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
 export const CV_PDF = "/Andres-Lage-Freire-CV.pdf";
 
@@ -174,6 +175,12 @@ export const SOCIAL_PROOF = [
     id: "whitepaper",
     text: "Whitepaper: Probabilistic Models Require Deterministic Governance",
     href: WHITEPAPER_PDF,
+    download: true,
+  },
+  {
+    id: "executive-brief",
+    text: "Dédalo™ Executive Brief — Deterministic Cage in two pages",
+    href: EXECUTIVE_BRIEF_PDF,
     download: true,
   },
 ];
@@ -559,6 +566,13 @@ export const CREDENTIAL_GROUPS = [
         title: "Probabilistic Models Require Deterministic Governance",
         detail: "Whitepaper · tshapedconsultant",
         href: "/whitepaper",
+      },
+      {
+        kind: "Brief",
+        title: "Dédalo™ Executive Brief",
+        detail:
+          "Two-page board brief: why probabilistic AI needs a Deterministic Cage, DGOM™ lifecycle, and how the architecture maps to EU AI Act, NIST AI RMF and ISO 42001 · PDF",
+        href: EXECUTIVE_BRIEF_PDF,
       },
       {
         kind: "Case study",

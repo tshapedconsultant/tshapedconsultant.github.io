@@ -170,6 +170,9 @@ export const UI = {
       read: "Read on this site",
       pdf: "Download PDF",
       pdfLong: "Download the whitepaper PDF",
+      briefLead:
+        "Need the board version? The Dédalo™ Executive Brief compresses the Deterministic Cage, DGOM™ lifecycle and regulatory mapping into two pages.",
+      brief: "Download Dédalo™ Executive Brief",
       also: "Further reading:",
       medium: "articles on Medium",
     },
@@ -499,6 +502,9 @@ export const UI = {
       read: "Leer en este sitio",
       pdf: "Descargar PDF",
       pdfLong: "Descargar Gobernanza determinista para IA probabilística (PDF)",
+      briefLead:
+        "¿Necesitas la versión para consejo? El Dédalo™ Executive Brief resume en dos páginas el Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo regulatorio.",
+      brief: "Descargar Dédalo™ Executive Brief (PDF, EN)",
       also: "Más lectura:",
       medium: "artículos en Medium",
     },

@@ -1,4 +1,4 @@
-import { WHITEPAPER_PDF } from "./content.js";
+import { EXECUTIVE_BRIEF_PDF, WHITEPAPER_PDF } from "./content.js";
 
 export default function Whitepaper() {
   return (
@@ -21,6 +21,13 @@ export default function Whitepaper() {
         <a className="btn btn-solid" href={WHITEPAPER_PDF} download>
           Download the PDF
         </a>
+        <a className="btn btn-ghost" href={EXECUTIVE_BRIEF_PDF} download>
+          Download Dédalo™ Executive Brief
+        </a>
+      </p>
+      <p className="paper-brief-lead">
+        Two-page board brief: Deterministic Cage bounds, DGOM™ lifecycle, and mapping to EU AI Act,
+        NIST AI RMF and ISO 42001 — with links to the public reference implementations.
       </p>
 
       <nav className="paper-toc" aria-label="Whitepaper contents">

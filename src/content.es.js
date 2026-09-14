@@ -4,6 +4,7 @@ import {
   COVER_AVIF,
   COVER_WEBP,
   CV_PDF,
+  EXECUTIVE_BRIEF_PDF,
   LINKS,
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
@@ -15,6 +16,7 @@ export {
   COVER_AVIF,
   COVER_WEBP,
   CV_PDF,
+  EXECUTIVE_BRIEF_PDF,
   LINKS,
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
@@ -177,6 +179,12 @@ export const SOCIAL_PROOF = [
     id: "whitepaper",
     text: "Whitepaper: Modelos probabilísticos requieren gobernanza determinista",
     href: WHITEPAPER_PDF_ES,
+    download: true,
+  },
+  {
+    id: "executive-brief",
+    text: "Dédalo™ Executive Brief — Deterministic Cage en dos páginas",
+    href: EXECUTIVE_BRIEF_PDF,
     download: true,
   },
 ];
@@ -569,6 +577,13 @@ export const CREDENTIAL_GROUPS = [
         title: "Modelos probabilísticos requieren gobernanza determinista",
         detail: "Whitepaper · tshapedconsultant",
         href: "/whitepaper",
+      },
+      {
+        kind: "Resumen",
+        title: "Dédalo™ Executive Brief",
+        detail:
+          "Resumen ejecutivo de dos páginas: por qué la IA probabilística necesita un Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo a EU AI Act, NIST AI RMF e ISO 42001 · PDF (EN)",
+        href: EXECUTIVE_BRIEF_PDF,
       },
       {
         kind: "Caso",

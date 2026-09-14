@@ -11,5 +11,6 @@ https://tshapedconsultant.com/es/governance/eu-ai-act-mapping/
 https://tshapedconsultant.com/llms.txt
 https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf
 https://tshapedconsultant.com/Gobernanza-Determinista-IA.pdf
+https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf
 https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf
 https://tshapedconsultant.com/Andres-Lage-Freire-CV.pdf

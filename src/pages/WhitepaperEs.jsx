@@ -1,4 +1,4 @@
-import { WHITEPAPER_PDF_ES } from "../content.js";
+import { EXECUTIVE_BRIEF_PDF, WHITEPAPER_PDF_ES } from "../content.js";
 import { HYBRID_PROFILES_PATH, MONTEQUIEU_PATH, WHITEPAPER_PATH } from "../routes";
 import { useI18n } from "../i18n/LocaleContext";
 
@@ -26,7 +26,11 @@ export default function WhitepaperEs() {
         <a className="btn btn-solid" href={WHITEPAPER_PDF_ES} download title={t.paper.pdfLong}>
           {t.paper.pdfLong}
         </a>
+        <a className="btn btn-ghost" href={EXECUTIVE_BRIEF_PDF} download title={t.paper.brief}>
+          {t.paper.brief}
+        </a>
       </p>
+      <p className="paper-brief-lead">{t.paper.briefLead}</p>
 
       <section id="s00">
         <h2>

@@ -17,6 +17,7 @@ Practice: AI Governance Engineering — controls, accountability and evidence ac
 
 ### Whitepaper — https://tshapedconsultant.com/whitepaper
 Probabilistic Models Require Deterministic Governance. Constitutional architecture: policy, execution and independent oversight. The Deterministic Cage. PDF: https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf
+Dédalo™ Executive Brief (two-page board summary of the Deterministic Cage, DGOM™ and regulatory mapping): https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf
 
 ### Hybrid profiles — https://tshapedconsultant.com/hybrid-profiles
 Why Hybrid Profiles May Have an Advantage in the Age of AI Agents (7 September 2026). Fundamentals, specialist depth, cross-domain judgment and AI-agent leverage.

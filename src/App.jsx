@@ -476,6 +476,7 @@ export default function App() {
     DGOM,
     DIAGNOSTIC,
     ENGAGEMENT,
+    EXECUTIVE_BRIEF_PDF,
     FRAMEWORKS,
     INSIGHTS,
     LINKS,
@@ -1349,6 +1350,12 @@ export default function App() {
                       {t.paper.pdf}
                     </a>
                   </div>
+                  <p className="paper-brief-lead">{t.paper.briefLead}</p>
+                  <div className="hero-actions">
+                    <a className="btn btn-ghost" href={EXECUTIVE_BRIEF_PDF} download>
+                      {t.paper.brief}
+                    </a>
+                  </div>
                   <p className="paper-also">
                     {t.paper.also}{" "}
                     <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
@@ -1455,7 +1462,11 @@ export default function App() {
                               </p>
                               <h3>
                                 {item.href ? (
-                                  isInternalHref(item.href) ? (
+                                  item.href.endsWith(".pdf") ? (
+                                    <a href={item.href} download>
+                                      {item.title}
+                                    </a>
+                                  ) : isInternalHref(item.href) ? (
                                     <a href={localize(item.href)}>{item.title}</a>
                                   ) : (
                                     <ExternalLink href={item.href}>{item.title}</ExternalLink>
