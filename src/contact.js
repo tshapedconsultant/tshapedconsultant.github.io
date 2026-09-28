@@ -51,7 +51,20 @@ function inboxEndpoint() {
  * `email` / `_replyto` are Formspree specials for Reply-To. Empty optionals are omitted.
  * Do not send `_status` — Formspree adds that itself.
  */
-export function buildEnquiryPayload({ name, company, email, govern, stage }) {
+export function buildEnquiryPayload({
+  name,
+  company,
+  email,
+  govern,
+  stage,
+  intent,
+  caller,
+  callerKey,
+  role,
+  practice,
+  delivery,
+  nda,
+}) {
   const workEmail = sanitizeLine(email, 254);
   const payload = {
     Name: sanitizeLine(name),
@@ -59,20 +72,65 @@ export function buildEnquiryPayload({ name, company, email, govern, stage }) {
 
   const companyLine = sanitizeLine(company);
   if (companyLine) {
-    payload.Company = companyLine;
+    payload.Organisation = companyLine;
   }
 
   payload["Work email"] = workEmail;
+
+  const callerKeyLine = sanitizeLine(callerKey, 40);
+  if (callerKeyLine) {
+    payload["Caller type"] = callerKeyLine;
+  }
+
+  const callerLine = sanitizeLine(caller, 160);
+  if (callerLine) {
+    payload["Contacting as"] = callerLine;
+  }
+
+  const intentLine = sanitizeLine(intent, 160);
+  if (intentLine) {
+    payload["What they need"] = intentLine;
+  }
 
   const stageLine = sanitizeLine(stage, 160);
   if (stageLine) {
     payload["Current stage"] = stageLine;
   }
 
+  const roleLine = sanitizeLine(role);
+  if (roleLine) {
+    payload.Role = roleLine;
+  }
+
+  const practiceLine = sanitizeLine(practice);
+  if (practiceLine) {
+    payload["Practice area"] = practiceLine;
+  }
+
+  const deliveryLine = sanitizeLine(delivery, 160);
+  if (deliveryLine) {
+    payload["Delivery model"] = deliveryLine;
+  }
+
+  const ndaLine = sanitizeLine(nda, 40);
+  if (ndaLine) {
+    payload["NDA may be required"] = ndaLine;
+  }
+
   payload["What they want to govern"] = sanitizeBody(govern);
   payload.email = workEmail;
   payload._replyto = workEmail;
-  payload._subject = "AI Governance Diagnostic enquiry";
+
+  const subjectPrefix = {
+    organisation: "Organisation",
+    legal: "Legal partner",
+    consulting: "Consulting partner",
+    peer: "Peer/research",
+    other: "Other",
+  }[callerKey] || "Enquiry";
+  payload._subject = intentLine
+    ? `${subjectPrefix}: ${intentLine}`
+    : `${subjectPrefix}: site enquiry`;
   return payload;
 }
 

@@ -7,10 +7,11 @@ Practice: AI Governance Engineering — controls, accountability and evidence ac
 ## Pages
 
 ### Home — https://tshapedconsultant.com/
-- Positioning for CTOs, Heads of AI and Risk/Compliance in banking, insurance and energy
-- AI Governance Diagnostic (2–3 weeks): AI inventory and triage, control-gap assessment, 90-day implementation backlog
-- Approach: regulation → governance → engineering → runtime → evidence
-- Frameworks: EU AI Act, ISO/IEC 42001, NIST AI RMF, DORA + NIS2
+- Executable AI governance for regulated and agentic systems
+- DGOM™: PLAN → BUILD → DEPLOY → MONITOR, designed and governed by Andrés Lage Freire
+- Service ladder: AI Governance Snapshot (€2,495 launch price, first two contracted projects, one week), AI Governance Blueprint (€6,500, diagnosis plus architecture and control design), fractional governance support
+- Technical delivery capacity for law firms and advisory partners (referral, co-delivery, white-label support)
+- Priced diagnostic offers remain on the homepage
 - Case study: BBVA platform and AI strategy (PDF)
 - Reference implementations: Enterprise AI Risk Console, Enterprise Data Analyst Agent, Porto Seguro Compliance Hub
 - Contact: https://tshapedconsultant.com/#diagnostic

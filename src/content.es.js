@@ -36,9 +36,13 @@ export const ABOUT_SITE =
   "Este sitio lo he diseñado y construido yo, con programación asistida por IA. Trato la accesibilidad, la privacidad, el rendimiento y la auditabilidad como requisitos de primer orden.";
 
 export const HERO = {
+  kicker: "Andrés Lage Freire · Madrid · EMEA en remoto",
+  headline: "Gobernanza de IA ejecutable para sistemas regulados y agénticos",
   tagline: "Arquitecto de IA responsable · De la regulación a la garantía en runtime",
   value:
-    "Ayudo a CTOs, responsables de IA y líderes de Riesgo a convertir obligaciones de IA en controles que ingeniería puede implantar, probar y evidenciar.",
+    "Convertimos las obligaciones regulatorias, las decisiones del consejo y los controles de riesgo de IA en salvaguardas ejecutables, compuertas de ciclo de vida y evidencia verificable — de la política al runtime.",
+  assets: "DGOM™ · Dédalo™ · Ingeniería de Gobernanza de IA",
+  qualify: "Para organizaciones que despliegan RAG, agentes y otros sistemas de IA de alta consecuencia.",
   scope:
     "Del inventario de IA y la preparación para el EU AI Act a agentes gobernados, seguridad de RAG y garantía en runtime.",
   principle: "Los modelos probabilísticos requieren gobernanza determinista.",
@@ -54,7 +58,8 @@ export const HERO_FOR = {
 };
 
 export const CTA = {
-  primary: "Consultar un Diagnóstico de Gobernanza de IA",
+  primary: "Solicitar un Diagnóstico de Gobernanza de IA",
+  secondary: "Explorar el modelo operativo DGOM",
   note: "Llamada introductoria de 30 minutos · Valorar encaje y siguientes pasos",
 };
 
@@ -71,7 +76,43 @@ export const DIAGNOSTIC_FORM = {
     "Sin lista de correo. Sin seguimiento automatizado. Sus datos se usan solo para responder a esta consulta.",
   governPlaceholder:
     "Por ejemplo: un sistema RAG interno, un asistente de cara al cliente, IA de un proveedor, o un flujo agéntico.",
-  governHint: "Basta una descripción breve.",
+  governHint: "Basta una descripción breve. No incluya nombres confidenciales de clientes ni de asuntos.",
+  partnerNeedPlaceholder:
+    "Describa la capa técnica necesaria — controles, evidencia, compuertas o un PoV acotado. No nombre clientes ni asuntos.",
+  discussPlaceholder: "Qué desea tratar. No incluya nombres confidenciales de clientes ni de asuntos.",
+  callerLabel: "¿Quién contacta?",
+  callers: [
+    { value: "", label: "Seleccione una opción" },
+    { value: "organisation", label: "Organización que busca apoyo de gobernanza de IA" },
+    { value: "legal", label: "Un socio jurídico o de cumplimiento" },
+    { value: "consulting", label: "Un socio de consultoría o de entrega" },
+    { value: "peer", label: "Un investigador o un par" },
+    { value: "other", label: "Otro" },
+  ],
+  intentLabel: "¿Qué necesita?",
+  intents: [
+    { value: "snapshot", label: "AI Governance Snapshot" },
+    { value: "blueprint", label: "AI Governance Blueprint" },
+    { value: "fractional", label: "Fractional governance support" },
+    { value: "other", label: "Other" },
+  ],
+  roleLabel: "Cargo",
+  practiceLabel: "Área de práctica",
+  deliveryLabel: "Modelo de entrega de interés",
+  ndaLabel: "¿Puede ser necesario un NDA?",
+  deliveries: [
+    { value: "", label: "Seleccione un modelo de entrega" },
+    { value: "Referral", label: "Derivación" },
+    { value: "Co-delivery", label: "Co-entrega" },
+    { value: "White-label support", label: "Soporte white-label" },
+    { value: "Not sure yet", label: "Aún no está claro" },
+  ],
+  ndaOptions: [
+    { value: "", label: "Seleccione si lo conoce" },
+    { value: "Yes", label: "Sí" },
+    { value: "No", label: "No" },
+    { value: "Not sure yet", label: "Aún no está claro" },
+  ],
   stageLabel: "Etapa actual y alcance probable",
   stages: [
     { value: "", label: "Seleccione etapa y alcance" },
@@ -306,11 +347,135 @@ export const FRAMEWORKS = [
 ];
 
 export const DGOM = [
-  { id: "plan", title: "PLAN", text: "Alcance, titularidad y apetito de riesgo antes de construir." },
-  { id: "build", title: "BUILD", text: "Codificar controles en el diseño, el SDLC y los límites del sistema." },
-  { id: "deploy", title: "DEPLOY", text: "Compuertas independientes, aprobación humana y controles de runtime." },
-  { id: "monitor", title: "MONITOR", text: "Drift, evidencia, riesgo residual y recálculo." },
+  { id: "plan", title: "PLAN", text: "Definir obligaciones, riesgo, rendición de cuentas y criterios de éxito antes de construir." },
+  { id: "build", title: "BUILD", text: "Implantar desarrollo gobernado, validación, seguridad y evidencia." },
+  { id: "deploy", title: "DEPLOY", text: "Aplicar compuertas de runtime, supervisión humana, trazabilidad y autoridad de reversión." },
+  { id: "monitor", title: "MONITOR", text: "Monitorizar de forma continua riesgo, rendimiento, seguridad, cumplimiento y coste." },
 ];
+
+export const DGOM_MODEL = {
+  kicker: "Modelo operativo",
+  title: "DGOM™: gobernanza del consejo al runtime",
+  lead:
+    "DGOM™ es un modelo operativo de gobernanza ejecutable que conecta regulación, política, riesgo, control, código, operaciones, evidencia y supervisión a lo largo del ciclo de vida de la IA y el software.",
+  designed: "Diseñado y gobernado por Andrés Lage Freire.",
+  disclaimer:
+    "DGOM™ orquesta y operacionaliza marcos de gobernanza. No sustituye el asesoramiento jurídico, la certificación formal ni a los responsables de la organización. Los mapeos de referencia son ilustrativos — no son una evaluación de conformidad ni un alineamiento garantizado con el EU AI Act.",
+  cta: "Ver el modelo operativo DGOM",
+  briefCta: "Descargar el Dédalo™ Executive Brief",
+  diagramLabel: "Cómo DGOM™ conecta la rendición de cuentas del consejo con la garantía en runtime",
+  layers: {
+    top: "Consejo / Regulación / Riesgo",
+    model: "DGOM™",
+    outputs: "Controles · Compuertas · Evidencia · Supervisión",
+    runtime: "Garantía en runtime",
+  },
+};
+
+export const SERVICE_LADDER = {
+  kicker: "Servicios",
+  title: "De la señal de riesgo a la garantía en runtime",
+  lead: "Empiece por un Snapshot de una semana para un sistema. El Blueprint es un paso distinto: diagnóstico más diseño de arquitectura y controles.",
+  expand: "Empiece en pequeño, establezca evidencia y amplíe la cobertura de gobernanza a medida que crecen el sistema y la superficie de riesgo.",
+  problem: "Problema",
+  outcome: "Resultado",
+  deliverables: "Entregables",
+  audience: "Audiencia típica",
+  items: [
+    {
+      id: "snapshot",
+      intent: "snapshot",
+      stage: "1. Snapshot — una semana",
+      name: "AI Governance Snapshot",
+      problem: "Un sistema de IA ya está en uso y el equipo necesita una vista acotada del riesgo y de qué hacer después.",
+      description:
+        "Precio de lanzamiento para los dos primeros proyectos contratados. Evaluación técnica acotada de una organización y un sistema o caso de uso de IA, con entrega en una semana.",
+      outcome: "Un memo ejecutivo, una matriz breve de riesgos y de tres a cinco acciones priorizadas — no una arquitectura.",
+      deliverables: [
+        "Reunión inicial, revisión de documentación existente y hasta dos entrevistas",
+        "Memo ejecutivo",
+        "Matriz breve de riesgos",
+        "De tres a cinco acciones priorizadas y sesión de devolución",
+      ],
+      audience: "Organizaciones que quieren un punto de partida de una semana para un solo sistema.",
+      cta: "Empezar por el Snapshot",
+    },
+    {
+      id: "blueprint",
+      intent: "blueprint",
+      stage: "2. Blueprint — diagnóstico + arquitectura",
+      name: "AI Governance Blueprint",
+      problem: "El problema ya es claro, pero no hay un diseño accionable de controles, compuertas, roles y evidencia.",
+      description: "Diagnóstico más arquitectura y diseño de controles para el siguiente paso de implementación.",
+      outcome: "Un diseño accionable para la siguiente etapa de implantación — sin reivindicar implantarlo en esta oferta.",
+      deliverables: [
+        "Arquitectura de gobernanza objetivo",
+        "Diseño de controles y compuertas de ciclo de vida",
+        "Estructura del paquete de evidencia",
+        "Secuencia de implantación",
+      ],
+      audience: "Organizaciones listas para diseñar controles después del diagnóstico.",
+      cta: "Solicitar el Blueprint",
+    },
+    {
+      id: "fractional",
+      intent: "fractional",
+      stage: "3. Recurrencia",
+      name: "Fractional governance support",
+      problem: "Los pilotos pasan a operaciones, pero no hay un titular permanente para la revisión de controles y el aseguramiento.",
+      description: "Ingeniería de gobernanza, aseguramiento, revisión de controles y apoyo a la decisión de forma continua, sin un equipo interno completo.",
+      outcome: "Una cadencia retenida de aseguramiento a medida que crece el parque.",
+      deliverables: ["Revisión periódica de controles", "Soporte de garantía en runtime", "Apoyo a la decisión de los responsables"],
+      audience: "Organizaciones que pasan de pilotos a operaciones gobernadas.",
+      cta: "Hablar de soporte recurrente",
+    },
+  ],
+};
+
+export const PARTNERS = {
+  kicker: "Canal asesor",
+  title: "Entrega técnica para despachos y firmas asesoras",
+  lead:
+    "Los equipos jurídicos y de consultoría pueden definir requisitos regulatorios y posiciones de gobernanza mientras sus clientes siguen necesitando una capa de entrega técnica. La Ingeniería de Gobernanza de IA cubre esa capa con controles, validación, documentación técnica, evidencia y garantía en runtime.",
+  highlight: "Su firma aporta interpretación jurídica y la confianza del cliente. Nosotros aportamos la capa de ejecución técnica.",
+  modelsLead: "Los modelos de entrega posibles incluyen derivación, co-entrega y soporte white-label.",
+  boundary:
+    "No prestamos asesoramiento jurídico ni sustituimos al letrado. Prestamos ingeniería de gobernanza técnica y soporte de aseguramiento.",
+  cta: "Hablar de capacidad de entrega técnica",
+  partnerProvidesTitle: "La firma asesora aporta",
+  partnerProvides: [
+    "Interpretación jurídica",
+    "Asesoramiento regulatorio",
+    "Relación con el cliente",
+    "Titularidad del asunto",
+    "Producto de trabajo jurídico",
+  ],
+  practiceProvidesTitle: "La Ingeniería de Gobernanza de IA aporta",
+  practiceProvides: [
+    "Implantación técnica",
+    "Mapeo de controles",
+    "Compuertas de ciclo de vida",
+    "Validación",
+    "Documentación técnica",
+    "Paquetes de evidencia",
+    "Garantía en runtime",
+    "Prototipos y PoV acotados",
+  ],
+  models: [
+    {
+      name: "Derivación",
+      text: "La firma presenta a un cliente que necesita implantación técnica.",
+    },
+    {
+      name: "Co-entrega",
+      text: "Ambos equipos aportan expertise distinto bajo un modelo de entrega acordado.",
+    },
+    {
+      name: "Soporte white-label",
+      text: "El trabajo técnico se entrega detrás de la relación de cliente de la firma, con alcance, confidencialidad y límites de responsabilidad claros.",
+    },
+  ],
+};
 
 export const CAPABILITIES = [
   {
@@ -366,10 +531,10 @@ export const DELIVER = [
 ];
 
 export const DIAGNOSTIC = {
-  title: "Diagnóstico de Gobernanza de IA",
-  duration: "2–3 semanas",
+  title: "AI Governance Diagnostic",
+  duration: "1 semana o según diseño",
   lead:
-    "Dos entradas: un Diagnóstico acotado para fijar el punto de partida, o el Diagnóstico más un Assurance Blueprint cuando esté listo para diseñar los controles.",
+    "El Snapshot es una evaluación de una semana de un sistema. El Blueprint es un paso distinto: diagnóstico más diseño de arquitectura y controles.",
   position:
     "Trabajo directamente con quien diseña y construye los controles, sin separar estrategia, implantación y evidencia en varias capas.",
   negatives: [
@@ -379,42 +544,84 @@ export const DIAGNOSTIC = {
   ],
   hybrid:
     "Un profesional senior convierte decisiones de IA en controles ejecutables, compuertas de ciclo de vida y evidencia — sin los traspasos.",
+  limitsTitle: "Qué aporta usted",
+  nature:
+    "Esto es apoyo técnico de gobernanza de IA. No es asesoramiento jurídico, no es una auditoría formal, no es una evaluación de conformidad y no es una certificación. El mapeo al EU AI Act en el Blueprint es ilustrativo, no una determinación jurídica.",
+  clientLabel: "Qué aporta usted",
+  clientProvides: [
+    "Un titular interno nombrado para el encargo",
+    "El sistema o familia de casos de uso en alcance y su uso previsto",
+    "Políticas existentes, notas de arquitectura e incidentes o hallazgos de auditoría conocidos, si los hay",
+    "Acceso a Ingeniería y Riesgo para entrevistas o una sesión de trabajo",
+  ],
+  includesLabel: "Incluye",
+  limitsLabel: "Límites explícitos",
+  forLabel: "Mejor para",
   bands: [
     {
-      id: "diagnostic",
-      name: "Diagnóstico de Gobernanza de IA",
-      price: "4.500 €",
-      vat: "+ IVA",
-      for: "Para organizaciones que necesitan un punto de partida claro.",
-      includesLabel: "Incluye",
+      id: "snapshot",
+      intent: "snapshot",
+      step: "1. Snapshot",
+      kind: "Una semana · precio de lanzamiento",
+      name: "AI Governance Snapshot",
+      price: "2.495 €",
+      vat: "+ impuestos aplicables",
+      subtitle:
+        "Precio de lanzamiento para los dos primeros proyectos contratados. Evaluación técnica acotada de una organización y un sistema o caso de uso de IA, con entrega en una semana.",
       includes: [
-        "Inventario de IA y triaje de casos de uso",
-        "Vista inicial de riesgo y obligaciones",
-        "Evaluación priorizada de lagunas de control",
-        "Backlog de implantación a 90 días",
-        "Lectura ejecutiva",
+        "Reunión inicial.",
+        "Revisión de documentación existente.",
+        "Hasta dos entrevistas.",
+        "Memo ejecutivo.",
+        "Matriz breve de riesgos.",
+        "De tres a cinco acciones priorizadas.",
+        "Sesión de devolución.",
       ],
-      delivery: "Entrega típica: 2 semanas.",
+      limits: [
+        "Una organización y un sistema o caso de uso.",
+        "No es un inventario corporativo de IA.",
+        "No incluye implementación.",
+        "No es una auditoría formal.",
+        "No es una certificación.",
+        "No es una evaluación de conformidad.",
+        "No es asesoramiento jurídico.",
+      ],
+      for: "Equipos que necesitan saber qué decidir y qué hacer después antes de encargar arquitectura o implementación.",
+      cta: "Empezar por el Snapshot",
     },
     {
       id: "blueprint",
-      name: "Diagnóstico + Assurance Blueprint",
+      intent: "blueprint",
+      step: "2. Blueprint",
+      kind: "Diagnóstico + diseño",
+      name: "AI Governance Blueprint",
       price: "6.500 €",
-      vat: "+ IVA",
-      for: "Para organizaciones listas para diseñar los controles.",
-      includesLabel: "Incluye todo el Diagnóstico, más",
+      vat: "+ impuestos aplicables",
+      subtitle:
+        "Un paso distinto del Snapshot: diagnóstico más diseño de arquitectura y controles para una organización y un sistema o caso de uso de IA.",
       includes: [
-        "Arquitectura de control detallada",
-        "Mapeo EU AI Act / ISO/IEC 42001",
-        "Diseño de evidencia",
-        "Revisión de aseguramiento de agentes o RAG",
-        "Sesión de trabajo con Ingeniería y Riesgo",
+        "Diagnóstico del sistema en alcance.",
+        "Arquitectura de gobernanza objetivo.",
+        "Diseño de controles y compuertas de ciclo de vida.",
+        "Roles, derechos de decisión y vías de escalado.",
+        "Estructura del paquete de evidencia.",
+        "Secuencia de implantación.",
+        "Cierre con un profesional senior.",
       ],
-      delivery: "Entrega típica: 3 semanas.",
+      limits: [
+        "La implantación no está incluida salvo que se acote aparte.",
+        "No es asesoramiento jurídico.",
+        "No es una evaluación de conformidad.",
+        "No es una certificación ISO/IEC 42001.",
+        "El mapeo del EU AI Act es ilustrativo, no una determinación jurídica.",
+      ],
+      for: "Organizaciones que ya saben que el problema es real y necesitan un diseño accionable para la siguiente etapa de implantación.",
+      cta: "Solicitar el Blueprint",
     },
   ],
-  priceNote: "Equivalente a 500 €/día. La llamada introductoria no tiene coste. El alcance se confirma por escrito antes de empezar.",
-  bandsLabel: "Ofertas del diagnóstico",
+  priceNote:
+    "El precio de lanzamiento del Snapshot aplica a los dos primeros proyectos contratados. La llamada introductoria no tiene coste. El alcance se confirma por escrito antes de empezar. Una referencia del cliente no es condición del precio.",
+  bandsLabel: "Ofertas de AI Governance Diagnostic",
 };
 
 export const PROJECTS = [

@@ -31,9 +31,13 @@ export const ABOUT_SITE =
   "This site was designed and built by me with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.";
 
 export const HERO = {
+  kicker: "Andrés Lage Freire · Madrid · EMEA remote",
+  headline: "Executable AI Governance for Regulated and Agentic Systems",
   tagline: "Responsible AI Architect · From regulation to runtime assurance",
   value:
-    "I help CTOs, Heads of AI and Risk leaders turn AI obligations into controls that engineering can implement, test and evidence.",
+    "We turn regulatory obligations, board decisions and AI risk controls into executable safeguards, lifecycle gates and verifiable evidence—from policy to runtime.",
+  assets: "DGOM™ · Dédalo™ · AI Governance Engineering",
+  qualify: "For organisations deploying RAG, agents and other high-consequence AI systems.",
   scope:
     "From AI inventory and EU AI Act readiness to governed agents, RAG security and runtime assurance.",
   principle: "Probabilistic models require deterministic governance.",
@@ -50,7 +54,8 @@ export const HERO_FOR = {
 };
 
 export const CTA = {
-  primary: "Discuss an AI Governance Diagnostic",
+  primary: "Request an AI Governance Diagnostic",
+  secondary: "Explore the DGOM Operating Model",
   note: "30-minute introductory call · Explore fit and next steps",
 };
 
@@ -67,7 +72,42 @@ export const DIAGNOSTIC_FORM = {
     "No mailing list. No automated follow-up. Your details are used only to respond to this enquiry.",
   governPlaceholder:
     "For example: an internal RAG system, a customer-facing assistant, vendor AI, or an agentic workflow.",
-  governHint: "A short description is enough.",
+  governHint: "A short description is enough. Do not include confidential client or matter names.",
+  partnerNeedPlaceholder: "Describe the technical layer needed — controls, evidence, gates or a bounded PoV. Do not name clients or matters.",
+  discussPlaceholder: "What you would like to discuss. Do not include confidential client or matter names.",
+  callerLabel: "Who is contacting you?",
+  callers: [
+    { value: "", label: "Select one" },
+    { value: "organisation", label: "Organisation looking for AI governance support" },
+    { value: "legal", label: "A legal or compliance partner" },
+    { value: "consulting", label: "A consulting or delivery partner" },
+    { value: "peer", label: "A researcher or peer" },
+    { value: "other", label: "Other" },
+  ],
+  intentLabel: "What do you need?",
+  intents: [
+    { value: "snapshot", label: "AI Governance Snapshot" },
+    { value: "blueprint", label: "AI Governance Blueprint" },
+    { value: "fractional", label: "Fractional governance support" },
+    { value: "other", label: "Other" },
+  ],
+  roleLabel: "Role",
+  practiceLabel: "Practice area",
+  deliveryLabel: "Delivery model of interest",
+  ndaLabel: "May an NDA be required?",
+  deliveries: [
+    { value: "", label: "Select a delivery model" },
+    { value: "Referral", label: "Referral" },
+    { value: "Co-delivery", label: "Co-delivery" },
+    { value: "White-label support", label: "White-label support" },
+    { value: "Not sure yet", label: "Not sure yet" },
+  ],
+  ndaOptions: [
+    { value: "", label: "Select if known" },
+    { value: "Yes", label: "Yes" },
+    { value: "No", label: "No" },
+    { value: "Not sure yet", label: "Not sure yet" },
+  ],
   stageLabel: "Current stage and likely scope",
   stages: [
     { value: "", label: "Select stage and scope" },
@@ -302,11 +342,135 @@ export const FRAMEWORKS = [
 ];
 
 export const DGOM = [
-  { id: "plan", title: "PLAN", text: "Scope, ownership and risk appetite before build." },
-  { id: "build", title: "BUILD", text: "Encode controls into design, SDLC and system boundaries." },
-  { id: "deploy", title: "DEPLOY", text: "Independent gates, human approval and runtime controls." },
-  { id: "monitor", title: "MONITOR", text: "Drift, evidence, residual risk and recalibration." },
+  { id: "plan", title: "PLAN", text: "Define obligations, risk, accountability and success criteria before building." },
+  { id: "build", title: "BUILD", text: "Implement governed development, validation, security and evidence." },
+  { id: "deploy", title: "DEPLOY", text: "Apply runtime gates, human oversight, traceability and rollback authority." },
+  { id: "monitor", title: "MONITOR", text: "Continuously monitor risk, performance, security, compliance and cost." },
 ];
+
+export const DGOM_MODEL = {
+  kicker: "Operating model",
+  title: "DGOM™: Governance from Boardroom to Runtime",
+  lead:
+    "DGOM™ is an executable governance operating model that connects regulation, policy, risk, control, code, operations, evidence and oversight across the AI and software lifecycle.",
+  designed: "Designed and governed by Andrés Lage Freire.",
+  disclaimer:
+    "DGOM™ orchestrates and operationalises governance frameworks. It does not replace legal advice, formal certification or an organisation’s accountable decision-makers. Reference mappings are illustrative — not a conformity assessment or guaranteed EU AI Act alignment.",
+  cta: "View the DGOM Operating Model",
+  briefCta: "Download the Dédalo™ Executive Brief",
+  diagramLabel: "How DGOM™ connects board accountability to runtime assurance",
+  layers: {
+    top: "Board / Regulation / Risk",
+    model: "DGOM™",
+    outputs: "Controls · Gates · Evidence · Oversight",
+    runtime: "Runtime Assurance",
+  },
+};
+
+export const SERVICE_LADDER = {
+  kicker: "Services",
+  title: "From Risk Signal to Runtime Assurance",
+  lead: "Start with a one-week Snapshot for one system. The Blueprint is a separate step: diagnosis plus architecture and control design.",
+  expand: "Start small, establish evidence, then expand governance coverage as the system and risk surface grow.",
+  problem: "Problem",
+  outcome: "Outcome",
+  deliverables: "Deliverables",
+  audience: "Typical audience",
+  items: [
+    {
+      id: "snapshot",
+      intent: "snapshot",
+      stage: "1. Snapshot — one week",
+      name: "AI Governance Snapshot",
+      problem: "One AI system is already in use, and the team needs a bounded view of risk and what to do next.",
+      description:
+        "Launch price for the first two contracted projects. A bounded technical assessment of one organisation and one AI system or use case, delivered in one week.",
+      outcome: "An executive memo, a short risk matrix and three to five prioritised actions — not an architecture.",
+      deliverables: [
+        "Initial meeting, review of existing documentation and up to two interviews",
+        "Executive memo",
+        "Short risk matrix",
+        "Three to five prioritised actions and a readout session",
+      ],
+      audience: "Organisations that want a one-week starting point for a single system.",
+      cta: "Start with the Snapshot",
+    },
+    {
+      id: "blueprint",
+      intent: "blueprint",
+      stage: "2. Blueprint — diagnosis + architecture",
+      name: "AI Governance Blueprint",
+      problem: "The problem is already clear, but there is no actionable design for controls, gates, roles and evidence.",
+      description: "Diagnosis plus architecture and control design for one primary AI system or closely related use-case family.",
+      outcome: "An actionable design for the next implementation stage — without claiming to implement it in this offer.",
+      deliverables: [
+        "Target governance architecture",
+        "Control and lifecycle-gate design",
+        "Evidence-pack structure",
+        "Implementation sequence",
+      ],
+      audience: "Organisations ready to design controls after the diagnosis.",
+      cta: "Request the Blueprint",
+    },
+    {
+      id: "fractional",
+      intent: "fractional",
+      stage: "3. Recurrence",
+      name: "Fractional governance support",
+      problem: "Pilots are moving into operations, but there is no standing owner for control review and assurance.",
+      description: "Ongoing governance engineering, assurance, control review and decision support without a full internal team.",
+      outcome: "A retained assurance cadence as the estate grows.",
+      deliverables: ["Recurring control review", "Runtime assurance support", "Decision support for accountable owners"],
+      audience: "Organisations moving from pilots to governed operations.",
+      cta: "Discuss recurring support",
+    },
+  ],
+};
+
+export const PARTNERS = {
+  kicker: "Advisory channel",
+  title: "Technical Delivery for Law Firms and Advisory Partners",
+  lead:
+    "Legal and consulting teams can define regulatory requirements and governance positions while their clients still need a technical delivery layer. AI Governance Engineering supports that layer with controls, validation, technical documentation, evidence and runtime assurance.",
+  highlight: "Your firm provides legal interpretation and client trust. We provide the technical execution layer.",
+  modelsLead: "Potential delivery models include referral, co-delivery and white-label support.",
+  boundary:
+    "We do not provide legal advice or replace legal counsel. We provide technical governance engineering and assurance support.",
+  cta: "Discuss Technical Delivery Capacity",
+  partnerProvidesTitle: "The advisory firm provides",
+  partnerProvides: [
+    "Legal interpretation",
+    "Regulatory advice",
+    "Client relationship",
+    "Matter ownership",
+    "Legal work product",
+  ],
+  practiceProvidesTitle: "AI Governance Engineering provides",
+  practiceProvides: [
+    "Technical implementation",
+    "Control mapping",
+    "Lifecycle gates",
+    "Validation",
+    "Technical documentation",
+    "Evidence packs",
+    "Runtime assurance",
+    "Bounded prototypes and PoVs",
+  ],
+  models: [
+    {
+      name: "Referral",
+      text: "The firm introduces a client that needs technical implementation.",
+    },
+    {
+      name: "Co-delivery",
+      text: "Both teams contribute distinct expertise under an agreed delivery model.",
+    },
+    {
+      name: "White-label support",
+      text: "Technical work is delivered behind the firm’s client relationship, subject to clear scope, confidentiality and responsibility boundaries.",
+    },
+  ],
+};
 
 export const CAPABILITIES = [
   {
@@ -357,9 +521,9 @@ export const DELIVER = [
 
 export const DIAGNOSTIC = {
   title: "AI Governance Diagnostic",
-  duration: "2–3 weeks",
+  duration: "1 week or by design",
   lead:
-    "Two ways in: a focused Diagnostic to establish the starting point, or the Diagnostic plus an Assurance Blueprint when you are ready to design the controls.",
+    "The Snapshot is a one-week assessment of one system. The Blueprint is a separate step: diagnosis plus architecture and control design.",
   position:
     "I work directly with those who design and build the controls, without splitting strategy, implementation and evidence across several layers.",
   negatives: [
@@ -369,42 +533,84 @@ export const DIAGNOSTIC = {
   ],
   hybrid:
     "One senior practitioner turns AI decisions into executable controls, lifecycle gates and evidence — without the hand-offs.",
+  limitsTitle: "What you provide",
+  nature:
+    "This is technical AI governance support. It is not legal advice, not a formal audit, not a conformity assessment and not certification. EU AI Act mapping in the Blueprint is illustrative, not a legal determination.",
+  clientLabel: "What you provide",
+  clientProvides: [
+    "A named internal owner for the engagement",
+    "The in-scope system or use-case family and its intended use",
+    "Existing policies, architecture notes, and known incidents or audit findings, if any",
+    "Access to Engineering and Risk for interviews or a working session",
+  ],
+  includesLabel: "Includes",
+  limitsLabel: "Explicit limits",
+  forLabel: "Best for",
   bands: [
     {
-      id: "diagnostic",
-      name: "AI Governance Diagnostic",
-      price: "€4,500",
-      vat: "excl. VAT",
-      for: "For organisations that need a clear starting point.",
-      includesLabel: "Includes",
+      id: "snapshot",
+      intent: "snapshot",
+      step: "1. Snapshot",
+      kind: "One week · launch price",
+      name: "AI Governance Snapshot",
+      price: "€2,495",
+      vat: "+ applicable taxes",
+      subtitle:
+        "Launch price for the first two contracted projects. A bounded technical assessment of one organisation and one AI system or use case, delivered in one week.",
       includes: [
-        "AI inventory and use-case triage",
-        "Initial risk and obligation view",
-        "Priority control-gap assessment",
-        "90-day implementation backlog",
-        "Executive readout",
+        "Initial meeting.",
+        "Review of existing documentation.",
+        "Up to two interviews.",
+        "Executive memo.",
+        "Short risk matrix.",
+        "Three to five prioritised actions.",
+        "Readout session.",
       ],
-      delivery: "Typical delivery: 2 weeks.",
+      limits: [
+        "One organisation and one system or use case.",
+        "Not a corporate AI inventory.",
+        "Implementation is not included.",
+        "Not a formal audit.",
+        "Not certification.",
+        "Not a conformity assessment.",
+        "Not legal advice.",
+      ],
+      for: "Teams that need to know what to decide and what to do next before commissioning architecture or implementation.",
+      cta: "Start with the Snapshot",
     },
     {
       id: "blueprint",
-      name: "Diagnostic + Assurance Blueprint",
+      intent: "blueprint",
+      step: "2. Blueprint",
+      kind: "Diagnosis + design",
+      name: "AI Governance Blueprint",
       price: "€6,500",
-      vat: "excl. VAT",
-      for: "For organisations ready to design the controls.",
-      includesLabel: "Includes everything in the Diagnostic, plus",
+      vat: "+ applicable taxes",
+      subtitle:
+        "A separate step from the Snapshot: diagnosis plus architecture and control design for one organisation and one AI system or use case.",
       includes: [
-        "Detailed control architecture",
-        "EU AI Act / ISO/IEC 42001 mapping",
-        "Evidence design",
-        "Agent or RAG assurance review",
-        "Engineering and Risk working session",
+        "Diagnosis of the in-scope system.",
+        "Target governance architecture.",
+        "Control and lifecycle-gate design.",
+        "Roles, decision rights and escalation paths.",
+        "Evidence-pack structure.",
+        "Implementation sequence.",
+        "Senior-practitioner close.",
       ],
-      delivery: "Typical delivery: 3 weeks.",
+      limits: [
+        "Implementation is not included unless separately scoped.",
+        "Not legal advice.",
+        "Not a conformity assessment.",
+        "Not ISO/IEC 42001 certification.",
+        "EU AI Act mapping is illustrative, not a legal determination.",
+      ],
+      for: "Organisations that already know the problem is real and need an actionable design for the next implementation stage.",
+      cta: "Request the Blueprint",
     },
   ],
-  priceNote: "€500/day equivalent. The introductory call is unpaid. Scope is confirmed in writing before work starts.",
-  bandsLabel: "Diagnostic offers",
+  priceNote:
+    "The Snapshot launch price applies to the first two contracted projects. The introductory call is unpaid. Scope is confirmed in writing before work starts. A client reference is never a condition of the price.",
+  bandsLabel: "AI Governance Diagnostic offers",
 };
 
 export const PROJECTS = [

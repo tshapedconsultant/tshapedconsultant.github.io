@@ -118,8 +118,33 @@ function mailtoSafeBody(value, max = 2000) {
     .slice(0, max);
 }
 
-function enquiryMailtoHref({ name, company, email, govern, stageLabel, copy }) {
-  const subject = encodeURIComponent(copy.mailtoSubject);
+function enquiryMailtoHref({
+  name,
+  company,
+  email,
+  govern,
+  stageLabel,
+  intentLabel,
+  callerLabel,
+  callerKey,
+  role,
+  practice,
+  delivery,
+  nda,
+  isPartner,
+  isOrg,
+  copy,
+}) {
+  const subjectPrefix = {
+    organisation: "Organisation",
+    legal: "Legal partner",
+    consulting: "Consulting partner",
+    peer: "Peer/research",
+    other: "Other",
+  }[callerKey] || "Enquiry";
+  const subject = encodeURIComponent(
+    intentLabel ? `${subjectPrefix}: ${intentLabel}` : `${subjectPrefix}: site enquiry`
+  );
   const body = encodeURIComponent(
     [
       copy.mailtoIntro,
@@ -128,15 +153,23 @@ function enquiryMailtoHref({ name, company, email, govern, stageLabel, copy }) {
       `${copy.name}: ${mailtoSafeLine(name)}`,
       `${copy.company}: ${mailtoSafeLine(company) || copy.mailtoNotSpecified}`,
       `${copy.email}: ${mailtoSafeLine(email, 254)}`,
+      `${copy.mailtoCaller} ${mailtoSafeLine(callerLabel) || copy.mailtoNotSpecified}`,
+      isOrg ? `${copy.mailtoIntent} ${mailtoSafeLine(intentLabel) || copy.mailtoNotSpecified}` : null,
+      isPartner ? `${copy.mailtoRole} ${mailtoSafeLine(role) || copy.mailtoNotSpecified}` : null,
+      isPartner ? `${copy.mailtoPractice} ${mailtoSafeLine(practice) || copy.mailtoNotSpecified}` : null,
+      isPartner ? `${copy.mailtoDelivery} ${mailtoSafeLine(delivery) || copy.mailtoNotSpecified}` : null,
+      isPartner ? `${copy.mailtoNda} ${mailtoSafeLine(nda) || copy.mailtoNotSpecified}` : null,
       "",
-      copy.mailtoGovern,
+      isPartner ? copy.mailtoNeed : isOrg ? copy.mailtoGovern : `${copy.discuss}:`,
       mailtoSafeBody(govern),
       "",
-      `${copy.mailtoStage} ${stageLabel || copy.mailtoNotSpecified}`,
+      isOrg ? `${copy.mailtoStage} ${stageLabel || copy.mailtoNotSpecified}` : null,
       "",
       "—",
       copy.mailtoFooter,
-    ].join("\n")
+    ]
+      .filter((line) => line !== null)
+      .join("\n")
   );
   return `mailto:${contactEmail()}?subject=${subject}&body=${body}`;
 }
@@ -172,16 +205,46 @@ function GovernanceDiagram() {
   );
 }
 
-function DiagnosticForm() {
+function DgomFlow({ model, phases }) {
+  return (
+    <figure className="dgom-flow" aria-labelledby="dgom-flow-caption">
+      <figcaption id="dgom-flow-caption">{model.diagramLabel}</figcaption>
+      <ol className="dgom-flow-stack">
+        <li>{model.layers.top}</li>
+        <li className="dgom-flow-core" aria-current="true">
+          {model.layers.model}
+        </li>
+      </ol>
+      <ol className="dgom-flow-phases" aria-label={`${phases[0].title} → ${phases.map((phase) => phase.title).slice(1).join(" → ")}`}>
+        {phases.map((phase) => (
+          <li key={phase.id}>{phase.title}</li>
+        ))}
+      </ol>
+      <ol className="dgom-flow-stack">
+        <li>{model.layers.outputs}</li>
+        <li className="dgom-flow-core">{model.layers.runtime}</li>
+      </ol>
+    </figure>
+  );
+}
+
+function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
   const { t, content } = useI18n();
   const { DIAGNOSTIC_FORM } = content;
   const summaryRef = useRef(null);
+  const isPartner = caller === "legal" || caller === "consulting";
+  const isOrg = caller === "organisation";
+  const isPeer = caller === "peer" || caller === "other";
   const [values, setValues] = useState({
     name: "",
     company: "",
     email: "",
     govern: "",
     stage: "",
+    role: "",
+    practice: "",
+    delivery: "",
+    nda: "",
     hp: "",
   });
   const [errors, setErrors] = useState({});
@@ -205,10 +268,19 @@ function DiagnosticForm() {
 
   function validate(data) {
     const next = {};
+    if (!caller) next.caller = t.form.errors.caller;
     if (!data.name.trim()) next.name = t.form.errors.name;
     if (!data.email.trim()) next.email = t.form.errors.email;
     else if (!isValidEmail(data.email.trim())) next.email = t.form.errors.emailInvalid;
-    if (!data.govern.trim()) next.govern = t.form.errors.govern;
+    if (!data.govern.trim()) {
+      next.govern = isPartner
+        ? t.form.errors.partnerNeed
+        : isPeer
+          ? t.form.errors.discuss
+          : t.form.errors.govern;
+    }
+    if (isPartner && !data.role.trim()) next.role = t.form.errors.role;
+    if (isPartner && !data.delivery.trim()) next.delivery = t.form.errors.delivery;
     return next;
   }
 
@@ -229,6 +301,13 @@ function DiagnosticForm() {
 
     const stageLabel =
       DIAGNOSTIC_FORM.stages.find((option) => option.value === values.stage)?.label || "";
+    const intentLabel = isOrg
+      ? DIAGNOSTIC_FORM.intents.find((option) => option.value === intent)?.label || ""
+      : isPartner
+        ? values.delivery
+        : "";
+    const callerLabel =
+      DIAGNOSTIC_FORM.callers.find((option) => option.value === caller)?.label || "";
     setStatus("sending");
     try {
       await submitEnquiry({
@@ -236,10 +315,28 @@ function DiagnosticForm() {
         company: values.company,
         email: values.email,
         govern: values.govern,
-        stage: stageLabel,
+        stage: isOrg ? stageLabel : "",
+        intent: intentLabel,
+        caller: callerLabel,
+        callerKey: caller,
+        role: values.role,
+        practice: values.practice,
+        delivery: values.delivery,
+        nda: values.nda,
       });
       setStatus("sent");
-      setValues({ name: "", company: "", email: "", govern: "", stage: "", hp: "" });
+      setValues({
+        name: "",
+        company: "",
+        email: "",
+        govern: "",
+        stage: "",
+        role: "",
+        practice: "",
+        delivery: "",
+        nda: "",
+        hp: "",
+      });
     } catch (err) {
       setStatus("idle");
       if (err instanceof FormNotConfiguredError) {
@@ -253,6 +350,15 @@ function DiagnosticForm() {
             email: values.email,
             govern: values.govern,
             stageLabel,
+            intentLabel,
+            callerLabel,
+            callerKey: caller,
+            role: values.role,
+            practice: values.practice,
+            delivery: values.delivery,
+            nda: values.nda,
+            isPartner,
+            isOrg,
             copy: t.form,
           })
         );
@@ -261,10 +367,14 @@ function DiagnosticForm() {
     }
   }
 
+  const governLabel = isPartner ? t.form.partnerNeed : isPeer ? t.form.discuss : t.form.govern;
   const errorEntries = [
+    ["caller", DIAGNOSTIC_FORM.callerLabel, errors.caller, "#diag-caller"],
     ["name", t.form.name, errors.name, "#diag-name"],
     ["email", t.form.email, errors.email, "#diag-email"],
-    ["govern", t.form.govern, errors.govern, "#diag-govern"],
+    ["role", DIAGNOSTIC_FORM.roleLabel, errors.role, "#diag-role"],
+    ["delivery", DIAGNOSTIC_FORM.deliveryLabel, errors.delivery, "#diag-delivery"],
+    ["govern", governLabel, errors.govern, "#diag-govern"],
   ].filter(([, , message]) => message);
 
   return (
@@ -323,6 +433,57 @@ function DiagnosticForm() {
         />
       </div>
       <div className="diag-form-grid">
+        <div className="diag-form-wide">
+          <label htmlFor="diag-caller">
+            {DIAGNOSTIC_FORM.callerLabel} <span className="req">{t.required}</span>
+          </label>
+          <select
+            id="diag-caller"
+            name="caller"
+            value={caller}
+            onChange={(event) => {
+              onCallerChange(event.target.value);
+              if (errors.caller) {
+                setErrors((prev) => {
+                  const next = { ...prev };
+                  delete next.caller;
+                  return next;
+                });
+              }
+            }}
+            aria-invalid={errors.caller ? "true" : "false"}
+            aria-describedby={errors.caller ? "diag-caller-error" : undefined}
+            required
+          >
+            {DIAGNOSTIC_FORM.callers.map((option) => (
+              <option key={option.label} value={option.value} disabled={option.value === ""}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          {errors.caller ? (
+            <p className="field-error" id="diag-caller-error">
+              {errors.caller}
+            </p>
+          ) : null}
+        </div>
+        {isOrg ? (
+          <div className="diag-form-wide">
+            <label htmlFor="diag-intent">{DIAGNOSTIC_FORM.intentLabel}</label>
+            <select
+              id="diag-intent"
+              name="intent"
+              value={intent}
+              onChange={(event) => onIntentChange(event.target.value)}
+            >
+              {DIAGNOSTIC_FORM.intents.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
         <div>
           <label htmlFor="diag-name">
             {t.form.name} <span className="req">{t.required}</span>
@@ -381,21 +542,98 @@ function DiagnosticForm() {
             </p>
           ) : null}
         </div>
-        <div>
-          <label htmlFor="diag-stage">
-            {DIAGNOSTIC_FORM.stageLabel} <span className="opt">{t.optional}</span>
-          </label>
-          <select id="diag-stage" name="stage" value={values.stage} onChange={update("stage")}>
-            {DIAGNOSTIC_FORM.stages.map((option) => (
-              <option key={option.label} value={option.value} disabled={option.value === ""}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
+        {isPartner ? (
+          <>
+            <div>
+              <label htmlFor="diag-role">
+                {DIAGNOSTIC_FORM.roleLabel} <span className="req">{t.required}</span>
+              </label>
+              <input
+                id="diag-role"
+                name="role"
+                type="text"
+                autoComplete="organization-title"
+                maxLength={120}
+                value={values.role}
+                onChange={update("role")}
+                aria-invalid={errors.role ? "true" : "false"}
+                aria-describedby={errors.role ? "diag-role-error" : undefined}
+                required
+              />
+              {errors.role ? (
+                <p className="field-error" id="diag-role-error">
+                  {errors.role}
+                </p>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="diag-practice">
+                {DIAGNOSTIC_FORM.practiceLabel} <span className="opt">{t.optional}</span>
+              </label>
+              <input
+                id="diag-practice"
+                name="practice"
+                type="text"
+                maxLength={120}
+                value={values.practice}
+                onChange={update("practice")}
+              />
+            </div>
+            <div>
+              <label htmlFor="diag-delivery">
+                {DIAGNOSTIC_FORM.deliveryLabel} <span className="req">{t.required}</span>
+              </label>
+              <select
+                id="diag-delivery"
+                name="delivery"
+                value={values.delivery}
+                onChange={update("delivery")}
+                aria-invalid={errors.delivery ? "true" : "false"}
+                aria-describedby={errors.delivery ? "diag-delivery-error" : undefined}
+                required
+              >
+                {DIAGNOSTIC_FORM.deliveries.map((option) => (
+                  <option key={option.label} value={option.value} disabled={option.value === ""}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {errors.delivery ? (
+                <p className="field-error" id="diag-delivery-error">
+                  {errors.delivery}
+                </p>
+              ) : null}
+            </div>
+            <div>
+              <label htmlFor="diag-nda">
+                {DIAGNOSTIC_FORM.ndaLabel} <span className="opt">{t.optional}</span>
+              </label>
+              <select id="diag-nda" name="nda" value={values.nda} onChange={update("nda")}>
+                {DIAGNOSTIC_FORM.ndaOptions.map((option) => (
+                  <option key={option.label} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        ) : isOrg ? (
+          <div>
+            <label htmlFor="diag-stage">
+              {DIAGNOSTIC_FORM.stageLabel} <span className="opt">{t.optional}</span>
+            </label>
+            <select id="diag-stage" name="stage" value={values.stage} onChange={update("stage")}>
+              {DIAGNOSTIC_FORM.stages.map((option) => (
+                <option key={option.label} value={option.value} disabled={option.value === ""}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
         <div className="diag-form-wide">
           <label htmlFor="diag-govern">
-            {t.form.govern} <span className="req">{t.required}</span>
+            {governLabel} <span className="req">{t.required}</span>
           </label>
           <textarea
             id="diag-govern"
@@ -404,7 +642,13 @@ function DiagnosticForm() {
             maxLength={2000}
             value={values.govern}
             onChange={update("govern")}
-            placeholder={DIAGNOSTIC_FORM.governPlaceholder}
+            placeholder={
+              isPartner
+                ? DIAGNOSTIC_FORM.partnerNeedPlaceholder
+                : isPeer
+                  ? DIAGNOSTIC_FORM.discussPlaceholder
+                  : DIAGNOSTIC_FORM.governPlaceholder
+            }
             aria-invalid={errors.govern ? "true" : "false"}
             aria-describedby={errors.govern ? "diag-govern-error diag-govern-hint" : "diag-govern-hint"}
             required
@@ -474,6 +718,7 @@ export default function App() {
     CV_PDF,
     DELIVER,
     DGOM,
+    DGOM_MODEL,
     DIAGNOSTIC,
     ENGAGEMENT,
     EXECUTIVE_BRIEF_PDF,
@@ -483,8 +728,10 @@ export default function App() {
     LOCATION,
     LOCATION_HERO,
     MAPPING_TEASER,
+    PARTNERS,
     PROBLEMS,
     PROJECTS,
+    SERVICE_LADDER,
     SOCIAL_PROOF,
     WHITEPAPER_PDF,
     WHITEPAPER_PDF_ES,
@@ -492,14 +739,16 @@ export default function App() {
   const paperPdf = locale === "es" ? WHITEPAPER_PDF_ES : WHITEPAPER_PDF;
   const otherLocale = locale === "es" ? "en" : "es";
   const navSections = [
-    { id: "approach", label: t.nav.approach },
+    { id: "dgom", label: t.nav.dgom },
+    { id: "services", label: t.nav.services },
     { id: "case-studies", label: t.nav.caseStudies },
-    { id: "projects", label: t.nav.projects },
     { id: "contact", label: t.nav.contact },
   ];
   const mobileNav = [
     { id: "diagnostic", label: t.mobile.diagnostic },
-    { id: "approach", label: t.mobile.approach },
+    { id: "dgom", label: t.mobile.dgom },
+    { id: "services", label: t.mobile.services },
+    { id: "partners", label: t.mobile.partners },
     { id: "case-studies", label: t.mobile.caseStudy },
     { id: "projects", label: t.mobile.projects },
     { id: "contact", label: t.mobile.contact },
@@ -511,6 +760,8 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [enquiryIntent, setEnquiryIntent] = useState("snapshot");
+  const [enquiryCaller, setEnquiryCaller] = useState("");
   const menuBtnRef = useRef(null);
   const moreBtnRef = useRef(null);
   const moreWrapRef = useRef(null);
@@ -654,9 +905,20 @@ export default function App() {
     window.history.replaceState(null, "", `#${id}`);
   }
 
+  function goToEnquiry(intent, caller = "organisation") {
+    const product = intent === "diagnostic" ? "snapshot" : intent || "snapshot";
+    setEnquiryCaller(caller);
+    setEnquiryIntent(caller === "organisation" ? product : "snapshot");
+    goHomeSection("diagnostic");
+    requestAnimationFrame(() => {
+      const focusId = caller === "organisation" ? "diag-name" : "diag-caller";
+      document.getElementById(focusId)?.focus();
+    });
+  }
+
   const identityLinks = (
     <>
-      <a href={CV_PDF} download>
+      <a href={CV_PDF} download="Andres-Lage-Freire-CV.pdf">
         {t.cv}
       </a>
       <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer">
@@ -672,6 +934,15 @@ export default function App() {
   );
   const resourceLinks = (
     <>
+      <a
+        href="#partners"
+        onClick={(event) => {
+          event.preventDefault();
+          goHomeSection("partners");
+        }}
+      >
+        {t.nav.partners}
+      </a>
       <a
         href="#about"
         onClick={(event) => {
@@ -898,16 +1169,15 @@ export default function App() {
             <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
-                  <p className="eyebrow loc-line">{LOCATION_HERO}</p>
+                  <p className="eyebrow loc-line">{HERO.kicker || LOCATION_HERO}</p>
                   <h1>
-                    Andrés Lage Freire
+                    {HERO.headline}
                     <span className="h1-specialty">
                       {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
                     </span>
                   </h1>
-                  <p className="tagline">{HERO.tagline}</p>
                   <p className="value-prop">{HERO.value}</p>
-                  <p className="value-scope">{HERO.scope}</p>
+                  <p className="hero-assets">{HERO.assets}</p>
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
@@ -915,12 +1185,23 @@ export default function App() {
                         href="#diagnostic"
                         onClick={(event) => {
                           event.preventDefault();
-                          goHomeSection("diagnostic");
+                          goToEnquiry("snapshot");
                         }}
                       >
                         {CTA.primary}
                       </a>
+                      <a
+                        className="btn btn-ghost"
+                        href="#dgom"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("dgom");
+                        }}
+                      >
+                        {CTA.secondary}
+                      </a>
                     </div>
+                    <p className="hero-qualify">{HERO.qualify}</p>
                     <p className="cta-note">{CTA.note}</p>
                     <a
                       className="text-link hero-recruiter"
@@ -979,6 +1260,98 @@ export default function App() {
               </div>
             </section>
 
+            <section id="dgom" className="region region-dark dgom-band region-major">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    {t.dgom.num}
+                  </p>
+                  <h2>{DGOM_MODEL.title}</h2>
+                </div>
+                <p className="dgom-kicker">{DGOM_MODEL.kicker}</p>
+                <p className="dgom-lead">{DGOM_MODEL.lead}</p>
+                <p className="dgom-designed">{DGOM_MODEL.designed}</p>
+                <ol className="dgom-phases" aria-label="PLAN → BUILD → DEPLOY → MONITOR">
+                  {DGOM.map((phase) => (
+                    <li key={phase.id}>
+                      <h3>{phase.title}</h3>
+                      <p>{phase.text}</p>
+                    </li>
+                  ))}
+                </ol>
+                <DgomFlow model={DGOM_MODEL} phases={DGOM} />
+                <p className="dgom-disclaimer">{DGOM_MODEL.disclaimer}</p>
+                <div className="hero-cta-row dgom-actions">
+                  <a className="btn btn-solid" href={EXECUTIVE_BRIEF_PDF} download>
+                    {DGOM_MODEL.briefCta}
+                  </a>
+                  <a
+                    className="btn btn-ghost"
+                    href="#diagnostic"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      goToEnquiry("blueprint");
+                    }}
+                  >
+                    {CTA.primary}
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            <section id="services" className="region region-light region-mid">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    {t.services.num}
+                  </p>
+                  <h2>{SERVICE_LADDER.title}</h2>
+                </div>
+                <p className="section-lede">{SERVICE_LADDER.lead}</p>
+                <ul className="service-ladder">
+                  {SERVICE_LADDER.items.map((item) => (
+                    <li key={item.id}>
+                      <article className="service-card">
+                        <p className="service-stage">{item.stage}</p>
+                        <h3>{item.name}</h3>
+                        {item.aka ? <p className="service-aka">{item.aka}</p> : null}
+                        <p>{item.description}</p>
+                        <p>
+                          <span className="callout-label">{SERVICE_LADDER.problem}</span>
+                          {item.problem}
+                        </p>
+                        <p>
+                          <span className="callout-label">{SERVICE_LADDER.outcome}</span>
+                          {item.outcome}
+                        </p>
+                        <p className="service-delivers-label">{SERVICE_LADDER.deliverables}</p>
+                        <ul>
+                          {item.deliverables.map((line) => (
+                            <li key={line}>{line}</li>
+                          ))}
+                        </ul>
+                        <p>
+                          <span className="callout-label">{SERVICE_LADDER.audience}</span>
+                          {item.audience}
+                        </p>
+                        <a
+                          className="btn btn-solid"
+                          href="#diagnostic"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            goToEnquiry(item.intent);
+                          }}
+                        >
+                          {item.cta}
+                        </a>
+                      </article>
+                    </li>
+                  ))}
+                </ul>
+                <p className="service-expand">{SERVICE_LADDER.expand}</p>
+              </div>
+            </section>
+
             <section id="diagnostic" className="region region-dark diagnostic-band region-major">
               <div className="region-inner diagnostic-layout">
                 <article className="diag-panel">
@@ -1000,40 +1373,63 @@ export default function App() {
                   <ul className="diag-bands" aria-label={DIAGNOSTIC.bandsLabel}>
                     {DIAGNOSTIC.bands.map((band) => (
                       <li key={band.id}>
+                        <p className="diag-band-step">
+                          {band.step} — {band.kind}
+                        </p>
                         <p className="diag-band-name">{band.name}</p>
                         <p className="diag-band-price">
                           {band.price}{" "}
                           <span className="diag-band-vat">{band.vat}</span>
                         </p>
-                        <p className="diag-band-for">{band.for}</p>
-                        <p className="diag-band-includes-label">{band.includesLabel}</p>
+                        <p className="diag-band-sub">{band.subtitle}</p>
+                        <p className="diag-band-includes-label">{DIAGNOSTIC.includesLabel}</p>
                         <ul>
                           {band.includes.map((item) => (
                             <li key={item}>{item}</li>
                           ))}
                         </ul>
-                        <p className="diag-band-delivery">{band.delivery}</p>
+                        <p className="diag-band-includes-label">{DIAGNOSTIC.limitsLabel}</p>
+                        <ul>
+                          {band.limits.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                        <p>
+                          <span className="callout-label">{DIAGNOSTIC.forLabel}</span>
+                          {band.for}
+                        </p>
+                        <a
+                          className="btn btn-solid diag-band-cta"
+                          href="#diagnostic-form"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            goToEnquiry(band.intent);
+                          }}
+                        >
+                          {band.cta}
+                        </a>
                       </li>
                     ))}
                   </ul>
+                  <aside className="diag-limits">
+                    <h3>{DIAGNOSTIC.limitsTitle}</h3>
+                    <p className="diag-nature">{DIAGNOSTIC.nature}</p>
+                    <p className="diag-limits-label">{DIAGNOSTIC.clientLabel}</p>
+                    <ul>
+                      {DIAGNOSTIC.clientProvides.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </aside>
                   <p className="diag-price-note">{DIAGNOSTIC.priceNote}</p>
-                  <a
-                    className="btn btn-solid"
-                    href="#diagnostic-form"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      document.getElementById("diagnostic-form")?.scrollIntoView({
-                        behavior: scrollBehavior(),
-                        block: "start",
-                      });
-                      document.getElementById("diag-name")?.focus();
-                    }}
-                  >
-                    {CTA.primary}
-                  </a>
                   <p className="cta-note cta-note-repeat">{CTA.note}</p>
                 </article>
-                <DiagnosticForm />
+                <DiagnosticForm
+                  intent={enquiryIntent}
+                  onIntentChange={setEnquiryIntent}
+                  caller={enquiryCaller}
+                  onCallerChange={setEnquiryCaller}
+                />
               </div>
             </section>
 
@@ -1055,6 +1451,58 @@ export default function App() {
                 ))}
               </ul>
             </aside>
+
+            <section id="partners" className="region region-light region-mid">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    {t.partners.num}
+                  </p>
+                  <h2>{PARTNERS.title}</h2>
+                </div>
+                <p className="partners-kicker">{PARTNERS.kicker}</p>
+                <p className="section-lede">{PARTNERS.lead}</p>
+                <p className="partners-highlight">{PARTNERS.highlight}</p>
+                <div className="partners-split">
+                  <article>
+                    <h3>{PARTNERS.partnerProvidesTitle}</h3>
+                    <ul>
+                      {PARTNERS.partnerProvides.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </article>
+                  <article>
+                    <h3>{PARTNERS.practiceProvidesTitle}</h3>
+                    <ul>
+                      {PARTNERS.practiceProvides.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </article>
+                </div>
+                <p className="partners-models-lead">{PARTNERS.modelsLead}</p>
+                <ul className="partners-models">
+                  {PARTNERS.models.map((model) => (
+                    <li key={model.name}>
+                      <h3>{model.name}</h3>
+                      <p>{model.text}</p>
+                    </li>
+                  ))}
+                </ul>
+                <p className="dgom-disclaimer">{PARTNERS.boundary}</p>
+                <a
+                  className="btn btn-solid"
+                  href="#diagnostic"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    goToEnquiry("partners", "legal");
+                  }}
+                >
+                  {PARTNERS.cta}
+                </a>
+              </div>
+            </section>
 
             <aside className="region region-light region-quiet mapping-teaser-band" aria-labelledby="mapping-teaser-title">
               <div className="region-inner">
@@ -1152,19 +1600,17 @@ export default function App() {
                     </div>
                     <p className="reg-line">{t.approach.readiness}</p>
 
-                    <div className="dgom-block">
-                      <p className="level-kicker">{t.approach.operating}</p>
-                      <h3>{t.approach.dgomTitle}</h3>
-                      <p className="dgom-sub">{t.approach.dgomSub}</p>
-                      <ol className="dgom-timeline">
-                        {DGOM.map((phase) => (
-                          <li key={phase.id}>
-                            <h4>{phase.title}</h4>
-                            <p>{phase.text}</p>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
+                    <p className="dgom-pointer">
+                      <a
+                        href="#dgom"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("dgom");
+                        }}
+                      >
+                        {t.approach.seeModel}
+                      </a>
+                    </p>
 
                     <div className="term-grid">
                       <article>
@@ -1536,7 +1982,7 @@ export default function App() {
                     <p>{ABOUT_SITE}</p>
                   </div>
                 </details>
-                <a className="btn btn-ghost" href={CV_PDF} download>
+                <a className="btn btn-ghost" href={CV_PDF} download="Andres-Lage-Freire-CV.pdf">
                   {t.about.cv}
                 </a>
               </div>
@@ -1607,9 +2053,12 @@ export default function App() {
             {t.contact.medium}
             <span className="visually-hidden">{t.opensNewTab}</span>
           </a>
-          <a href={CV_PDF} download>
+          <a href={CV_PDF} download="Andres-Lage-Freire-CV.pdf">
             {t.cv}
           </a>
+          <a href={`${home}#dgom`}>{t.nav.dgom}</a>
+          <a href={`${home}#services`}>{t.nav.services}</a>
+          <a href={`${home}#partners`}>{t.nav.partners}</a>
           <a href={`${home}#case-studies`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
           <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>

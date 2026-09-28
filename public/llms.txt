@@ -1,18 +1,16 @@
 # tshapedconsultant — Andrés Lage Freire
 
-> AI Governance Engineering: the design and implementation of controls, accountability and evidence across the AI lifecycle.
+> AI Governance Engineering: executable controls, lifecycle gates and verifiable evidence across the AI lifecycle.
 
-Andrés Lage Freire is a Responsible AI Architect. Based in Madrid · Working remotely across EMEA. He helps CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy turn AI risk, regulatory obligations and accountability requirements into executable controls, lifecycle gates and verifiable evidence.
+Andrés Lage Freire designs and governs DGOM™ and Dédalo™. Based in Madrid · Working remotely across EMEA. The practice helps organisations deploying RAG, agents and other high-consequence AI systems turn regulation, policy and risk controls into runtime assurance.
 
 This site was designed and built by Andrés with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.
 
-Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems and agents.
-
-The practice argument is that probabilistic models require deterministic governance — independent runtime limits on what a system may access, decide and execute, with evidence generated at the control boundary.
+DGOM™ orchestrates governance frameworks. It does not replace legal advice, formal certification or an organisation’s accountable decision-makers.
 
 ## Canonical pages
 
-- [Home](https://tshapedconsultant.com/): Positioning, diagnostic offer, approach, case studies and contact
+- [Home](https://tshapedconsultant.com/): Positioning, DGOM™, services, diagnostic, partners, case studies and contact
 - [EU AI Act mapping](https://tshapedconsultant.com/governance/eu-ai-act-mapping): Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect
 - [Whitepaper (on-site)](https://tshapedconsultant.com/whitepaper): Probabilistic Models Require Deterministic Governance
 - [Whitepaper (PDF)](https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf)
@@ -24,7 +22,10 @@ The practice argument is that probabilistic models require deterministic governa
 
 ## Contact
 
-- Introductory call: AI Governance Diagnostic (2–3 weeks) — https://tshapedconsultant.com/#diagnostic
+- AI Governance Diagnostic — https://tshapedconsultant.com/#diagnostic
+- DGOM™ operating model — https://tshapedconsultant.com/#dgom
+- Law firms and advisory partners — https://tshapedconsultant.com/#partners
+- CV: https://tshapedconsultant.com/Andres-Lage-Freire-CV.pdf
 - Email: andreslage@tshapedconsultant.com
 - LinkedIn: https://www.linkedin.com/in/andres-lage-freire-4562a91b1/
 - GitHub: https://github.com/tshapedconsultant

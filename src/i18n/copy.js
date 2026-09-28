@@ -21,6 +21,9 @@ export const UI = {
       primary: "Primary",
       about: "About",
       approach: "Approach",
+      dgom: "DGOM™",
+      services: "Services",
+      partners: "Law firms",
       caseStudies: "Case studies",
       projects: "Projects",
       contact: "Contact",
@@ -29,6 +32,9 @@ export const UI = {
     },
     mobile: {
       diagnostic: "Diagnostic",
+      dgom: "DGOM™",
+      services: "Services",
+      partners: "Law firms",
       approach: "Approach",
       mapping: "EU AI Act",
       caseStudy: "Case study",
@@ -60,13 +66,24 @@ export const UI = {
       refs: "Reference implementations:",
     },
     diagnostic: {
-      kicker: "Start with a focused diagnostic",
+      kicker: "AI Governance Diagnostic",
+    },
+    dgom: {
+      num: "02",
+    },
+    services: {
+      num: "03",
+    },
+    partners: {
+      num: "04",
     },
     form: {
       name: "Name",
-      company: "Company",
+      company: "Organisation",
       email: "Work email",
       govern: "What are you trying to govern?",
+      partnerNeed: "Technical need",
+      discuss: "What would you like to discuss?",
       hp: "Company confirmation",
       correct: "Please correct the following:",
       errors: {
@@ -74,17 +91,29 @@ export const UI = {
         email: "Enter your work email address.",
         emailInvalid: "Enter a valid work email address.",
         govern: "Describe what you are trying to govern.",
+        partnerNeed: "Describe the technical need, without client or matter names.",
+        discuss: "Describe what you would like to discuss.",
+        caller: "Select how you are contacting.",
+        role: "Enter your role.",
+        delivery: "Select a delivery model of interest.",
       },
-      mailtoSubject: "AI Governance Diagnostic enquiry",
-      mailtoIntro: "AI Governance Diagnostic enquiry",
+      mailtoSubject: "Site enquiry",
+      mailtoIntro: "Site enquiry",
       mailtoSource: "Source: tshapedconsultant.com",
+      mailtoCaller: "Contacting as:",
+      mailtoIntent: "What they need:",
       mailtoGovern: "What they are trying to govern:",
+      mailtoNeed: "Technical need:",
       mailtoStage: "Current stage and likely scope:",
+      mailtoRole: "Role:",
+      mailtoPractice: "Practice area:",
+      mailtoDelivery: "Delivery model:",
+      mailtoNda: "NDA may be required:",
       mailtoNotSpecified: "Not specified",
       mailtoFooter: "Prepared from the site enquiry form. No mailing list; used only to respond.",
     },
     approach: {
-      num: "03",
+      num: "06",
       title: "The approach",
       business: "Business problem",
       businessText:
@@ -104,6 +133,7 @@ export const UI = {
       constitutionText:
         "A separation of policy, execution and independent oversight across the AI lifecycle.",
       details: "Method details",
+      seeModel: "Open the DGOM™ operating model",
     },
     diagram: {
       kicker: "Control path",
@@ -123,7 +153,7 @@ export const UI = {
       ],
     },
     guard: {
-      num: "02",
+      num: "05",
       title: "Guardrails are not governance",
       lead: "Guardrails constrain model behaviour.",
       cageSummary: "What the cage determines",
@@ -138,13 +168,13 @@ export const UI = {
       principle: "Model safety is a component. Control architecture is the system.",
     },
     deliver: {
-      num: "04",
+      num: "07",
       title: "What you get",
       lede: "Capabilities you can buy — architecture, engineering, decision traceability and executive output — not a policy workshop that ends in a slide deck.",
       included: "What’s included",
     },
     cases: {
-      num: "05",
+      num: "08",
       title: "Case studies",
       problem: "Problem",
       outcomes: "Outcomes",
@@ -154,7 +184,7 @@ export const UI = {
       more: "More about this case",
     },
     projects: {
-      num: "06",
+      num: "09",
       title: "Selected reference implementations",
       lede: "Three flagship systems that show vendor risk, agentic runtime controls, and regulated evidence — not a catalogue of every repository.",
       outcome: "Outcome.",
@@ -162,7 +192,7 @@ export const UI = {
       all: "View all reference implementations on GitHub",
     },
     paper: {
-      num: "07",
+      num: "10",
       title: "Whitepaper",
       heading: "Probabilistic Models Require Deterministic Governance",
       sub: "Why enterprise and agentic AI needs a constitutional architecture — a separation of policy, execution and independent oversight.",
@@ -177,7 +207,7 @@ export const UI = {
       medium: "articles on Medium",
     },
     insights: {
-      num: "08",
+      num: "11",
       title: "Insights",
       lede: "Essays on responsible AI, operating models and runtime governance — on this site and on Medium.",
       read: "Read article",
@@ -186,7 +216,7 @@ export const UI = {
       allMedium: "All articles on Medium",
     },
     creds: {
-      num: "09",
+      num: "12",
       title: "Credentials, publications and open work",
       inProgress: "In progress",
       press: "Press:",
@@ -194,7 +224,7 @@ export const UI = {
       fewer: "Show fewer credentials",
     },
     about: {
-      num: "10",
+      num: "13",
       title: "About Andrés",
       unusual: "Why my background is unusual",
       combo: "Engineering + AI + Governance + Regulation",
@@ -202,7 +232,7 @@ export const UI = {
       cv: "Download CV (PDF)",
     },
     contact: {
-      num: "11",
+      num: "14",
       title: "Contact",
       closing:
         "Your AI system becomes governed when policy is enforced in design, deployment and runtime—and when audit-ready evidence proves that it happened.",
@@ -358,6 +388,9 @@ export const UI = {
       primary: "Principal",
       about: "Sobre mí",
       approach: "Enfoque",
+      dgom: "DGOM™",
+      services: "Servicios",
+      partners: "Despachos",
       caseStudies: "Casos",
       projects: "Proyectos",
       contact: "Contacto",
@@ -366,6 +399,9 @@ export const UI = {
     },
     mobile: {
       diagnostic: "Diagnóstico",
+      dgom: "DGOM™",
+      services: "Servicios",
+      partners: "Despachos",
       approach: "Enfoque",
       mapping: "EU AI Act",
       caseStudy: "Caso",
@@ -397,13 +433,24 @@ export const UI = {
       refs: "Implementaciones de referencia:",
     },
     diagnostic: {
-      kicker: "Empiece por un diagnóstico acotado",
+      kicker: "AI Governance Diagnostic",
+    },
+    dgom: {
+      num: "02",
+    },
+    services: {
+      num: "03",
+    },
+    partners: {
+      num: "04",
     },
     form: {
       name: "Nombre",
-      company: "Empresa",
+      company: "Organización",
       email: "Correo profesional",
       govern: "¿Qué necesita gobernar?",
+      partnerNeed: "Necesidad técnica",
+      discuss: "¿Qué desea tratar?",
       hp: "Confirmación de empresa",
       correct: "Corrija lo siguiente:",
       errors: {
@@ -411,17 +458,29 @@ export const UI = {
         email: "Indique su correo profesional.",
         emailInvalid: "Indique un correo profesional válido.",
         govern: "Describa qué necesita gobernar.",
+        partnerNeed: "Describa la necesidad técnica, sin nombres de clientes ni de asuntos.",
+        discuss: "Describa qué desea tratar.",
+        caller: "Indique cómo se pone en contacto.",
+        role: "Indique su cargo.",
+        delivery: "Seleccione un modelo de entrega de interés.",
       },
-      mailtoSubject: "Consulta: Diagnóstico de Gobernanza de IA",
-      mailtoIntro: "Consulta: Diagnóstico de Gobernanza de IA",
+      mailtoSubject: "Consulta del sitio",
+      mailtoIntro: "Consulta del sitio",
       mailtoSource: "Origen: tshapedconsultant.com",
+      mailtoCaller: "Contacta como:",
+      mailtoIntent: "Qué necesita:",
       mailtoGovern: "Qué pretenden gobernar:",
+      mailtoNeed: "Necesidad técnica:",
       mailtoStage: "Etapa actual y alcance probable:",
+      mailtoRole: "Cargo:",
+      mailtoPractice: "Área de práctica:",
+      mailtoDelivery: "Modelo de entrega:",
+      mailtoNda: "Puede ser necesario un NDA:",
       mailtoNotSpecified: "No indicado",
       mailtoFooter: "Preparado desde el formulario del sitio. Sin lista de correo; se usa solo para responder.",
     },
     approach: {
-      num: "03",
+      num: "06",
       title: "El enfoque",
       business: "Problema de negocio",
       businessText:
@@ -441,6 +500,7 @@ export const UI = {
       constitutionText:
         "Una separación entre política, ejecución y supervisión independiente a lo largo del ciclo de vida de la IA.",
       details: "Detalle del método",
+      seeModel: "Abrir el modelo operativo DGOM™",
     },
     diagram: {
       kicker: "Camino de control",
@@ -460,7 +520,7 @@ export const UI = {
       ],
     },
     guard: {
-      num: "02",
+      num: "05",
       title: "Los guardrails no son gobernanza",
       lead: "Los guardrails restringen el comportamiento del modelo.",
       cageSummary: "Qué determina la jaula",
@@ -475,13 +535,13 @@ export const UI = {
       principle: "La seguridad del modelo es un componente. La arquitectura de control es el sistema.",
     },
     deliver: {
-      num: "04",
+      num: "07",
       title: "Qué obtiene",
       lede: "Capacidades que puede contratar — arquitectura, ingeniería, trazabilidad de decisiones y entrega ejecutiva — no un taller de políticas que acaba en una presentación.",
       included: "Qué incluye",
     },
     cases: {
-      num: "05",
+      num: "08",
       title: "Casos",
       problem: "Problema",
       outcomes: "Resultados",
@@ -491,7 +551,7 @@ export const UI = {
       more: "Más sobre este caso",
     },
     projects: {
-      num: "06",
+      num: "09",
       title: "Implementaciones de referencia seleccionadas",
       lede: "Tres sistemas de referencia que muestran riesgo de proveedor, controles de runtime agéntico y evidencia regulada — no un catálogo de cada repositorio.",
       outcome: "Resultado.",
@@ -499,7 +559,7 @@ export const UI = {
       all: "Ver todas las implementaciones de referencia en GitHub",
     },
     paper: {
-      num: "07",
+      num: "10",
       title: "Whitepaper",
       heading: "Modelos probabilísticos requieren gobernanza determinista",
       sub: "Por qué la IA empresarial y agéntica necesita una arquitectura constitucional — una separación entre política, ejecución y supervisión independiente.",
@@ -514,7 +574,7 @@ export const UI = {
       medium: "artículos en Medium",
     },
     insights: {
-      num: "08",
+      num: "11",
       title: "Análisis",
       lede: "Ensayos sobre IA responsable, modelos operativos y gobernanza en runtime — en este sitio y en Medium.",
       read: "Leer artículo",
@@ -523,7 +583,7 @@ export const UI = {
       allMedium: "Todos los artículos en Medium",
     },
     creds: {
-      num: "09",
+      num: "12",
       title: "Credenciales, publicaciones y trabajo abierto",
       inProgress: "En curso",
       press: "Prensa:",
@@ -531,7 +591,7 @@ export const UI = {
       fewer: "Mostrar menos credenciales",
     },
     about: {
-      num: "10",
+      num: "13",
       title: "Sobre Andrés",
       unusual: "Por qué este perfil es poco habitual",
       combo: "Ingeniería + IA + Gobernanza + Regulación",
@@ -539,7 +599,7 @@ export const UI = {
       cv: "Descargar CV (PDF)",
     },
     contact: {
-      num: "11",
+      num: "14",
       title: "Contacto",
       closing:
         "Un sistema de IA queda gobernado cuando la política se exige en el diseño, el despliegue y el runtime — y cuando una evidencia lista para auditoría demuestra que ocurrió.",
@@ -557,7 +617,7 @@ export const UI = {
       refs: "Implementaciones de referencia:",
       whitepaper: "Whitepaper",
       ctaBefore: "Si quiere aplicar este mapeo a su inventario de IA, empiece por un",
-      ctaLink: "Diagnóstico de Gobernanza de IA",
+      ctaLink: "AI Governance Diagnostic",
       ctaAfter: ".",
       implementedNote: "Implemented = presente en los repositorios públicos de referencia.",
     },

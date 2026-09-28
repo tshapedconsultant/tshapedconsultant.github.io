@@ -14,16 +14,16 @@ import { ARTICLE as ARTICLE_ES, HYBRID_ARTICLE as HYBRID_ARTICLE_ES } from "./co
 export const ORIGIN = "https://tshapedconsultant.com";
 
 export const HOME_TITLE =
-  "Andres Lage – AI Governance & Responsible AI Architect | EU AI Act, ISO 42001";
+  "Executable AI Governance for Agentic and Regulated Systems | TShaped Consultant";
 
 export const HOME_TITLE_ES =
-  "Andrés Lage – Ingeniería de Gobernanza de IA y arquitecto de IA responsable | EU AI Act, ISO 42001";
+  "Gobernanza de IA ejecutable para sistemas agénticos y regulados | TShaped Consultant";
 
 export const HOME_DESCRIPTION =
-  "AI governance and Responsible AI architecture for regulated organisations. Andrés Lage Freire helps CTOs and Risk leaders implement EU AI Act and ISO 42001 controls across RAG systems, agents and high-accountability use cases.";
+  "AI Governance Engineering for organisations deploying RAG and agentic systems. DGOM™ and Dédalo™ turn regulation, policy and risk controls into executable safeguards, lifecycle gates and verifiable evidence.";
 
 export const HOME_DESCRIPTION_ES =
-  "Ingeniería de Gobernanza de IA y arquitectura de IA responsable para organizaciones reguladas. Andrés Lage Freire ayuda a CTOs y líderes de Riesgo a implantar el EU AI Act e ISO 42001: cumplimiento, sistemas RAG, agentes y casos de alta responsabilidad.";
+  "Ingeniería de Gobernanza de IA para organizaciones que despliegan RAG y sistemas agénticos. DGOM™ y Dédalo™ convierten regulación, política y controles de riesgo en salvaguardas ejecutables, compuertas de ciclo de vida y evidencia verificable.";
 
 export const PAGE_SEO = {
   "/": {
@@ -121,20 +121,20 @@ export function jsonLdForLocale(locale) {
   const personJob =
     locale === "es"
       ? "Ingeniería de Gobernanza de IA | Arquitecto de IA responsable"
-      : "AI Governance Lead | Responsible AI Architect";
+      : "AI Governance Engineering | Responsible AI Architect";
   const personDesc =
     locale === "es"
-      ? "Ingeniería de gobernanza de IA y arquitecto de IA responsable, especializado en EU AI Act, ISO 42001 y gobernanza nativa del SDLC para RAG, LLM y agentes autónomos."
-      : "AI Governance Lead and Responsible AI Architect specializing in EU AI Act, ISO 42001, and SDLC-native governance for RAG, LLMs and autonomous agents.";
-  const serviceName = locale === "es" ? "Consultoría de gobernanza de IA" : "AI Governance Consulting";
+      ? "Ingeniería de gobernanza de IA. Diseña y gobierna DGOM™ y Dédalo™: controles ejecutables, compuertas de ciclo de vida y evidencia verificable para RAG, agentes y sistemas regulados."
+      : "AI Governance Engineering. Designs and governs DGOM™ and Dédalo™: executable controls, lifecycle gates and verifiable evidence for RAG, agents and regulated systems.";
+  const serviceName = locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering";
   const serviceDesc =
     locale === "es"
-      ? "Consultoría en gobernanza de IA, cumplimiento del EU AI Act, preparación ISO 42001 y gobernanza nativa del SDLC para sistemas de IA."
-      : "Consulting on AI governance, EU AI Act compliance, ISO 42001 readiness, and SDLC-native governance for AI systems.";
+      ? "Diagnóstico de gobernanza de IA, modelo operativo DGOM™ y aseguramiento en runtime para sistemas RAG y agénticos. No es asesoramiento jurídico ni certificación."
+      : "AI Governance Diagnostic, DGOM™ operating model and runtime assurance for RAG and agentic systems. Not legal advice or certification.";
   const practiceDesc =
     locale === "es"
-      ? "Consultoría de Ingeniería de Gobernanza de IA para CTOs, responsables de IA y líderes de Riesgo/Cumplimiento. EU AI Act, ISO/IEC 42001 y gobernanza en runtime de sistemas RAG y agentes."
-      : "AI Governance Engineering consultancy for CTOs, Heads of AI and Risk/Compliance leaders. EU AI Act, ISO/IEC 42001 and runtime governance of RAG systems and agents.";
+      ? "Ingeniería de Gobernanza de IA para organizaciones que despliegan RAG y sistemas agénticos. DGOM™ y Dédalo™ convierten regulación, política y riesgo en salvaguardas ejecutables."
+      : "AI Governance Engineering for organisations deploying RAG and agentic systems. DGOM™ and Dédalo™ turn regulation, policy and risk into executable safeguards.";
   const worksName =
     locale === "es" ? "Con sede en Madrid · Trabajo en remoto en EMEA" : "Based in Madrid · Working remotely across EMEA";
 

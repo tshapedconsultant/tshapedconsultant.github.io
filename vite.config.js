@@ -24,33 +24,31 @@ const ORIGIN = "https://tshapedconsultant.com";
 
 const NOSCRIPT_ES = `<noscript>
       <main>
-        <p>Con sede en Madrid · Trabajo en remoto en EMEA</p>
-        <h1>Andrés Lage Freire — Ingeniería de Gobernanza de IA</h1>
-        <p>Arquitecto de IA responsable · De la regulación a la garantía en runtime</p>
+        <p>Andrés Lage Freire · Madrid · EMEA en remoto</p>
+        <h1>Gobernanza de IA ejecutable para sistemas regulados y agénticos</h1>
+        <p>Ingeniería de Gobernanza de IA</p>
         <p>
-          Ingeniería de Gobernanza de IA: el diseño e implantación de controles, rendición de
-          cuentas y evidencia a lo largo del ciclo de vida de la IA.
+          Convertimos las obligaciones regulatorias, las decisiones del consejo y los controles de
+          riesgo de IA en salvaguardas ejecutables, compuertas de ciclo de vida y evidencia
+          verificable — de la política al runtime.
         </p>
-        <p>
-          Ayudo a las organizaciones a convertir el riesgo de IA, las obligaciones regulatorias y
-          los requisitos de rendición de cuentas en controles ejecutables, compuertas de ciclo de
-          vida y evidencia verificable.
-        </p>
-        <p>
-          Para CTOs, responsables de IA y líderes de Riesgo/Cumplimiento en banca, seguros y
-          energía. Trabajo típico: preparación para el EU AI Act, ISO/IEC 42001 y gobernanza de
-          sistemas RAG y agentes.
-        </p>
+        <p>DGOM™ · Dédalo™ · Ingeniería de Gobernanza de IA</p>
+        <p>Para organizaciones que despliegan RAG, agentes y otros sistemas de IA de alta consecuencia.</p>
         <p>
           <a href="https://www.lavozdegalicia.es/noticia/educacion/2018/03/15/alumnos-fp-unen-empresas-estudiantes-resolver-retos/0003_201803H15C6991.htm">Premio al Emprendimiento de la Fundación Repsol, 2018</a>
           ·
           <a href="/bbva-platform-ai-strategy-case-study.pdf">Caso: estrategia de plataforma e IA de BBVA</a>
           ·
           <a href="/Gobernanza-Determinista-IA.pdf">Gobernanza determinista para IA probabilística (PDF)</a>
+          ·
+          <a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief (PDF)</a>
         </p>
         <nav>
           <ul>
-            <li><a href="/es/#diagnostic">Diagnóstico de Gobernanza de IA</a></li>
+            <li><a href="/es/#diagnostic">Solicitar un Diagnóstico de Gobernanza de IA</a></li>
+            <li><a href="/es/#dgom">Modelo operativo DGOM™</a></li>
+            <li><a href="/es/#services">Servicios</a></li>
+            <li><a href="/es/#partners">Despachos y firmas asesoras</a></li>
             <li><a href="/es/governance/eu-ai-act-mapping/">Mapeo del EU AI Act</a></li>
             <li><a href="/es/whitepaper/">Whitepaper</a></li>
             <li><a href="/es/#case-studies">Casos</a></li>
