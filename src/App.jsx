@@ -1755,6 +1755,7 @@ export default function App() {
                       {project.video ? (
                         <figure className="project-demo">
                           <video
+                            key={locale}
                             controls
                             playsInline
                             preload="metadata"
@@ -1763,6 +1764,15 @@ export default function App() {
                             height="806"
                           >
                             <source src={project.video} type="video/mp4" />
+                            {project.captions ? (
+                              <track
+                                kind="subtitles"
+                                src={project.captions}
+                                srcLang="es"
+                                label="Español"
+                                default
+                              />
+                            ) : null}
                           </video>
                           <figcaption>{project.videoCaption}</figcaption>
                         </figure>

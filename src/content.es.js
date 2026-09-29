@@ -646,6 +646,7 @@ export const PROJECTS = [
       "Agentes más gobernanza sobre la ejecución. El grafo posee el flujo; el modelo propone; reglas deterministas enrutan, reintentan y acotan el SQL de solo lectura.",
     video: "/demo-multiagent.mp4",
     poster: "/demo-multiagent-poster.jpg",
+    captions: "/demo-multiagent.es.vtt",
     videoCaption:
       "Demo del analista multiagente: una pregunta en lenguaje natural, SQL de solo lectura gobernado y un resultado trazable.",
     outcome:

@@ -1,0 +1,48 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:11.600
+Usé la IA generativa para construir un sistema multiagente
+que simula una pequeña firma boutique de consultoría.
+
+00:00:11.600 --> 00:00:18.900
+Estrategia, finanzas y operaciones,
+coordinadas por un supervisor bajo GPT Luna.
+
+00:00:18.900 --> 00:00:26.800
+Esto no es un chat libre. El código decide qué especialista
+se invoca, en qué orden y con qué restricciones.
+
+00:00:26.800 --> 00:00:31.920
+Pregunta: ¿cuál fue nuestro mejor trimestre de ventas?
+¿Qué podemos aprender de él?
+
+00:00:31.920 --> 00:00:40.120
+Fíjate en el grafo: supervisor, especialistas
+y el memorando del encargo, ordenado por impacto esperado.
+
+00:00:40.120 --> 00:00:46.240
+Acciones 1, 2 y 3, sin puntuaciones.
+Ese orden es lo que un socio llevaría a la reunión.
+
+00:00:46.240 --> 00:00:53.080
+Paso de multiagente a SQL. El chat se vacía.
+Dos modos, dos contratos.
+
+00:00:53.080 --> 00:00:57.480
+Pregunta: ¿qué región generó
+el mayor ingreso completado?
+
+00:00:57.480 --> 00:01:03.120
+Planificar. Generar.
+La aplicación impone una política de SQL de solo lectura.
+
+00:01:03.120 --> 00:01:08.120
+Ejecutar y, después, el análisis,
+con el SQL debajo.
+
+00:01:08.120 --> 00:01:14.400
+El mismo plano de control: quién habla, qué puede ejecutar
+y una política de solo lectura sobre el almacén.
+
+00:01:14.400 --> 00:01:17.600
+Esa es la demo.

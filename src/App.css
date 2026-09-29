@@ -2167,6 +2167,11 @@ a:hover {
   border: 1px solid var(--border);
 }
 
+.project-demo video::cue {
+  background: rgba(6, 20, 45, 0.86);
+  color: #fff;
+}
+
 .project-demo figcaption {
   margin: 0.45rem 0 0;
   color: var(--slate-700);
