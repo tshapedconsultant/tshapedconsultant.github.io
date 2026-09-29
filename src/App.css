@@ -2155,6 +2155,24 @@ a:hover {
   color: var(--slate-700);
 }
 
+.project-demo {
+  margin: 0.15rem 0 0.1rem;
+}
+
+.project-demo video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--navy-900);
+  border: 1px solid var(--border);
+}
+
+.project-demo figcaption {
+  margin: 0.45rem 0 0;
+  color: var(--slate-700);
+  font-size: 0.85rem;
+}
+
 .stack-tags {
   list-style: none;
   display: flex;

@@ -1752,6 +1752,21 @@ export default function App() {
                         <h3>{project.name}</h3>
                       </header>
                       <p>{project.summary}</p>
+                      {project.video ? (
+                        <figure className="project-demo">
+                          <video
+                            controls
+                            playsInline
+                            preload="metadata"
+                            poster={project.poster}
+                            width="1280"
+                            height="806"
+                          >
+                            <source src={project.video} type="video/mp4" />
+                          </video>
+                          <figcaption>{project.videoCaption}</figcaption>
+                        </figure>
+                      ) : null}
                       <ul className="stack-tags">
                         {project.stack.split(" · ").map((tag) => (
                           <li key={tag}>{tag}</li>

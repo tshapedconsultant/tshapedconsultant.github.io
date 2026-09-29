@@ -632,6 +632,9 @@ export const PROJECTS = [
     stack: "LangGraph · FastAPI · OpenAI · AST guards",
     summary:
       "Agents plus governance on execution. The graph owns flow; the model proposes; deterministic rules route, retry and constrain read-only SQL.",
+    video: "/demo-multiagent.mp4",
+    poster: "/demo-multiagent-poster.jpg",
+    videoCaption: "Demo of the multi-agent analyst: a plain-language question, governed read-only SQL, and a traceable result.",
     outcome: "Accountability and traceability in an agentic reporting system — the Deterministic Cage applied to query execution.",
   },
   {
