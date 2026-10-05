@@ -1785,9 +1785,16 @@ export default function App() {
                       <p className="outcome">
                         <strong>{t.projects.outcome}</strong> {project.outcome}
                       </p>
-                      <ExternalLink className="project-link" href={project.href}>
-                        {t.projects.view}
-                      </ExternalLink>
+                      <div className="project-actions">
+                        {project.liveHref ? (
+                          <ExternalLink className="btn btn-solid" href={project.liveHref}>
+                            {t.projects.live}
+                          </ExternalLink>
+                        ) : null}
+                        <ExternalLink className="project-link" href={project.href}>
+                          {t.projects.view}
+                        </ExternalLink>
+                      </div>
                     </article>
                   ))}
                 </div>

@@ -630,6 +630,7 @@ export const PROJECTS = [
     name: "Enterprise AI Risk Console",
     category: "Gobernanza / ISO/IEC 42001",
     href: "https://github.com/tshapedconsultant/enterprise-ai-risk",
+    liveHref: "https://enterprise-ai-risk.onrender.com",
     stack: "FastAPI · YAML profiles · Jira gates · hash-chained audit",
     summary:
       "Riesgo de proveedor, controles como código, compuertas humanas, auditabilidad y evidencia. Triaje determinista a partir de perfiles YAML validados — la evidencia ausente nunca reduce el riesgo residual.",

@@ -619,6 +619,7 @@ export const PROJECTS = [
     name: "Enterprise AI Risk Console",
     category: "Governance / ISO/IEC 42001",
     href: "https://github.com/tshapedconsultant/enterprise-ai-risk",
+    liveHref: "https://enterprise-ai-risk.onrender.com",
     stack: "FastAPI · YAML profiles · Jira gates · hash-chained audit",
     summary:
       "Vendor risk, controls as code, human gates, auditability and evidence. Deterministic triage from validated YAML profiles — missing evidence never reduces residual risk.",

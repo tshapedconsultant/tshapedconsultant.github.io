@@ -29,3 +29,4 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 - Email: andreslage@tshapedconsultant.com
 - LinkedIn: https://www.linkedin.com/in/andres-lage-freire-4562a91b1/
 - GitHub: https://github.com/tshapedconsultant
+- Enterprise AI Risk Console (live demo): https://enterprise-ai-risk.onrender.com
