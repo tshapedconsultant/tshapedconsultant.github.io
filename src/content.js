@@ -630,11 +630,11 @@ export const PROJECTS = [
     category: "RAG / retrieval security",
     liveHref: "https://rag-security-validator-demo.onrender.com",
     liveCta: "Open the live demo",
-    stack: "Streamlit · YAML signatures · NFKC + decode · DeepSeek residual judge",
+    stack: "Streamlit · YAML signatures · defensive decode · optional LLM judge",
     summary:
-      "A gate for untrusted text entering a retrieval pipeline. Normalization, signature match and defensive decoding always run. Uploads are plain text, capped at 2 MB, scanned in memory and not written to disk.",
+      "A gate for untrusted prompts and documents before indexing or generation. Heuristics always run. Optional LLM judge on residual paraphrases. One layer in a defense-in-depth stack — not a complete prompt-injection product.",
     outcome:
-      "Heuristic block of instruction-injection patterns in prompts and documents before indexing or generation. Residual paraphrases go to a DeepSeek judge when a key is set. One layer in a defense-in-depth stack.",
+      "Raises attacker cost on prompt injection and encoded smuggling at the RAG boundary. Detection and containment layer; combine with provenance, least privilege and human approval for high-impact actions.",
   },
   {
     num: "03",

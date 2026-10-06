@@ -641,11 +641,11 @@ export const PROJECTS = [
     category: "RAG / seguridad de recuperación",
     liveHref: "https://rag-security-validator-demo.onrender.com",
     liveCta: "Abrir la demo en vivo",
-    stack: "Streamlit · YAML signatures · NFKC + decode · DeepSeek residual judge",
+    stack: "Streamlit · firmas YAML · decodificación defensiva · juez LLM opcional",
     summary:
-      "Una compuerta para texto no confiable que entra en un pipeline de recuperación. Normalización, coincidencia de firmas y decodificación defensiva siempre se ejecutan. Las cargas son texto plano, con tope de 2 MB, se analizan en memoria y no se escriben a disco.",
+      "Una compuerta para prompts y documentos no confiables antes de indexarlos o enviarlos al modelo. Las heurísticas siempre se ejecutan. Juez LLM opcional para paráfrasis residuales. Una capa en una pila de defensa en profundidad — no un producto completo contra prompt injection.",
     outcome:
-      "Bloqueo heurístico de patrones de inyección de instrucciones en prompts y documentos antes de indexar o generar. Las paráfrasis residuales pasan a un juez DeepSeek cuando hay clave. Una capa en una pila de defensa en profundidad.",
+      "Sube el coste del atacante en inyección de instrucciones y contrabando codificado en el límite del RAG. Capa de detección y contención; combinar con procedencia, mínimo privilegio y aprobación humana en acciones de alto impacto.",
   },
   {
     num: "03",
