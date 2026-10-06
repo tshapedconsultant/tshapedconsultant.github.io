@@ -639,6 +639,18 @@ export const PROJECTS = [
   },
   {
     num: "02",
+    name: "RAG Security Validator",
+    category: "RAG / seguridad de recuperación",
+    liveHref: "https://rag-security-validator-demo.onrender.com",
+    liveCta: "Abrir la demo en vivo",
+    stack: "Streamlit · YAML signatures · NFKC + decode · DeepSeek residual judge",
+    summary:
+      "Una compuerta para texto no confiable que entra en un pipeline de recuperación. Normalización, coincidencia de firmas y decodificación defensiva siempre se ejecutan. Las cargas son texto plano, con tope de 2 MB, se analizan en memoria y no se escriben a disco.",
+    outcome:
+      "Bloqueo heurístico de patrones de inyección de instrucciones en prompts y documentos antes de indexar o generar. Las paráfrasis residuales pasan a un juez DeepSeek cuando hay clave. Una capa en una pila de defensa en profundidad.",
+  },
+  {
+    num: "03",
     name: "Enterprise Data Analyst Agent",
     category: "IA agéntica / controles de runtime",
     href: "https://github.com/tshapedconsultant/Enterprise-Data-Analyst-Agent",
@@ -654,7 +666,7 @@ export const PROJECTS = [
       "Rendición de cuentas y trazabilidad en un sistema de reporting agéntico — la Jaula Determinista aplicada a la ejecución de consultas.",
   },
   {
-    num: "03",
+    num: "04",
     name: "Porto Seguro Compliance Hub",
     category: "IA regulada / evidencia",
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",

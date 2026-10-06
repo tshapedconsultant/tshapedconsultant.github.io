@@ -1524,9 +1524,13 @@ export default function App() {
                     </a>
                     <span className="mapping-teaser-paper-sep"> · </span>
                     {t.mappingTeaser.refs}{" "}
-                    <ExternalLink href={PROJECTS[2].href}>{PROJECTS[2].name}</ExternalLink>
+                    <ExternalLink href={PROJECTS.find((project) => project.name === "Porto Seguro Compliance Hub").href}>
+                      Porto Seguro Compliance Hub
+                    </ExternalLink>
                     {" · "}
-                    <ExternalLink href={PROJECTS[0].href}>{PROJECTS[0].name}</ExternalLink>
+                    <ExternalLink href={PROJECTS.find((project) => project.name === "Enterprise AI Risk Console").href}>
+                      Enterprise AI Risk Console
+                    </ExternalLink>
                   </p>
                 </article>
               </div>
@@ -1745,7 +1749,7 @@ export default function App() {
                 <p className="section-lede">{t.projects.lede}</p>
                 <div className="project-grid">
                   {PROJECTS.map((project) => (
-                    <article className="project" key={project.href}>
+                    <article className="project" key={project.href || project.liveHref}>
                       <header>
                         <p className="flag">{project.num}</p>
                         <p className="ver">{project.category}</p>
@@ -1788,12 +1792,14 @@ export default function App() {
                       <div className="project-actions">
                         {project.liveHref ? (
                           <ExternalLink className="btn btn-solid" href={project.liveHref}>
-                            {t.projects.live}
+                            {project.liveCta || t.projects.live}
                           </ExternalLink>
                         ) : null}
-                        <ExternalLink className="project-link" href={project.href}>
-                          {t.projects.view}
-                        </ExternalLink>
+                        {project.href ? (
+                          <ExternalLink className="project-link" href={project.href}>
+                            {t.projects.view}
+                          </ExternalLink>
+                        ) : null}
                       </div>
                     </article>
                   ))}

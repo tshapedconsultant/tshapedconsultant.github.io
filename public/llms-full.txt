@@ -13,7 +13,7 @@ Practice: AI Governance Engineering — controls, accountability and evidence ac
 - Technical delivery capacity for law firms and advisory partners (referral, co-delivery, white-label support)
 - Priced diagnostic offers remain on the homepage
 - Case study: BBVA platform and AI strategy (PDF)
-- Reference implementations: Enterprise AI Risk Console (live demo: https://enterprise-ai-risk.onrender.com), Enterprise Data Analyst Agent, Porto Seguro Compliance Hub
+- Reference implementations: Enterprise AI Risk Console (live demo: https://enterprise-ai-risk.onrender.com), RAG Security Validator (live demo: https://rag-security-validator-demo.onrender.com), Enterprise Data Analyst Agent, Porto Seguro Compliance Hub
 - Contact: https://tshapedconsultant.com/#diagnostic
 
 ### Whitepaper — https://tshapedconsultant.com/whitepaper

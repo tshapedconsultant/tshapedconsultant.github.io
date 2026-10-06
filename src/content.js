@@ -627,6 +627,18 @@ export const PROJECTS = [
   },
   {
     num: "02",
+    name: "RAG Security Validator",
+    category: "RAG / retrieval security",
+    liveHref: "https://rag-security-validator-demo.onrender.com",
+    liveCta: "Open the live demo",
+    stack: "Streamlit · YAML signatures · NFKC + decode · DeepSeek residual judge",
+    summary:
+      "A gate for untrusted text entering a retrieval pipeline. Normalization, signature match and defensive decoding always run. Uploads are plain text, capped at 2 MB, scanned in memory and not written to disk.",
+    outcome:
+      "Heuristic block of instruction-injection patterns in prompts and documents before indexing or generation. Residual paraphrases go to a DeepSeek judge when a key is set. One layer in a defense-in-depth stack.",
+  },
+  {
+    num: "03",
     name: "Enterprise Data Analyst Agent",
     category: "Agentic AI / runtime controls",
     href: "https://github.com/tshapedconsultant/Enterprise-Data-Analyst-Agent",
@@ -639,7 +651,7 @@ export const PROJECTS = [
     outcome: "Accountability and traceability in an agentic reporting system — the Deterministic Cage applied to query execution.",
   },
   {
-    num: "03",
+    num: "04",
     name: "Porto Seguro Compliance Hub",
     category: "Regulated AI / evidence",
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",
