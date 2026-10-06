@@ -5,7 +5,6 @@ export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Gover
 export const WHITEPAPER_PDF_ES = "/Gobernanza-Determinista-IA.pdf";
 export const EXECUTIVE_BRIEF_PDF = "/Dedalo-Executive-Brief.pdf";
 export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
-export const CV_PDF = "/Andres-Lage-Freire-CV.pdf";
 
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/andres-lage-freire-4562a91b1/",
@@ -270,7 +269,7 @@ export const INSIGHTS = [
 export const AUDIENCE = [
   { id: "enterprise", label: "Enterprise leader", action: "Explore AI Governance", target: "why" },
   { id: "technical", label: "Technical leader", action: "Explore Runtime Architecture", target: "approach" },
-  { id: "recruiter", label: "Recruiter", action: "View background and CV", target: "about" },
+  { id: "recruiter", label: "Recruiter", action: "View background", target: "about" },
 ];
 
 export const PROBLEMS = [

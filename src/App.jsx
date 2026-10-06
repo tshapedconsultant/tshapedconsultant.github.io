@@ -715,7 +715,6 @@ export default function App() {
     COVER_WEBP,
     CREDENTIAL_GROUPS,
     CTA,
-    CV_PDF,
     DELIVER,
     DGOM,
     DGOM_MODEL,
@@ -918,9 +917,6 @@ export default function App() {
 
   const identityLinks = (
     <>
-      <a href={CV_PDF} download="Andres-Lage-Freire-CV.pdf">
-        {t.cv}
-      </a>
       <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer">
         LinkedIn<span className="visually-hidden">{t.opensNewTab}</span>
       </a>
@@ -2020,9 +2016,6 @@ export default function App() {
                     <p>{ABOUT_SITE}</p>
                   </div>
                 </details>
-                <a className="btn btn-ghost" href={CV_PDF} download="Andres-Lage-Freire-CV.pdf">
-                  {t.about.cv}
-                </a>
               </div>
             </section>
 
@@ -2090,9 +2083,6 @@ export default function App() {
           <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">
             {t.contact.medium}
             <span className="visually-hidden">{t.opensNewTab}</span>
-          </a>
-          <a href={CV_PDF} download="Andres-Lage-Freire-CV.pdf">
-            {t.cv}
           </a>
           <a href={`${home}#dgom`}>{t.nav.dgom}</a>
           <a href={`${home}#services`}>{t.nav.services}</a>

@@ -25,7 +25,6 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 - AI Governance Diagnostic — https://tshapedconsultant.com/#diagnostic
 - DGOM™ operating model — https://tshapedconsultant.com/#dgom
 - Law firms and advisory partners — https://tshapedconsultant.com/#partners
-- CV: https://tshapedconsultant.com/Andres-Lage-Freire-CV.pdf
 - Email: andreslage@tshapedconsultant.com
 - LinkedIn: https://www.linkedin.com/in/andres-lage-freire-4562a91b1/
 - GitHub: https://github.com/tshapedconsultant

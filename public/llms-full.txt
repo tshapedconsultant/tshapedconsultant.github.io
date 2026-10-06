@@ -30,7 +30,6 @@ Why autonomous systems need separation of powers (15 July 2026). Runtime Checks 
 Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect. References: Porto Seguro Compliance Hub; Enterprise AI Risk.
 
 ## Also
-- CV: https://tshapedconsultant.com/Andres-Lage-Freire-CV.pdf
 - Short summary: https://tshapedconsultant.com/llms.txt
 - LinkedIn: https://www.linkedin.com/in/andres-lage-freire-4562a91b1/
 - GitHub: https://github.com/tshapedconsultant

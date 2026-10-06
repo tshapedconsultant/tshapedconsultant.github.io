@@ -3,7 +3,6 @@ import {
   COVER,
   COVER_AVIF,
   COVER_WEBP,
-  CV_PDF,
   EXECUTIVE_BRIEF_PDF,
   LINKS,
   WHITEPAPER_PDF,
@@ -15,7 +14,6 @@ export {
   COVER,
   COVER_AVIF,
   COVER_WEBP,
-  CV_PDF,
   EXECUTIVE_BRIEF_PDF,
   LINKS,
   WHITEPAPER_PDF,
@@ -275,7 +273,7 @@ export const INSIGHTS = [
 export const AUDIENCE = [
   { id: "enterprise", label: "Líder empresarial", action: "Explorar gobernanza de IA", target: "why" },
   { id: "technical", label: "Líder técnico", action: "Explorar arquitectura de runtime", target: "approach" },
-  { id: "recruiter", label: "Reclutador", action: "Ver trayectoria y CV", target: "about" },
+  { id: "recruiter", label: "Reclutador", action: "Ver trayectoria", target: "about" },
 ];
 
 export const PROBLEMS = [

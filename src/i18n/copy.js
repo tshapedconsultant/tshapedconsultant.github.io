@@ -15,7 +15,6 @@ export const UI = {
     opensNewTab: " (opens in a new tab)",
     required: "required",
     optional: "optional",
-    cv: "CV",
     proof: "Recognition and references",
     nav: {
       primary: "Primary",
@@ -49,7 +48,7 @@ export const UI = {
       bbva: "Read the BBVA case study",
       implementations: "View reference implementations",
       audienceLabel: "Choose your path",
-      recruiter: "Recruiters: background and CV",
+      recruiter: "Recruiters: background",
     },
     why: {
       num: "01",
@@ -230,7 +229,6 @@ export const UI = {
       unusual: "Why my background is unusual",
       combo: "Engineering + AI + Governance + Regulation",
       bio: "Read background",
-      cv: "Download CV (PDF)",
     },
     contact: {
       num: "14",
@@ -383,7 +381,6 @@ export const UI = {
     opensNewTab: " (se abre en una pestaña nueva)",
     required: "obligatorio",
     optional: "opcional",
-    cv: "CV",
     proof: "Reconocimiento y referencias",
     nav: {
       primary: "Principal",
@@ -417,7 +414,7 @@ export const UI = {
       bbva: "Leer el caso BBVA",
       implementations: "Ver implementaciones de referencia",
       audienceLabel: "Elija su camino",
-      recruiter: "Reclutadores: trayectoria y CV",
+      recruiter: "Reclutadores: trayectoria",
     },
     why: {
       num: "01",
@@ -598,7 +595,6 @@ export const UI = {
       unusual: "Por qué este perfil es poco habitual",
       combo: "Ingeniería + IA + Gobernanza + Regulación",
       bio: "Leer la trayectoria",
-      cv: "Descargar CV (PDF)",
     },
     contact: {
       num: "14",
