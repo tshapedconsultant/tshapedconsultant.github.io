@@ -660,11 +660,11 @@ export const PROJECTS = [
     stack: "LangGraph · FastAPI · OpenAI · AST guards",
     summary:
       "Agentes más gobernanza sobre la ejecución. El grafo posee el flujo; el modelo propone; reglas deterministas enrutan, reintentan y acotan el SQL de solo lectura.",
-    video: "/demo-multiagent.mp4",
-    poster: "/demo-multiagent-poster.jpg",
-    captions: "/demo-multiagent.es.vtt",
+    video: "/demo-final-castellano.mp4",
+    poster: "/demo-final-castellano-poster.jpg",
+    captions: "/demo-final-castellano.es.vtt",
     videoCaption:
-      "Demo del analista multiagente: una pregunta en lenguaje natural, SQL de solo lectura gobernado y un resultado trazable.",
+      "Demostración en castellano: tendencia de ventas para dirección y, después, pedidos por estado con SQL de solo lectura.",
     outcome:
       "Rendición de cuentas y trazabilidad en un sistema de reporting agéntico — la Jaula Determinista aplicada a la ejecución de consultas.",
   },

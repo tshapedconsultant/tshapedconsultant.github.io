@@ -1,0 +1,32 @@
+WEBVTT
+
+00:00:04.900 --> 00:00:18.800
+He usado la inteligencia artificial generativa para construir un sistema multiagente
+que simula una pequeña consultora boutique, con GPT-6 Sol.
+
+00:00:18.800 --> 00:00:27.600
+Esto no es un chat libre. El código decide qué especialista se invoca,
+en qué orden y bajo qué restricciones.
+
+00:00:27.600 --> 00:00:34.600
+Pregunta: ¿Qué tendencia de ventas debería preocupar a dirección,
+y qué haríamos el próximo trimestre?
+
+00:00:34.600 --> 00:00:48.600
+Fíjate en el grafo: supervisor, especialistas y el memorándum.
+Acción uno, dos y tres. Es el ranking que un socio se llevaría a la reunión.
+
+00:00:48.600 --> 00:00:55.600
+Paso de Multiagente a SQL. El chat se vacía.
+Dos modos, dos contratos.
+
+00:00:55.600 --> 00:00:58.500
+Pregunta: ¿Cuántos pedidos hay por estado?
+
+00:00:58.500 --> 00:01:07.200
+Planificar. Generar. La aplicación impone una política SQL de solo lectura.
+Ejecutar. Y después, la conclusión, con el SQL debajo.
+
+00:01:07.200 --> 00:01:16.000
+El mismo plano de control: quién habla, qué puede ejecutar,
+y una política de solo lectura sobre los datos. Esta es la demo.
