@@ -226,22 +226,26 @@ export const SOCIAL_PROOF = [
   },
 ];
 
+const ENGLISH_ESSAYS = pulseInsights("en");
+
 export const INSIGHTS = [
-  {
-    title: HYBRID_ARTICLE.title,
-    text: HYBRID_ARTICLE.excerpt,
-    href: "/hybrid-profiles",
-    icon: "people",
-    internal: true,
-    featured: true,
-  },
   {
     title: ARTICLE.title,
     text: ARTICLE.excerpt,
     href: "/agentic-ai-montesquieu",
     icon: "scales",
     internal: true,
+    featured: true,
   },
+  ...ENGLISH_ESSAYS.slice(0, 8),
+  {
+    title: HYBRID_ARTICLE.title,
+    text: HYBRID_ARTICLE.excerpt,
+    href: "/hybrid-profiles",
+    icon: "people",
+    internal: true,
+  },
+  ...ENGLISH_ESSAYS.slice(8),
   {
     title: "Ethical Principles of Artificial Intelligence: The Imperative for Compliance",
     text: "Fairness, accountability, transparency and privacy as operational requirements — especially under EU rules.",
@@ -266,7 +270,6 @@ export const INSIGHTS = [
     href: "https://medium.com/@andresl/agile-in-the-age-of-ai-why-the-practices-are-disrupting-but-the-principles-endure-cde7194a3ddd",
     icon: "gears",
   },
-  ...pulseInsights("en"),
 ];
 
 export const AUDIENCE = [

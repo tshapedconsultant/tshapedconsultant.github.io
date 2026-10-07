@@ -229,22 +229,26 @@ export const SOCIAL_PROOF = [
   },
 ];
 
+const SPANISH_ESSAYS = pulseInsights("es");
+
 export const INSIGHTS = [
-  {
-    title: HYBRID_ARTICLE.title,
-    text: HYBRID_ARTICLE.excerpt,
-    href: "/hybrid-profiles",
-    icon: "people",
-    internal: true,
-    featured: true,
-  },
   {
     title: ARTICLE.title,
     text: ARTICLE.excerpt,
     href: "/agentic-ai-montesquieu",
     icon: "scales",
     internal: true,
+    featured: true,
   },
+  ...SPANISH_ESSAYS.slice(0, 7),
+  {
+    title: HYBRID_ARTICLE.title,
+    text: HYBRID_ARTICLE.excerpt,
+    href: "/hybrid-profiles",
+    icon: "people",
+    internal: true,
+  },
+  ...SPANISH_ESSAYS.slice(7),
   {
     title: "Principios éticos de la inteligencia artificial: el imperativo del cumplimiento",
     text: "Equidad, rendición de cuentas, transparencia y privacidad como requisitos operativos — especialmente bajo normas de la UE.",
@@ -269,7 +273,6 @@ export const INSIGHTS = [
     href: "https://medium.com/@andresl/agile-in-the-age-of-ai-why-the-practices-are-disrupting-but-the-principles-endure-cde7194a3ddd",
     icon: "gears",
   },
-  ...pulseInsights("es"),
 ];
 
 export const AUDIENCE = [
