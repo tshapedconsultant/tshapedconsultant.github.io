@@ -8,6 +8,7 @@ import {
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
 } from "./content.js";
+import { pulseInsights } from "./data/pulseLibrary.ts";
 
 export {
   CASE_STUDY_PDF,
@@ -268,6 +269,7 @@ export const INSIGHTS = [
     href: "https://medium.com/@andresl/agile-in-the-age-of-ai-why-the-practices-are-disrupting-but-the-principles-endure-cde7194a3ddd",
     icon: "gears",
   },
+  ...pulseInsights("es"),
 ];
 
 export const AUDIENCE = [

@@ -56,6 +56,9 @@ export function localizeHref(href: string, locale: Locale): string {
 }
 
 export function switchLocalePath(pathname: string, hash: string, target: Locale): string {
+  if (stripLocale(pathname).startsWith("/insights/")) {
+    return target === "es" ? "/es/#insights" : "/#insights";
+  }
   const next = withLocale(stripLocale(pathname), target);
   if (!hash || hash === "#") return next;
   return `${next}${hash.startsWith("#") ? hash : `#${hash}`}`;
@@ -107,6 +110,8 @@ export function assertLocaleSwitch(): void {
     ["/es/agentic-ai-montesquieu", "", "en", "/agentic-ai-montesquieu"],
     ["/governance/eu-ai-act-mapping", "#art-9", "es", "/es/governance/eu-ai-act-mapping#art-9"],
     ["/es/governance/eu-ai-act-mapping/", "", "en", "/governance/eu-ai-act-mapping"],
+    ["/es/insights/ensename-el-incentivo-y-te-mostrare-el-resultado", "", "en", "/#insights"],
+    ["/insights/the-risk-equation-of-agentic-ai", "", "es", "/es/#insights"],
   ];
   for (const [pathname, hash, target, want] of cases) {
     const got = switchLocalePath(pathname, hash, target);

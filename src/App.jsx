@@ -7,6 +7,8 @@ import EuAiActMapping from "./pages/EuAiActMapping";
 import WhitepaperEs from "./pages/WhitepaperEs.jsx";
 import ArticleEs from "./pages/ArticleEs.jsx";
 import HybridProfilesEs from "./pages/HybridProfilesEs.jsx";
+import InsightArticle from "./pages/InsightArticle.jsx";
+import { pulseByPath } from "./data/pulseLibrary.ts";
 import { Icon } from "./Icons.jsx";
 import Picture from "./components/Picture.jsx";
 import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
@@ -55,6 +57,7 @@ function viewFromLocation(pathname, hash) {
   if (ARTICLE_PAGES[raw]) {
     return ARTICLE_PAGES[raw];
   }
+  if (pulseByPath(pathname, localeFromPath(pathname))) return "insight";
   if (!isAppPath(pathname)) return "notfound";
   return "home";
 }
@@ -65,7 +68,8 @@ function scrollToHash() {
     isEuAiActMappingPath(pathname) ||
     isWhitepaperPath(pathname) ||
     isHybridProfilesPath(pathname) ||
-    isMontesquieuPath(pathname)
+    isMontesquieuPath(pathname) ||
+    pulseByPath(pathname, localeFromPath(pathname))
   ) {
     const section = window.location.hash.replace(/^#/, "");
     requestAnimationFrame(() => {
@@ -1158,6 +1162,8 @@ export default function App() {
           locale === "es" ? <ArticleEs /> : <Article />
         ) : view === "hybrid" ? (
           locale === "es" ? <HybridProfilesEs /> : <HybridProfiles />
+        ) : view === "insight" ? (
+          <InsightArticle />
         ) : view === "notfound" ? (
           <NotFound />
         ) : (

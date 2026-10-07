@@ -9,6 +9,7 @@ import {
   withLocale,
 } from "./routes";
 import { ARTICLE, HYBRID_ARTICLE } from "./content.js";
+import { pulseByPath } from "./data/pulseLibrary.ts";
 import { ARTICLE as ARTICLE_ES, HYBRID_ARTICLE as HYBRID_ARTICLE_ES } from "./content.es.js";
 
 export const ORIGIN = "https://tshapedconsultant.com";
@@ -81,6 +82,13 @@ export function pageSeoFor(pathname) {
   const locale = localeFromPath(pathname);
   const path = stripLocale(pathname);
   const table = locale === "es" ? PAGE_SEO_ES : PAGE_SEO;
+  const pulse = pulseByPath(pathname, locale);
+  if (pulse) {
+    return {
+      title: `${pulse.title.replace(/\s+/g, " ").trim()} | tshapedconsultant`,
+      description: pulse.excerpt,
+    };
+  }
   if (table[path]) return table[path];
   if (path !== "/") {
     return locale === "es"

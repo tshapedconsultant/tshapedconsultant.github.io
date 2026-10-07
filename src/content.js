@@ -1,3 +1,5 @@
+import { pulseInsights } from "./data/pulseLibrary.ts";
+
 export const COVER = "/cover.png";
 export const COVER_WEBP = "/cover.webp";
 export const COVER_AVIF = "/cover.avif";
@@ -264,6 +266,7 @@ export const INSIGHTS = [
     href: "https://medium.com/@andresl/agile-in-the-age-of-ai-why-the-practices-are-disrupting-but-the-principles-endure-cde7194a3ddd",
     icon: "gears",
   },
+  ...pulseInsights("en"),
 ];
 
 export const AUDIENCE = [
