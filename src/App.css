@@ -4225,6 +4225,77 @@ details.mobile-disclose > summary:focus-visible {
     font-size: 1.0625rem;
   }
 
+  .case-study + .case-study {
+    margin-top: 1rem;
+  }
+
+  .case-study,
+  .project,
+  .proof-strip li,
+  .project-demo {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .case-study {
+    padding: 1.05rem 0.9rem 1.15rem;
+  }
+
+  .case-client {
+    font-size: 1.12rem;
+    line-height: 1.3;
+  }
+
+  .case-head h3,
+  .project h3 {
+    font-size: 1.22rem;
+    line-height: 1.28;
+    overflow-wrap: break-word;
+  }
+
+  .case-problem p,
+  .case-outcomes li,
+  .case-done li,
+  .case-gov p,
+  .case-note,
+  .project > p,
+  .outcome,
+  .project-demo figcaption,
+  .section-lede,
+  .proof-strip a,
+  .stack-tags li {
+    overflow-wrap: break-word;
+  }
+
+  .case-outcomes li {
+    gap: 0.5rem;
+    padding: 0.65rem 0;
+  }
+
+  .case-study .btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .project-demo + .project-demo {
+    margin-top: 0.35rem;
+  }
+
+  .project-demo video {
+    max-width: 100%;
+  }
+
+  .project-link {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .stack-tags li {
+    max-width: 100%;
+  }
+
   .region-inner,
   .paper {
     width: min(100% - 2 * var(--page-gutter), 70rem);
