@@ -667,11 +667,11 @@ export const PROJECTS = [
   },
   {
     num: "05",
-    name: "Industrial AI Red Team",
-    category: "OT safety / lifecycle gates",
-    stack: "GARAK · energy-sector severity · SOC monitor · CI gate",
+    name: "Automated Red Teaming for Safety-Critical AI",
+    category: "Azure / CI promotion gates",
+    stack: "GARAK · sector severity · forensic evidence · SOC monitor · CI gate",
     summary:
-      "The board or the risk-control committee reviews the policy. Runtime executes it. A sensitive monitor catches operational language early. The deployment gate stays quiet until a finding could cause an accident.",
+      "A production-aligned Azure architecture combining GARAK adversarial testing, sector-aware severity classification, structured forensic evidence, independent monitoring and CI/CD promotion gates. Critical findings can block model promotion, while configurable monitor and orchestration profiles separate early-warning triage from reproducible release decisions.",
     video: "/industrial-ai-redteam.mp4",
     poster: "/industrial-ai-redteam-poster.jpg",
     videoWidth: 1600,

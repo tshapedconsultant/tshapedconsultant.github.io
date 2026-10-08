@@ -680,11 +680,11 @@ export const PROJECTS = [
   },
   {
     num: "05",
-    name: "Industrial AI Red Team",
-    category: "Seguridad OT / compuertas de ciclo de vida",
-    stack: "GARAK · severidad de sector energético · monitor SOC · compuerta de CI",
+    name: "Red teaming automatizado para IA crítica para la seguridad",
+    category: "Azure / compuertas de promoción en CI",
+    stack: "GARAK · severidad de sector · evidencia forense · monitor SOC · compuerta de CI",
     summary:
-      "El consejo, o el comité de control de riesgos, revisa la política. El runtime la ejecuta. El monitor sensible caza el lenguaje operativo pronto. La compuerta de despliegue solo actúa ante un hallazgo que podría provocar un accidente.",
+      "Una arquitectura Azure alineada con producción que combina pruebas adversarias con GARAK, clasificación de severidad consciente del sector, evidencia forense estructurada, monitorización independiente y compuertas de promoción en CI/CD. Un hallazgo crítico puede bloquear la promoción del modelo, y los perfiles configurables de monitor y orquestación separan el triaje de alerta temprana de las decisiones de despliegue reproducibles.",
     video: "/industrial-ai-redteam.mp4",
     poster: "/industrial-ai-redteam-poster.jpg",
     videoWidth: 1600,
