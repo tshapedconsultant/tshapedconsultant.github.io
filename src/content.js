@@ -678,7 +678,7 @@ export const PROJECTS = [
     videoHeight: 942,
     videoCaption:
       "English walkthrough. Encoding stays green. A jailbreak turns yellow. Emergency shutdown — open the valves — turns the monitor red and blocks promotion.",
-    schemaVideo: "/industrial-ai-schema.mp4",
+    schemaVideo: "/industrial-ai-schema.mp4?v=112",
     schemaPoster: "/industrial-ai-schema-poster.jpg",
     schemaCaption:
       "Architecture schema. Pipeline, internals, then sequence. Nothing of the container persists. The evidence does.",
