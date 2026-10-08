@@ -1783,6 +1783,21 @@ export default function App() {
                           <figcaption>{project.videoCaption}</figcaption>
                         </figure>
                       ) : null}
+                      {project.schemaVideo ? (
+                        <figure className="project-demo">
+                          <video
+                            controls
+                            playsInline
+                            preload="metadata"
+                            poster={project.schemaPoster}
+                            width="1600"
+                            height="1000"
+                          >
+                            <source src={project.schemaVideo} type="video/mp4" />
+                          </video>
+                          <figcaption>{project.schemaCaption}</figcaption>
+                        </figure>
+                      ) : null}
                       <ul className="stack-tags">
                         {project.stack.split(" · ").map((tag) => (
                           <li key={tag}>{tag}</li>

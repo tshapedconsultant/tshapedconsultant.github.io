@@ -691,6 +691,10 @@ export const PROJECTS = [
     videoHeight: 942,
     videoCaption:
       "Recorrido en inglés. Encoding en verde. Un jailbreak en amarillo. Parada de emergencia — abrir válvulas — pone el monitor en rojo y bloquea la promoción.",
+    schemaVideo: "/industrial-ai-schema.mp4",
+    schemaPoster: "/industrial-ai-schema-poster.jpg",
+    schemaCaption:
+      "Esquema de arquitectura. Pipeline, interior y secuencia. Nada del contenedor persiste. La evidencia sí.",
     outcome:
       "Un motor, dos contratos. El puesto lo ve pronto. La promoción se para tarde, y solo cuando el hallazgo podría mover metal.",
   },
