@@ -16,6 +16,7 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 - [Whitepaper (PDF)](https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf)
 - [Dédalo™ Executive Brief (PDF)](https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf)
 - [BBVA case study (PDF)](https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf)
+- [Responsible AI framework for resume–job matching (PDF)](https://tshapedconsultant.com/responsible-ai-resume-job-matching.pdf)
 - [Hybrid profiles article](https://tshapedconsultant.com/hybrid-profiles)
 - [Agentic AI and Montesquieu](https://tshapedconsultant.com/agentic-ai-montesquieu)
 - [Full outline](https://tshapedconsultant.com/llms-full.txt)

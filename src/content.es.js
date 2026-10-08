@@ -5,6 +5,7 @@ import {
   COVER_WEBP,
   EXECUTIVE_BRIEF_PDF,
   LINKS,
+  RESUME_MATCHING_PDF,
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
 } from "./content.js";
@@ -17,6 +18,7 @@ export {
   COVER_WEBP,
   EXECUTIVE_BRIEF_PDF,
   LINKS,
+  RESUME_MATCHING_PDF,
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
 };
@@ -172,7 +174,7 @@ export const HYBRID_ARTICLE = {
 };
 
 export const CASE_STUDIES = {
-  lede: "Una lectura de banca regulada sobre arquitectura de plataforma, IA aplicada y supervisión de modelos — escrita para CTOs y líderes de Riesgo que necesitan ver cómo encaja la gobernanza en un modelo operativo de producción.",
+  lede: "Dos lecturas para CTOs y líderes de Riesgo: cómo se asienta la gobernanza en un banco en producción, y cómo un modelo de selección se mantiene justo desde la norma hasta la reclamación.",
   items: [
     {
       id: "bbva-platform-ai",
@@ -199,6 +201,34 @@ export const CASE_STUDIES = {
       note: "Análisis estratégico independiente de Andrés Lage Freire; no está redactado ni avalado por BBVA. Cifras según el análisis (marzo de 2025 y 1T 2025).",
       pdf: CASE_STUDY_PDF,
     },
+    {
+      id: "resume-job-matching",
+      kicker: "Marco · 2026",
+      client: "Emparejamiento CV–puesto",
+      sector: "Selección de talento",
+      title: "Marco de IA responsable",
+      role: "Diseño operativo · Andrés Lage Freire",
+      problem:
+        "¿Puede la IA decidir a quién se contrata sin heredar nuestros sesgos? Este marco de IA responsable para emparejar currículum y puesto dice que sí, pero solo si el humano no sale del circuito. Cubre el ciclo de vida completo: reglas justas de entrada, auditoría del sesgo antes del entrenamiento, modelos explicables y controles de equidad continuos.",
+      approach: [
+        "Acordar con RR. HH., los responsables de contratación y Diversidad e Inclusión qué datos son propios del puesto, antes de que el modelo vea un CV. Edad, género y otros factores personales quedan fuera.",
+        "Auditar el histórico de contratación y escribir el plan de corrección antes de entrenar, para que el modelo no aprenda el registro sesgado.",
+        "Asignar un RACI a cada decisión que toca el sistema. La persona candidata recibe un aviso del artículo 13 del RGPD: que se usa IA, qué criterios se aplican y cómo reclamar.",
+        "No pasar a las pruebas finales hasta que la calidad de los datos y las métricas de equidad superen los umbrales internos. La puntuación sale con una explicación clara.",
+        "Hacer red teaming del emparejador. Rellenar el CV de palabras clave ajenas al puesto no debe cambiar una decisión justa.",
+        "Dar «encaje alto» o «rechazo alto» solo con confianza alta. Los casos ambiguos van a revisión humana obligatoria. Un rechazo alto exige al responsable de contratación y a Diversidad e Inclusión.",
+        "Registrar cada anulación humana con un motivo. Vigilar la equidad, los cambios en cómo se escriben los CV, el tiempo de cobertura y a quienes una persona mantuvo. Un consejo de ética de IA puede parar el sistema.",
+      ],
+      outcomes: [
+        "Revisión humana obligatoria cuando la IA no está segura.",
+        "Doble aprobación antes de cualquier rechazo.",
+        "Un canal real de reclamación. La IA aporta velocidad. La equidad sigue siendo humana.",
+      ],
+      governance:
+        "La supervisión humana es el control, no una cláusula. Límites de confianza, doble aprobación, anulaciones registradas y una reclamación de la persona candidata meten la puntuación probabilística en un camino de decisión determinista: triaje humano pronto, un freno más duro antes de descartar a alguien, y un consejo que puede detener el sistema.",
+      note: "Marco operativo de IA responsable escrito por Andrés Lage Freire. Fija los controles. No es el informe de un despliegue con nombre, ni asesoramiento jurídico.",
+      pdf: RESUME_MATCHING_PDF,
+    },
   ],
 };
 
@@ -213,6 +243,12 @@ export const SOCIAL_PROOF = [
     id: "bbva-case",
     text: "Caso: estrategia de plataforma e IA de BBVA",
     href: CASE_STUDY_PDF,
+    download: true,
+  },
+  {
+    id: "resume-matching",
+    text: "Marco: IA responsable para emparejar CV y puesto",
+    href: RESUME_MATCHING_PDF,
     download: true,
   },
   {

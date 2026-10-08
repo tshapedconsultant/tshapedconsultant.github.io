@@ -39,6 +39,8 @@ const NOSCRIPT_ES = `<noscript>
           ·
           <a href="/bbva-platform-ai-strategy-case-study.pdf">Caso: estrategia de plataforma e IA de BBVA</a>
           ·
+          <a href="/responsible-ai-resume-job-matching.pdf">Marco: IA responsable para emparejar CV y puesto</a>
+          ·
           <a href="/Gobernanza-Determinista-IA.pdf">Gobernanza determinista para IA probabilística (PDF)</a>
           ·
           <a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief (PDF)</a>

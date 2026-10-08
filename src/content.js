@@ -7,6 +7,7 @@ export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Gover
 export const WHITEPAPER_PDF_ES = "/Gobernanza-Determinista-IA.pdf";
 export const EXECUTIVE_BRIEF_PDF = "/Dedalo-Executive-Brief.pdf";
 export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
+export const RESUME_MATCHING_PDF = "/responsible-ai-resume-job-matching.pdf";
 
 export const LINKS = {
   linkedin: "https://www.linkedin.com/in/andres-lage-freire-4562a91b1/",
@@ -169,7 +170,7 @@ export const HYBRID_ARTICLE = {
 };
 
 export const CASE_STUDIES = {
-  lede: "A regulated-bank view of platform architecture, applied AI and model oversight — written for CTOs and Risk leaders who need to see how governance sits inside a production operating model.",
+  lede: "Two operating views for CTOs and Risk leaders: how governance sits inside a production bank, and how a hiring model is kept fair from the rulebook to the appeal.",
   items: [
     {
       id: "bbva-platform-ai",
@@ -196,6 +197,34 @@ export const CASE_STUDIES = {
       note: "Independent strategic analysis by Andrés Lage Freire; not authored or endorsed by BBVA. Figures as reported in the analysis (March 2025 and Q1 2025).",
       pdf: CASE_STUDY_PDF,
     },
+    {
+      id: "resume-job-matching",
+      kicker: "Framework · 2026",
+      client: "Resume–job matching",
+      sector: "Talent acquisition",
+      title: "Responsible AI framework",
+      role: "Operating design · Andrés Lage Freire",
+      problem:
+        "Can AI decide who gets hired without inheriting our biases? This Responsible AI framework for resume matching says yes, but only if humans never leave the loop. It covers the full lifecycle: fair rules upfront, bias audits before training, explainable models, and ongoing fairness checks.",
+      approach: [
+        "Agree the job-related features with HR, hiring managers and D&I before the model sees a CV. Age, gender and other personal factors stay out of scope.",
+        "Audit historical hiring data and write the correction plan before training, so the model does not learn the biased record.",
+        "Assign a RACI for every decision the system touches. Candidates receive a GDPR Article 13 notice: that AI is used, which criteria apply, and how to appeal.",
+        "Hold the model out of final testing until data quality and fairness metrics clear internal thresholds. The score ships with a plain explanation, not a black box.",
+        "Red-team the matcher. Keyword stuffing and unrelated credentials must not flip a fair decision.",
+        "Issue Strong Match or Strong Reject only at high confidence. Ambiguous cases go to mandatory human review. A Strong Reject needs both the hiring manager and the D&I lead.",
+        "Log every human override with a reason. Monitor fairness, shifts in how résumés are written, time-to-hire, and the candidates a human kept. An AI Ethics Review Board can pause the system.",
+      ],
+      outcomes: [
+        "Mandatory human review when the AI is unsure.",
+        "Dual approval before any rejection.",
+        "A real appeals channel. AI brings speed. Fairness stays human.",
+      ],
+      governance:
+        "Human oversight is the control, not a disclaimer. Confidence limits, dual approval, logged overrides and a candidate appeal keep the probabilistic score inside a deterministic decision path — the same pattern as a lifecycle gate: early human triage, a harder stop before a person is turned away, and a board that can halt the system.",
+      note: "Responsible AI operating framework written by Andrés Lage Freire. It specifies the controls. It is not a report of a named deployment, and it is not legal advice.",
+      pdf: RESUME_MATCHING_PDF,
+    },
   ],
 };
 
@@ -210,6 +239,12 @@ export const SOCIAL_PROOF = [
     id: "bbva-case",
     text: "Case study: BBVA platform and AI strategy",
     href: CASE_STUDY_PDF,
+    download: true,
+  },
+  {
+    id: "resume-matching",
+    text: "Framework: Responsible AI for resume–job matching",
+    href: RESUME_MATCHING_PDF,
     download: true,
   },
   {
