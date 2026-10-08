@@ -678,6 +678,22 @@ export const PROJECTS = [
       "EU AI Act, equidad, drift, explicabilidad y paquetes de evidencia. Predicción glass-box de siniestros de seguros con compuertas KS de drift y artefactos JSON de evidencia.",
     outcome: "Arquitectura de referencia que mapea los artículos 9–15 del EU AI Act a controles ejecutables.",
   },
+  {
+    num: "05",
+    name: "Industrial AI Red Team",
+    category: "Seguridad OT / compuertas de ciclo de vida",
+    stack: "GARAK · severidad de sector energético · monitor SOC · compuerta de CI",
+    summary:
+      "El consejo, o el comité de control de riesgos, revisa la política. El runtime la ejecuta. El monitor sensible caza el lenguaje operativo pronto. La compuerta de despliegue solo actúa ante un hallazgo que podría provocar un accidente.",
+    video: "/industrial-ai-redteam.mp4",
+    poster: "/industrial-ai-redteam-poster.jpg",
+    videoWidth: 1600,
+    videoHeight: 942,
+    videoCaption:
+      "Recorrido en inglés. Encoding en verde. Un jailbreak en amarillo. Parada de emergencia — abrir válvulas — pone el monitor en rojo y bloquea la promoción.",
+    outcome:
+      "Un motor, dos contratos. El puesto lo ve pronto. La promoción se para tarde, y solo cuando el hallazgo podría mover metal.",
+  },
 ];
 
 export const CREDENTIAL_GROUPS = [

@@ -665,6 +665,22 @@ export const PROJECTS = [
       "EU AI Act, fairness, drift, explainability and evidence packs. Glass-box insurance-claim prediction with KS drift gates and JSON evidence artefacts.",
     outcome: "Reference architecture mapping EU AI Act Articles 9–15 to executable controls.",
   },
+  {
+    num: "05",
+    name: "Industrial AI Red Team",
+    category: "OT safety / lifecycle gates",
+    stack: "GARAK · energy-sector severity · SOC monitor · CI gate",
+    summary:
+      "The board or the risk-control committee reviews the policy. Runtime executes it. A sensitive monitor catches operational language early. The deployment gate stays quiet until a finding could cause an accident.",
+    video: "/industrial-ai-redteam.mp4",
+    poster: "/industrial-ai-redteam-poster.jpg",
+    videoWidth: 1600,
+    videoHeight: 942,
+    videoCaption:
+      "English walkthrough. Encoding stays green. A jailbreak turns yellow. Emergency shutdown — open the valves — turns the monitor red and blocks promotion.",
+    outcome:
+      "One engine, two contracts. The desk sees it early. Promotion stops late, and only when the finding could move metal.",
+  },
 ];
 
 export const CREDENTIAL_GROUPS = [

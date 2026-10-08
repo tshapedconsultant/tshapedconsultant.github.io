@@ -1751,7 +1751,7 @@ export default function App() {
                 <p className="section-lede">{t.projects.lede}</p>
                 <div className="project-grid">
                   {PROJECTS.map((project) => (
-                    <article className="project" key={project.href || project.liveHref}>
+                    <article className="project" key={project.href || project.liveHref || project.name}>
                       <header>
                         <p className="flag">{project.num}</p>
                         <p className="ver">{project.category}</p>
@@ -1766,8 +1766,8 @@ export default function App() {
                             playsInline
                             preload="metadata"
                             poster={project.poster}
-                            width="1280"
-                            height="806"
+                            width={project.videoWidth || 1280}
+                            height={project.videoHeight || 806}
                           >
                             <source src={project.video} type="video/mp4" />
                             {project.captions ? (
