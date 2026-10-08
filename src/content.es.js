@@ -680,7 +680,7 @@ export const PROJECTS = [
   },
   {
     num: "05",
-    name: "Red teaming automatizado para IA crítica para la seguridad",
+    name: "Automated Red Teaming for Safety-Critical AI",
     category: "Azure / compuertas de promoción en CI",
     stack: "GARAK · severidad de sector · evidencia forense · monitor SOC · compuerta de CI",
     summary:
