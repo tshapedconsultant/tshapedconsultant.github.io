@@ -1791,7 +1791,7 @@ export default function App() {
                             preload="metadata"
                             poster={project.schemaPoster}
                             width="1600"
-                            height="1000"
+                            height="948"
                           >
                             <source src={project.schemaVideo} type="video/mp4" />
                           </video>
