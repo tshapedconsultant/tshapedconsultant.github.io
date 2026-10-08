@@ -94,8 +94,8 @@ export const DIAGNOSTIC_FORM = {
   intents: [
     { value: "snapshot", label: "AI Governance Snapshot" },
     { value: "blueprint", label: "AI Governance Blueprint" },
-    { value: "fractional", label: "Fractional governance support" },
-    { value: "other", label: "Other" },
+    { value: "fractional", label: "Apoyo fraccionado de gobernanza" },
+    { value: "other", label: "Otro" },
   ],
   roleLabel: "Cargo",
   practiceLabel: "Área de práctica",
@@ -187,14 +187,14 @@ export const CASE_STUDIES = {
         "Un incumbente global no puede servir a decenas de millones de clientes con salud financiera hiperpersonalizada — ni llevar la IA generativa a la plantilla — si el núcleo digital, la plataforma de datos y el parque de modelos no están unificados. Sin inventario de modelos, controles de sesgo y alineación con el EU AI Act / BCBS 239, escalar gasta el único activo que la banca no puede reemplazar: la confianza.",
       approach: [
         "Tratar la app móvil como plataforma primaria: una arquitectura digital unificada (Horizon) en geografías clave, con la plataforma global de datos ADA sobre AWS alimentando modelos en tiempo real.",
-        "Conservar el IP nuclear en una AI Factory interna para personalización y riesgo, y asociarse para infraestructura y herramientas de frontera — AWS, OpenAI ChatGPT Enterprise y Google Cloud Gemini.",
+        "Conservar la propiedad intelectual central en una AI Factory interna para personalización y riesgo, y asociarse para infraestructura y herramientas de frontera — AWS, OpenAI ChatGPT Enterprise y Google Cloud Gemini.",
         "Pasar de pantallas de producto genéricas a un AI Financial Coach: categorizar transacciones, prever saldos y recomendar acciones concretas en lugar de consejos genéricos.",
         "Incorporar la IA generativa a los flujos de los empleados para acelerar trabajo jurídico, redacción y consultas complejas, y reasignar el tiempo humano al asesoramiento de alto contacto y a la gobernanza de modelos.",
       ],
       outcomes: [
         "78,1 millones de clientes activos, un 79 % de penetración móvil y un 61 % de las ventas unitarias por canales digitales (marzo de 2025).",
         "Más de 11.000 empleados en ChatGPT Enterprise, con un ahorro medio de dos horas a la semana.",
-        "Ingresos de Corporate & Investment Banking al alza un 36 % en el 1T 2025; 1,8 millones de cuentas 100 % digitales en México; tiempo de respuesta móvil reducido por un factor de seis.",
+        "Los ingresos de Corporate & Investment Banking subieron un 36 % en el primer trimestre de 2025; 1,8 millones de cuentas 100 % digitales en México; el tiempo de respuesta móvil se redujo por un factor de seis.",
       ],
       governance:
         "La gobernanza se trata como ventaja competitiva: un inventario centralizado de modelos de IA, trabajo continuo de reducción de sesgo y alineación proactiva con el EU AI Act — de modo que la innovación solo acelere si la supervisión mantiene el ritmo.",
@@ -204,30 +204,32 @@ export const CASE_STUDIES = {
     {
       id: "resume-job-matching",
       kicker: "Marco · 2026",
-      client: "Emparejamiento CV–puesto",
+      client: "Currículum y puesto",
       sector: "Selección de talento",
       title: "Marco de IA responsable",
       role: "Diseño operativo · Andrés Lage Freire",
       problem:
-        "¿Puede la IA decidir a quién se contrata sin heredar nuestros sesgos? Este marco de IA responsable para emparejar currículum y puesto dice que sí, pero solo si el humano no sale del circuito. Cubre el ciclo de vida completo: reglas justas de entrada, auditoría del sesgo antes del entrenamiento, modelos explicables y controles de equidad continuos.",
+        "¿Puede la IA decidir a quién se contrata sin heredar nuestros sesgos? Este marco de IA responsable para emparejar currículum y puesto dice que sí, pero solo si las personas no salen del proceso. Cubre el ciclo de vida completo: reglas justas de entrada, auditoría del sesgo antes del entrenamiento, modelos explicables y controles de equidad continuos.",
       approach: [
-        "Acordar con RR. HH., los responsables de contratación y Diversidad e Inclusión qué datos son propios del puesto, antes de que el modelo vea un CV. Edad, género y otros factores personales quedan fuera.",
+        "Acordar con RR. HH., los responsables de contratación y Diversidad e Inclusión qué datos son propios del puesto, antes de que el modelo vea un currículum. Edad, género y otros factores personales quedan fuera.",
         "Auditar el histórico de contratación y escribir el plan de corrección antes de entrenar, para que el modelo no aprenda el registro sesgado.",
         "Asignar un RACI a cada decisión que toca el sistema. La persona candidata recibe un aviso del artículo 13 del RGPD: que se usa IA, qué criterios se aplican y cómo reclamar.",
         "No pasar a las pruebas finales hasta que la calidad de los datos y las métricas de equidad superen los umbrales internos. La puntuación sale con una explicación clara.",
-        "Hacer red teaming del emparejador. Rellenar el CV de palabras clave ajenas al puesto no debe cambiar una decisión justa.",
+        "Hacer red teaming del emparejador. Rellenar el currículum de palabras clave ajenas al puesto no debe cambiar una decisión justa.",
         "Dar «encaje alto» o «rechazo alto» solo con confianza alta. Los casos ambiguos van a revisión humana obligatoria. Un rechazo alto exige al responsable de contratación y a Diversidad e Inclusión.",
-        "Registrar cada anulación humana con un motivo. Vigilar la equidad, los cambios en cómo se escriben los CV, el tiempo de cobertura y a quienes una persona mantuvo. Un consejo de ética de IA puede parar el sistema.",
+        "Registrar cada anulación humana con un motivo. Vigilar la equidad, los cambios en cómo se escriben los currículums, el tiempo de cobertura y las candidaturas que una persona mantuvo. Un consejo de ética de IA puede parar el sistema.",
       ],
       outcomes: [
         "Revisión humana obligatoria cuando la IA no está segura.",
         "Doble aprobación antes de cualquier rechazo.",
-        "Un canal real de reclamación. La IA aporta velocidad. La equidad sigue siendo humana.",
+        "Un canal real de reclamación.",
+        "La IA aporta velocidad. La equidad sigue siendo humana.",
       ],
       governance:
         "La supervisión humana es el control, no una cláusula. Límites de confianza, doble aprobación, anulaciones registradas y una reclamación de la persona candidata meten la puntuación probabilística en un camino de decisión determinista: triaje humano pronto, un freno más duro antes de descartar a alguien, y un consejo que puede detener el sistema.",
       note: "Marco operativo de IA responsable escrito por Andrés Lage Freire. Fija los controles. No es el informe de un despliegue con nombre, ni asesoramiento jurídico.",
       pdf: RESUME_MATCHING_PDF,
+      downloadLabel: "Descargar el marco (PDF)",
     },
   ],
 };
@@ -247,7 +249,7 @@ export const SOCIAL_PROOF = [
   },
   {
     id: "resume-matching",
-    text: "Marco: IA responsable para emparejar CV y puesto",
+    text: "Marco: IA responsable para emparejar currículum y puesto",
     href: RESUME_MATCHING_PDF,
     download: true,
   },
@@ -711,7 +713,7 @@ export const PROJECTS = [
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",
     stack: "EBM · Polars · Streamlit · SHA-256 evidence packs",
     summary:
-      "EU AI Act, equidad, drift, explicabilidad y paquetes de evidencia. Predicción glass-box de siniestros de seguros con compuertas KS de drift y artefactos JSON de evidencia.",
+      "EU AI Act, equidad, deriva, explicabilidad y paquetes de evidencia. Predicción glass-box de siniestros de seguros con compuertas KS de deriva y artefactos JSON de evidencia.",
     outcome: "Arquitectura de referencia que mapea los artículos 9–15 del EU AI Act a controles ejecutables.",
   },
   {

@@ -213,17 +213,19 @@ export const CASE_STUDIES = {
         "Hold the model out of final testing until data quality and fairness metrics clear internal thresholds. The score ships with a plain explanation, not a black box.",
         "Red-team the matcher. Keyword stuffing and unrelated credentials must not flip a fair decision.",
         "Issue Strong Match or Strong Reject only at high confidence. Ambiguous cases go to mandatory human review. A Strong Reject needs both the hiring manager and the D&I lead.",
-        "Log every human override with a reason. Monitor fairness, shifts in how résumés are written, time-to-hire, and the candidates a human kept. An AI Ethics Review Board can pause the system.",
+        "Log every human override with a reason. Monitor fairness, shifts in how resumes are written, time-to-hire, and the candidates a reviewer kept in the process. An AI Ethics Review Board can pause the system.",
       ],
       outcomes: [
         "Mandatory human review when the AI is unsure.",
         "Dual approval before any rejection.",
-        "A real appeals channel. AI brings speed. Fairness stays human.",
+        "A real appeals channel.",
+        "AI brings speed. Fairness stays human.",
       ],
       governance:
         "Human oversight is the control, not a disclaimer. Confidence limits, dual approval, logged overrides and a candidate appeal keep the probabilistic score inside a deterministic decision path — the same pattern as a lifecycle gate: early human triage, a harder stop before a person is turned away, and a board that can halt the system.",
       note: "Responsible AI operating framework written by Andrés Lage Freire. It specifies the controls. It is not a report of a named deployment, and it is not legal advice.",
       pdf: RESUME_MATCHING_PDF,
+      downloadLabel: "Download the framework (PDF)",
     },
   ],
 };

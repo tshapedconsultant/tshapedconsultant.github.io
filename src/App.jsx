@@ -1733,7 +1733,7 @@ export default function App() {
                       </div>
                     </details>
                     <a className="btn btn-solid" href={study.pdf} download>
-                      {t.cases.download}
+                      {study.downloadLabel || t.cases.download}
                     </a>
                   </article>
                 ))}

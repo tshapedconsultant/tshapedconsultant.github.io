@@ -724,7 +724,7 @@ export const UI = {
     },
     notFound: {
       title: "Página no encontrada",
-      body: "Esa dirección no corresponde a una página de este sitio. Vuelva al inicio o abra el mapeo del EU AI Act.",
+      body: "Esa dirección no corresponde a una página de este sitio. Vuelve al inicio o abre el mapeo del EU AI Act.",
       home: "Volver al inicio",
     },
     footer: {
