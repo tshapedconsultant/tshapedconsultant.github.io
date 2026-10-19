@@ -43,7 +43,8 @@ export const HERO = {
   tagline: "De la política escrita al control independiente en runtime",
   value:
     "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y workflows de alto impacto.",
-  assets: "",
+  assets:
+    "Mitigación de AI runtime risk y gobernanza de IA en tiempo de ejecución mediante controles de acceso, autoridad y evidencia.",
   qualify:
     "Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.",
   scope:
@@ -60,7 +61,7 @@ export const PATH_SELECTOR = {
       id: "direct",
       title: "Ruta directa",
       role: "Para CTOs, CISOs, Heads of AI, Risk y responsables de tecnología",
-      cta: "Comprobar mi riesgo",
+      cta: "Comprobar el riesgo de mi sistema",
       steps: [
         "AI Runtime Risk Check",
         "AI Governance Snapshot",
@@ -99,7 +100,7 @@ export const PATH_SELECTOR = {
   options: [
     {
       id: "evaluate",
-      label: "Estoy evaluando mi sistema",
+      label: "Comprobar el riesgo de mi sistema",
       sub: "AI Runtime Risk Check → AI Governance Snapshot",
       target: "risk-check",
       intent: "snapshot",
@@ -160,7 +161,7 @@ export const PAIN_SECTION = {
         "Guardar solo el prompt y la respuesta no basta para reconstruir la identidad, la política aplicada, la herramienta y el resultado ante un incidente.",
     },
   ],
-  cta: "Haz el AI Runtime Risk Check",
+  cta: "Comprobar el riesgo de mi sistema",
 };
 
 export const FEATURED_HR_COPILOT = {
@@ -196,7 +197,7 @@ export const FEATURED_HR_COPILOT = {
     "7. Higiene y bloqueo de secretos/credenciales",
     "8. Traza de decisión estructurada para SIEM y auditoría",
   ],
-  resultClaim: "Cero hallazgos sensibles en el conjunto de pruebas de esta demostración.",
+  resultClaim: "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado.",
   scopeNote:
     "Resultado acotado exclusivamente al conjunto de pruebas sintéticas de esta demostración. Ningún control elimina todo el riesgo ni sustituye las pruebas en el entorno real del cliente.",
   video: "/agent-fail-version-1.mp4",
@@ -754,7 +755,7 @@ export const SERVICE_LADDER = {
       ],
       audience:
         "Orientación técnica preliminar. No es asesoramiento jurídico, auditoría formal ni certificación.",
-      cta: "Comprobar mi riesgo",
+      cta: "Comprobar el riesgo de mi sistema",
     },
     {
       id: "snapshot",
@@ -1076,7 +1077,7 @@ export const PROJECTS = [
     videoCaption:
       "Recorrido en castellano (Acto I sin gobernanza vs Acto II con TGI v1): bloqueo determinista capa por capa.",
     outcome:
-      "Cero hallazgos sensibles en el conjunto de pruebas de esta demostración, con cada intento neutralizado y registrado como evidencia verificable.",
+      "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado, con cada intento neutralizado y registrado como evidencia verificable.",
   },
   {
     num: "02",

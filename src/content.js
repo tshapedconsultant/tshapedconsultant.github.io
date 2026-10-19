@@ -38,7 +38,8 @@ export const HERO = {
   tagline: "From written policy to independent runtime controls",
   value:
     "I design technical controls, runtime limits and verifiable evidence for RAG, copilots, agents and high-impact workflows.",
-  assets: "",
+  assets:
+    "Mitigating AI runtime risk through runtime AI governance and independent access, authority and evidence controls.",
   qualify:
     "For CISOs, CTOs, risk leaders and teams moving AI from pilot to production.",
   scope:
@@ -55,7 +56,7 @@ export const PATH_SELECTOR = {
       id: "direct",
       title: "Direct buyer route",
       role: "For CTOs, CISOs, Heads of AI, Risk & technology leaders",
-      cta: "Check my risk",
+      cta: "Check my system's risk",
       steps: [
         "AI Runtime Risk Check",
         "AI Governance Snapshot",
@@ -94,7 +95,7 @@ export const PATH_SELECTOR = {
   options: [
     {
       id: "evaluate",
-      label: "I am evaluating my AI system",
+      label: "Check my system's risk",
       sub: "AI Runtime Risk Check → AI Governance Snapshot",
       target: "risk-check",
       intent: "snapshot",
@@ -155,7 +156,7 @@ export const PAIN_SECTION = {
         "Storing only prompt and response is insufficient to reconstruct identity, applied policy, tool parameters and outcome after an incident.",
     },
   ],
-  cta: "Take the AI Runtime Risk Check",
+  cta: "Check my system's risk",
 };
 
 export const FEATURED_HR_COPILOT = {
@@ -191,7 +192,7 @@ export const FEATURED_HR_COPILOT = {
     "7. Secret & credential hygiene blocking",
     "8. Structured decision trace for SIEM & audit",
   ],
-  resultClaim: "Zero sensitive findings across the test suite of this demonstration.",
+  resultClaim: "The demonstration produced no sensitive findings across the test suite used.",
   scopeNote:
     "Outcome strictly bounded to the synthetic test suite of this demonstration. No control eliminates all risk or replaces testing in the client's production environment.",
   video: "/agent-fail-version-1.mp4",
@@ -748,7 +749,7 @@ export const SERVICE_LADDER = {
       ],
       audience:
         "Preliminary technical orientation. Not legal advice, formal audit or certification.",
-      cta: "Check my risk",
+      cta: "Check my system's risk",
     },
     {
       id: "snapshot",
@@ -1064,7 +1065,7 @@ export const PROJECTS = [
     videoCaption:
       "Two-act walkthrough (Spanish audio, subtitles included): Act I without governance versus Act II with TGI v1.",
     outcome:
-      "Zero sensitive findings across the test suite of this demonstration, with every blocked attempt logged as verifiable evidence.",
+      "The demonstration produced no sensitive findings across the test suite used, with every blocked attempt logged as verifiable evidence.",
   },
   {
     num: "02",

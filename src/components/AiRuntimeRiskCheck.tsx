@@ -30,7 +30,7 @@ const COPY = {
     progress: (step: number, total: number) => `Pregunta ${step} de ${total}`,
     back: "← Pregunta anterior",
     next: "Siguiente pregunta →",
-    finishQuestions: "Ver estado del diagnóstico →",
+    finishQuestions: "Comprobar el riesgo de mi sistema →",
     selectError: "Selecciona una opción para continuar.",
     preview: {
       badge: "Ejemplo de resultado",
@@ -94,7 +94,7 @@ const COPY = {
     progress: (step: number, total: number) => `Question ${step} of ${total}`,
     back: "← Previous question",
     next: "Next question →",
-    finishQuestions: "Continue to diagnostic status →",
+    finishQuestions: "Check my system's risk →",
     selectError: "Select an option to continue.",
     preview: {
       badge: "Sample result preview",

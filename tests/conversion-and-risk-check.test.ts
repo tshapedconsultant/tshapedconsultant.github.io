@@ -443,8 +443,11 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
     );
     assert.equal(
       contentEs.FEATURED_HR_COPILOT.resultClaim,
-      "Cero hallazgos sensibles en el conjunto de pruebas de esta demostración."
+      "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado."
     );
+    assert.ok(contentEs.HERO.assets.includes("AI runtime risk"));
+    assert.ok(contentEs.HERO.assets.includes("gobernanza de IA en tiempo de ejecución"));
+    assert.ok(contentEs.HERO.assets.includes("controles de acceso, autoridad y evidencia"));
     assert.equal(contentEs.SERVICE_LADDER.items.length, 3);
     assert.equal(contentEs.ENABLEMENT_PROGRAMS.formats.length, 3);
     assert.equal(contentEn.ENABLEMENT_PROGRAMS.formats.length, 3);
@@ -491,7 +494,7 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
     assert.deepEqual(
       contentEs.PATH_SELECTOR.options.map((o: { label: string }) => o.label),
       [
-        "Estoy evaluando mi sistema",
+        "Comprobar el riesgo de mi sistema",
         "Quiero formar a mi equipo",
         "Busco un partner técnico",
         "Quiero explorar co-delivery",
@@ -501,7 +504,7 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
     assert.equal(contentEn.PATH_SELECTOR.threeEntries.length, 3);
     assert.deepEqual(
       contentEs.PATH_SELECTOR.threeEntries.map((r: { cta: string }) => r.cta),
-      ["Comprobar mi riesgo", "Ver la demo técnica", "Explorar co-delivery"]
+      ["Comprobar el riesgo de mi sistema", "Ver la demo técnica", "Explorar co-delivery"]
     );
     assert.equal(contentEs.DIAGNOSTIC.hierarchySteps.length, 6);
     assert.equal(contentEn.DIAGNOSTIC.hierarchySteps.length, 6);
@@ -519,10 +522,15 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
 
     const requiredEsPhrases = [
       "AI Runtime Risk Check",
+      "Comprobar el riesgo de mi sistema",
       "Comprobar mi riesgo",
       "Del PDF Legal al Código",
       "HR Copilot",
+      "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado.",
       "AI Governance Snapshot",
+      "AI runtime risk",
+      "gobernanza de IA en tiempo de ejecución",
+      "controles de acceso, autoridad y evidencia",
     ];
 
     for (const phrase of requiredEsPhrases) {
@@ -538,10 +546,13 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
 
     const requiredEnPhrases = [
       "AI Runtime Risk Check",
+      "Check my system's risk",
       "Check my risk",
       "From Legal PDF to Code",
       "HR Copilot",
+      "The demonstration produced no sensitive findings across the test suite used.",
       "AI Governance Snapshot",
+      "AI runtime risk",
     ];
 
     for (const phrase of requiredEnPhrases) {

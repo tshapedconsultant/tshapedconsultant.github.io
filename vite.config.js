@@ -35,6 +35,10 @@ const NOSCRIPT_ES = `<noscript>
           Diseño controles técnicos, límites de runtime y evidencia verificable para RAG,
           copilotos, agentes y workflows de alto impacto.
         </p>
+        <p>
+          Mitigación de AI runtime risk y gobernanza de IA en tiempo de ejecución mediante
+          controles de acceso, autoridad y evidencia.
+        </p>
         <p>Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.</p>
         <section id="why">
           <h2>Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución.</h2>
@@ -43,16 +47,16 @@ const NOSCRIPT_ES = `<noscript>
             <li><strong>Autoridad:</strong> Qué puede invocar o modificar (allowlist de herramientas, HITL, fail-safe).</li>
             <li><strong>Evidencia:</strong> Qué puedes reconstruir y demostrar después (trazas de decisión, logs SHA-256).</li>
           </ul>
-          <p><strong>¿Qué te trae aquí?</strong> [Estoy evaluando mi sistema] · [Quiero formar a mi equipo] · [Busco un partner técnico] · [Quiero explorar co-delivery]</p>
+          <p><strong>¿Qué te trae aquí?</strong> [Comprobar el riesgo de mi sistema] · [Quiero formar a mi equipo] · [Busco un partner técnico] · [Quiero explorar co-delivery]</p>
         </section>
         <section id="risk-check">
           <h2>AI Runtime Risk Check (90 segundos)</h2>
           <p>Ejemplo de resultado — Riesgo detectado: autonomía sin compuerta independiente.</p>
-          <p><a href="/es/ai-runtime-risk-check/">Comprobar mi riesgo (/es/ai-runtime-risk-check/)</a></p>
+          <p><a href="/es/ai-runtime-risk-check/">Comprobar el riesgo de mi sistema (/es/ai-runtime-risk-check/)</a></p>
         </section>
         <section id="hr-copilot-case">
           <h2>HR Copilot — Implementación Técnica de Gobernanza (TGI v1)</h2>
-          <p>Mismo modelo. Mismas peticiones. Dos posturas de riesgo: Acto I (sin gobernanza) frente a Acto II (8 controles deterministas en runtime). Cero hallazgos sensibles en el conjunto de pruebas de esta demostración.</p>
+          <p>Mismo modelo. Mismas peticiones. Dos posturas de riesgo: Acto I (sin gobernanza) frente a Acto II (8 controles deterministas en runtime). La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado.</p>
         </section>
         <section id="services">
           <h2>Jerarquía de servicios y orientación de precios</h2>
