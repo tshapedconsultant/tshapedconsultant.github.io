@@ -31,7 +31,7 @@ export const LOCATION = "Con sede en Madrid · Trabajo en remoto en EMEA";
 export const LOCATION_HERO = "Madrid · EMEA en remoto";
 
 export const ABOUT_INTRO =
-  "Arquitecto de IA responsable. Consultor estratégico independiente en IA desde junio de 2021. Antes, Cloud Implementation Specialist (Avaya Cloud Office en Concentrix). Trabajo en la intersección de ingeniería, sistemas de IA, gobernanza y regulación — de la arquitectura al despliegue.";
+  "Arquitecto de IA responsable. Consultor estratégico independiente en IA desde junio de 2021. Antes, Cloud Implementation Specialist (Avaya Cloud Office en Concentrix). Trabajo en la intersección de ingeniería, sistemas de IA, gobernanza y regulación — de la arquitectura al despliegue: en lugar de quedarme en marcos teóricos, construyo planos de control deterministas y demostraciones ejecutables que traducen OWASP LLM Top 10 v2025, OWASP Agentic Top 10 2026, EU AI Act e ISO/IEC 42001 a código auditable.";
 
 export const ABOUT_SITE =
   "Este sitio lo he diseñado y construido yo, con programación asistida por IA. Trato la accesibilidad, la privacidad, el rendimiento y la auditabilidad como requisitos de primer orden.";
@@ -735,6 +735,23 @@ export const PROJECTS = [
       "Esquema de arquitectura. Pipeline, interior y secuencia. Nada del contenedor persiste. La evidencia sí.",
     outcome:
       "Un motor, dos contratos. El puesto lo ve pronto. La promoción se para tarde, y solo cuando el hallazgo podría mover metal.",
+  },
+  {
+    num: "06",
+    name: "HR Copilot — Technical Governance Implementation (TGI v1)",
+    category: "IA agéntica / plano de control determinista",
+    stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 controles TGI · SIEM audit",
+    summary:
+      "Dos builds del mismo asistente interno de RR. HH. sobre datos sintéticos, ejecutados frente a los mismos payloads para que un CISO o CTO observe la diferencia en vivo. En el Acto I (sin gobernanza), una sola consulta encadena herramientas sin autorización y exfiltra retribución de dirección, datos personales (GDPR arts. 32/33), planes confidenciales de M&A y credenciales internas en menos de 60 segundos. En el Acto II, la capa determinista TGI v1 envuelve al mismo modelo sin cambiarlo: aislamiento del prompt, clasificación de entrada, lista cerrada de herramientas, aprobación humana (HITL), DLP de salida, autorización por fila, higiene de secretos y trazabilidad lista para SIEM.",
+    video: "/agent-fail-version-1.mp4",
+    poster: "/agent-fail-version-1-poster.jpg",
+    captions: "/agent-fail-version-1.es.vtt",
+    videoWidth: 1280,
+    videoHeight: 800,
+    videoCaption:
+      "Recorrido en castellano (dos actos): exfiltración de PII, información privilegiada de M&A y credenciales en el agente sin controles, frente al bloqueo determinista capa por capa en TGI v1.",
+    outcome:
+      "El mismo modelo y los mismos datos producen dos posturas opuestas: de una brecha completa en un solo prompt a 0 hallazgos sensibles en la respuesta gobernada, con cada intento neutralizado y registrado con referencias explícitas a OWASP LLM v2025 (LLM01, LLM02, LLM05–07) y OWASP Agentic 2026 (ASI01–03, ASI05).",
   },
 ];
 

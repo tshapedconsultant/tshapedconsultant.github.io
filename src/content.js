@@ -27,7 +27,7 @@ export const LOCATION =
 export const LOCATION_HERO = "Madrid · EMEA remote";
 
 export const ABOUT_INTRO =
-  "Responsible AI Architect. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through deployment.";
+  "Responsible AI Architect. Independent Strategic AI Consultant since June 2021. Previously Cloud Implementation Specialist (Avaya Cloud Office at Concentrix). I work at the intersection of engineering, AI systems, governance and regulation — from architecture through deployment: rather than stopping at policy slideware, I build deterministic control planes and runnable demonstrations that translate OWASP LLM Top 10 v2025, OWASP Agentic Top 10 2026, the EU AI Act and ISO/IEC 42001 into auditable code.";
 
 export const ABOUT_SITE =
   "This site was designed and built by me with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.";
@@ -721,6 +721,23 @@ export const PROJECTS = [
       "Architecture schema. Pipeline, internals, then sequence. Nothing of the container persists. The evidence does.",
     outcome:
       "One engine, two contracts. The desk sees it early. Promotion stops late, and only when the finding could move metal.",
+  },
+  {
+    num: "06",
+    name: "HR Copilot — Technical Governance Implementation (TGI v1)",
+    category: "Agentic AI / deterministic control plane",
+    stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 TGI controls · SIEM audit",
+    summary:
+      "Two side-by-side builds of the same internal HR assistant over synthetic enterprise data, tested against the same attack payloads so a CISO or CTO can inspect the posture difference directly. In Act I (ungoverned), a single prompt triggers unapproved tool calls and exfiltrates executive compensation and PII (GDPR Arts. 32/33), confidential M&A plans and internal credentials in under 60 seconds. In Act II, the deterministic TGI v1 layer wraps the exact same model without swapping it: prompt isolation, input classification, tool allow-listing, HITL gates, output DLP, row-level authorisation, secret hygiene and a SIEM-ready audit trail.",
+    video: "/agent-fail-version-1.mp4",
+    poster: "/agent-fail-version-1-poster.jpg",
+    captions: "/agent-fail-version-1.es.vtt",
+    videoWidth: 1280,
+    videoHeight: 800,
+    videoCaption:
+      "Two-act walkthrough (Spanish audio, subtitles included): ungoverned PII, M&A and credential exfiltration versus deterministic layer-by-layer blocking in TGI v1.",
+    outcome:
+      "Same model and same data, opposite risk posture: from a single-prompt breach to 0 sensitive findings in the governed reply, with every blocked attempt tagged against OWASP LLM v2025 (LLM01, LLM02, LLM05–07) and OWASP Agentic 2026 (ASI01–03, ASI05).",
   },
 ];
 
