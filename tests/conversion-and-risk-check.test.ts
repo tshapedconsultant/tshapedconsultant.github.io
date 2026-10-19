@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import test, { describe, beforeEach } from "node:test";
 
 import {
@@ -507,5 +509,116 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
     assert.equal(contentEs.DIAGNOSTIC.hierarchySteps[1].name, "AI Governance Snapshot");
     assert.equal(contentEs.DIAGNOSTIC.hierarchySteps[5].name, "Partner / Co-delivery / White-label");
   });
+
+  test("Cross-layer content consistency: core commercial terms exist across React content, vite.config.js noscript, index.html, and dist/", () => {
+    const rootDir = process.cwd();
+    const viteConfigText = fs.readFileSync(path.join(rootDir, "vite.config.js"), "utf8");
+    const indexHtmlText = fs.readFileSync(path.join(rootDir, "index.html"), "utf8");
+    const contentEsJson = JSON.stringify(contentEs);
+    const contentEnJson = JSON.stringify(contentEn);
+
+    const requiredEsPhrases = [
+      "AI Runtime Risk Check",
+      "Comprobar mi riesgo",
+      "Del PDF Legal al Código",
+      "HR Copilot",
+      "AI Governance Snapshot",
+    ];
+
+    for (const phrase of requiredEsPhrases) {
+      assert.ok(
+        contentEsJson.includes(phrase),
+        `Phrase "${phrase}" missing from src/content.es.js`
+      );
+      assert.ok(
+        viteConfigText.includes(phrase),
+        `Phrase "${phrase}" missing from NOSCRIPT_ES in vite.config.js`
+      );
+    }
+
+    const requiredEnPhrases = [
+      "AI Runtime Risk Check",
+      "Check my risk",
+      "From Legal PDF to Code",
+      "HR Copilot",
+      "AI Governance Snapshot",
+    ];
+
+    for (const phrase of requiredEnPhrases) {
+      assert.ok(
+        contentEnJson.includes(phrase),
+        `Phrase "${phrase}" missing from src/content.js`
+      );
+      assert.ok(
+        indexHtmlText.includes(phrase),
+        `Phrase "${phrase}" missing from <noscript> in index.html`
+      );
+    }
+
+    // If dist/ exists, verify generated static fallback files and canonical/hreflang tags
+    const distDir = path.join(rootDir, "dist");
+    if (fs.existsSync(distDir)) {
+      const distEsHome = fs.readFileSync(path.join(distDir, "es", "index.html"), "utf8");
+      for (const phrase of requiredEsPhrases) {
+        assert.ok(
+          distEsHome.includes(phrase),
+          `Phrase "${phrase}" missing from built dist/es/index.html`
+        );
+      }
+
+      const routeChecks = [
+        {
+          file: path.join(distDir, "es", "index.html"),
+          canonical: "https://tshapedconsultant.com/es/",
+        },
+        {
+          file: path.join(distDir, "es", "ai-runtime-risk-check", "index.html"),
+          canonical: "https://tshapedconsultant.com/es/ai-runtime-risk-check/",
+        },
+        {
+          file: path.join(distDir, "ai-runtime-risk-check", "index.html"),
+          canonical: "https://tshapedconsultant.com/ai-runtime-risk-check/",
+        },
+        {
+          file: path.join(distDir, "es", "privacy", "index.html"),
+          canonical: "https://tshapedconsultant.com/es/privacy/",
+        },
+        {
+          file: path.join(distDir, "privacy", "index.html"),
+          canonical: "https://tshapedconsultant.com/privacy/",
+        },
+      ];
+
+      for (const rc of routeChecks) {
+        assert.ok(fs.existsSync(rc.file), `Missing built route file: ${rc.file}`);
+        const html = fs.readFileSync(rc.file, "utf8");
+        assert.ok(
+          html.includes(`<link rel="canonical" href="${rc.canonical}" />`),
+          `Incorrect canonical in ${rc.file}`
+        );
+        assert.ok(html.includes('hreflang="en-GB"'), `Missing hreflang en-GB in ${rc.file}`);
+        assert.ok(html.includes('hreflang="es"'), `Missing hreflang es in ${rc.file}`);
+        assert.ok(html.includes('hreflang="x-default"'), `Missing hreflang x-default in ${rc.file}`);
+      }
+    }
+  });
+
+  test("Risk Check result object never contains or leaks PII (email, name, company)", () => {
+    const answers: AnswerMap = {
+      q1: "agent_actions",
+      q2: "modify_execute",
+      q3: "credentials_strategic",
+      q4: "model_decides",
+      q5: "undefined",
+      q6: "final_response",
+    };
+    const result = calculateRiskAssessment(answers, "es");
+    const serialized = JSON.stringify(result);
+    assert.equal(serialized.includes("@"), false, "Result must not contain email addresses");
+    assert.equal("email" in result, false, "Result object must not have email property");
+    assert.equal("name" in result, false, "Result object must not have name property");
+    assert.equal("company" in result, false, "Result object must not have company property");
+  });
 });
+
 

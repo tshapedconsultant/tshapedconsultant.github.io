@@ -47,7 +47,7 @@ After each deploy that changes routes or `sitemap.xml`:
 1. [Google Search Console](https://search.google.com/search-console) — property `https://tshapedconsultant.com/`
 2. Confirm ownership (HTML file or DNS TXT). The domain already points at GitHub Pages.
 3. Sitemaps → submit `https://tshapedconsultant.com/sitemap.xml`
-4. URL inspection → request indexing for `/`, `/whitepaper/`, `/hybrid-profiles/`, `/agentic-ai-montesquieu/`, `/governance/eu-ai-act-mapping/`, and the Spanish pair `/es/`, `/es/whitepaper/`, `/es/hybrid-profiles/`, `/es/agentic-ai-montesquieu/`, `/es/governance/eu-ai-act-mapping/`
+4. URL inspection → request indexing for `/`, `/ai-runtime-risk-check/`, `/privacy/`, `/whitepaper/`, `/hybrid-profiles/`, `/agentic-ai-montesquieu/`, `/governance/eu-ai-act-mapping/`, and the Spanish pair `/es/`, `/es/ai-runtime-risk-check/`, `/es/privacy/`, `/es/whitepaper/`, `/es/hybrid-profiles/`, `/es/agentic-ai-montesquieu/`, `/es/governance/eu-ai-act-mapping/`
 5. Confirm hreflang: each HTML page should advertise `en-GB`, `es`, and `x-default` (English). Google’s Rich Results Test is a manual step in Search Console / the [Rich Results Test](https://search.google.com/test/rich-results) — run it on a Spanish URL after deploy if you want a visual check; the tags are already in `index.html`, nested SPA fallbacks, and `applyDocumentHead`.
 6. [Bing Webmaster Tools](https://www.bing.com/webmasters) — add the same property and submit the same sitemap
 
@@ -61,6 +61,10 @@ After each deploy that changes routes or `sitemap.xml`:
 | --- | --- |
 | `/` | Home (English, canonical) |
 | `/es/` | Home (Spanish) |
+| `/ai-runtime-risk-check` | Interactive 6-question AI Runtime Risk Check (English) |
+| `/es/ai-runtime-risk-check` | Interactive 6-question AI Runtime Risk Check (Spanish) |
+| `/privacy` | Privacy & data retention policy (English) |
+| `/es/privacy` | Privacy & data retention policy (Spanish) |
 | `/whitepaper` | Whitepaper (legacy `#whitepaper` redirects here) |
 | `/es/whitepaper` | Spanish whitepaper landing + PDF |
 | `/hybrid-profiles` | Essay |
@@ -70,7 +74,7 @@ After each deploy that changes routes or `sitemap.xml`:
 | `/governance/eu-ai-act-mapping` | EU AI Act mapping |
 | `/es/governance/eu-ai-act-mapping` | Spanish mapping page |
 
-The header language switcher (EN | ES) keeps the current path and hash on every route — mapping, whitepaper (including `#s00`), essays, and home `#diagnostic`.
+The header language switcher (EN | ES) keeps the current path and hash on every route — Risk Check, privacy, mapping, whitepaper (including `#s00`), essays, and home `#diagnostic`.
 
 ### Spanish locale and partial translation
 

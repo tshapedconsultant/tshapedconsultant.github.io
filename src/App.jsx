@@ -1177,17 +1177,7 @@ export default function App() {
                           goHomeSection("hr-copilot-case");
                         }}
                       >
-                        {locale === "es" ? "Ver la demo técnica" : "Watch the technical demo"}
-                      </a>
-                      <a
-                        className="btn btn-ghost"
-                        href="#partners"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          goHomeSection("partners");
-                        }}
-                      >
-                        {locale === "es" ? "Explorar co-delivery" : "Explore co-delivery"}
+                        {CTA.secondary}
                       </a>
                     </div>
                     <p className="hero-qualify">{HERO.qualify}</p>
