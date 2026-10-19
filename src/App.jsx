@@ -956,7 +956,8 @@ export default function App() {
             goToRiskCheck();
           }}
         >
-          {CTA.persistentPrimary || t.discuss}
+          <span className="nav-cta-full">{CTA.persistentPrimary || t.discuss}</span>
+          <span className="nav-cta-short">{locale === "es" ? "Test riesgo" : "Risk Check"}</span>
         </a>
         <nav className="lang-switch" aria-label={t.language}>
           <Link

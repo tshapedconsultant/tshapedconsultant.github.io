@@ -5145,29 +5145,15 @@ details.mobile-disclose > summary:focus-visible {
   font-size: 0.94rem;
 }
 
-@media (max-width: 900px) {
-  .hr-acts-grid,
-  .hr-copilot-showcase,
-  .authority-grid,
-  .risk-dimensions-grid,
-  .path-selector-buttons,
-  .path-three-routes,
-  .service-hierarchy-list {
-    grid-template-columns: 1fr;
-  }
+.nav-cta-short {
+  display: none;
+}
 
-  .hr-controls-list {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-cta-secondary {
-    display: none;
-  }
-
-  .enablement-briefing-bar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.hr-video-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
 }
 
 /* ——— Sample Result Preview inside AI Runtime Risk Check ——— */
@@ -5258,6 +5244,7 @@ details.mobile-disclose > summary:focus-visible {
   font-size: 0.95rem;
   color: var(--cyan-400);
   margin-bottom: 0.25rem;
+  overflow-wrap: anywhere;
 }
 
 .path-selector-btn-sub {
@@ -5434,5 +5421,103 @@ details.mobile-disclose > summary:focus-visible {
   color: var(--slate-700);
   max-width: 68ch;
 }
+
+/* ——— Responsive Mobile Overrides for New Conversion Sections ——— */
+@media (max-width: 900px) {
+  .hr-acts-grid,
+  .hr-copilot-showcase,
+  .authority-grid,
+  .risk-dimensions-grid,
+  .path-selector-buttons,
+  .path-three-routes,
+  .service-hierarchy-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hr-controls-list {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-cta-secondary {
+    display: none;
+  }
+
+  .enablement-briefing-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .enablement-briefing-bar .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .pain-cta-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pain-cta-bar .btn {
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .path-selector-box {
+    padding: 1.15rem 0.95rem;
+    margin-top: 1.5rem;
+  }
+
+  .risk-check-widget {
+    padding: 1.15rem 0.95rem;
+  }
+
+  .risk-email-form input {
+    font-size: 16px;
+  }
+
+  .risk-step-actions,
+  .risk-email-actions,
+  .risk-post-cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .risk-step-actions .btn,
+  .risk-email-actions .btn,
+  .risk-post-cta-buttons .btn {
+    width: 100%;
+    text-align: center;
+    min-height: 44px;
+  }
+
+  .hr-controls-panel {
+    padding: 1.05rem 0.95rem;
+  }
+
+  .enablement-audience-badge {
+    display: block;
+    line-height: 1.4;
+  }
+
+  .service-card .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-cta-bar .nav-cta-full {
+    display: none;
+  }
+
+  .nav-cta-bar .nav-cta-short {
+    display: inline;
+  }
+}
+
 
 
