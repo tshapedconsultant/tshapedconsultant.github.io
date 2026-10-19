@@ -39,7 +39,8 @@ export const HERO = {
   value:
     "We turn regulatory obligations, board decisions and AI risk controls into executable safeguards, lifecycle gates and verifiable evidence—from policy to runtime.",
   assets: "DGOM™ · Dédalo™ · AI Governance Engineering",
-  qualify: "For organisations deploying RAG, agents and other high-consequence AI systems.",
+  qualify:
+    "I work with CISOs, CTOs, risk leaders and product teams moving AI systems — RAG, copilots and agents — from pilot to governed operation.",
   scope:
     "From AI inventory and EU AI Act readiness to governed agents, RAG security and runtime assurance.",
   principle: "Probabilistic models require deterministic governance.",
@@ -50,15 +51,15 @@ export const BEST_FIT =
 
 export const HERO_FOR = {
   audience:
-    "For CTOs, Heads of AI and Risk/Compliance leaders in banking, insurance and energy.",
+    "For CISOs, CTOs, risk leaders and product teams moving AI systems from pilot to governed operation.",
   problems:
-    "Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems and agents.",
+    "Typical work: EU AI Act readiness, ISO/IEC 42001, and governance of RAG systems, copilots and agents.",
 };
 
 export const CTA = {
-  primary: "Request an AI Governance Diagnostic",
+  primary: "Request a 1-Week AI Governance Diagnostic",
   secondary: "Explore the DGOM Operating Model",
-  note: "30-minute introductory call · Explore fit and next steps",
+  note: "For a high-impact RAG system, copilot, agent or workflow · 30-minute introductory call",
 };
 
 export const DIAGNOSTIC_FORM = {
@@ -412,7 +413,7 @@ export const DGOM_MODEL = {
 export const SERVICE_LADDER = {
   kicker: "Services",
   title: "From Risk Signal to Runtime Assurance",
-  lead: "Start with a one-week Snapshot for one system. The Blueprint is a separate step: diagnosis plus architecture and control design.",
+  lead: "Three separate paths — Diagnose, Design, or Implement and assure. Start with a one-week Snapshot for one system; move to the Blueprint or recurring assurance only when the scope requires it.",
   expand: "Start small, establish evidence, then expand governance coverage as the system and risk surface grow.",
   problem: "Problem",
   outcome: "Outcome",
@@ -422,7 +423,7 @@ export const SERVICE_LADDER = {
     {
       id: "snapshot",
       intent: "snapshot",
-      stage: "1. Snapshot — one week",
+      stage: "1. Diagnose — one week",
       name: "AI Governance Snapshot",
       problem: "One AI system is already in use, and the team needs a bounded view of risk and what to do next.",
       description:
@@ -440,7 +441,7 @@ export const SERVICE_LADDER = {
     {
       id: "blueprint",
       intent: "blueprint",
-      stage: "2. Blueprint — diagnosis + architecture",
+      stage: "2. Design — diagnosis + architecture",
       name: "AI Governance Blueprint",
       problem: "The problem is already clear, but there is no actionable design for controls, gates, roles and evidence.",
       description: "Diagnosis plus architecture and control design for one primary AI system or closely related use-case family.",
@@ -457,7 +458,7 @@ export const SERVICE_LADDER = {
     {
       id: "fractional",
       intent: "fractional",
-      stage: "3. Recurrence",
+      stage: "3. Implement or assure — recurrence",
       name: "Fractional governance support",
       problem: "Pilots are moving into operations, but there is no standing owner for control review and assurance.",
       description: "Ongoing governance engineering, assurance, control review and decision support without a full internal team.",
@@ -658,6 +659,33 @@ export const DIAGNOSTIC = {
 export const PROJECTS = [
   {
     num: "01",
+    name: "HR Copilot — Technical Governance Implementation (TGI v1)",
+    category: "Featured implementation · Agentic runtime governance",
+    stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 TGI controls · SIEM audit",
+    lead: "Same model. Same prompts. Two risk postures. One difference: the control plane.",
+    summary:
+      "Two side-by-side builds of the same internal HR copilot over synthetic enterprise data, tested against the same attack payloads so a CISO or CTO can inspect the posture difference directly. In Act I (ungoverned), a single prompt triggers unapproved tool calls and exfiltrates executive compensation and PII (GDPR Arts. 32/33), confidential M&A plans and internal credentials in under 60 seconds. In Act II, the deterministic TGI v1 layer wraps the exact same model without swapping it: prompt isolation, input classification, tool allow-listing, HITL gates, output DLP, row-level authorisation, secret hygiene and a SIEM-ready audit trail.",
+    controlFlowLabel: "Runtime control flow",
+    controlFlow: [
+      "Input",
+      "Classification",
+      "Allowed tool",
+      "Authorisation / HITL",
+      "Output DLP & validation",
+      "Audit evidence",
+    ],
+    video: "/agent-fail-version-1.mp4",
+    poster: "/agent-fail-version-1-poster.jpg",
+    captions: "/agent-fail-version-1.es.vtt",
+    videoWidth: 1280,
+    videoHeight: 800,
+    videoCaption:
+      "Two-act walkthrough (Spanish audio, subtitles included): ungoverned PII, M&A and credential exfiltration versus deterministic layer-by-layer blocking in TGI v1.",
+    outcome:
+      "Same model and same data, opposite risk posture: from a single-prompt breach to zero sensitive findings across this demonstration’s test suite, with every blocked attempt tagged against OWASP LLM v2025 (LLM01, LLM02, LLM05–07) and OWASP Agentic 2026 (ASI01–03, ASI05).",
+  },
+  {
+    num: "02",
     name: "Enterprise AI Risk Console",
     category: "Governance / ISO/IEC 42001",
     href: "https://github.com/tshapedconsultant/enterprise-ai-risk",
@@ -668,7 +696,7 @@ export const PROJECTS = [
     outcome: "Executable vendor governance: rules engine, HMAC-validated Jira gates, CI-deployed evidence packs.",
   },
   {
-    num: "02",
+    num: "03",
     name: "RAG Security Validator",
     category: "RAG / retrieval security",
     liveHref: "https://rag-security-validator-demo.onrender.com",
@@ -680,7 +708,7 @@ export const PROJECTS = [
       "Raises attacker cost on prompt injection and encoded smuggling at the RAG boundary. Detection and containment layer; combine with provenance, least privilege and human approval for high-impact actions.",
   },
   {
-    num: "03",
+    num: "04",
     name: "Enterprise Data Analyst Agent",
     category: "Agentic AI / runtime controls",
     href: "https://github.com/tshapedconsultant/Enterprise-Data-Analyst-Agent",
@@ -693,7 +721,7 @@ export const PROJECTS = [
     outcome: "Accountability and traceability in an agentic reporting system — the Deterministic Cage applied to query execution.",
   },
   {
-    num: "04",
+    num: "05",
     name: "Porto Seguro Compliance Hub",
     category: "Regulated AI / evidence",
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",
@@ -703,7 +731,7 @@ export const PROJECTS = [
     outcome: "Reference architecture mapping EU AI Act Articles 9–15 to executable controls.",
   },
   {
-    num: "05",
+    num: "06",
     name: "Automated Red Teaming for Safety-Critical AI",
     category: "Azure / CI promotion gates",
     stack: "GARAK · sector severity · forensic evidence · SOC monitor · CI gate",
@@ -721,23 +749,6 @@ export const PROJECTS = [
       "Architecture schema. Pipeline, internals, then sequence. Nothing of the container persists. The evidence does.",
     outcome:
       "One engine, two contracts. The desk sees it early. Promotion stops late, and only when the finding could move metal.",
-  },
-  {
-    num: "06",
-    name: "HR Copilot — Technical Governance Implementation (TGI v1)",
-    category: "Agentic AI / deterministic control plane",
-    stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 TGI controls · SIEM audit",
-    summary:
-      "Two side-by-side builds of the same internal HR assistant over synthetic enterprise data, tested against the same attack payloads so a CISO or CTO can inspect the posture difference directly. In Act I (ungoverned), a single prompt triggers unapproved tool calls and exfiltrates executive compensation and PII (GDPR Arts. 32/33), confidential M&A plans and internal credentials in under 60 seconds. In Act II, the deterministic TGI v1 layer wraps the exact same model without swapping it: prompt isolation, input classification, tool allow-listing, HITL gates, output DLP, row-level authorisation, secret hygiene and a SIEM-ready audit trail.",
-    video: "/agent-fail-version-1.mp4",
-    poster: "/agent-fail-version-1-poster.jpg",
-    captions: "/agent-fail-version-1.es.vtt",
-    videoWidth: 1280,
-    videoHeight: 800,
-    videoCaption:
-      "Two-act walkthrough (Spanish audio, subtitles included): ungoverned PII, M&A and credential exfiltration versus deterministic layer-by-layer blocking in TGI v1.",
-    outcome:
-      "Same model and same data, opposite risk posture: from a single-prompt breach to 0 sensitive findings in the governed reply, with every blocked attempt tagged against OWASP LLM v2025 (LLM01, LLM02, LLM05–07) and OWASP Agentic 2026 (ASI01–03, ASI05).",
   },
 ];
 

@@ -185,7 +185,7 @@ export const UI = {
     projects: {
       num: "09",
       title: "Selected reference implementations",
-      lede: "Flagship systems that show vendor risk, RAG retrieval security, agentic runtime controls, regulated evidence, and an industrial deployment gate — not a catalogue of every repository.",
+      lede: "Flagship systems that show an agentic deterministic control plane (TGI v1), vendor risk, RAG retrieval security, governed SQL agents, regulated evidence, and an industrial deployment gate — not a catalogue of every repository.",
       outcome: "Outcome.",
       live: "Open the live console",
       view: "View implementation",
@@ -551,7 +551,7 @@ export const UI = {
     projects: {
       num: "09",
       title: "Implementaciones de referencia seleccionadas",
-      lede: "Sistemas de referencia que muestran riesgo de proveedor, seguridad de recuperación RAG, controles de runtime agéntico, evidencia regulada y una compuerta de despliegue industrial — no un catálogo de cada repositorio.",
+      lede: "Sistemas de referencia que muestran un plano de control determinista para agentes (TGI v1), riesgo de proveedor, seguridad de recuperación RAG, agentes SQL gobernados, evidencia regulada y una compuerta de despliegue industrial — no un catálogo de cada repositorio.",
       outcome: "Resultado.",
       live: "Abrir la consola en vivo",
       view: "Ver implementación",

@@ -879,7 +879,7 @@ a:hover {
   margin: 0;
   color: var(--muted);
   font-size: 0.92rem;
-  max-width: 52ch;
+  max-width: 62ch;
 }
 
 .dgom-band {
@@ -2153,6 +2153,53 @@ a:hover {
 .project > p {
   margin: 0;
   color: var(--slate-700);
+}
+
+.project > p.project-lead {
+  color: var(--navy-900);
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.project-flow-block {
+  margin: 0.1rem 0;
+  padding: 0.65rem 0.85rem;
+  background: var(--mist);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue-600);
+}
+
+.project-flow-label {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+}
+
+.project-flow {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0;
+  margin: 0;
+  padding: 0;
+}
+
+.project-flow li {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.project-flow li:not(:last-child)::after {
+  content: "→";
+  margin: 0 0.45rem;
+  color: var(--blue-600);
+  font-weight: 400;
 }
 
 .project-demo {

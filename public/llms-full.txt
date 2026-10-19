@@ -12,8 +12,8 @@ Practice: AI Governance Engineering — controls, accountability and evidence ac
 - Service ladder: AI Governance Snapshot (€2,495 launch price, first two contracted projects, one week), AI Governance Blueprint (€6,500, diagnosis plus architecture and control design), fractional governance support
 - Technical delivery capacity for law firms and advisory partners (referral, co-delivery, white-label support)
 - Priced diagnostic offers remain on the homepage
-- Case study: BBVA platform and AI strategy (PDF)
-- Reference implementations: Enterprise AI Risk Console (live demo: https://enterprise-ai-risk.onrender.com), RAG Security Validator (live demo: https://rag-security-validator-demo.onrender.com), Enterprise Data Analyst Agent, Porto Seguro Compliance Hub
+- Case studies: BBVA platform and AI strategy (PDF); Responsible AI framework for resume–job matching (PDF)
+- Reference implementations: HR Copilot — Technical Governance Implementation (TGI v1), Enterprise AI Risk Console (live demo: https://enterprise-ai-risk.onrender.com), RAG Security Validator (live demo: https://rag-security-validator-demo.onrender.com), Enterprise Data Analyst Agent, Porto Seguro Compliance Hub, Automated Red Teaming for Safety-Critical AI
 - Contact: https://tshapedconsultant.com/#diagnostic
 
 ### Whitepaper — https://tshapedconsultant.com/whitepaper

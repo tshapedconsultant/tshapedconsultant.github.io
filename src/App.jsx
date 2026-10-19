@@ -1757,7 +1757,18 @@ export default function App() {
                         <p className="ver">{project.category}</p>
                         <h3>{project.name}</h3>
                       </header>
+                      {project.lead ? <p className="project-lead">{project.lead}</p> : null}
                       <p>{project.summary}</p>
+                      {project.controlFlow ? (
+                        <div className="project-flow-block" role="group" aria-label={project.controlFlowLabel}>
+                          <p className="project-flow-label">{project.controlFlowLabel}</p>
+                          <ol className="project-flow">
+                            {project.controlFlow.map((step) => (
+                              <li key={step}>{step}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      ) : null}
                       {project.video ? (
                         <figure className="project-demo">
                           <video

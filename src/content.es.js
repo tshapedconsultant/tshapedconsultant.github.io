@@ -43,7 +43,8 @@ export const HERO = {
   value:
     "Convertimos las obligaciones regulatorias, las decisiones del consejo y los controles de riesgo de IA en salvaguardas ejecutables, compuertas de ciclo de vida y evidencia verificable — de la política al runtime.",
   assets: "DGOM™ · Dédalo™ · Ingeniería de Gobernanza de IA",
-  qualify: "Para organizaciones que despliegan RAG, agentes y otros sistemas de IA de alta consecuencia.",
+  qualify:
+    "Trabajo con CISOs, CTOs, responsables de riesgo y equipos de producto que necesitan llevar un sistema de IA — RAG, copiloto o agente — de piloto a operación gobernada.",
   scope:
     "Del inventario de IA y la preparación para el EU AI Act a agentes gobernados, seguridad de RAG y garantía en runtime.",
   principle: "Los modelos probabilísticos requieren gobernanza determinista.",
@@ -53,15 +54,16 @@ export const BEST_FIT =
   "Mejor encaje: casos de IA regulados y de alta responsabilidad en servicios financieros, seguros, operaciones críticas, sistemas de conocimiento empresarial y flujos agénticos.";
 
 export const HERO_FOR = {
-  audience: "Para CTOs, responsables de IA y líderes de Riesgo/Cumplimiento en banca, seguros y energía.",
+  audience:
+    "Para CISOs, CTOs, responsables de riesgo y equipos de producto que necesitan llevar un sistema de IA de piloto a operación gobernada.",
   problems:
-    "Trabajo típico: preparación para el EU AI Act, ISO/IEC 42001 y gobernanza de sistemas RAG y agentes.",
+    "Trabajo típico: preparación para el EU AI Act, ISO/IEC 42001 y gobernanza de sistemas RAG, copilotos y agentes.",
 };
 
 export const CTA = {
-  primary: "Solicitar un Diagnóstico de Gobernanza de IA",
+  primary: "Solicitar un diagnóstico de gobernanza de IA de una semana",
   secondary: "Explorar el modelo operativo DGOM",
-  note: "Llamada introductoria de 30 minutos · Valorar encaje y siguientes pasos",
+  note: "Para un sistema RAG, copiloto, agente o workflow de alto impacto · Llamada introductoria de 30 minutos",
 };
 
 export const DIAGNOSTIC_FORM = {
@@ -133,8 +135,8 @@ export const ENGAGEMENT = {
       icon: "clipboard",
     },
     {
-      label: "Arquitectar",
-      text: "convertir los hallazgos en diseño de gobernanza, requisitos de control y un backlog de implantación.",
+      label: "Diseñar",
+      text: "convertir los hallazgos en arquitectura de gobernanza, requisitos de control y un backlog de implantación.",
       icon: "doc",
     },
     {
@@ -416,7 +418,7 @@ export const DGOM_MODEL = {
 export const SERVICE_LADDER = {
   kicker: "Servicios",
   title: "De la señal de riesgo a la garantía en runtime",
-  lead: "Empiece por un Snapshot de una semana para un sistema. El Blueprint es un paso distinto: diagnóstico más diseño de arquitectura y controles.",
+  lead: "Tres vías separadas — Diagnosticar, Diseñar o Implementar y asegurar. Empiece por un Snapshot de una semana para un sistema; pase al Blueprint o al aseguramiento recurrente solo cuando el alcance lo exija.",
   expand: "Empiece en pequeño, establezca evidencia y amplíe la cobertura de gobernanza a medida que crecen el sistema y la superficie de riesgo.",
   problem: "Problema",
   outcome: "Resultado",
@@ -426,7 +428,7 @@ export const SERVICE_LADDER = {
     {
       id: "snapshot",
       intent: "snapshot",
-      stage: "1. Snapshot — una semana",
+      stage: "1. Diagnosticar — una semana",
       name: "AI Governance Snapshot",
       problem: "Un sistema de IA ya está en uso y el equipo necesita una vista acotada del riesgo y de qué hacer después.",
       description:
@@ -444,7 +446,7 @@ export const SERVICE_LADDER = {
     {
       id: "blueprint",
       intent: "blueprint",
-      stage: "2. Blueprint — diagnóstico + arquitectura",
+      stage: "2. Diseñar — diagnóstico + arquitectura",
       name: "AI Governance Blueprint",
       problem: "El problema ya es claro, pero no hay un diseño accionable de controles, compuertas, roles y evidencia.",
       description: "Diagnóstico más arquitectura y diseño de controles para el siguiente paso de implementación.",
@@ -461,8 +463,9 @@ export const SERVICE_LADDER = {
     {
       id: "fractional",
       intent: "fractional",
-      stage: "3. Recurrencia",
-      name: "Fractional governance support",
+      stage: "3. Implementar o asegurar — recurrencia",
+      name: "Apoyo fraccionado de gobernanza",
+      aka: "Fractional governance support",
       problem: "Los pilotos pasan a operaciones, pero no hay un titular permanente para la revisión de controles y el aseguramiento.",
       description: "Ingeniería de gobernanza, aseguramiento, revisión de controles y apoyo a la decisión de forma continua, sin un equipo interno completo.",
       outcome: "Una cadencia retenida de aseguramiento a medida que crece el parque.",
@@ -668,6 +671,33 @@ export const DIAGNOSTIC = {
 export const PROJECTS = [
   {
     num: "01",
+    name: "HR Copilot — Technical Governance Implementation (TGI v1)",
+    category: "Implementación destacada · Gobernanza agéntica en runtime",
+    stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 controles TGI · SIEM audit",
+    lead: "Mismo modelo. Mismas peticiones. Dos posturas de riesgo. Una diferencia: el plano de control.",
+    summary:
+      "Dos builds del mismo copiloto interno de RR. HH. sobre datos sintéticos, ejecutados frente a los mismos payloads para que un CISO o CTO observe la diferencia en vivo. En el Acto I (sin gobernanza), una sola consulta encadena herramientas sin autorización y exfiltra retribución de dirección, datos personales (RGPD arts. 32/33), planes confidenciales de M&A y credenciales internas en menos de 60 segundos. En el Acto II, la capa determinista TGI v1 envuelve al mismo modelo sin cambiarlo: aislamiento del prompt, clasificación de entrada, lista cerrada de herramientas, aprobación humana (HITL), DLP de salida, autorización por fila, higiene de secretos y trazabilidad lista para SIEM.",
+    controlFlowLabel: "Esquema de control en runtime",
+    controlFlow: [
+      "Entrada",
+      "Clasificación",
+      "Herramienta permitida",
+      "Autorización / HITL",
+      "DLP y validación de salida",
+      "Evidencia para auditoría",
+    ],
+    video: "/agent-fail-version-1.mp4",
+    poster: "/agent-fail-version-1-poster.jpg",
+    captions: "/agent-fail-version-1.es.vtt",
+    videoWidth: 1280,
+    videoHeight: 800,
+    videoCaption:
+      "Recorrido en castellano (dos actos): exfiltración de PII, información privilegiada de M&A y credenciales en el agente sin controles, frente al bloqueo determinista capa por capa en TGI v1.",
+    outcome:
+      "El mismo modelo y los mismos datos producen dos posturas opuestas: de una brecha completa en un solo prompt a cero hallazgos sensibles en el conjunto de pruebas de esta demostración, con cada intento neutralizado y registrado con referencias explícitas a OWASP LLM v2025 (LLM01, LLM02, LLM05–07) y OWASP Agentic 2026 (ASI01–03, ASI05).",
+  },
+  {
+    num: "02",
     name: "Enterprise AI Risk Console",
     category: "Gobernanza / ISO/IEC 42001",
     href: "https://github.com/tshapedconsultant/enterprise-ai-risk",
@@ -679,7 +709,7 @@ export const PROJECTS = [
       "Gobernanza de proveedores ejecutable: motor de reglas, compuertas Jira validadas con HMAC y paquetes de evidencia desplegados por CI.",
   },
   {
-    num: "02",
+    num: "03",
     name: "RAG Security Validator",
     category: "RAG / seguridad de recuperación",
     liveHref: "https://rag-security-validator-demo.onrender.com",
@@ -691,7 +721,7 @@ export const PROJECTS = [
       "Sube el coste del atacante en inyección de instrucciones y contrabando codificado en el límite del RAG. Capa de detección y contención; combinar con procedencia, mínimo privilegio y aprobación humana en acciones de alto impacto.",
   },
   {
-    num: "03",
+    num: "04",
     name: "Enterprise Data Analyst Agent",
     category: "IA agéntica / controles de runtime",
     href: "https://github.com/tshapedconsultant/Enterprise-Data-Analyst-Agent",
@@ -707,7 +737,7 @@ export const PROJECTS = [
       "Rendición de cuentas y trazabilidad en un sistema de reporting agéntico — la Jaula Determinista aplicada a la ejecución de consultas.",
   },
   {
-    num: "04",
+    num: "05",
     name: "Porto Seguro Compliance Hub",
     category: "IA regulada / evidencia",
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",
@@ -717,7 +747,7 @@ export const PROJECTS = [
     outcome: "Arquitectura de referencia que mapea los artículos 9–15 del EU AI Act a controles ejecutables.",
   },
   {
-    num: "05",
+    num: "06",
     name: "Automated Red Teaming for Safety-Critical AI",
     category: "Azure / compuertas de promoción en CI",
     stack: "GARAK · severidad de sector · evidencia forense · monitor SOC · compuerta de CI",
@@ -735,23 +765,6 @@ export const PROJECTS = [
       "Esquema de arquitectura. Pipeline, interior y secuencia. Nada del contenedor persiste. La evidencia sí.",
     outcome:
       "Un motor, dos contratos. El puesto lo ve pronto. La promoción se para tarde, y solo cuando el hallazgo podría mover metal.",
-  },
-  {
-    num: "06",
-    name: "HR Copilot — Technical Governance Implementation (TGI v1)",
-    category: "IA agéntica / plano de control determinista",
-    stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 controles TGI · SIEM audit",
-    summary:
-      "Dos builds del mismo asistente interno de RR. HH. sobre datos sintéticos, ejecutados frente a los mismos payloads para que un CISO o CTO observe la diferencia en vivo. En el Acto I (sin gobernanza), una sola consulta encadena herramientas sin autorización y exfiltra retribución de dirección, datos personales (GDPR arts. 32/33), planes confidenciales de M&A y credenciales internas en menos de 60 segundos. En el Acto II, la capa determinista TGI v1 envuelve al mismo modelo sin cambiarlo: aislamiento del prompt, clasificación de entrada, lista cerrada de herramientas, aprobación humana (HITL), DLP de salida, autorización por fila, higiene de secretos y trazabilidad lista para SIEM.",
-    video: "/agent-fail-version-1.mp4",
-    poster: "/agent-fail-version-1-poster.jpg",
-    captions: "/agent-fail-version-1.es.vtt",
-    videoWidth: 1280,
-    videoHeight: 800,
-    videoCaption:
-      "Recorrido en castellano (dos actos): exfiltración de PII, información privilegiada de M&A y credenciales en el agente sin controles, frente al bloqueo determinista capa por capa en TGI v1.",
-    outcome:
-      "El mismo modelo y los mismos datos producen dos posturas opuestas: de una brecha completa en un solo prompt a 0 hallazgos sensibles en la respuesta gobernada, con cada intento neutralizado y registrado con referencias explícitas a OWASP LLM v2025 (LLM01, LLM02, LLM05–07) y OWASP Agentic 2026 (ASI01–03, ASI05).",
   },
 ];
 
