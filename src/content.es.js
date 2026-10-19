@@ -40,16 +40,34 @@ export const HERO = {
   kicker: "Andrés Lage Freire · TShaped Consultant · Ingeniería de Gobernanza de IA",
   headline:
     "Gobernanza ejecutable para sistemas de IA que pueden acceder, decidir y actuar.",
-  tagline: "De la política escrita al control independiente en runtime",
+  tagline: "Lleva tus sistemas de IA a producción con controles verificables",
   value:
     "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y workflows de alto impacto.",
   assets:
-    "Mitigación de AI runtime risk y gobernanza de IA en tiempo de ejecución mediante controles de acceso, autoridad y evidencia.",
+    "Ayudo a equipos de IA, tecnología y riesgo a convertir obligaciones regulatorias y riesgos de AI runtime risk en gobernanza de IA en tiempo de ejecución mediante controles de acceso, autoridad y evidencia.",
+  pills: ["EU AI Act", "Agentic AI Governance", "Runtime Assurance"],
   qualify:
     "Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.",
   scope:
     "Diagnóstico en 90 segundos, revisión técnica acotada y arquitectura de control en runtime.",
-  principle: "Los modelos probabilísticos requieren gobernanza determinista.",
+  principle: "La gobernanza no se documenta. Se ejecuta. Los modelos probabilísticos requieren gobernanza determinista.",
+  executiveSummary: [
+    {
+      question: "1. ¿Qué problema concreto resuelvo?",
+      answer:
+        "Evito que sistemas RAG, copilotos y agentes pasen a producción con acceso excesivo a datos, capacidad de ejecutar acciones sin compuerta independiente o sin trazas verificables para auditoría.",
+    },
+    {
+      question: "2. ¿Qué recibirás y cuánto tardarás?",
+      answer:
+        "En 90 segundos obtienes un diagnóstico preliminar (AI Runtime Risk Check). En 1 semana recibes el AI Governance Snapshot (Desde €2.495): mapa técnico de brechas y de 3 a 5 controles prioritarios.",
+    },
+    {
+      question: "3. ¿Qué tienes que hacer para empezar?",
+      answer:
+        "Completar el AI Runtime Risk Check de 6 preguntas o solicitar directamente una llamada de alcance de 30 minutos sobre tu sistema o arquitectura.",
+    },
+  ],
 };
 
 export const PATH_SELECTOR = {
@@ -133,6 +151,8 @@ export const PAIN_SECTION = {
   kicker: "01 · El problema en ejecución",
   title:
     "Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución.",
+  lead:
+    "Una política de IA no impide por sí sola que un agente consulte una herramienta indebida, recupere información no autorizada o ejecute una acción que nadie pueda reconstruir después.",
   text:
     "Una política de IA no impide por sí sola que un agente consulte una herramienta indebida, recupere información no autorizada o ejecute una acción que nadie pueda reconstruir después.",
   cards: [
@@ -140,7 +160,10 @@ export const PAIN_SECTION = {
       id: "access",
       icon: "shield",
       title: "Acceso",
+      subtitle: "¿Qué datos y herramientas puede utilizar?",
       question: "¿Qué datos y herramientas puede utilizar?",
+      text:
+        "Sin autorización por usuario, documento o fila, el sistema puede recuperar o exponer información que el usuario no debería ver.",
       detail:
         "Sin autorización por usuario, documento o fila, el sistema puede recuperar o exponer información que el usuario no debería ver.",
     },
@@ -148,7 +171,10 @@ export const PAIN_SECTION = {
       id: "authority",
       icon: "gears",
       title: "Autoridad",
+      subtitle: "¿Qué puede decidir o ejecutar sin aprobación?",
       question: "¿Qué puede decidir o ejecutar sin aprobación?",
+      text:
+        "Si el modelo decide cuándo invocar herramientas o modificar sistemas, una instrucción manipulada puede convertirse en una acción real.",
       detail:
         "Si el modelo decide cuándo invocar herramientas o modificar sistemas, una instrucción manipulada puede convertirse en una acción real.",
     },
@@ -156,7 +182,10 @@ export const PAIN_SECTION = {
       id: "evidence",
       icon: "clipboard",
       title: "Evidencia",
+      subtitle: "¿Puedes demostrar qué ocurrió y por qué?",
       question: "¿Puedes demostrar qué ocurrió y por qué?",
+      text:
+        "Guardar solo el prompt y la respuesta no basta para reconstruir la identidad, la política aplicada, la herramienta y el resultado ante un incidente.",
       detail:
         "Guardar solo el prompt y la respuesta no basta para reconstruir la identidad, la política aplicada, la herramienta y el resultado ante un incidente.",
     },
@@ -341,7 +370,7 @@ export const HERO_FOR = {
 
 export const CTA = {
   primary: "Comprobar el riesgo de mi sistema",
-  secondary: "Ver cómo trabajo",
+  secondary: "Ver la demo técnica",
   persistentPrimary: "Comprobar mi riesgo",
   persistentSecondary: "Solicitar diagnóstico",
   note: "Para un sistema RAG, copiloto, agente o workflow de alto impacto · Alcance y precio confirmados tras una llamada de 30 minutos.",

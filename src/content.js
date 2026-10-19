@@ -35,16 +35,34 @@ export const ABOUT_SITE =
 export const HERO = {
   kicker: "Andrés Lage Freire · TShaped Consultant · AI Governance Engineering",
   headline: "Executable governance for AI systems that can access, decide and act.",
-  tagline: "From written policy to independent runtime controls",
+  tagline: "Move your AI systems to production with verifiable controls",
   value:
     "I design technical controls, runtime limits and verifiable evidence for RAG, copilots, agents and high-impact workflows.",
   assets:
-    "Mitigating AI runtime risk through runtime AI governance and independent access, authority and evidence controls.",
+    "I help AI, engineering and risk teams turn regulatory obligations and AI runtime risk into runtime AI governance through independent access, authority and evidence controls.",
+  pills: ["EU AI Act", "Agentic AI Governance", "Runtime Assurance"],
   qualify:
     "For CISOs, CTOs, risk leaders and teams moving AI from pilot to production.",
   scope:
     "90-second runtime risk check, bounded technical review and runtime control architecture.",
-  principle: "Probabilistic models require deterministic governance.",
+  principle: "Governance is not documented. It is executed. Probabilistic models require deterministic governance.",
+  executiveSummary: [
+    {
+      question: "1. What concrete problem do I solve?",
+      answer:
+        "I prevent RAG systems, copilots and agents from reaching production with excessive data access, unchecked tool execution or missing audit trails.",
+    },
+    {
+      question: "2. What will you receive and how long does it take?",
+      answer:
+        "In 90 seconds you get a preliminary diagnostic (AI Runtime Risk Check). In 1 week you receive the AI Governance Snapshot (From €2,495): a technical gap map and 3 to 5 priority controls.",
+    },
+    {
+      question: "3. How do we start?",
+      answer:
+        "Complete the 6-question AI Runtime Risk Check or request a 30-minute scoping call for your system.",
+    },
+  ],
 };
 
 export const PATH_SELECTOR = {
@@ -128,6 +146,8 @@ export const PAIN_SECTION = {
   kicker: "01 · The runtime problem",
   title:
     "Your system can be governed on paper and still be vulnerable at runtime.",
+  lead:
+    "An AI policy alone does not stop an agent from calling an unauthorised tool, retrieving restricted data or executing an action nobody can reconstruct afterwards.",
   text:
     "An AI policy alone does not stop an agent from calling an unauthorised tool, retrieving restricted data or executing an action nobody can reconstruct afterwards.",
   cards: [
@@ -135,7 +155,10 @@ export const PAIN_SECTION = {
       id: "access",
       icon: "shield",
       title: "Access",
+      subtitle: "What data and tools can it use?",
       question: "What data and tools can it use?",
+      text:
+        "Without per-user, document or row-level authorisation, the system can retrieve or expose information the user should not see.",
       detail:
         "Without per-user, document or row-level authorisation, the system can retrieve or expose information the user should not see.",
     },
@@ -143,15 +166,21 @@ export const PAIN_SECTION = {
       id: "authority",
       icon: "gears",
       title: "Authority",
+      subtitle: "What can it decide or execute without approval?",
       question: "What can it decide or execute without approval?",
-      detail:
+      text:
         "If the model decides when to invoke tools or modify systems, a manipulated instruction can become a real-world action.",
+      detail:
+        "If the model decide when to invoke tools or modify systems, a manipulated instruction can become a real-world action.",
     },
     {
       id: "evidence",
       icon: "clipboard",
       title: "Evidence",
+      subtitle: "Can you prove what happened and why?",
       question: "Can you prove what happened and why?",
+      text:
+        "Storing only prompt and response is insufficient to reconstruct identity, applied policy, tool parameters and outcome after an incident.",
       detail:
         "Storing only prompt and response is insufficient to reconstruct identity, applied policy, tool parameters and outcome after an incident.",
     },
@@ -336,7 +365,7 @@ export const HERO_FOR = {
 
 export const CTA = {
   primary: "Check my system's risk",
-  secondary: "See how I work",
+  secondary: "Watch the technical demo",
   persistentPrimary: "Check my risk",
   persistentSecondary: "Request diagnostic",
   note: "For a high-impact RAG system, copilot, agent or workflow · Scope and pricing confirmed after a 30-minute call.",

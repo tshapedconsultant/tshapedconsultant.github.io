@@ -5422,6 +5422,58 @@ details.mobile-disclose > summary:focus-visible {
   max-width: 68ch;
 }
 
+/* ——— Hero Pills & 3 Executive Answers ——— */
+.hero-pills {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-pills li {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: var(--cyan-400);
+}
+
+.hero-exec-answers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.hero-exec-card {
+  padding: 0.85rem 1rem;
+  background: rgba(15, 23, 42, 0.68);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-left: 3px solid var(--cyan-400);
+}
+
+.hero-exec-q {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--cyan-400);
+}
+
+.hero-exec-a {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--slate-200);
+}
+
 /* ——— Responsive Mobile Overrides for New Conversion Sections ——— */
 @media (max-width: 900px) {
   .hr-acts-grid,
@@ -5430,7 +5482,8 @@ details.mobile-disclose > summary:focus-visible {
   .risk-dimensions-grid,
   .path-selector-buttons,
   .path-three-routes,
-  .service-hierarchy-list {
+  .service-hierarchy-list,
+  .hero-exec-answers {
     grid-template-columns: 1fr;
   }
 

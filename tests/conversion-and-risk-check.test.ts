@@ -429,14 +429,34 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
       "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y workflows de alto impacto."
     );
     assert.equal(contentEs.CTA.primary, "Comprobar el riesgo de mi sistema");
-    assert.equal(contentEs.CTA.secondary, "Ver cómo trabajo");
+    assert.equal(contentEs.CTA.secondary, "Ver la demo técnica");
     assert.equal(contentEs.CTA.persistentPrimary, "Comprobar mi riesgo");
     assert.equal(contentEs.CTA.persistentSecondary, "Solicitar diagnóstico");
+    assert.equal(
+      contentEs.HERO.tagline,
+      "Lleva tus sistemas de IA a producción con controles verificables"
+    );
+    assert.deepEqual(contentEs.HERO.pills, [
+      "EU AI Act",
+      "Agentic AI Governance",
+      "Runtime Assurance",
+    ]);
+    assert.equal(contentEs.HERO.executiveSummary.length, 3);
+    assert.equal(contentEn.HERO.executiveSummary.length, 3);
     assert.equal(
       contentEs.PAIN_SECTION.title,
       "Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución."
     );
+    assert.ok(contentEs.PAIN_SECTION.lead.length > 20);
     assert.equal(contentEs.PAIN_SECTION.cards.length, 3);
+    for (const card of contentEs.PAIN_SECTION.cards) {
+      assert.ok(card.subtitle && card.subtitle.length > 5, "Card subtitle must be populated");
+      assert.ok(card.text && card.text.length > 10, "Card text must be populated");
+    }
+    for (const card of contentEn.PAIN_SECTION.cards) {
+      assert.ok(card.subtitle && card.subtitle.length > 5, "EN Card subtitle must be populated");
+      assert.ok(card.text && card.text.length > 10, "EN Card text must be populated");
+    }
     assert.equal(
       contentEs.FEATURED_HR_COPILOT.title,
       "Mismo modelo. Mismas peticiones. Dos posturas de riesgo."

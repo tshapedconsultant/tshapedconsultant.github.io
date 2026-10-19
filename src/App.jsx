@@ -1152,11 +1152,18 @@ export default function App() {
                   <h1>
                     {HERO.headline}
                     <span className="h1-specialty">
-                      {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
+                      {HERO.tagline || (locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering")}
                     </span>
                   </h1>
                   <p className="value-prop">{HERO.value}</p>
                   {HERO.assets ? <p className="hero-assets">{HERO.assets}</p> : null}
+                  {HERO.pills ? (
+                    <ul className="hero-pills" aria-label="Focus areas">
+                      {HERO.pills.map((pill) => (
+                        <li key={pill}>{pill}</li>
+                      ))}
+                    </ul>
+                  ) : null}
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
@@ -1183,6 +1190,16 @@ export default function App() {
                     <p className="hero-qualify">{HERO.qualify}</p>
                     <p className="cta-note">{CTA.note}</p>
                   </div>
+                  {HERO.executiveSummary ? (
+                    <div className="hero-exec-answers" role="region" aria-label={locale === "es" ? "Resumen ejecutivo" : "Executive summary"}>
+                      {HERO.executiveSummary.map((item) => (
+                        <div key={item.question} className="hero-exec-card">
+                          <p className="hero-exec-q">{item.question}</p>
+                          <p className="hero-exec-a">{item.answer}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
                 <details className="mobile-disclose hero-diagram">
                   <summary>{t.diagram.how}</summary>
@@ -1200,14 +1217,14 @@ export default function App() {
                   </p>
                   <h2>{PAIN_SECTION ? PAIN_SECTION.title : t.why.title}</h2>
                 </div>
-                <p className="why-lead">{PAIN_SECTION ? PAIN_SECTION.lead : t.why.lead}</p>
+                <p className="why-lead">{PAIN_SECTION ? PAIN_SECTION.lead || PAIN_SECTION.text : t.why.lead}</p>
                 <div className="problem-grid pain-cards-grid">
                   {(PAIN_SECTION ? PAIN_SECTION.cards : PROBLEMS).map((item) => (
                     <article className="risk-panel" key={item.title}>
                       <Icon name={item.icon} />
                       <h3>{item.title}</h3>
-                      <p className="risk-sub">{item.subtitle}</p>
-                      <p className="risk-text">{item.text}</p>
+                      <p className="risk-sub">{item.subtitle || item.question}</p>
+                      <p className="risk-text">{item.text || item.detail}</p>
                     </article>
                   ))}
                 </div>
@@ -1224,8 +1241,8 @@ export default function App() {
                   </a>
                   <Link className="btn btn-ghost" to={localizedPath(RISK_CHECK_PATH)}>
                     {locale === "es"
-                      ? "Abrir en página dedicada (/es/ai-runtime-risk-check)"
-                      : "Open dedicated assessment page (/ai-runtime-risk-check)"}
+                      ? "Abrir test en pantalla completa"
+                      : "Open full-screen assessment"}
                   </Link>
                 </div>
                 <aside className="callout-pair">
@@ -1235,60 +1252,43 @@ export default function App() {
                   </p>
                 </aside>
 
-                {PATH_SELECTOR ? (
+                {PATH_SELECTOR && PATH_SELECTOR.threeEntries ? (
                   <div className="path-selector-box" aria-labelledby="path-selector-title">
                     <div className="path-selector-head">
                       <h3 id="path-selector-title">{PATH_SELECTOR.title}</h3>
                       <p className="path-selector-sub">{PATH_SELECTOR.subtitle}</p>
                     </div>
-                    <div className="path-selector-buttons" role="group" aria-label={PATH_SELECTOR.title}>
-                      {PATH_SELECTOR.options.map((opt) => (
-                        <button
-                          key={opt.id}
-                          type="button"
-                          className="path-selector-btn"
-                          onClick={() => {
-                            if (opt.intent) setEnquiryIntent(opt.intent);
-                            goHomeSection(opt.target);
-                          }}
-                        >
-                          <span className="path-selector-btn-label">[{opt.label}]</span>
-                          <span className="path-selector-btn-sub">{opt.sub}</span>
-                        </button>
+                    <div className="path-three-routes">
+                      {PATH_SELECTOR.threeEntries.map((route) => (
+                        <article key={route.id} className={`path-route-card path-route-${route.id}`}>
+                          <p className="path-route-title">{route.title}</p>
+                          <p className="path-route-role">{route.role}</p>
+                          <ol className="path-route-steps">
+                            {route.steps.map((step, idx) => (
+                              <li key={step}>
+                                <span>{step}</span>
+                                {idx < route.steps.length - 1 ? (
+                                  <span className="path-step-arrow" aria-hidden="true">
+                                    ↓
+                                  </span>
+                                ) : null}
+                              </li>
+                            ))}
+                          </ol>
+                          <a
+                            className="btn btn-ghost path-route-cta"
+                            href={`#${route.target}`}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              if (route.id === "partner") setEnquiryIntent("partners");
+                              goHomeSection(route.target);
+                            }}
+                          >
+                            {route.cta}
+                          </a>
+                        </article>
                       ))}
                     </div>
-                    {PATH_SELECTOR.threeEntries ? (
-                      <div className="path-three-routes">
-                        {PATH_SELECTOR.threeEntries.map((route) => (
-                          <article key={route.id} className={`path-route-card path-route-${route.id}`}>
-                            <p className="path-route-title">{route.title}</p>
-                            <p className="path-route-role">{route.role}</p>
-                            <ol className="path-route-steps">
-                              {route.steps.map((step, idx) => (
-                                <li key={step}>
-                                  <span>{step}</span>
-                                  {idx < route.steps.length - 1 ? (
-                                    <span className="path-step-arrow" aria-hidden="true">
-                                      ↓
-                                    </span>
-                                  ) : null}
-                                </li>
-                              ))}
-                            </ol>
-                            <a
-                              className="btn btn-ghost path-route-cta"
-                              href={`#${route.target}`}
-                              onClick={(event) => {
-                                event.preventDefault();
-                                goHomeSection(route.target);
-                              }}
-                            >
-                              {route.cta}
-                            </a>
-                          </article>
-                        ))}
-                      </div>
-                    ) : null}
                   </div>
                 ) : null}
               </div>
@@ -2043,7 +2043,7 @@ export default function App() {
                 </div>
                 <p className="section-lede">{t.projects.lede}</p>
                 <div className="project-grid">
-                  {PROJECTS.map((project) => (
+                  {PROJECTS.filter((project) => project.num !== "01").map((project) => (
                     <article className="project" key={project.href || project.liveHref || project.name}>
                       <header>
                         <p className="flag">{project.num}</p>
