@@ -1,4 +1,4 @@
-import { PULSE_ARTICLES, type PulseArticle } from "./pulseArticles";
+import { PULSE_ARTICLES, type PulseArticle } from "./pulseArticles.ts";
 
 /** Most relevant to executable governance first; market notes and explainers last. */
 const RELEVANCE: Record<PulseArticle["lang"], string[]> = {

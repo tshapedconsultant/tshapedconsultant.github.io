@@ -40,6 +40,8 @@ export function applyDocumentHead(pathname) {
   const seo = pageSeoFor(pathname);
   const canonical = absoluteUrl(pathname);
   const alts = alternateUrls(pathname);
+  const ogTitle = seo.ogTitle || seo.title;
+  const ogDescription = seo.ogDescription || seo.description;
 
   document.documentElement.lang = locale === "es" ? "es" : "en-GB";
   document.title = seo.title;
@@ -50,12 +52,12 @@ export function applyDocumentHead(pathname) {
   setLink("alternate", alts.en, "x-default");
 
   setMetaByProperty("og:url", canonical);
-  setMetaByProperty("og:title", seo.title);
-  setMetaByProperty("og:description", seo.description);
+  setMetaByProperty("og:title", ogTitle);
+  setMetaByProperty("og:description", ogDescription);
   setMetaByProperty("og:locale", locale === "es" ? "es_ES" : "en_GB");
   setMetaByProperty("og:locale:alternate", locale === "es" ? "en_GB" : "es_ES");
-  setMetaByName("twitter:title", seo.title);
-  setMetaByName("twitter:description", seo.description);
+  setMetaByName("twitter:title", ogTitle);
+  setMetaByName("twitter:description", ogDescription);
 
   const script = document.head.querySelector('script[type="application/ld+json"]');
   if (script) {

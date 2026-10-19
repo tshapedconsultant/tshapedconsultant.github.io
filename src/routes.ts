@@ -2,6 +2,8 @@ export const WHITEPAPER_PATH = "/whitepaper";
 export const HYBRID_PROFILES_PATH = "/hybrid-profiles";
 export const MONTEQUIEU_PATH = "/agentic-ai-montesquieu";
 export const EU_AI_ACT_MAPPING_PATH = "/governance/eu-ai-act-mapping";
+export const RISK_CHECK_PATH = "/ai-runtime-risk-check";
+export const PRIVACY_PATH = "/privacy";
 export const ES_PREFIX = "/es";
 
 export type Locale = "en" | "es";
@@ -12,11 +14,15 @@ export const SPA_FALLBACK_DIRS = [
   HYBRID_PROFILES_PATH,
   MONTEQUIEU_PATH,
   EU_AI_ACT_MAPPING_PATH,
+  RISK_CHECK_PATH,
+  PRIVACY_PATH,
   ES_PREFIX,
   `${ES_PREFIX}${WHITEPAPER_PATH}`,
   `${ES_PREFIX}${HYBRID_PROFILES_PATH}`,
   `${ES_PREFIX}${MONTEQUIEU_PATH}`,
   `${ES_PREFIX}${EU_AI_ACT_MAPPING_PATH}`,
+  `${ES_PREFIX}${RISK_CHECK_PATH}`,
+  `${ES_PREFIX}${PRIVACY_PATH}`,
 ] as const;
 
 export function normalisePath(pathname: string): string {
@@ -85,12 +91,22 @@ export function isMontesquieuPath(pathname: string): boolean {
   return stripLocale(pathname) === MONTEQUIEU_PATH;
 }
 
+export function isRiskCheckPath(pathname: string): boolean {
+  return stripLocale(pathname) === RISK_CHECK_PATH;
+}
+
+export function isPrivacyPath(pathname: string): boolean {
+  return stripLocale(pathname) === PRIVACY_PATH;
+}
+
 const APP_PATHS = new Set<string>([
   "/",
   WHITEPAPER_PATH,
   HYBRID_PROFILES_PATH,
   MONTEQUIEU_PATH,
   EU_AI_ACT_MAPPING_PATH,
+  RISK_CHECK_PATH,
+  PRIVACY_PATH,
 ]);
 
 export function isAppPath(pathname: string): boolean {
@@ -110,6 +126,10 @@ export function assertLocaleSwitch(): void {
     ["/es/agentic-ai-montesquieu", "", "en", "/agentic-ai-montesquieu"],
     ["/governance/eu-ai-act-mapping", "#art-9", "es", "/es/governance/eu-ai-act-mapping#art-9"],
     ["/es/governance/eu-ai-act-mapping/", "", "en", "/governance/eu-ai-act-mapping"],
+    ["/es/ai-runtime-risk-check/", "", "en", "/ai-runtime-risk-check"],
+    ["/ai-runtime-risk-check", "", "es", "/es/ai-runtime-risk-check"],
+    ["/es/privacy", "", "en", "/privacy"],
+    ["/privacy", "", "es", "/es/privacy"],
     ["/es/insights/ensename-el-incentivo-y-te-mostrare-el-resultado", "", "en", "/#insights"],
     ["/insights/the-risk-equation-of-agentic-ai", "", "es", "/es/#insights"],
   ];

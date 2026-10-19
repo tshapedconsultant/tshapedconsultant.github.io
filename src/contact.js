@@ -12,22 +12,67 @@ export class FormNotConfiguredError extends Error {
   }
 }
 
-function sanitizeLine(value, max = 120) {
-  return String(value)
+export class RateLimitError extends Error {
+  constructor() {
+    super("RATE_LIMITED");
+    this.name = "RateLimitError";
+  }
+}
+
+const RATE_LIMIT_KEY = "tshaped_form_rl_v1";
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const RATE_LIMIT_MAX = 3; // max 3 submissions per 10-minute window
+
+export function checkAndRecordRateLimit(
+  customStorage = typeof window !== "undefined" ? window.sessionStorage : null,
+  now = Date.now()
+) {
+  if (!customStorage) return;
+  try {
+    const raw = customStorage.getItem(RATE_LIMIT_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    const recent = Array.isArray(list)
+      ? list.filter((ts) => typeof ts === "number" && now - ts < RATE_LIMIT_WINDOW_MS)
+      : [];
+    if (recent.length >= RATE_LIMIT_MAX) {
+      throw new RateLimitError();
+    }
+    recent.push(now);
+    customStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(recent));
+  } catch (err) {
+    if (err instanceof RateLimitError) throw err;
+    // Ignore storage quota errors
+  }
+}
+
+export function sanitizeLine(value, max = 120) {
+  return String(value ?? "")
     .replace(/[\r\n\0\u2028\u2029]/g, " ")
+    .replace(/[<>]/g, "")
     .replace(/%0[da]/gi, "")
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, max);
 }
 
-function sanitizeBody(value, max = 2000) {
-  return String(value)
+export function sanitizeBody(value, max = 2000) {
+  return String(value ?? "")
     .replace(/\0/g, "")
+    .replace(/[<>]/g, "")
     .replace(/\r\n/g, "\n")
     .replace(/[\r\u2028\u2029]/g, "\n")
+    .split("\n")
+    .map((line) => line.replace(/^\s*(bcc|cc|to|from|content-type|mime-version)\s*:/i, "$1 -"))
+    .join("\n")
     .trim()
     .slice(0, max);
+}
+
+export function isValidWorkEmail(value) {
+  const trimmed = String(value ?? "").trim();
+  if (trimmed.length < 5 || trimmed.length > 254) return false;
+  if (/[\r\n\0\s<>]/.test(trimmed)) return false;
+  return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(trimmed);
 }
 
 function parseJsonBody(text) {
@@ -56,6 +101,8 @@ export function buildEnquiryPayload({
   company,
   email,
   govern,
+  systemType,
+  capability,
   stage,
   intent,
   caller,
@@ -64,11 +111,17 @@ export function buildEnquiryPayload({
   practice,
   delivery,
   nda,
+  consent,
+  source,
+  assessmentSummary,
 }) {
   const workEmail = sanitizeLine(email, 254);
-  const payload = {
-    Name: sanitizeLine(name),
-  };
+  const payload = {};
+
+  const nameLine = sanitizeLine(name);
+  if (nameLine) {
+    payload.Name = nameLine;
+  }
 
   const companyLine = sanitizeLine(company);
   if (companyLine) {
@@ -76,6 +129,16 @@ export function buildEnquiryPayload({
   }
 
   payload["Work email"] = workEmail;
+
+  const systemTypeLine = sanitizeLine(systemType, 160);
+  if (systemTypeLine) {
+    payload["System type"] = systemTypeLine;
+  }
+
+  const capabilityLine = sanitizeLine(capability, 160);
+  if (capabilityLine) {
+    payload["System capability"] = capabilityLine;
+  }
 
   const callerKeyLine = sanitizeLine(callerKey, 40);
   if (callerKeyLine) {
@@ -117,7 +180,25 @@ export function buildEnquiryPayload({
     payload["NDA may be required"] = ndaLine;
   }
 
-  payload["What they want to govern"] = sanitizeBody(govern);
+  const governBody = sanitizeBody(govern);
+  if (governBody) {
+    payload["Primary concern / scope"] = governBody;
+  }
+
+  const summaryBody = sanitizeBody(assessmentSummary, 1000);
+  if (summaryBody) {
+    payload["Preliminary risk signal"] = summaryBody;
+  }
+
+  if (consent) {
+    payload["Explicit consent"] = "Accepted (response to this request only)";
+  }
+
+  const sourceLine = sanitizeLine(source, 80);
+  if (sourceLine) {
+    payload.Source = sourceLine;
+  }
+
   payload.email = workEmail;
   payload._replyto = workEmail;
 
@@ -126,6 +207,7 @@ export function buildEnquiryPayload({
     legal: "Legal partner",
     consulting: "Consulting partner",
     peer: "Peer/research",
+    risk_check: "AI Runtime Risk Check",
     other: "Other",
   }[callerKey] || "Enquiry";
   payload._subject = intentLine
@@ -186,11 +268,15 @@ async function postEnquiry(endpoint, payload) {
     return result || { ok: true };
   }
 
-  throw new Error(result?.error || result?.message || "Enquiry could not be sent.");
+  // Never leak raw backend details or stack traces to the UI
+  throw new Error("Enquiry could not be sent.");
 }
 
 export async function submitEnquiry(fields) {
-  const formspree = import.meta.env.VITE_FORM_ENDPOINT?.trim();
+  checkAndRecordRateLimit();
+
+  const envObj = import.meta.env || {};
+  const formspree = envObj.VITE_FORM_ENDPOINT?.trim();
   if (!formspree) {
     throw new FormNotConfiguredError();
   }
@@ -199,13 +285,13 @@ export async function submitEnquiry(fields) {
   const attempts = await Promise.allSettled([
     postEnquiry(formspree, payload).then((result) => {
       if (!isDelivered(result, "formspree")) {
-        throw new Error(result.error || result.message || "Enquiry could not be sent.");
+        throw new Error("Enquiry could not be sent.");
       }
       return "formspree";
     }),
     postEnquiry(inboxEndpoint(), formsubmitPayload(payload)).then((result) => {
       if (!isDelivered(result, "formsubmit")) {
-        throw new Error(result.error || result.message || "Enquiry could not be sent.");
+        throw new Error("Enquiry could not be sent.");
       }
       return "formsubmit";
     }),
@@ -215,6 +301,5 @@ export async function submitEnquiry(fields) {
     return;
   }
 
-  const reason = attempts.find((attempt) => attempt.status === "rejected")?.reason;
-  throw reason instanceof Error ? reason : new Error("Enquiry could not be sent.");
+  throw new Error("Enquiry could not be sent.");
 }

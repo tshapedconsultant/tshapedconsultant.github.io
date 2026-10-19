@@ -33,17 +33,294 @@ export const ABOUT_SITE =
   "This site was designed and built by me with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.";
 
 export const HERO = {
-  kicker: "Andrés Lage Freire · Madrid · EMEA remote",
-  headline: "Executable AI Governance for Regulated and Agentic Systems",
-  tagline: "Responsible AI Architect · From regulation to runtime assurance",
+  kicker: "Andrés Lage Freire · TShaped Consultant · AI Governance Engineering",
+  headline: "Executable governance for AI systems that can access, decide and act.",
+  tagline: "From written policy to independent runtime controls",
   value:
-    "We turn regulatory obligations, board decisions and AI risk controls into executable safeguards, lifecycle gates and verifiable evidence—from policy to runtime.",
-  assets: "DGOM™ · Dédalo™ · AI Governance Engineering",
+    "I design technical controls, runtime limits and verifiable evidence for RAG, copilots, agents and high-impact workflows.",
+  assets: "",
   qualify:
-    "I work with CISOs, CTOs, risk leaders and product teams moving AI systems — RAG, copilots and agents — from pilot to governed operation.",
+    "For CISOs, CTOs, risk leaders and teams moving AI from pilot to production.",
   scope:
-    "From AI inventory and EU AI Act readiness to governed agents, RAG security and runtime assurance.",
+    "90-second runtime risk check, bounded technical review and runtime control architecture.",
   principle: "Probabilistic models require deterministic governance.",
+};
+
+export const PATH_SELECTOR = {
+  title: "What brings you here?",
+  subtitle:
+    "Who detects the problem → who validates the technical solution → who approves the budget → who refers or co-delivers the engagement.",
+  threeEntries: [
+    {
+      id: "direct",
+      title: "Direct buyer route",
+      role: "For CTOs, CISOs, Heads of AI, Risk & technology leaders",
+      cta: "Check my risk",
+      steps: [
+        "AI Runtime Risk Check",
+        "AI Governance Snapshot",
+        "Blueprint",
+        "Runtime Assurance",
+      ],
+      target: "risk-check",
+    },
+    {
+      id: "technical",
+      title: "Internal technical route",
+      role: "For architects, engineers & Red Team Leads",
+      cta: "Watch the technical demo",
+      steps: [
+        "HR Copilot",
+        "Runtime control demo",
+        "Technical validation",
+        "Internal recommendation to decision-maker",
+      ],
+      target: "hr-copilot-case",
+    },
+    {
+      id: "partner",
+      title: "Partner route",
+      role: "For law firms, Big Four & consultancies",
+      cta: "Explore co-delivery",
+      steps: [
+        "From Legal PDF to Code",
+        "Workshop or Hackathon",
+        "Co-delivery",
+        "Client engagement",
+      ],
+      target: "partners",
+    },
+  ],
+  options: [
+    {
+      id: "evaluate",
+      label: "I am evaluating my AI system",
+      sub: "AI Runtime Risk Check → AI Governance Snapshot",
+      target: "risk-check",
+      intent: "snapshot",
+    },
+    {
+      id: "train",
+      label: "I want to train my engineering team",
+      sub: "From Legal PDF to Code → In-Company Workshop or Hackathon",
+      target: "enablement",
+      intent: "workshop",
+    },
+    {
+      id: "partner",
+      label: "I am looking for a technical partner",
+      sub: "HR Copilot → Runtime control demo → Technical validation",
+      target: "hr-copilot-case",
+      intent: "snapshot",
+    },
+    {
+      id: "codelivery",
+      label: "I want to explore co-delivery",
+      sub: "Referral, co-delivery or white-label for your client project",
+      target: "partners",
+      intent: "partners",
+    },
+  ],
+};
+
+export const PAIN_SECTION = {
+  kicker: "01 · The runtime problem",
+  title:
+    "Your system can be governed on paper and still be vulnerable at runtime.",
+  text:
+    "An AI policy alone does not stop an agent from calling an unauthorised tool, retrieving restricted data or executing an action nobody can reconstruct afterwards.",
+  cards: [
+    {
+      id: "access",
+      icon: "shield",
+      title: "Access",
+      question: "What data and tools can it use?",
+      detail:
+        "Without per-user, document or row-level authorisation, the system can retrieve or expose information the user should not see.",
+    },
+    {
+      id: "authority",
+      icon: "gears",
+      title: "Authority",
+      question: "What can it decide or execute without approval?",
+      detail:
+        "If the model decides when to invoke tools or modify systems, a manipulated instruction can become a real-world action.",
+    },
+    {
+      id: "evidence",
+      icon: "clipboard",
+      title: "Evidence",
+      question: "Can you prove what happened and why?",
+      detail:
+        "Storing only prompt and response is insufficient to reconstruct identity, applied policy, tool parameters and outcome after an incident.",
+    },
+  ],
+  cta: "Take the AI Runtime Risk Check",
+};
+
+export const FEATURED_HR_COPILOT = {
+  kicker: "Runnable demonstration · Featured case",
+  badge: "HR Copilot — Technical Governance Implementation (TGI v1)",
+  title: "Same model. Same prompts. Two risk postures.",
+  subtitle:
+    "A runnable demonstration of how a deterministic control plane turns a vulnerable copilot into a bounded, supervised and auditable system.",
+  acts: [
+    {
+      id: "act-1",
+      label: "Act I · Without governance",
+      title: "The model decides and chains tools without an independent gate",
+      text: "Against the same adversarial prompts over synthetic HR data, a single query chains unauthorised tools and exposes executive compensation, personal data, M&A plans and internal credentials in under 60 seconds.",
+      tone: "risk",
+    },
+    {
+      id: "act-2",
+      label: "Act II · With TGI v1",
+      title: "Deterministic control plane wrapping the exact same model",
+      text: "Without changing the model, the TGI v1 layer intercepts every step with 8 deterministic controls: input classification, tool allowlist, row-level authorisation, human approval (HITL), output DLP and SIEM-ready logging.",
+      tone: "governed",
+    },
+  ],
+  controlsTitle: "8 deterministic runtime controls",
+  controls: [
+    "1. Structural prompt isolation",
+    "2. Deterministic input classification",
+    "3. Closed tool allowlist",
+    "4. Contextual row-level & identity authorisation",
+    "5. Human-in-the-loop (HITL) approval gate",
+    "6. Output Data Loss Prevention (DLP)",
+    "7. Secret & credential hygiene blocking",
+    "8. Structured decision trace for SIEM & audit",
+  ],
+  resultClaim: "Zero sensitive findings across the test suite of this demonstration.",
+  scopeNote:
+    "Outcome strictly bounded to the synthetic test suite of this demonstration. No control eliminates all risk or replaces testing in the client's production environment.",
+  video: "/agent-fail-version-1.mp4",
+  poster: "/agent-fail-version-1-poster.jpg",
+  captions: "/agent-fail-version-1.es.vtt",
+  videoCaption:
+    "Two-act walkthrough (Spanish audio, subtitles included): Act I (ungoverned) versus Act II (with the 8 deterministic controls of TGI v1).",
+  videoCta: "Watch demonstration video",
+  docsCta: "View technical documentation & mapping",
+  docsHref: "/governance/eu-ai-act-mapping",
+};
+
+export const ENABLEMENT_PROGRAMS = {
+  kicker: "In-Company Entry Formats · From Legal PDF to Code",
+  title: "How to translate the EU AI Act into your engineering pipeline",
+  lead:
+    "I do not sell generic AI awareness training. I run hands-on technical working sessions for CTOs, Lead Developers, Chief Risk Officers and Product Managers who need to translate regulatory duties into deterministic controls, unit tests and runtime architecture.",
+  audienceTag: "For CTOs, Lead Developers, Chief Risk Officers and Product Managers",
+  formats: [
+    {
+      id: "briefing",
+      intent: "briefing",
+      badge: "Format A · Executive & Technical Leadership",
+      duration: "45 min · Closed briefing or working breakfast",
+      price: "On request / Complimentary for qualified teams",
+      title: "Executive Briefing: The 3 technical blind spots the EU AI Act exposes in your SaaS",
+      hook:
+        "Why a legal memo alone cannot govern a probabilistic model, and how regulation requires independent deterministic controls over copilots and agents at runtime.",
+      topics: [
+        "Where written policy breaks down during real runtime execution",
+        "Why prompt guardrails do not replace an independent control architecture",
+        "What verifiable technical evidence an enterprise buyer or auditor will inspect",
+      ],
+      cta: "Request Executive Briefing",
+    },
+    {
+      id: "workshop",
+      intent: "workshop",
+      badge: "Format B · In-Company Icebreaker",
+      duration: "3 to 4 hours · Private session for engineering teams",
+      price: "€1,200 – €1,800 (flat fee per company)",
+      title: "In-Company Workshop: AI Governance for Engineers — From regulation to unit tests",
+      hook:
+        "A frictionless budget ticket that a CTO or VP of Engineering can approve directly from quarterly engineering or training budgets without heavy procurement.",
+      topics: [
+        "Practical mapping from EU AI Act articles to testable software requirements",
+        "Safe agentic architectures and runtime separation of powers",
+        "Implementing deterministic controls, tool allowlists and CI/CD gates in code",
+        "Final 30 mins: live Gap Analysis + 6-month Implementation Roadmap deliverable",
+      ],
+      cta: "Book In-Company Workshop",
+    },
+    {
+      id: "hackathon",
+      intent: "hackathon",
+      badge: "Format C · Hands-on Architecture Lab",
+      duration: "Full day (8 hours) · Theory + your live architecture",
+      price: "€2,500 – €3,000",
+      title: "Joint Audit Hackathon on your own product",
+      hook:
+        "Start closing real architecture gaps from day one by working side-by-side with your engineers on your actual RAG, copilot or agent stack.",
+      topics: [
+        "Morning (4 h): technical risk mitigation across access, authority, fail-safe and evidence",
+        "Afternoon (4 h): joint inspection of your architecture and code against EU AI Act & OWASP",
+        "Deliverable: visual vulnerability gap map and prioritised control roadmap",
+      ],
+      cta: "Request Joint Audit Hackathon",
+    },
+  ],
+  bridge: {
+    kicker: "From workshop to production sprints",
+    title: "Every session closes with a 30-minute Gap Analysis and Implementation Roadmap",
+    text:
+      "Workshops never end as a disconnected lecture. In the final 30 minutes we contrast your current architecture against required runtime controls and deliver a visual Implementation Roadmap. Your engineers can implement it themselves, or bring me into your sprints over the next 4 weeks as a Fractional Architect to leave the guardrails, gates and testing framework running in production.",
+  },
+};
+
+export const AUTHORITY_ARCHITECTURE = {
+  kicker: "Verifiable authority & track record",
+  title: "From risk signal to auditable architecture",
+  lead: "Engineering, regulation and runnable proof structured in four clear steps:",
+  blocks: [
+    {
+      step: "01",
+      title: "What problem I solve",
+      summary:
+        "RAG systems, copilots and agents moving into production with written policies but no technical gates over data access, tool invocation, fail-safe stops and evidence.",
+      items: [
+        "Excessive retrieval access over internal knowledge bases",
+        "Agentic autonomy without independent validation or human approval",
+        "Decisions that cannot be reconstructed during an incident or audit",
+      ],
+    },
+    {
+      step: "02",
+      title: "What I build",
+      summary:
+        "Deterministic control planes, security validators and reference architectures that bound probabilistic systems at runtime.",
+      items: [
+        "HR Copilot TGI v1 — 8 deterministic controls over agents",
+        "RAG Security Validator — retrieval boundary gate against prompt injection",
+        "Enterprise AI Risk Console — deterministic triage and SHA-256 hash-chained evidence",
+        "DGOM™ and Dédalo™ — operating model and constitutional architecture",
+      ],
+    },
+    {
+      step: "03",
+      title: "What proves my work",
+      summary:
+        "External recognition, banking platform strategy analysis and open operational frameworks.",
+      items: [
+        "Repsol Foundation Entrepreneurship Award (2018)",
+        "Case study: BBVA platform and AI strategy (independent analysis)",
+        "Responsible AI Framework for resume–job matching",
+        "Whitepaper: Probabilistic Models Require Deterministic Governance",
+      ],
+    },
+    {
+      step: "04",
+      title: "What the client can buy",
+      summary:
+        "Bounded engagements with clear technical deliverables and transparent pricing guidance.",
+      items: [
+        "AI Runtime Risk Check — 90-second preliminary check (free)",
+        "AI Governance Snapshot — 1-week bounded technical review (From €2,495)",
+        "Blueprint & Runtime Assurance — Control design and implementation (From €6,500 / scoped)",
+      ],
+    },
+  ],
 };
 
 export const BEST_FIT =
@@ -57,25 +334,52 @@ export const HERO_FOR = {
 };
 
 export const CTA = {
-  primary: "Request a 1-Week AI Governance Diagnostic",
-  secondary: "Explore the DGOM Operating Model",
-  note: "For a high-impact RAG system, copilot, agent or workflow · 30-minute introductory call",
+  primary: "Check my system's risk",
+  secondary: "See how I work",
+  persistentPrimary: "Check my risk",
+  persistentSecondary: "Request diagnostic",
+  note: "For a high-impact RAG system, copilot, agent or workflow · Scope and pricing confirmed after a 30-minute call.",
 };
 
 export const DIAGNOSTIC_FORM = {
-  kicker: "Or send context first",
-  submit: "Send enquiry",
+  kicker: "Commercial enquiry & technical diagnostic",
+  title: "Request a diagnostic or technical review",
+  lead: "Tell me which system you are deploying or evaluating and what access, authority or evidence gap you need to resolve.",
+  submit: "Request diagnostic",
   sending: "Sending…",
-  success: "Thank you. Your enquiry has been sent. I will reply to the work email you provided.",
-  error: "The enquiry could not be sent. Please try again in a moment, or use the email button below.",
+  success: "Thank you. I will reply with the recommended next step for your system.",
+  error: "The enquiry could not be sent right now. Please try again in a moment, or use the direct email link.",
   errorFallback: "Open email with these details",
   notConfigured:
-    "The enquiry form is not available yet. Please contact me via LinkedIn in the meantime.",
+    "The enquiry form is not available in this environment. Please contact me via LinkedIn or email.",
   privacy:
-    "No mailing list. No automated follow-up. Your details are used only to respond to this enquiry.",
+    "No marketing list. Your details are used solely to review and respond to this request.",
+  privacyLinkText: "View privacy & data retention policy",
+  systemTypeLabel: "System type",
+  systemTypes: [
+    { value: "", label: "Select system type" },
+    { value: "Chatbot or conversational assistant", label: "Chatbot or conversational assistant" },
+    { value: "RAG over internal documentation", label: "RAG over internal documentation" },
+    { value: "Copilot connected to tools", label: "Copilot connected to tools" },
+    { value: "Agent that can execute actions", label: "Agent that can execute actions" },
+    { value: "Multiple systems / AI programme", label: "Multiple systems / AI programme" },
+    { value: "Advisory / Big 4 / Law firm (Co-delivery or White-Label)", label: "Advisory / Big 4 / Law firm (Co-delivery or White-Label)" },
+  ],
+  capabilityLabel: "What can the system do?",
+  capabilities: [
+    { value: "", label: "Select primary capability" },
+    { value: "Only respond or summarise", label: "Only respond or summarise" },
+    { value: "Create drafts or recommendations", label: "Create drafts or recommendations" },
+    { value: "Query internal systems or data", label: "Query internal systems or data" },
+    { value: "Modify data or trigger actions", label: "Modify data or trigger actions" },
+    { value: "Still being defined", label: "Still being defined" },
+  ],
+  concernLabel: "What is your main concern?",
   governPlaceholder:
-    "For example: an internal RAG system, a customer-facing assistant, vendor AI, or an agentic workflow.",
-  governHint: "A short description is enough. Do not include confidential client or matter names.",
+    "For example: retrieval permissions in RAG, tool calls without human approval, missing audit trail, or moving from pilot to production.",
+  governHint: "A short summary is enough. Do not include secrets, credentials or confidential client names.",
+  consentLabel:
+    "I agree to the processing of my professional contact details to receive a reply related to this request.",
   partnerNeedPlaceholder: "Describe the technical layer needed — controls, evidence, gates or a bounded PoV. Do not name clients or matters.",
   discussPlaceholder: "What you would like to discuss. Do not include confidential client or matter names.",
   callerLabel: "Who is contacting you?",
@@ -87,12 +391,16 @@ export const DIAGNOSTIC_FORM = {
     { value: "peer", label: "A researcher or peer" },
     { value: "other", label: "Other" },
   ],
-  intentLabel: "What do you need?",
+  intentLabel: "Service or workshop of interest",
   intents: [
-    { value: "snapshot", label: "AI Governance Snapshot" },
-    { value: "blueprint", label: "AI Governance Blueprint" },
-    { value: "fractional", label: "Fractional governance support" },
-    { value: "other", label: "Other" },
+    { value: "snapshot", label: "AI Governance Snapshot (From €2,495)" },
+    { value: "workshop", label: "In-Company Workshop 'From Legal PDF to Code' (€1,200–€1,800)" },
+    { value: "hackathon", label: "Joint Audit Hackathon — 1 day (€2,500–€3,000)" },
+    { value: "briefing", label: "Executive Briefing (45 min · CTO / CRO / leadership)" },
+    { value: "blueprint", label: "Blueprint & Runtime Assurance (From €6,500)" },
+    { value: "fractional", label: "Implementation / Fractional Architect in sprints" },
+    { value: "partners", label: "Partner / Co-delivery (Consultancies, Big 4 & Law Firms)" },
+    { value: "other", label: "General enquiry" },
   ],
   roleLabel: "Role",
   practiceLabel: "Practice area",
@@ -122,21 +430,21 @@ export const DIAGNOSTIC_FORM = {
 };
 
 export const ENGAGEMENT = {
-  title: "Engagement model",
+  title: "How we work step by step",
   lines: [
     {
-      label: "Diagnose",
-      text: "establish risk, ownership, obligations and priority gaps.",
+      label: "1. Diagnose",
+      text: "AI Runtime Risk Check: detect exposure, autonomy and missing evidence in 90 seconds.",
       icon: "clipboard",
     },
     {
-      label: "Architect",
-      text: "turn findings into governance design, control requirements and an implementation backlog.",
+      label: "2. Assess",
+      text: "AI Governance Snapshot: bounded technical review of architecture, risks and priority actions.",
       icon: "doc",
     },
     {
-      label: "Implement or assure",
-      text: "build controls directly or govern delivery with your internal team or implementation partner.",
+      label: "3. Design & implement",
+      text: "Blueprint & Runtime Assurance: design and implementation of controls, gates, oversight and evidence.",
       icon: "gears",
     },
   ],
@@ -318,21 +626,21 @@ export const AUDIENCE = [
 
 export const PROBLEMS = [
   {
-    title: "Unmanaged AI risk",
-    subtitle: "No owner, no residual-risk view — until an incident.",
-    text: "Ownership, authority and residual risk sit nowhere — until an incident or a regulator asks.",
+    title: "Access",
+    subtitle: "What data and tools can it use?",
+    text: "Without per-user, document or row-level authorisation, the system can retrieve restricted data or call unapproved tools.",
     icon: "shield",
   },
   {
-    title: "Ungoverned agents",
-    subtitle: "They retrieve, decide and act with no independent stop.",
-    text: "Systems can retrieve, recommend and act without independent limits on access, decision or execution.",
+    title: "Authority",
+    subtitle: "What can it decide or execute without approval?",
+    text: "If the model decides when to use tools or modify systems without an independent gate, an error or injection becomes a real action.",
     icon: "gears",
   },
   {
-    title: "No audit evidence",
-    subtitle: "Proof is rebuilt after the fact, not generated at runtime.",
-    text: "Proof is reconstructed after the fact instead of being generated continuously at the control boundary.",
+    title: "Evidence",
+    subtitle: "Can you prove what happened and why?",
+    text: "Without logging identity, policy, authorisation and outcome, nobody can reconstruct the decision after an incident or audit.",
     icon: "clipboard",
   },
 ];
@@ -392,18 +700,18 @@ export const DGOM = [
 ];
 
 export const DGOM_MODEL = {
-  kicker: "Operating model",
-  title: "DGOM™: Governance from Boardroom to Runtime",
+  kicker: "How I work · Operating model",
+  title: "DGOM™: from policy to independent runtime controls",
   lead:
-    "DGOM™ is an executable governance operating model that connects regulation, policy, risk, control, code, operations, evidence and oversight across the AI and software lifecycle.",
+    "I turn policies, regulatory obligations and risk decisions into executable controls, lifecycle gates, runtime assurance and verifiable evidence.",
   designed: "Designed and governed by Andrés Lage Freire.",
   disclaimer:
-    "DGOM™ orchestrates and operationalises governance frameworks. It does not replace legal advice, formal certification or an organisation’s accountable decision-makers. Reference mappings are illustrative — not a conformity assessment or guaranteed EU AI Act alignment.",
+    "DGOM™ operationalises technical governance controls. It does not replace legal advice, formal certification or an organisation’s accountable decision-makers.",
   cta: "View the DGOM Operating Model",
   briefCta: "Download the Dédalo™ Executive Brief",
-  diagramLabel: "How DGOM™ connects board accountability to runtime assurance",
+  diagramLabel: "How DGOM™ connects accountability to runtime assurance",
   layers: {
-    top: "Board / Regulation / Risk",
+    top: "Policy / Regulation / Risk",
     model: "DGOM™",
     outputs: "Controls · Gates · Evidence · Oversight",
     runtime: "Runtime Assurance",
@@ -411,61 +719,78 @@ export const DGOM_MODEL = {
 };
 
 export const SERVICE_LADDER = {
-  kicker: "Services",
-  title: "From Risk Signal to Runtime Assurance",
-  lead: "Three separate paths — Diagnose, Design, or Implement and assure. Start with a one-week Snapshot for one system; move to the Blueprint or recurring assurance only when the scope requires it.",
-  expand: "Start small, establish evidence, then expand governance coverage as the system and risk surface grow.",
+  kicker: "Services & pricing guidance",
+  title: "Three clear steps: diagnose, assess and implement",
+  lead: "Start by checking your runtime risk in 90 seconds, request a bounded one-week technical review, or design the control plane for production.",
+  expand: "Scope and pricing confirmed after a 30-minute call. None of these services constitute legal advice or formal certification.",
   problem: "Problem",
   outcome: "Outcome",
-  deliverables: "Deliverables",
-  audience: "Typical audience",
+  deliverables: "Scope & deliverables",
+  audience: "Legal & certification notice",
   items: [
+    {
+      id: "risk-check",
+      intent: "risk-check",
+      href: "/ai-runtime-risk-check",
+      stage: "Step 1 · Diagnose",
+      name: "AI Runtime Risk Check",
+      price: "Free · 90 seconds",
+      description:
+        "An initial check to detect exposure, autonomy and missing evidence.",
+      problem:
+        "It is unclear whether your RAG, copilot or agent has gaps in data access, tool invocation or traceability before scaling.",
+      outcome:
+        "Preliminary runtime exposure classification and primary recommended technical control.",
+      deliverables: [
+        "6 questions covering access, authority, fail-safe and logging",
+        "Evaluation across Exposure, Autonomy and Control/Evidence",
+        "Immediate preliminary finding with primary control recommendation",
+      ],
+      audience:
+        "Preliminary technical orientation. Not legal advice, formal audit or certification.",
+      cta: "Check my risk",
+    },
     {
       id: "snapshot",
       intent: "snapshot",
-      stage: "1. Diagnose — one week",
+      stage: "Step 2 · Assess",
       name: "AI Governance Snapshot",
-      problem: "One AI system is already in use, and the team needs a bounded view of risk and what to do next.",
+      price: "From €2,495",
       description:
-        "Launch price for the first two contracted projects. A bounded technical assessment of one organisation and one AI system or use case, delivered in one week.",
-      outcome: "An executive memo, a short risk matrix and three to five prioritised actions — not an architecture.",
+        "Bounded review of one system, architecture, controls, risks and priority actions.",
+      problem:
+        "An AI system is in pilot or production and you need to know exactly where the technical gaps sit and what to prioritise.",
+      outcome:
+        "Clear map of access, authority and evidence gaps with 3 to 5 prioritised technical actions delivered in one week.",
       deliverables: [
-        "Initial meeting, review of existing documentation and up to two interviews",
-        "Executive memo",
-        "Short risk matrix",
-        "Three to five prioritised actions and a readout session",
+        "Scope: one organisation and one AI system or use case (1-week delivery)",
+        "Review of architecture, connected tools, data flows and current logging",
+        "Executive memo, short risk matrix and technical readout session",
       ],
-      audience: "Organisations that want a one-week starting point for a single system.",
-      cta: "Start with the Snapshot",
+      audience:
+        "Technical governance engineering support. Not legal advice or certification.",
+      cta: "Request AI Governance Snapshot",
     },
     {
       id: "blueprint",
       intent: "blueprint",
-      stage: "2. Design — diagnosis + architecture",
-      name: "AI Governance Blueprint",
-      problem: "The problem is already clear, but there is no actionable design for controls, gates, roles and evidence.",
-      description: "Diagnosis plus architecture and control design for one primary AI system or closely related use-case family.",
-      outcome: "An actionable design for the next implementation stage — without claiming to implement it in this offer.",
+      stage: "Step 3 · Design & implement",
+      name: "Blueprint & Runtime Assurance",
+      price: "Blueprint from €6,500 · Implementation scoped to requirements",
+      description:
+        "Design or implementation of controls, gates, oversight, traceability and evidence.",
+      problem:
+        "The risk is known, but there is no executable control architecture, lifecycle gate design or audit-ready evidence structure.",
+      outcome:
+        "Target control architecture (Blueprint) and ongoing runtime assurance integrated with your engineering team.",
       deliverables: [
-        "Target governance architecture",
-        "Control and lifecycle-gate design",
-        "Evidence-pack structure",
-        "Implementation sequence",
+        "Scope: control design, tool allowlists, HITL gates, fail-safe and evidence schema",
+        "Technical mapping to EU AI Act, ISO/IEC 42001 and OWASP duties",
+        "Optional: runtime implementation and recurring assurance scoped separately",
       ],
-      audience: "Organisations ready to design controls after the diagnosis.",
-      cta: "Request the Blueprint",
-    },
-    {
-      id: "fractional",
-      intent: "fractional",
-      stage: "3. Implement or assure — recurrence",
-      name: "Fractional governance support",
-      problem: "Pilots are moving into operations, but there is no standing owner for control review and assurance.",
-      description: "Ongoing governance engineering, assurance, control review and decision support without a full internal team.",
-      outcome: "A retained assurance cadence as the estate grows.",
-      deliverables: ["Recurring control review", "Runtime assurance support", "Decision support for accountable owners"],
-      audience: "Organisations moving from pilots to governed operations.",
-      cta: "Discuss recurring support",
+      audience:
+        "Technical governance and runtime control engineering. Not legal advice or formal certification.",
+      cta: "Request diagnostic",
     },
   ],
 };
@@ -563,28 +888,28 @@ export const DELIVER = [
 ];
 
 export const DIAGNOSTIC = {
-  title: "AI Governance Diagnostic",
-  duration: "1 week or by design",
+  title: "Scope & pricing guidance",
+  duration: "Scope confirmed after 30-min call",
   lead:
-    "The Snapshot is a one-week assessment of one system. The Blueprint is a separate step: diagnosis plus architecture and control design.",
+    "You work directly with the engineer who diagnoses the architecture and designs the technical controls, with no hand-offs between strategy and implementation.",
   position:
-    "I work directly with those who design and build the controls, without splitting strategy, implementation and evidence across several layers.",
+    "Every engagement is scoped in writing before work begins. No service promises guaranteed compliance or replaces legal counsel.",
   negatives: [
-    "Not a law-firm memo.",
-    "Not a Big Four slide deck.",
-    "Not another layer of committee delay.",
+    "Not an abstract law-firm memo.",
+    "Not a generic slide deck without technical controls.",
+    "Not a promise to eliminate all risk.",
   ],
   hybrid:
-    "One senior practitioner turns AI decisions into executable controls, lifecycle gates and evidence — without the hand-offs.",
-  limitsTitle: "What you provide",
+    "Executable governance engineering: architecture, runtime limits and verifiable technical evidence.",
+  limitsTitle: "What your team provides",
   nature:
-    "This is technical AI governance support. It is not legal advice, not a formal audit, not a conformity assessment and not certification. EU AI Act mapping in the Blueprint is illustrative, not a legal determination.",
+    "Technical AI governance engineering support. Not legal advice, not a formal audit, not a conformity assessment and not certification.",
   clientLabel: "What you provide",
   clientProvides: [
-    "A named internal owner for the engagement",
-    "The in-scope system or use-case family and its intended use",
-    "Existing policies, architecture notes, and known incidents or audit findings, if any",
-    "Access to Engineering and Risk for interviews or a working session",
+    "A named internal owner for the evaluated system",
+    "Overview of the in-scope RAG, copilot, agent or workflow",
+    "Existing architecture notes, connected tools and policies",
+    "Availability for up to two technical review sessions",
   ],
   includesLabel: "Includes",
   limitsLabel: "Explicit limits",
@@ -593,67 +918,124 @@ export const DIAGNOSTIC = {
     {
       id: "snapshot",
       intent: "snapshot",
-      step: "1. Snapshot",
-      kind: "One week · launch price",
+      step: "Step 1 · Assess",
+      kind: "1-week delivery",
       name: "AI Governance Snapshot",
-      price: "€2,495",
+      price: "From €2,495",
       vat: "+ applicable taxes",
       subtitle:
-        "Launch price for the first two contracted projects. A bounded technical assessment of one organisation and one AI system or use case, delivered in one week.",
+        "Bounded technical review of one AI system, its architecture, tools, data flows, runtime risks and priority actions.",
       includes: [
-        "Initial meeting.",
-        "Review of existing documentation.",
-        "Up to two interviews.",
-        "Executive memo.",
-        "Short risk matrix.",
-        "Three to five prioritised actions.",
-        "Readout session.",
+        "Initial kick-off and architecture/documentation review.",
+        "Up to two interviews with engineering, product or risk.",
+        "Gap map across access, authority, fail-safe and evidence.",
+        "Executive memo and 3 to 5 prioritised control actions.",
+        "Technical and executive readout session.",
       ],
       limits: [
-        "One organisation and one system or use case.",
-        "Not a corporate AI inventory.",
-        "Implementation is not included.",
-        "Not a formal audit.",
-        "Not certification.",
-        "Not a conformity assessment.",
-        "Not legal advice.",
+        "Bounded to one organisation and one system or use case.",
+        "Does not include code implementation.",
+        "Not legal advice or certification.",
       ],
-      for: "Teams that need to know what to decide and what to do next before commissioning architecture or implementation.",
-      cta: "Start with the Snapshot",
+      for: "Teams moving from the preliminary Risk Check result to a concrete technical gap map.",
+      cta: "Request AI Governance Snapshot",
     },
     {
       id: "blueprint",
       intent: "blueprint",
-      step: "2. Blueprint",
-      kind: "Diagnosis + design",
+      step: "Step 2 · Design",
+      kind: "Diagnosis + architecture",
       name: "AI Governance Blueprint",
-      price: "€6,500",
+      price: "From €6,500",
       vat: "+ applicable taxes",
       subtitle:
-        "A separate step from the Snapshot: diagnosis plus architecture and control design for one organisation and one AI system or use case.",
+        "Detailed design of the governance architecture, deterministic runtime controls, lifecycle gates and evidence pack structure.",
       includes: [
-        "Diagnosis of the in-scope system.",
-        "Target governance architecture.",
-        "Control and lifecycle-gate design.",
-        "Roles, decision rights and escalation paths.",
-        "Evidence-pack structure.",
-        "Implementation sequence.",
-        "Senior-practitioner close.",
+        "Complete diagnosis of the in-scope system.",
+        "Target runtime and SDLC control architecture.",
+        "Allowlist, authorisation, HITL and fail-safe specification.",
+        "Evidence pack and decision trace schema.",
+        "Technical implementation sequence.",
       ],
       limits: [
-        "Implementation is not included unless separately scoped.",
-        "Not legal advice.",
-        "Not a conformity assessment.",
-        "Not ISO/IEC 42001 certification.",
-        "EU AI Act mapping is illustrative, not a legal determination.",
+        "Not legal advice or conformity assessment.",
+        "Regulatory mapping is technical and illustrative.",
       ],
-      for: "Organisations that already know the problem is real and need an actionable design for the next implementation stage.",
-      cta: "Request the Blueprint",
+      for: "Organisations ready to design the control plane before scaling to production.",
+      cta: "Request Blueprint",
+    },
+    {
+      id: "assurance",
+      intent: "fractional",
+      step: "Step 3 · Implement",
+      kind: "Execution & oversight",
+      name: "Runtime Assurance / Implementation",
+      price: "Scoped to requirements",
+      vat: "Confirmed after 30-min call",
+      subtitle:
+        "Implementation of executable controls, deployment gates, validation suites and ongoing technical assurance.",
+      includes: [
+        "Implementation or review of runtime and CI/CD controls.",
+        "Testing over a bounded evaluation suite.",
+        "Verification of decision traces and evidence packs.",
+        "Direct support for CISO, CTO and risk owners.",
+      ],
+      limits: [
+        "Technical scope tailored to the client's stack.",
+        "Does not replace operational or legal accountability.",
+      ],
+      for: "Teams moving RAG, copilots or agents into governed production operation.",
+      cta: "Request diagnostic",
     },
   ],
   priceNote:
-    "The Snapshot launch price applies to the first two contracted projects. The introductory call is unpaid. Scope is confirmed in writing before work starts. A client reference is never a condition of the price.",
-  bandsLabel: "AI Governance Diagnostic offers",
+    "Scope and pricing confirmed after a 30-minute call. Listed prices are indicative for a single bounded system.",
+  bandsLabel: "Service hierarchy and pricing guidance",
+  hierarchyTitle: "Ordered progression from low-friction entry to runtime implementation",
+  hierarchySteps: [
+    {
+      rank: "1",
+      name: "AI Runtime Risk Check",
+      tag: "Immediate entry · Free · 90 s",
+      desc: "Interactive preliminary diagnostic across exposure, autonomy and runtime evidence.",
+      target: "risk-check",
+    },
+    {
+      rank: "2",
+      name: "AI Governance Snapshot",
+      tag: "From €2,495 · 1 week",
+      desc: "Bounded technical review of architecture, runtime risks and 3–5 priority controls.",
+      target: "services",
+    },
+    {
+      rank: "3",
+      name: "In-Company Workshop / Hackathon",
+      tag: "€1,200 – €3,000 · Engineering teams",
+      desc: "'From Legal PDF to Code' or joint audit hackathon with live Gap Analysis and roadmap.",
+      target: "enablement",
+    },
+    {
+      rank: "4",
+      name: "AI Governance Blueprint",
+      tag: "From €6,500 · Control architecture",
+      desc: "Complete specification of the deterministic control plane, HITL, allowlists and evidence.",
+      target: "services",
+    },
+    {
+      rank: "5",
+      name: "Runtime Assurance",
+      tag: "Scoped · Sprint delivery",
+      desc: "Implementation of executable controls, CI/CD gates and production validation.",
+      target: "services",
+    },
+    {
+      rank: "6",
+      name: "Partner / Co-delivery / White-label",
+      tag: "Dedicated partner channel",
+      desc: "Technical governance engineering under NDA for law firms, Big 4 and consultancies.",
+      target: "partners",
+    },
+  ],
 };
 
 export const PROJECTS = [
@@ -662,10 +1044,10 @@ export const PROJECTS = [
     name: "HR Copilot — Technical Governance Implementation (TGI v1)",
     category: "Featured implementation · Agentic runtime governance",
     stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 TGI controls · SIEM audit",
-    lead: "Same model. Same prompts. Two risk postures. One difference: the control plane.",
+    lead: "Same model. Same prompts. Two risk postures.",
     summary:
-      "Two side-by-side builds of the same internal HR copilot over synthetic enterprise data, tested against the same attack payloads so a CISO or CTO can inspect the posture difference directly. In Act I (ungoverned), a single prompt triggers unapproved tool calls and exfiltrates executive compensation and PII (GDPR Arts. 32/33), confidential M&A plans and internal credentials in under 60 seconds. In Act II, the deterministic TGI v1 layer wraps the exact same model without swapping it: prompt isolation, input classification, tool allow-listing, HITL gates, output DLP, row-level authorisation, secret hygiene and a SIEM-ready audit trail.",
-    controlFlowLabel: "Runtime control flow",
+      "A runnable demonstration of how a control plane turns a vulnerable copilot into a bounded, supervised and auditable system. In Act I (without governance), a single prompt triggers unapproved tool calls and exposes sensitive data in under 60 seconds. In Act II (with TGI v1), 8 deterministic controls wrap the exact same model: prompt isolation, input classification, tool allow-listing, HITL gates, output DLP, row-level authorisation, secret hygiene and a SIEM-ready audit trail.",
+    controlFlowLabel: "8 deterministic runtime controls",
     controlFlow: [
       "Input",
       "Classification",
@@ -680,9 +1062,9 @@ export const PROJECTS = [
     videoWidth: 1280,
     videoHeight: 800,
     videoCaption:
-      "Two-act walkthrough (Spanish audio, subtitles included): ungoverned PII, M&A and credential exfiltration versus deterministic layer-by-layer blocking in TGI v1.",
+      "Two-act walkthrough (Spanish audio, subtitles included): Act I without governance versus Act II with TGI v1.",
     outcome:
-      "Same model and same data, opposite risk posture: from a single-prompt breach to zero sensitive findings across this demonstration’s test suite, with every blocked attempt tagged against OWASP LLM v2025 (LLM01, LLM02, LLM05–07) and OWASP Agentic 2026 (ASI01–03, ASI05).",
+      "Zero sensitive findings across the test suite of this demonstration, with every blocked attempt logged as verifiable evidence.",
   },
   {
     num: "02",

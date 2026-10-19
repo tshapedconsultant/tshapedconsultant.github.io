@@ -2,12 +2,14 @@ import {
   EU_AI_ACT_MAPPING_PATH,
   HYBRID_PROFILES_PATH,
   MONTEQUIEU_PATH,
+  PRIVACY_PATH,
+  RISK_CHECK_PATH,
   WHITEPAPER_PATH,
   homePath,
   localeFromPath,
   stripLocale,
   withLocale,
-} from "./routes";
+} from "./routes.ts";
 import { ARTICLE, HYBRID_ARTICLE } from "./content.js";
 import { pulseByPath } from "./data/pulseLibrary.ts";
 import { ARTICLE as ARTICLE_ES, HYBRID_ARTICLE as HYBRID_ARTICLE_ES } from "./content.es.js";
@@ -18,18 +20,40 @@ export const HOME_TITLE =
   "Executable AI Governance for Agentic and Regulated Systems | TShaped Consultant";
 
 export const HOME_TITLE_ES =
-  "Gobernanza de IA ejecutable para sistemas agénticos y regulados | TShaped Consultant";
+  "Gobernanza ejecutable para sistemas de IA | TShaped Consultant";
 
 export const HOME_DESCRIPTION =
-  "AI Governance Engineering for organisations deploying RAG and agentic systems. DGOM™ and Dédalo™ turn regulation, policy and risk controls into executable safeguards, lifecycle gates and verifiable evidence.";
+  "AI Governance Engineering for organisations deploying RAG, copilots and agentic systems. Assess whether your AI system can access, decide or act without sufficient controls.";
 
 export const HOME_DESCRIPTION_ES =
-  "Ingeniería de Gobernanza de IA para organizaciones que despliegan RAG y sistemas agénticos. DGOM™ y Dédalo™ convierten regulación, política y controles de riesgo en salvaguardas ejecutables, compuertas de ciclo de vida y evidencia verificable.";
+  "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y sistemas de IA de alto impacto. Comprueba el riesgo de tu sistema en 90 segundos.";
+
+export const HOME_OG_TITLE_ES =
+  "Gobernanza ejecutable para sistemas de IA que pueden acceder, decidir y actuar";
+
+export const HOME_OG_DESCRIPTION_ES =
+  "De políticas en papel a controles técnicos, supervisión en ejecución y evidencia lista para auditoría.";
 
 export const PAGE_SEO = {
   "/": {
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
+    ogTitle: "Can your AI system act without an independent control gate?",
+    ogDescription:
+      "Take a 90-second AI Runtime Risk Check to detect gaps in access, authority and evidence.",
+  },
+  [RISK_CHECK_PATH]: {
+    title: "AI Runtime Risk Check | TShaped Consultant",
+    description:
+      "Discover in 90 seconds whether your AI system can access, decide or act without a sufficient runtime control gate. 6 questions for RAG, copilots, agents and workflows.",
+    ogTitle: "Can your AI system act without an independent control gate?",
+    ogDescription:
+      "Take a 90-second AI Runtime Risk Check to detect gaps in access, authority and evidence.",
+  },
+  [PRIVACY_PATH]: {
+    title: "Privacy and Data Retention Policy | TShaped Consultant",
+    description:
+      "Minimal, transparent data handling for the AI Runtime Risk Check and commercial enquiries at tshapedconsultant.com.",
   },
   [WHITEPAPER_PATH]: {
     title: "Probabilistic Models Require Deterministic Governance | tshapedconsultant",
@@ -55,6 +79,20 @@ export const PAGE_SEO_ES = {
   "/": {
     title: HOME_TITLE_ES,
     description: HOME_DESCRIPTION_ES,
+    ogTitle: HOME_OG_TITLE_ES,
+    ogDescription: HOME_OG_DESCRIPTION_ES,
+  },
+  [RISK_CHECK_PATH]: {
+    title: "AI Runtime Risk Check | TShaped Consultant",
+    description:
+      "Descubre en 90 segundos si tu sistema de IA puede acceder, decidir o actuar sin una compuerta de control suficiente. 6 preguntas para RAG, copilotos, agentes y workflows.",
+    ogTitle: HOME_OG_TITLE_ES,
+    ogDescription: HOME_OG_DESCRIPTION_ES,
+  },
+  [PRIVACY_PATH]: {
+    title: "Política de privacidad y retención | TShaped Consultant",
+    description:
+      "Tratamiento de datos mínimo, base legal y política de retención para el AI Runtime Risk Check y las consultas técnicas en tshapedconsultant.com.",
   },
   [WHITEPAPER_PATH]: {
     title: "Gobernanza de IA: modelos probabilísticos y arquitectura constitucional | tshapedconsultant",
@@ -137,12 +175,12 @@ export function jsonLdForLocale(locale) {
   const serviceName = locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering";
   const serviceDesc =
     locale === "es"
-      ? "Diagnóstico de gobernanza de IA, modelo operativo DGOM™ y aseguramiento en runtime para sistemas RAG y agénticos. No es asesoramiento jurídico ni certificación."
-      : "AI Governance Diagnostic, DGOM™ operating model and runtime assurance for RAG and agentic systems. Not legal advice or certification.";
+      ? "AI Runtime Risk Check, AI Governance Snapshot, Blueprint y aseguramiento en runtime para sistemas RAG, copilotos y agentes. No es asesoramiento jurídico ni certificación."
+      : "AI Runtime Risk Check, AI Governance Snapshot, Blueprint and runtime assurance for RAG, copilots and agentic systems. Not legal advice or certification.";
   const practiceDesc =
     locale === "es"
-      ? "Ingeniería de Gobernanza de IA para organizaciones que despliegan RAG y sistemas agénticos. DGOM™ y Dédalo™ convierten regulación, política y riesgo en salvaguardas ejecutables."
-      : "AI Governance Engineering for organisations deploying RAG and agentic systems. DGOM™ and Dédalo™ turn regulation, policy and risk into executable safeguards.";
+      ? "Ingeniería de Gobernanza de IA para organizaciones que despliegan RAG y sistemas agénticos. Controles técnicos, límites de runtime y evidencia verificable."
+      : "AI Governance Engineering for organisations deploying RAG and agentic systems. Technical controls, runtime limits and verifiable evidence.";
   const worksName =
     locale === "es" ? "Con sede en Madrid · Trabajo en remoto en EMEA" : "Based in Madrid · Working remotely across EMEA";
 

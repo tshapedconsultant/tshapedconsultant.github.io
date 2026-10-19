@@ -24,7 +24,7 @@ export {
 };
 
 export const BRAND_DEFINITION =
-  "Ingeniería de Gobernanza de IA: el diseño e implantación de controles, rendición de cuentas y evidencia a lo largo del ciclo de vida de la IA.";
+  "Ingeniería de Gobernanza de IA: diseño e implantación de controles ejecutables, límites de runtime y evidencia verificable.";
 
 export const LOCATION = "Con sede en Madrid · Trabajo en remoto en EMEA";
 
@@ -37,17 +37,295 @@ export const ABOUT_SITE =
   "Este sitio lo he diseñado y construido yo, con programación asistida por IA. Trato la accesibilidad, la privacidad, el rendimiento y la auditabilidad como requisitos de primer orden.";
 
 export const HERO = {
-  kicker: "Andrés Lage Freire · Madrid · EMEA en remoto",
-  headline: "Gobernanza de IA ejecutable para sistemas regulados y agénticos",
-  tagline: "Arquitecto de IA responsable · De la regulación a la garantía en runtime",
+  kicker: "Andrés Lage Freire · TShaped Consultant · Ingeniería de Gobernanza de IA",
+  headline:
+    "Gobernanza ejecutable para sistemas de IA que pueden acceder, decidir y actuar.",
+  tagline: "De la política escrita al control independiente en runtime",
   value:
-    "Convertimos las obligaciones regulatorias, las decisiones del consejo y los controles de riesgo de IA en salvaguardas ejecutables, compuertas de ciclo de vida y evidencia verificable — de la política al runtime.",
-  assets: "DGOM™ · Dédalo™ · Ingeniería de Gobernanza de IA",
+    "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y workflows de alto impacto.",
+  assets: "",
   qualify:
-    "Trabajo con CISOs, CTOs, responsables de riesgo y equipos de producto que necesitan llevar un sistema de IA — RAG, copiloto o agente — de piloto a operación gobernada.",
+    "Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.",
   scope:
-    "Del inventario de IA y la preparación para el EU AI Act a agentes gobernados, seguridad de RAG y garantía en runtime.",
+    "Diagnóstico en 90 segundos, revisión técnica acotada y arquitectura de control en runtime.",
   principle: "Los modelos probabilísticos requieren gobernanza determinista.",
+};
+
+export const PATH_SELECTOR = {
+  title: "¿Qué te trae aquí?",
+  subtitle:
+    "Quien detecta el problema → quien valida la solución → quien aprueba el presupuesto → quien puede derivar o co-entregar el proyecto.",
+  threeEntries: [
+    {
+      id: "direct",
+      title: "Ruta directa",
+      role: "Para CTOs, CISOs, Heads of AI, Risk y responsables de tecnología",
+      cta: "Comprobar mi riesgo",
+      steps: [
+        "AI Runtime Risk Check",
+        "AI Governance Snapshot",
+        "Blueprint",
+        "Runtime Assurance",
+      ],
+      target: "risk-check",
+    },
+    {
+      id: "technical",
+      title: "Ruta técnica interna",
+      role: "Para arquitectos, ingenieros y Red Team Leads",
+      cta: "Ver la demo técnica",
+      steps: [
+        "HR Copilot",
+        "Demo de controles",
+        "Validación técnica",
+        "Recomendación interna al decisor",
+      ],
+      target: "hr-copilot-case",
+    },
+    {
+      id: "partner",
+      title: "Ruta de partners",
+      role: "Para firmas legales, Big Four y consultoras",
+      cta: "Explorar co-delivery",
+      steps: [
+        "Del PDF Legal al Código",
+        "Workshop o Hackathon",
+        "Co-delivery",
+        "Proyecto del cliente",
+      ],
+      target: "partners",
+    },
+  ],
+  options: [
+    {
+      id: "evaluate",
+      label: "Estoy evaluando mi sistema",
+      sub: "AI Runtime Risk Check → AI Governance Snapshot",
+      target: "risk-check",
+      intent: "snapshot",
+    },
+    {
+      id: "train",
+      label: "Quiero formar a mi equipo",
+      sub: "Del PDF Legal al Código → Workshop o Hackathon In-Company",
+      target: "enablement",
+      intent: "workshop",
+    },
+    {
+      id: "partner",
+      label: "Busco un partner técnico",
+      sub: "HR Copilot → Demo de controles → Validación técnica",
+      target: "hr-copilot-case",
+      intent: "snapshot",
+    },
+    {
+      id: "codelivery",
+      label: "Quiero explorar co-delivery",
+      sub: "Derivación, co-delivery o white-label para el proyecto del cliente",
+      target: "partners",
+      intent: "partners",
+    },
+  ],
+};
+
+export const PAIN_SECTION = {
+  kicker: "01 · El problema en ejecución",
+  title:
+    "Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución.",
+  text:
+    "Una política de IA no impide por sí sola que un agente consulte una herramienta indebida, recupere información no autorizada o ejecute una acción que nadie pueda reconstruir después.",
+  cards: [
+    {
+      id: "access",
+      icon: "shield",
+      title: "Acceso",
+      question: "¿Qué datos y herramientas puede utilizar?",
+      detail:
+        "Sin autorización por usuario, documento o fila, el sistema puede recuperar o exponer información que el usuario no debería ver.",
+    },
+    {
+      id: "authority",
+      icon: "gears",
+      title: "Autoridad",
+      question: "¿Qué puede decidir o ejecutar sin aprobación?",
+      detail:
+        "Si el modelo decide cuándo invocar herramientas o modificar sistemas, una instrucción manipulada puede convertirse en una acción real.",
+    },
+    {
+      id: "evidence",
+      icon: "clipboard",
+      title: "Evidencia",
+      question: "¿Puedes demostrar qué ocurrió y por qué?",
+      detail:
+        "Guardar solo el prompt y la respuesta no basta para reconstruir la identidad, la política aplicada, la herramienta y el resultado ante un incidente.",
+    },
+  ],
+  cta: "Haz el AI Runtime Risk Check",
+};
+
+export const FEATURED_HR_COPILOT = {
+  kicker: "Demostración ejecutable · Caso destacado",
+  badge: "HR Copilot — Technical Governance Implementation (TGI v1)",
+  title: "Mismo modelo. Mismas peticiones. Dos posturas de riesgo.",
+  subtitle:
+    "Una demostración ejecutable de cómo un plano de control transforma un copiloto vulnerable en un sistema limitado, supervisado y auditable.",
+  acts: [
+    {
+      id: "act-1",
+      label: "Acto I · Sin gobernanza",
+      title: "El modelo decide y encadena herramientas sin compuerta independiente",
+      text: "Ante las mismas peticiones adversarias sobre datos sintéticos de RR. HH., una sola consulta encadena herramientas sin autorización y expone retribución ejecutiva, datos personales, planes de M&A y credenciales internas en menos de 60 segundos.",
+      tone: "risk",
+    },
+    {
+      id: "act-2",
+      label: "Acto II · Con TGI v1",
+      title: "Plano de control determinista alrededor del mismo modelo",
+      text: "Sin cambiar de modelo, la capa TGI v1 intercepta cada paso con 8 controles deterministas: validación de entrada, allowlist de herramientas, autorización por fila, aprobación humana (HITL), DLP de salida y registro verificable.",
+      tone: "governed",
+    },
+  ],
+  controlsTitle: "8 controles deterministas en runtime",
+  controls: [
+    "1. Aislamiento estructural del prompt",
+    "2. Clasificación determinista de entrada",
+    "3. Allowlist cerrada de herramientas",
+    "4. Autorización contextual por fila e identidad",
+    "5. Compuerta de aprobación humana (HITL)",
+    "6. Prevención de fuga de datos (DLP) en salida",
+    "7. Higiene y bloqueo de secretos/credenciales",
+    "8. Traza de decisión estructurada para SIEM y auditoría",
+  ],
+  resultClaim: "Cero hallazgos sensibles en el conjunto de pruebas de esta demostración.",
+  scopeNote:
+    "Resultado acotado exclusivamente al conjunto de pruebas sintéticas de esta demostración. Ningún control elimina todo el riesgo ni sustituye las pruebas en el entorno real del cliente.",
+  video: "/agent-fail-version-1.mp4",
+  poster: "/agent-fail-version-1-poster.jpg",
+  captions: "/agent-fail-version-1.es.vtt",
+  videoCaption:
+    "Vídeo demostrativo en castellano: Acto I (sin gobernanza) frente a Acto II (con los 8 controles deterministas de TGI v1).",
+  videoCta: "Ver vídeo de la demostración",
+  docsCta: "Ver documentación técnica y mapeo",
+  docsHref: "/es/governance/eu-ai-act-mapping",
+};
+
+export const ENABLEMENT_PROGRAMS = {
+  kicker: "Puerta de entrada In-Company · Del PDF Legal al Código",
+  title: "Cómo traducir el EU AI Act a tu pipeline de ingeniería",
+  lead:
+    "No imparto charlas de concienciación genérica para toda la plantilla. Diseño sesiones técnicas de trabajo para CTOs, Lead Developers, Chief Risk Officers y Product Managers que necesitan convertir requisitos regulatorios en controles deterministas, pruebas unitarias y arquitectura de runtime.",
+  audienceTag: "Para CTOs, Lead Developers, Chief Risk Officers y Product Managers",
+  formats: [
+    {
+      id: "briefing",
+      intent: "briefing",
+      badge: "Formato A · Dirección y Comité Técnico",
+      duration: "45 min · Webinar cerrado o desayuno de trabajo",
+      price: "Bajo solicitud / Cortesía para equipos cualificados",
+      title: "Executive Briefing: Los 3 puntos ciegos técnicos que el EU AI Act expone en tu SaaS",
+      hook:
+        "Por qué un informe jurídico no basta cuando el modelo es probabilístico y por qué la normativa exige control determinista sobre agentes y copilotos en ejecución.",
+      topics: [
+        "Dónde chocan la política escrita y el comportamiento real en runtime",
+        "Por qué los guardrails del prompt no sustituyen una arquitectura de control",
+        "Qué evidencia técnica pedirá una auditoría o un cliente enterprise",
+      ],
+      cta: "Solicitar Executive Briefing",
+    },
+    {
+      id: "workshop",
+      intent: "workshop",
+      badge: "Formato B · Producto rompehielos In-Company",
+      duration: "3 a 4 horas · Taller privado para ingeniería",
+      price: "€1.200 – €1.800 (tarifa plana por empresa)",
+      title: "Workshop In-Company: AI Governance for Engineers — De la regulación a las pruebas unitarias",
+      hook:
+        "Un ticket ágil que cualquier CTO puede aprobar desde su presupuesto trimestral o de formación sin fricción de compras corporativas.",
+      topics: [
+        "Mapeo práctico de artículos del EU AI Act a requisitos de software verificables",
+        "Arquitecturas agénticas seguras y separación de poderes en runtime",
+        "Implementación de controles deterministas, allowlists y compuertas en código",
+        "Últimos 30 min: Gap Analysis en vivo + entrega de Roadmap de Implementación a 6 meses",
+      ],
+      cta: "Reservar Workshop In-Company",
+    },
+    {
+      id: "hackathon",
+      intent: "hackathon",
+      badge: "Formato C · Trabajo directo sobre tu sistema",
+      duration: "Jornada completa (8 horas) · Teoría + arquitectura real",
+      price: "€2.500 – €3.000",
+      title: "Hackathon de Auditoría Conjunta sobre tu propio producto",
+      hook:
+        "Empezamos a resolver brechas reales desde el día 1 trabajando directamente con tu equipo técnico sobre vuestro repositorio y arquitectura.",
+      topics: [
+        "Mañana (4 h): fundamentos de mitigación técnica, acceso, autoridad y trazabilidad",
+        "Tarde (4 h): inspección conjunta de vuestro RAG, copiloto o agente frente al EU AI Act y OWASP",
+        "Entregable: mapa visual de vulnerabilidades detectadas y hoja de ruta de controles prioritarios",
+      ],
+      cta: "Solicitar Hackathon de Auditoría",
+    },
+  ],
+  bridge: {
+    kicker: "Del taller a la ejecución en producción",
+    title: "Incluye Gap Analysis en los últimos 30 minutos y hoja de ruta",
+    text:
+      "Ninguna sesión termina en teoría. Cerramos contrastando vuestra arquitectura real con los controles requeridos y entregando un Roadmap de Implementación claro. El equipo puede ejecutarlo por su cuenta o incorporarme en sus sprints durante las siguientes 4 semanas como Arquitecto Fraccional para dejar los controles, compuertas y el framework de testing en producción.",
+  },
+};
+
+export const AUTHORITY_ARCHITECTURE = {
+  kicker: "Autoridad y trayectoria verificable",
+  title: "De la señal de riesgo a la arquitectura auditable",
+  lead: "Ingeniería, regulación y pruebas ejecutables organizadas en cuatro niveles claros:",
+  blocks: [
+    {
+      step: "01",
+      title: "Qué problema resuelvo",
+      summary:
+        "Sistemas RAG, copilotos y agentes que pasan a producción con políticas escritas pero sin compuertas técnicas sobre el acceso a datos, el uso de herramientas, el fallo seguro y la evidencia.",
+      items: [
+        "Acceso excesivo en retrieval o bases de conocimiento internas",
+        "Autonomía agéntica sin validación independiente ni aprobación humana",
+        "Decisiones imposibles de reconstruir ante auditoría o incidente",
+      ],
+    },
+    {
+      step: "02",
+      title: "Qué construyo",
+      summary:
+        "Planos de control deterministas, validadores de seguridad y arquitecturas de referencia que acotan sistemas probabilísticos en tiempo de ejecución.",
+      items: [
+        "HR Copilot TGI v1 — 8 controles deterministas sobre agentes",
+        "RAG Security Validator — compuerta contra inyección y contrabando en retrieval",
+        "Enterprise AI Risk Console — triaje determinista y evidencia encadenada con SHA-256",
+        "DGOM™ y Dédalo™ — modelo operativo y arquitectura constitucional",
+      ],
+    },
+    {
+      step: "03",
+      title: "Qué demuestra mi trabajo",
+      summary:
+        "Reconocimiento externo, análisis estratégicos de banca y marcos operativos publicados en abierto.",
+      items: [
+        "Premio al Emprendimiento de la Fundación Repsol (2018)",
+        "Caso de estudio: Estrategia de plataforma e IA de BBVA (análisis independiente)",
+        "Responsible AI Framework para selección de talento y emparejamiento CV-puesto",
+        "Whitepaper: Modelos probabilísticos requieren gobernanza determinista",
+      ],
+    },
+    {
+      step: "04",
+      title: "Qué puede contratar el cliente",
+      summary:
+        "Servicios acotados, con entregables técnicos claros y orientación transparente de alcance y precio.",
+      items: [
+        "AI Runtime Risk Check — Diagnóstico preliminar en 90 segundos (gratuito)",
+        "AI Governance Snapshot — Revisión técnica acotada en 1 semana (Desde €2.495)",
+        "Blueprint & Runtime Assurance — Arquitectura e implementación de controles (Desde €6.500 / según alcance)",
+      ],
+    },
+  ],
 };
 
 export const BEST_FIT =
@@ -55,31 +333,58 @@ export const BEST_FIT =
 
 export const HERO_FOR = {
   audience:
-    "Para CISOs, CTOs, responsables de riesgo y equipos de producto que necesitan llevar un sistema de IA de piloto a operación gobernada.",
+    "Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.",
   problems:
-    "Trabajo típico: preparación para el EU AI Act, ISO/IEC 42001 y gobernanza de sistemas RAG, copilotos y agentes.",
+    "Trabajo típico: seguridad agéntica, controles para RAG y copilotos, preparación técnica para EU AI Act e ISO/IEC 42001.",
 };
 
 export const CTA = {
-  primary: "Solicitar un diagnóstico de gobernanza de IA de una semana",
-  secondary: "Explorar el modelo operativo DGOM",
-  note: "Para un sistema RAG, copiloto, agente o workflow de alto impacto · Llamada introductoria de 30 minutos",
+  primary: "Comprobar el riesgo de mi sistema",
+  secondary: "Ver cómo trabajo",
+  persistentPrimary: "Comprobar mi riesgo",
+  persistentSecondary: "Solicitar diagnóstico",
+  note: "Para un sistema RAG, copiloto, agente o workflow de alto impacto · Alcance y precio confirmados tras una llamada de 30 minutos.",
 };
 
 export const DIAGNOSTIC_FORM = {
-  kicker: "O envíe primero el contexto",
-  submit: "Enviar consulta",
+  kicker: "Consulta comercial y diagnóstico técnico",
+  title: "Solicitar diagnóstico o revisión técnica",
+  lead: "Cuéntame qué sistema estás desplegando o evaluando y qué brecha de acceso, autoridad o evidencia necesitas resolver.",
+  submit: "Solicitar diagnóstico",
   sending: "Enviando…",
-  success: "Gracias. Su consulta se ha enviado. Responderé al correo profesional que ha indicado.",
-  error: "No se ha podido enviar la consulta. Inténtelo de nuevo en un momento o use el botón de correo.",
+  success: "Gracias. Responderé con el siguiente paso recomendado para tu sistema.",
+  error: "No se ha podido enviar la solicitud en este momento. Inténtalo de nuevo o utiliza el enlace de correo directo.",
   errorFallback: "Abrir correo con estos datos",
   notConfigured:
-    "El formulario de consulta aún no está disponible. Mientras tanto, contacte conmigo por LinkedIn.",
+    "El formulario directo no está disponible en este entorno. Puedes escribirme por LinkedIn o correo.",
   privacy:
-    "Sin lista de correo. Sin seguimiento automatizado. Sus datos se usan solo para responder a esta consulta.",
+    "Sin lista de correo comercial. Tus datos se tratan únicamente para evaluar y responder a esta solicitud.",
+  privacyLinkText: "Ver política de privacidad y retención",
+  systemTypeLabel: "Tipo de sistema",
+  systemTypes: [
+    { value: "", label: "Selecciona el tipo de sistema" },
+    { value: "Chatbot o asistente conversacional", label: "Chatbot o asistente conversacional" },
+    { value: "RAG sobre documentación interna", label: "RAG sobre documentación interna" },
+    { value: "Copiloto conectado a herramientas", label: "Copiloto conectado a herramientas" },
+    { value: "Agente que puede ejecutar acciones", label: "Agente que puede ejecutar acciones" },
+    { value: "Varios sistemas / Programa de IA", label: "Varios sistemas / Programa de IA" },
+    { value: "Firma consultora / Big 4 / Despacho (Co-delivery o White-Label)", label: "Firma consultora / Big 4 / Despacho (Co-delivery o White-Label)" },
+  ],
+  capabilityLabel: "¿Qué puede hacer el sistema?",
+  capabilities: [
+    { value: "", label: "Selecciona la capacidad principal" },
+    { value: "Solo responder o resumir", label: "Solo responder o resumir" },
+    { value: "Crear borradores o recomendaciones", label: "Crear borradores o recomendaciones" },
+    { value: "Consultar sistemas o datos internos", label: "Consultar sistemas o datos internos" },
+    { value: "Modificar datos o ejecutar acciones", label: "Modificar datos o ejecutar acciones" },
+    { value: "Aún en definición", label: "Aún en definición" },
+  ],
+  concernLabel: "¿Qué te preocupa?",
   governPlaceholder:
-    "Por ejemplo: un sistema RAG interno, un asistente de cara al cliente, IA de un proveedor, o un flujo agéntico.",
-  governHint: "Basta una descripción breve. No incluya nombres confidenciales de clientes ni de asuntos.",
+    "Por ejemplo: permisos de retrieval en RAG, uso de herramientas sin aprobación humana, falta de trazabilidad para auditoría o paso de piloto a producción.",
+  governHint: "Basta un resumen breve. No incluyas secretos, credenciales ni datos confidenciales de clientes.",
+  consentLabel:
+    "Acepto el tratamiento de mis datos profesionales para recibir una respuesta relacionada con esta solicitud.",
   partnerNeedPlaceholder:
     "Describa la capa técnica necesaria — controles, evidencia, compuertas o un PoV acotado. No nombre clientes ni asuntos.",
   discussPlaceholder: "Qué desea tratar. No incluya nombres confidenciales de clientes ni de asuntos.",
@@ -92,12 +397,16 @@ export const DIAGNOSTIC_FORM = {
     { value: "peer", label: "Un investigador o un par" },
     { value: "other", label: "Otro" },
   ],
-  intentLabel: "¿Qué necesita?",
+  intentLabel: "Servicio o taller de interés",
   intents: [
-    { value: "snapshot", label: "AI Governance Snapshot" },
-    { value: "blueprint", label: "AI Governance Blueprint" },
-    { value: "fractional", label: "Apoyo fraccionado de gobernanza" },
-    { value: "other", label: "Otro" },
+    { value: "snapshot", label: "AI Governance Snapshot (Desde €2.495)" },
+    { value: "workshop", label: "Workshop In-Company «Del PDF Legal al Código» (€1.200–€1.800)" },
+    { value: "hackathon", label: "Hackathon de Auditoría Conjunta — 1 jornada (€2.500–€3.000)" },
+    { value: "briefing", label: "Executive Briefing (45 min · Dirección / CTO / CRO)" },
+    { value: "blueprint", label: "Blueprint & Runtime Assurance (Desde €6.500)" },
+    { value: "fractional", label: "Implementación / Arquitecto Fraccional en sprints" },
+    { value: "partners", label: "Alianza / Co-entrega técnica (Consultoras, Big 4 y Despachos)" },
+    { value: "other", label: "Consulta general" },
   ],
   roleLabel: "Cargo",
   practiceLabel: "Área de práctica",
@@ -127,21 +436,21 @@ export const DIAGNOSTIC_FORM = {
 };
 
 export const ENGAGEMENT = {
-  title: "Modelo de colaboración",
+  title: "Cómo trabajamos paso a paso",
   lines: [
     {
-      label: "Diagnosticar",
-      text: "establecer riesgo, titularidad, obligaciones y lagunas prioritarias.",
+      label: "1. Diagnosticar",
+      text: "AI Runtime Risk Check: detectar exposición, autonomía y ausencia de evidencia en 90 segundos.",
       icon: "clipboard",
     },
     {
-      label: "Diseñar",
-      text: "convertir los hallazgos en arquitectura de gobernanza, requisitos de control y un backlog de implantación.",
+      label: "2. Evaluar",
+      text: "AI Governance Snapshot: revisión técnica acotada de arquitectura, riesgos y acciones prioritarias.",
       icon: "doc",
     },
     {
-      label: "Implantar o asegurar",
-      text: "construir controles directamente o gobernar la entrega con su equipo interno o socio de implantación.",
+      label: "3. Diseñar e implementar",
+      text: "Blueprint & Runtime Assurance: diseño e implantación de controles, gates, supervisión y evidencia.",
       icon: "gears",
     },
   ],
@@ -323,21 +632,21 @@ export const AUDIENCE = [
 
 export const PROBLEMS = [
   {
-    title: "Riesgo de IA sin gestionar",
-    subtitle: "Sin titular, sin visión de riesgo residual — hasta que hay un incidente.",
-    text: "La titularidad, la autoridad y el riesgo residual no residen en ningún sitio — hasta que un incidente o un regulador pregunta.",
+    title: "Acceso",
+    subtitle: "¿Qué datos y herramientas puede utilizar?",
+    text: "Sin autorización por usuario, documento o fila, el sistema puede recuperar información no autorizada o consultar herramientas indebidas.",
     icon: "shield",
   },
   {
-    title: "Agentes sin gobernar",
-    subtitle: "Recuperan, deciden y actúan sin una parada independiente.",
-    text: "Los sistemas pueden recuperar, recomendar y actuar sin límites independientes sobre el acceso, la decisión o la ejecución.",
+    title: "Autoridad",
+    subtitle: "¿Qué puede decidir o ejecutar sin aprobación?",
+    text: "Si el modelo decide cuándo usar herramientas o modificar sistemas sin compuerta independiente, un error o manipulación se convierte en acción real.",
     icon: "gears",
   },
   {
-    title: "Sin evidencia de auditoría",
-    subtitle: "La prueba se reconstruye a posteriori, no se genera en runtime.",
-    text: "La prueba se reconstruye después del hecho en lugar de generarse de forma continua en el límite de control.",
+    title: "Evidencia",
+    subtitle: "¿Puedes demostrar qué ocurrió y por qué?",
+    text: "Sin registro de identidad, política, autorización y resultado, nadie puede reconstruir la decisión tras un incidente o ante auditoría.",
     icon: "clipboard",
   },
 ];
@@ -397,18 +706,18 @@ export const DGOM = [
 ];
 
 export const DGOM_MODEL = {
-  kicker: "Modelo operativo",
-  title: "DGOM™: gobernanza del consejo al runtime",
+  kicker: "Cómo trabajo · Modelo operativo",
+  title: "DGOM™: de la política a controles independientes en runtime",
   lead:
-    "DGOM™ es un modelo operativo de gobernanza ejecutable que conecta regulación, política, riesgo, control, código, operaciones, evidencia y supervisión a lo largo del ciclo de vida de la IA y el software.",
+    "Convierto políticas, obligaciones y decisiones de riesgo en controles ejecutables, compuertas de ciclo de vida, runtime assurance y evidencia verificable.",
   designed: "Diseñado y gobernado por Andrés Lage Freire.",
   disclaimer:
-    "DGOM™ orquesta y operacionaliza marcos de gobernanza. No sustituye el asesoramiento jurídico, la certificación formal ni a los responsables de la organización. Los mapeos de referencia son ilustrativos — no son una evaluación de conformidad ni un alineamiento garantizado con el EU AI Act.",
+    "DGOM™ operacionaliza controles técnicos de gobernanza. No sustituye el asesoramiento jurídico, la certificación formal ni a los responsables de la organización.",
   cta: "Ver el modelo operativo DGOM",
   briefCta: "Descargar el Dédalo™ Executive Brief",
-  diagramLabel: "Cómo DGOM™ conecta la rendición de cuentas del consejo con la garantía en runtime",
+  diagramLabel: "Cómo DGOM™ conecta la rendición de cuentas con la garantía en runtime",
   layers: {
-    top: "Consejo / Regulación / Riesgo",
+    top: "Política / Regulación / Riesgo",
     model: "DGOM™",
     outputs: "Controles · Compuertas · Evidencia · Supervisión",
     runtime: "Garantía en runtime",
@@ -416,62 +725,78 @@ export const DGOM_MODEL = {
 };
 
 export const SERVICE_LADDER = {
-  kicker: "Servicios",
-  title: "De la señal de riesgo a la garantía en runtime",
-  lead: "Tres vías separadas — Diagnosticar, Diseñar o Implementar y asegurar. Empiece por un Snapshot de una semana para un sistema; pase al Blueprint o al aseguramiento recurrente solo cuando el alcance lo exija.",
-  expand: "Empiece en pequeño, establezca evidencia y amplíe la cobertura de gobernanza a medida que crecen el sistema y la superficie de riesgo.",
+  kicker: "Servicios y precios orientativos",
+  title: "Tres pasos claros: diagnosticar, evaluar e implementar",
+  lead: "Empieza comprobando el riesgo en 90 segundos, solicita una revisión técnica acotada de una semana o diseña el plano de control para producción.",
+  expand: "Alcance y precio confirmados tras una llamada de 30 minutos. Ningún servicio constituye asesoramiento jurídico ni certificación.",
   problem: "Problema",
   outcome: "Resultado",
-  deliverables: "Entregables",
-  audience: "Audiencia típica",
+  deliverables: "Alcance e incluye",
+  audience: "Indicación legal",
   items: [
+    {
+      id: "risk-check",
+      intent: "risk-check",
+      href: "/es/ai-runtime-risk-check",
+      stage: "Paso 1 · Diagnosticar",
+      name: "AI Runtime Risk Check",
+      price: "Gratuito · 90 segundos",
+      description:
+        "Un check inicial para detectar exposición, autonomía y ausencia de evidencia.",
+      problem:
+        "No está claro si tu RAG, copiloto o agente tiene brechas de acceso a datos, uso de herramientas o trazabilidad antes de escalar.",
+      outcome:
+        "Clasificación preliminar de exposición en runtime y recomendación del control técnico prioritario.",
+      deliverables: [
+        "6 preguntas sobre acceso, autoridad, fallo seguro y registro",
+        "Evaluación en tres dimensiones: Exposición, Autonomía y Control/Evidencia",
+        "Diagnóstico preliminar inmediato con el principal control recomendado",
+      ],
+      audience:
+        "Orientación técnica preliminar. No es asesoramiento jurídico, auditoría formal ni certificación.",
+      cta: "Comprobar mi riesgo",
+    },
     {
       id: "snapshot",
       intent: "snapshot",
-      stage: "1. Diagnosticar — una semana",
+      stage: "Paso 2 · Evaluar",
       name: "AI Governance Snapshot",
-      problem: "Un sistema de IA ya está en uso y el equipo necesita una vista acotada del riesgo y de qué hacer después.",
+      price: "Desde €2.495",
       description:
-        "Precio de lanzamiento para los dos primeros proyectos contratados. Evaluación técnica acotada de una organización y un sistema o caso de uso de IA, con entrega en una semana.",
-      outcome: "Un memo ejecutivo, una matriz breve de riesgos y de tres a cinco acciones priorizadas — no una arquitectura.",
+        "Revisión acotada de un sistema, arquitectura, controles, riesgos y acciones prioritarias.",
+      problem:
+        "Un sistema de IA está en piloto o producción y necesitas saber exactamente dónde están los gaps técnicos y qué priorizar.",
+      outcome:
+        "Mapa claro de brechas de acceso, autoridad y evidencia con de 3 a 5 acciones técnicas priorizadas en una semana.",
       deliverables: [
-        "Reunión inicial, revisión de documentación existente y hasta dos entrevistas",
-        "Memo ejecutivo",
-        "Matriz breve de riesgos",
-        "De tres a cinco acciones priorizadas y sesión de devolución",
+        "Alcance: una organización y un sistema o caso de uso de IA (entrega en 1 semana)",
+        "Revisión de arquitectura, herramientas, flujos de datos y registros actuales",
+        "Memo ejecutivo, matriz breve de riesgos y sesión de devolución",
       ],
-      audience: "Organizaciones que quieren un punto de partida de una semana para un solo sistema.",
-      cta: "Empezar por el Snapshot",
+      audience:
+        "Apoyo técnico de ingeniería de gobernanza. No es asesoramiento jurídico ni certificación.",
+      cta: "Solicitar AI Governance Snapshot",
     },
     {
       id: "blueprint",
       intent: "blueprint",
-      stage: "2. Diseñar — diagnóstico + arquitectura",
-      name: "AI Governance Blueprint",
-      problem: "El problema ya es claro, pero no hay un diseño accionable de controles, compuertas, roles y evidencia.",
-      description: "Diagnóstico más arquitectura y diseño de controles para el siguiente paso de implementación.",
-      outcome: "Un diseño accionable para la siguiente etapa de implantación — sin reivindicar implantarlo en esta oferta.",
+      stage: "Paso 3 · Diseñar e implementar",
+      name: "Blueprint & Runtime Assurance",
+      price: "Blueprint desde €6.500 · Implementación a definir según alcance",
+      description:
+        "Diseño o implementación de controles, gates, supervisión, trazabilidad y evidencia.",
+      problem:
+        "El riesgo ya está identificado, pero faltan la arquitectura de control ejecutable, las compuertas de ciclo de vida y la evidencia lista para auditoría.",
+      outcome:
+        "Arquitectura de controles (Blueprint) y aseguramiento en ejecución (Runtime Assurance) integrados con tu equipo.",
       deliverables: [
-        "Arquitectura de gobernanza objetivo",
-        "Diseño de controles y compuertas de ciclo de vida",
-        "Estructura del paquete de evidencia",
-        "Secuencia de implantación",
+        "Alcance: diseño de controles, allowlists, compuertas HITL, fail-safe y esquema de evidencia",
+        "Mapeo técnico a obligaciones del EU AI Act, ISO/IEC 42001 y OWASP",
+        "Opcional: implementación y aseguramiento recurrente en runtime según alcance",
       ],
-      audience: "Organizaciones listas para diseñar controles después del diagnóstico.",
-      cta: "Solicitar el Blueprint",
-    },
-    {
-      id: "fractional",
-      intent: "fractional",
-      stage: "3. Implementar o asegurar — recurrencia",
-      name: "Apoyo fraccionado de gobernanza",
-      aka: "Fractional governance support",
-      problem: "Los pilotos pasan a operaciones, pero no hay un titular permanente para la revisión de controles y el aseguramiento.",
-      description: "Ingeniería de gobernanza, aseguramiento, revisión de controles y apoyo a la decisión de forma continua, sin un equipo interno completo.",
-      outcome: "Una cadencia retenida de aseguramiento a medida que crece el parque.",
-      deliverables: ["Revisión periódica de controles", "Soporte de garantía en runtime", "Apoyo a la decisión de los responsables"],
-      audience: "Organizaciones que pasan de pilotos a operaciones gobernadas.",
-      cta: "Hablar de soporte recurrente",
+      audience:
+        "Ingeniería de gobernanza y controles en runtime. No constituye asesoramiento jurídico ni certificación formal.",
+      cta: "Solicitar diagnóstico",
     },
   ],
 };
@@ -480,12 +805,12 @@ export const PARTNERS = {
   kicker: "Canal asesor",
   title: "Entrega técnica para despachos y firmas asesoras",
   lead:
-    "Los equipos jurídicos y de consultoría pueden definir requisitos regulatorios y posiciones de gobernanza mientras sus clientes siguen necesitando una capa de entrega técnica. La Ingeniería de Gobernanza de IA cubre esa capa con controles, validación, documentación técnica, evidencia y garantía en runtime.",
-  highlight: "Su firma aporta interpretación jurídica y la confianza del cliente. Nosotros aportamos la capa de ejecución técnica.",
-  modelsLead: "Los modelos de entrega posibles incluyen derivación, co-entrega y soporte white-label.",
+    "Los equipos jurídicos y de consultoría definen requisitos regulatorios mientras sus clientes necesitan traducirlos en controles técnicos ejecutables, validación y evidencia en runtime.",
+  highlight: "Tu firma aporta la interpretación jurídica y la relación con el cliente. Yo aporto la capa de ingeniería de gobernanza.",
+  modelsLead: "Modelos de colaboración disponibles: derivación, co-entrega y soporte white-label.",
   boundary:
-    "No prestamos asesoramiento jurídico ni sustituimos al letrado. Prestamos ingeniería de gobernanza técnica y soporte de aseguramiento.",
-  cta: "Hablar de capacidad de entrega técnica",
+    "No presto asesoramiento jurídico ni sustituyo al abogado. Aporto ingeniería de controles técnicos y aseguramiento en runtime.",
+  cta: "Hablar de colaboración técnica",
   partnerProvidesTitle: "La firma asesora aporta",
   partnerProvides: [
     "Interpretación jurídica",
@@ -494,14 +819,14 @@ export const PARTNERS = {
     "Titularidad del asunto",
     "Producto de trabajo jurídico",
   ],
-  practiceProvidesTitle: "La Ingeniería de Gobernanza de IA aporta",
+  practiceProvidesTitle: "Ingeniería de Gobernanza de IA aporta",
   practiceProvides: [
-    "Implantación técnica",
-    "Mapeo de controles",
+    "Implantación técnica de controles",
+    "Mapeo técnico de obligaciones",
     "Compuertas de ciclo de vida",
-    "Validación",
+    "Validación y pruebas",
     "Documentación técnica",
-    "Paquetes de evidencia",
+    "Paquetes de evidencia verificable",
     "Garantía en runtime",
     "Prototipos y PoV acotados",
   ],
@@ -512,39 +837,39 @@ export const PARTNERS = {
     },
     {
       name: "Co-entrega",
-      text: "Ambos equipos aportan expertise distinto bajo un modelo de entrega acordado.",
+      text: "Ambos equipos aportan expertise complementario bajo un alcance acordado.",
     },
     {
       name: "Soporte white-label",
-      text: "El trabajo técnico se entrega detrás de la relación de cliente de la firma, con alcance, confidencialidad y límites de responsabilidad claros.",
+      text: "El trabajo técnico se entrega integrado con la firma, con límites claros de alcance y confidencialidad.",
     },
   ],
 };
 
 export const CAPABILITIES = [
   {
-    title: "Política y gobernanza",
-    text: "Marcos alineados con el EU AI Act, ISO/IEC 42001 y su modelo operativo.",
+    title: "Política a control técnico",
+    text: "Traducción de requisitos de EU AI Act e ISO/IEC 42001 a especificaciones verificables.",
     icon: "doc",
   },
   {
-    title: "Evaluación de riesgo de IA",
-    text: "Identificar, clasificar y priorizar riesgos de IA a lo largo del ciclo de vida.",
+    title: "Diagnóstico de riesgo en runtime",
+    text: "Evaluación de exposición de datos, autonomía de herramientas y fallo seguro.",
     icon: "chart",
   },
   {
     title: "Controles como código",
-    text: "Controles versionados y testeables, integrados en los flujos y en el stack.",
+    text: "Allowlists, validadores y compuertas versionadas e integradas en CI/CD.",
     icon: "code",
   },
   {
-    title: "Controles independientes de runtime",
-    text: "Kill switches y monitorización diseñados en la arquitectura de control.",
+    title: "Compuertas independientes",
+    text: "Aprobación humana (HITL), bloqueo ante incertidumbre y parada de emergencia.",
     icon: "monitor",
   },
   {
-    title: "Evidencia lista para auditoría",
-    text: "Trazas de decisión, artefactos con hash y prueba de controles.",
+    title: "Evidencia verificable",
+    text: "Trazas completas de identidad, política, herramienta y resultado con hash SHA-256.",
     icon: "clipboard",
   },
 ];
@@ -552,120 +877,177 @@ export const CAPABILITIES = [
 export const DELIVER = [
   {
     title: "Arquitectura de gobernanza",
-    items: ["Inventario de IA", "Clasificación de riesgo", "Marco de controles", "Modelo operativo de gobernanza"],
+    items: ["Inventario técnico de IA", "Clasificación de exposición", "Matriz de controles", "Modelo operativo DGOM™"],
   },
   {
-    title: "Ingeniería",
+    title: "Ingeniería de runtime",
     items: [
-      "Compliance-as-code (cumplimiento como código)",
+      "Compliance-as-code",
       "Compuertas SDLC",
-      "Controles de runtime",
-      "Kill switches",
-      "Compuertas de aprobación humana",
+      "Allowlists y validación de herramientas",
+      "Fail-safe y kill switches",
+      "Compuertas de aprobación humana (HITL)",
     ],
   },
   {
     title: "Evidencia",
-    items: ["Pistas de auditoría", "Paquetes de evidencia", "Prueba de controles", "Monitorización continua"],
+    items: ["Trazas de decisión reconstruibles", "Paquetes de evidencia con hash", "Pruebas de controles", "Monitorización continua"],
   },
   {
     title: "Entrega ejecutiva",
-    items: ["Evaluación de madurez", "Registro de riesgos", "Reporting al consejo", "Hoja de ruta de implantación a 90 días"],
+    items: ["Mapa de gaps prioritarios", "Registro de riesgos técnicos", "Informe para dirección/CISO", "Secuencia de implantación"],
   },
 ];
 
 export const DIAGNOSTIC = {
-  title: "AI Governance Diagnostic",
-  duration: "1 semana o según diseño",
+  title: "Orientación de alcance y precios",
+  duration: "Alcance confirmado tras llamada de 30 min",
   lead:
-    "El Snapshot es una evaluación de una semana de un sistema. El Blueprint es un paso distinto: diagnóstico más diseño de arquitectura y controles.",
+    "Trabajas directamente con quien diagnostica la arquitectura y diseña los controles técnicos, sin capas intermedias entre estrategia e ingeniería.",
   position:
-    "Trabajo directamente con quien diseña y construye los controles, sin separar estrategia, implantación y evidencia en varias capas.",
+    "Cada encargo tiene un alcance acotado por escrito antes de empezar. Ningún servicio promete cumplimiento garantizado ni sustituye al asesoramiento jurídico.",
   negatives: [
-    "No es un memo de despacho.",
-    "No es un deck de diapositivas de las Big Four.",
-    "No es otra capa de retraso por comité.",
+    "No es un dictamen jurídico abstracto.",
+    "No es una presentación genérica sin controles técnicos.",
+    "No es una promesa de eliminar todo el riesgo.",
   ],
   hybrid:
-    "Un profesional senior convierte decisiones de IA en controles ejecutables, compuertas de ciclo de vida y evidencia — sin los traspasos.",
-  limitsTitle: "Qué aporta usted",
+    "Ingeniería de gobernanza ejecutable: arquitectura, límites de runtime y evidencia técnica verificable.",
+  limitsTitle: "Qué aporta tu equipo",
   nature:
-    "Esto es apoyo técnico de gobernanza de IA. No es asesoramiento jurídico, no es una auditoría formal, no es una evaluación de conformidad y no es una certificación. El mapeo al EU AI Act en el Blueprint es ilustrativo, no una determinación jurídica.",
-  clientLabel: "Qué aporta usted",
+    "Apoyo técnico de Ingeniería de Gobernanza de IA. No es asesoramiento jurídico, auditoría formal, evaluación de conformidad ni certificación.",
+  clientLabel: "Qué aporta el cliente",
   clientProvides: [
-    "Un titular interno nombrado para el encargo",
-    "El sistema o familia de casos de uso en alcance y su uso previsto",
-    "Políticas existentes, notas de arquitectura e incidentes o hallazgos de auditoría conocidos, si los hay",
-    "Acceso a Ingeniería y Riesgo para entrevistas o una sesión de trabajo",
+    "Un responsable interno para el sistema evaluado",
+    "Descripción del sistema RAG, copiloto, agente o workflow en alcance",
+    "Documentación de arquitectura, herramientas conectadas y políticas existentes",
+    "Disponibilidad para hasta dos sesiones de revisión técnica",
   ],
   includesLabel: "Incluye",
   limitsLabel: "Límites explícitos",
-  forLabel: "Mejor para",
+  forLabel: "Ideal para",
   bands: [
     {
       id: "snapshot",
       intent: "snapshot",
-      step: "1. Snapshot",
-      kind: "Una semana · precio de lanzamiento",
+      step: "Paso 1 · Evaluar",
+      kind: "Entrega en 1 semana",
       name: "AI Governance Snapshot",
-      price: "2.495 €",
+      price: "Desde €2.495",
       vat: "+ impuestos aplicables",
       subtitle:
-        "Precio de lanzamiento para los dos primeros proyectos contratados. Evaluación técnica acotada de una organización y un sistema o caso de uso de IA, con entrega en una semana.",
+        "Revisión técnica acotada de un sistema de IA, su arquitectura, herramientas, datos, riesgos en runtime y acciones prioritarias.",
       includes: [
-        "Reunión inicial.",
-        "Revisión de documentación existente.",
-        "Hasta dos entrevistas.",
-        "Memo ejecutivo.",
-        "Matriz breve de riesgos.",
-        "De tres a cinco acciones priorizadas.",
-        "Sesión de devolución.",
+        "Sesión inicial y revisión de arquitectura/documentación.",
+        "Hasta dos entrevistas con ingeniería, producto o riesgo.",
+        "Mapa de gaps de acceso, autoridad, fail-safe y evidencia.",
+        "Memo ejecutivo y de 3 a 5 controles prioritarios recomendados.",
+        "Sesión de devolución técnica y ejecutiva.",
       ],
       limits: [
-        "Una organización y un sistema o caso de uso.",
-        "No es un inventario corporativo de IA.",
-        "No incluye implementación.",
-        "No es una auditoría formal.",
-        "No es una certificación.",
-        "No es una evaluación de conformidad.",
-        "No es asesoramiento jurídico.",
+        "Acotado a una organización y un sistema o caso de uso.",
+        "No incluye implementación en código.",
+        "No es asesoramiento jurídico ni certificación.",
       ],
-      for: "Equipos que necesitan saber qué decidir y qué hacer después antes de encargar arquitectura o implementación.",
-      cta: "Empezar por el Snapshot",
+      for: "Equipos que quieren pasar del resultado preliminar del Risk Check a un mapa técnico de gaps para su sistema.",
+      cta: "Solicitar AI Governance Snapshot",
     },
     {
       id: "blueprint",
       intent: "blueprint",
-      step: "2. Blueprint",
-      kind: "Diagnóstico + diseño",
+      step: "Paso 2 · Diseñar",
+      kind: "Diagnóstico + arquitectura",
       name: "AI Governance Blueprint",
-      price: "6.500 €",
+      price: "Desde €6.500",
       vat: "+ impuestos aplicables",
       subtitle:
-        "Un paso distinto del Snapshot: diagnóstico más diseño de arquitectura y controles para una organización y un sistema o caso de uso de IA.",
+        "Diseño detallado de la arquitectura de gobernanza, controles deterministas, compuertas de ciclo de vida y estructura de evidencia.",
       includes: [
-        "Diagnóstico del sistema en alcance.",
-        "Arquitectura de gobernanza objetivo.",
-        "Diseño de controles y compuertas de ciclo de vida.",
-        "Roles, derechos de decisión y vías de escalado.",
-        "Estructura del paquete de evidencia.",
-        "Secuencia de implantación.",
-        "Cierre con un profesional senior.",
+        "Diagnóstico completo del sistema en alcance.",
+        "Arquitectura objetivo de controles en runtime y SDLC.",
+        "Diseño de allowlists, autorización, HITL y fallo seguro.",
+        "Especificación del paquete de evidencia y trazabilidad.",
+        "Secuencia técnica de implementación.",
       ],
       limits: [
-        "La implantación no está incluida salvo que se acote aparte.",
-        "No es asesoramiento jurídico.",
-        "No es una evaluación de conformidad.",
-        "No es una certificación ISO/IEC 42001.",
-        "El mapeo del EU AI Act es ilustrativo, no una determinación jurídica.",
+        "No es asesoramiento jurídico ni evaluación de conformidad.",
+        "El mapeo regulatorio es técnico e ilustrativo.",
       ],
-      for: "Organizaciones que ya saben que el problema es real y necesitan un diseño accionable para la siguiente etapa de implantación.",
-      cta: "Solicitar el Blueprint",
+      for: "Organizaciones listas para diseñar el plano de control antes de escalar a producción.",
+      cta: "Solicitar Blueprint",
+    },
+    {
+      id: "assurance",
+      intent: "fractional",
+      step: "Paso 3 · Implementar",
+      kind: "Ejecución y supervisión",
+      name: "Runtime Assurance / Implementación",
+      price: "A definir según alcance",
+      vat: "Confirmado tras llamada de 30 min",
+      subtitle:
+        "Implementación de controles ejecutables, gates de despliegue, pruebas de validación y acompañamiento técnico continuo.",
+      includes: [
+        "Implementación o revisión de controles en runtime y CI/CD.",
+        "Pruebas sobre conjunto de evaluación acotado.",
+        "Verificación de trazas de decisión y evidencia.",
+        "Soporte directo a CISO, CTO y responsables de riesgo.",
+      ],
+      limits: [
+        "Alcance técnico definido a medida del stack del cliente.",
+        "No sustituye la responsabilidad operativa ni jurídica del titular.",
+      ],
+      for: "Equipos que llevan RAG, copilotos o agentes a operación gobernada en producción.",
+      cta: "Solicitar diagnóstico",
     },
   ],
   priceNote:
-    "El precio de lanzamiento del Snapshot aplica a los dos primeros proyectos contratados. La llamada introductoria no tiene coste. El alcance se confirma por escrito antes de empezar. Una referencia del cliente no es condición del precio.",
-  bandsLabel: "Ofertas de AI Governance Diagnostic",
+    "Alcance y precio confirmados tras una llamada de 30 minutos. Los importes indicados son orientativos para un sistema acotado.",
+  bandsLabel: "Jerarquía de servicios y orientación de precios",
+  hierarchyTitle: "Recorrido ordenado de menor a mayor alcance",
+  hierarchySteps: [
+    {
+      rank: "1",
+      name: "AI Runtime Risk Check",
+      tag: "Entrada inmediata · Gratis · 90 s",
+      desc: "Diagnóstico preliminar interactivo de exposición, autonomía y evidencia.",
+      target: "risk-check",
+    },
+    {
+      rank: "2",
+      name: "AI Governance Snapshot",
+      tag: "Desde €2.495 · 1 semana",
+      desc: "Revisión técnica acotada de arquitectura, riesgos en runtime y 3–5 controles prioritarios.",
+      target: "services",
+    },
+    {
+      rank: "3",
+      name: "Workshop / Hackathon In-Company",
+      tag: "€1.200 – €3.000 · Equipos técnicos",
+      desc: "«Del PDF Legal al Código» o auditoría conjunta con Gap Analysis y hoja de ruta.",
+      target: "enablement",
+    },
+    {
+      rank: "4",
+      name: "AI Governance Blueprint",
+      tag: "Desde €6.500 · Diseño de arquitectura",
+      desc: "Especificación completa del plano de control determinista, HITL, allowlists y evidencia.",
+      target: "services",
+    },
+    {
+      rank: "5",
+      name: "Runtime Assurance",
+      tag: "Según alcance · Por sprints",
+      desc: "Implantación de controles ejecutables, compuertas CI/CD y validación en producción.",
+      target: "services",
+    },
+    {
+      rank: "6",
+      name: "Partner / Co-delivery / White-label",
+      tag: "Canal exclusivo para firmas",
+      desc: "Capacidad técnica de ingeniería bajo NDA para despachos legales, Big 4 y consultoras.",
+      target: "partners",
+    },
+  ],
 };
 
 export const PROJECTS = [
@@ -674,10 +1056,10 @@ export const PROJECTS = [
     name: "HR Copilot — Technical Governance Implementation (TGI v1)",
     category: "Implementación destacada · Gobernanza agéntica en runtime",
     stack: "Python · OpenAI GPT-4o · OWASP LLM v2025 · OWASP Agentic 2026 · 8 controles TGI · SIEM audit",
-    lead: "Mismo modelo. Mismas peticiones. Dos posturas de riesgo. Una diferencia: el plano de control.",
+    lead: "Mismo modelo. Mismas peticiones. Dos posturas de riesgo.",
     summary:
-      "Dos builds del mismo copiloto interno de RR. HH. sobre datos sintéticos, ejecutados frente a los mismos payloads para que un CISO o CTO observe la diferencia en vivo. En el Acto I (sin gobernanza), una sola consulta encadena herramientas sin autorización y exfiltra retribución de dirección, datos personales (RGPD arts. 32/33), planes confidenciales de M&A y credenciales internas en menos de 60 segundos. En el Acto II, la capa determinista TGI v1 envuelve al mismo modelo sin cambiarlo: aislamiento del prompt, clasificación de entrada, lista cerrada de herramientas, aprobación humana (HITL), DLP de salida, autorización por fila, higiene de secretos y trazabilidad lista para SIEM.",
-    controlFlowLabel: "Esquema de control en runtime",
+      "Una demostración ejecutable de cómo un plano de control transforma un copiloto vulnerable en un sistema limitado, supervisado y auditable. En el Acto I (sin gobernanza), una sola consulta encadena herramientas sin autorización y expone datos sensibles en menos de 60 segundos. En el Acto II (con TGI v1), 8 controles deterministas envuelven al mismo modelo: aislamiento del prompt, clasificación de entrada, allowlist de herramientas, aprobación humana (HITL), DLP de salida, autorización por fila, higiene de secretos y traza lista para SIEM.",
+    controlFlowLabel: "8 controles deterministas en runtime",
     controlFlow: [
       "Entrada",
       "Clasificación",
@@ -692,9 +1074,9 @@ export const PROJECTS = [
     videoWidth: 1280,
     videoHeight: 800,
     videoCaption:
-      "Recorrido en castellano (dos actos): exfiltración de PII, información privilegiada de M&A y credenciales en el agente sin controles, frente al bloqueo determinista capa por capa en TGI v1.",
+      "Recorrido en castellano (Acto I sin gobernanza vs Acto II con TGI v1): bloqueo determinista capa por capa.",
     outcome:
-      "El mismo modelo y los mismos datos producen dos posturas opuestas: de una brecha completa en un solo prompt a cero hallazgos sensibles en el conjunto de pruebas de esta demostración, con cada intento neutralizado y registrado con referencias explícitas a OWASP LLM v2025 (LLM01, LLM02, LLM05–07) y OWASP Agentic 2026 (ASI01–03, ASI05).",
+      "Cero hallazgos sensibles en el conjunto de pruebas de esta demostración, con cada intento neutralizado y registrado como evidencia verificable.",
   },
   {
     num: "02",

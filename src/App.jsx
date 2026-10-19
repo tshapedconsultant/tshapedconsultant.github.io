@@ -8,10 +8,14 @@ import WhitepaperEs from "./pages/WhitepaperEs.jsx";
 import ArticleEs from "./pages/ArticleEs.jsx";
 import HybridProfilesEs from "./pages/HybridProfilesEs.jsx";
 import InsightArticle from "./pages/InsightArticle.jsx";
+import AiRuntimeRiskCheckPage from "./pages/AiRuntimeRiskCheckPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import AiRuntimeRiskCheck from "./components/AiRuntimeRiskCheck";
 import { pulseByPath } from "./data/pulseLibrary.ts";
 import { Icon } from "./Icons.jsx";
 import Picture from "./components/Picture.jsx";
-import { FormNotConfiguredError, contactEmail, submitEnquiry } from "./contact.js";
+import { FormNotConfiguredError, RateLimitError, contactEmail, isValidWorkEmail, submitEnquiry } from "./contact.js";
+import { trackEvent } from "./lib/analytics";
 import { useI18n } from "./i18n/LocaleContext";
 import { applyDocumentHead } from "./i18n/documentHead.js";
 import {
@@ -20,6 +24,8 @@ import {
 } from "./content.js";
 import {
   EU_AI_ACT_MAPPING_PATH,
+  PRIVACY_PATH,
+  RISK_CHECK_PATH,
   WHITEPAPER_PATH,
   hashToPathRoute,
   isAppPath,
@@ -27,6 +33,8 @@ import {
   isEuAiActMappingPath,
   isHybridProfilesPath,
   isMontesquieuPath,
+  isPrivacyPath,
+  isRiskCheckPath,
   isWhitepaperPath,
   localeFromPath,
   withLocale,
@@ -46,6 +54,8 @@ const ARTICLE_PAGES = {
 };
 
 function viewFromLocation(pathname, hash) {
+  if (isRiskCheckPath(pathname)) return "riskcheck";
+  if (isPrivacyPath(pathname)) return "privacy";
   if (isEuAiActMappingPath(pathname) || isEuAiActMappingHash(hash)) return "mapping";
   if (isWhitepaperPath(pathname)) return "whitepaper";
   if (isHybridProfilesPath(pathname)) return "hybrid";
@@ -65,6 +75,8 @@ function viewFromLocation(pathname, hash) {
 function scrollToHash() {
   const pathname = window.location.pathname;
   if (
+    isRiskCheckPath(pathname) ||
+    isPrivacyPath(pathname) ||
     isEuAiActMappingPath(pathname) ||
     isWhitepaperPath(pathname) ||
     isHybridProfilesPath(pathname) ||
@@ -97,10 +109,6 @@ function isInternalHref(href) {
   return typeof href === "string" && (href.startsWith("#") || (href.startsWith("/") && !href.startsWith("//")));
 }
 
-function isValidEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
 function mailtoSafeLine(value, max = 120) {
   return String(value)
     .replace(/[\r\n\0\u2028\u2029]/g, " ")
@@ -126,28 +134,14 @@ function enquiryMailtoHref({
   name,
   company,
   email,
+  systemType,
+  capability,
   govern,
-  stageLabel,
   intentLabel,
-  callerLabel,
-  callerKey,
-  role,
-  practice,
-  delivery,
-  nda,
-  isPartner,
-  isOrg,
   copy,
 }) {
-  const subjectPrefix = {
-    organisation: "Organisation",
-    legal: "Legal partner",
-    consulting: "Consulting partner",
-    peer: "Peer/research",
-    other: "Other",
-  }[callerKey] || "Enquiry";
   const subject = encodeURIComponent(
-    intentLabel ? `${subjectPrefix}: ${intentLabel}` : `${subjectPrefix}: site enquiry`
+    intentLabel ? `Organisation: ${intentLabel}` : "Organisation: site enquiry"
   );
   const body = encodeURIComponent(
     [
@@ -157,17 +151,12 @@ function enquiryMailtoHref({
       `${copy.name}: ${mailtoSafeLine(name)}`,
       `${copy.company}: ${mailtoSafeLine(company) || copy.mailtoNotSpecified}`,
       `${copy.email}: ${mailtoSafeLine(email, 254)}`,
-      `${copy.mailtoCaller} ${mailtoSafeLine(callerLabel) || copy.mailtoNotSpecified}`,
-      isOrg ? `${copy.mailtoIntent} ${mailtoSafeLine(intentLabel) || copy.mailtoNotSpecified}` : null,
-      isPartner ? `${copy.mailtoRole} ${mailtoSafeLine(role) || copy.mailtoNotSpecified}` : null,
-      isPartner ? `${copy.mailtoPractice} ${mailtoSafeLine(practice) || copy.mailtoNotSpecified}` : null,
-      isPartner ? `${copy.mailtoDelivery} ${mailtoSafeLine(delivery) || copy.mailtoNotSpecified}` : null,
-      isPartner ? `${copy.mailtoNda} ${mailtoSafeLine(nda) || copy.mailtoNotSpecified}` : null,
+      `${copy.systemType}: ${mailtoSafeLine(systemType) || copy.mailtoNotSpecified}`,
+      `${copy.capability}: ${mailtoSafeLine(capability) || copy.mailtoNotSpecified}`,
+      intentLabel ? `${copy.mailtoIntent} ${mailtoSafeLine(intentLabel)}` : null,
       "",
-      isPartner ? copy.mailtoNeed : isOrg ? copy.mailtoGovern : `${copy.discuss}:`,
+      copy.mailtoGovern,
       mailtoSafeBody(govern),
-      "",
-      isOrg ? `${copy.mailtoStage} ${stageLabel || copy.mailtoNotSpecified}` : null,
       "",
       "—",
       copy.mailtoFooter,
@@ -232,23 +221,18 @@ function DgomFlow({ model, phases }) {
   );
 }
 
-function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
-  const { t, content } = useI18n();
+function DiagnosticForm({ intent, onIntentChange }) {
+  const { t, content, localizedPath } = useI18n();
   const { DIAGNOSTIC_FORM } = content;
   const summaryRef = useRef(null);
-  const isPartner = caller === "legal" || caller === "consulting";
-  const isOrg = caller === "organisation";
-  const isPeer = caller === "peer" || caller === "other";
   const [values, setValues] = useState({
     name: "",
     company: "",
     email: "",
+    systemType: "",
+    capability: "",
     govern: "",
-    stage: "",
-    role: "",
-    practice: "",
-    delivery: "",
-    nda: "",
+    consent: false,
     hp: "",
   });
   const [errors, setErrors] = useState({});
@@ -258,7 +242,7 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
 
   function update(field) {
     return (event) => {
-      const value = event.target.value;
+      const value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
       setValues((prev) => ({ ...prev, [field]: value }));
       if (errors[field]) {
         setErrors((prev) => {
@@ -272,19 +256,14 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
 
   function validate(data) {
     const next = {};
-    if (!caller) next.caller = t.form.errors.caller;
     if (!data.name.trim()) next.name = t.form.errors.name;
     if (!data.email.trim()) next.email = t.form.errors.email;
-    else if (!isValidEmail(data.email.trim())) next.email = t.form.errors.emailInvalid;
-    if (!data.govern.trim()) {
-      next.govern = isPartner
-        ? t.form.errors.partnerNeed
-        : isPeer
-          ? t.form.errors.discuss
-          : t.form.errors.govern;
-    }
-    if (isPartner && !data.role.trim()) next.role = t.form.errors.role;
-    if (isPartner && !data.delivery.trim()) next.delivery = t.form.errors.delivery;
+    else if (!isValidWorkEmail(data.email.trim())) next.email = t.form.errors.emailInvalid;
+    if (!data.company.trim()) next.company = t.form.errors.company;
+    if (!data.systemType.trim()) next.systemType = t.form.errors.systemType;
+    if (!data.capability.trim()) next.capability = t.form.errors.capability;
+    if (!data.govern.trim()) next.govern = t.form.errors.govern;
+    if (!data.consent) next.consent = t.form.errors.consent;
     return next;
   }
 
@@ -303,87 +282,79 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
       return;
     }
 
-    const stageLabel =
-      DIAGNOSTIC_FORM.stages.find((option) => option.value === values.stage)?.label || "";
-    const intentLabel = isOrg
-      ? DIAGNOSTIC_FORM.intents.find((option) => option.value === intent)?.label || ""
-      : isPartner
-        ? values.delivery
-        : "";
-    const callerLabel =
-      DIAGNOSTIC_FORM.callers.find((option) => option.value === caller)?.label || "";
+    const intentLabel =
+      DIAGNOSTIC_FORM.intents.find((option) => option.value === intent)?.label || "";
+
     setStatus("sending");
     try {
       await submitEnquiry({
         name: values.name,
         company: values.company,
         email: values.email,
+        systemType: values.systemType,
+        capability: values.capability,
         govern: values.govern,
-        stage: isOrg ? stageLabel : "",
         intent: intentLabel,
-        caller: callerLabel,
-        callerKey: caller,
-        role: values.role,
-        practice: values.practice,
-        delivery: values.delivery,
-        nda: values.nda,
+        caller: "Organisation",
+        callerKey: "organisation",
+        consent: values.consent,
+        source: "commercial-diagnostic-form",
+      });
+      trackEvent("contact_submitted", {
+        source: "commercial_form",
+        intent: intent || "snapshot",
       });
       setStatus("sent");
       setValues({
         name: "",
         company: "",
         email: "",
+        systemType: "",
+        capability: "",
         govern: "",
-        stage: "",
-        role: "",
-        practice: "",
-        delivery: "",
-        nda: "",
+        consent: false,
         hp: "",
       });
     } catch (err) {
       setStatus("idle");
-      if (err instanceof FormNotConfiguredError) {
+      if (err instanceof RateLimitError) {
+        setSubmitError(t.form.errors.rateLimit);
+      } else if (err instanceof FormNotConfiguredError) {
         setSubmitError(DIAGNOSTIC_FORM.notConfigured);
       } else {
         setSubmitError(DIAGNOSTIC_FORM.error);
-        setMailtoFallback(
-          enquiryMailtoHref({
-            name: values.name,
-            company: values.company,
-            email: values.email,
-            govern: values.govern,
-            stageLabel,
-            intentLabel,
-            callerLabel,
-            callerKey: caller,
-            role: values.role,
-            practice: values.practice,
-            delivery: values.delivery,
-            nda: values.nda,
-            isPartner,
-            isOrg,
-            copy: t.form,
-          })
-        );
       }
+      setMailtoFallback(
+        enquiryMailtoHref({
+          name: values.name,
+          company: values.company,
+          email: values.email,
+          systemType: values.systemType,
+          capability: values.capability,
+          govern: values.govern,
+          intentLabel,
+          copy: t.form,
+        })
+      );
       requestAnimationFrame(() => summaryRef.current?.focus());
     }
   }
 
-  const governLabel = isPartner ? t.form.partnerNeed : isPeer ? t.form.discuss : t.form.govern;
   const errorEntries = [
-    ["caller", DIAGNOSTIC_FORM.callerLabel, errors.caller, "#diag-caller"],
     ["name", t.form.name, errors.name, "#diag-name"],
     ["email", t.form.email, errors.email, "#diag-email"],
-    ["role", DIAGNOSTIC_FORM.roleLabel, errors.role, "#diag-role"],
-    ["delivery", DIAGNOSTIC_FORM.deliveryLabel, errors.delivery, "#diag-delivery"],
-    ["govern", governLabel, errors.govern, "#diag-govern"],
+    ["company", t.form.company, errors.company, "#diag-company"],
+    ["systemType", t.form.systemType, errors.systemType, "#diag-system-type"],
+    ["capability", t.form.capability, errors.capability, "#diag-capability"],
+    ["govern", t.form.govern, errors.govern, "#diag-govern"],
+    ["consent", DIAGNOSTIC_FORM.consentLabel, errors.consent, "#diag-consent"],
   ].filter(([, , message]) => message);
 
   return (
     <form className="diag-form" id="diagnostic-form" onSubmit={onSubmit} noValidate>
       <p className="diag-form-kicker">{DIAGNOSTIC_FORM.kicker}</p>
+      {DIAGNOSTIC_FORM.title ? <h3 className="diag-form-title">{DIAGNOSTIC_FORM.title}</h3> : null}
+      {DIAGNOSTIC_FORM.lead ? <p className="diag-form-lead">{DIAGNOSTIC_FORM.lead}</p> : null}
       {status === "sent" ? (
         <p className="form-success" role="status">
           {DIAGNOSTIC_FORM.success}
@@ -438,56 +409,20 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
       </div>
       <div className="diag-form-grid">
         <div className="diag-form-wide">
-          <label htmlFor="diag-caller">
-            {DIAGNOSTIC_FORM.callerLabel} <span className="req">{t.required}</span>
-          </label>
+          <label htmlFor="diag-intent">{DIAGNOSTIC_FORM.intentLabel}</label>
           <select
-            id="diag-caller"
-            name="caller"
-            value={caller}
-            onChange={(event) => {
-              onCallerChange(event.target.value);
-              if (errors.caller) {
-                setErrors((prev) => {
-                  const next = { ...prev };
-                  delete next.caller;
-                  return next;
-                });
-              }
-            }}
-            aria-invalid={errors.caller ? "true" : "false"}
-            aria-describedby={errors.caller ? "diag-caller-error" : undefined}
-            required
+            id="diag-intent"
+            name="intent"
+            value={intent}
+            onChange={(event) => onIntentChange(event.target.value)}
           >
-            {DIAGNOSTIC_FORM.callers.map((option) => (
-              <option key={option.label} value={option.value} disabled={option.value === ""}>
+            {DIAGNOSTIC_FORM.intents.map((option) => (
+              <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-          {errors.caller ? (
-            <p className="field-error" id="diag-caller-error">
-              {errors.caller}
-            </p>
-          ) : null}
         </div>
-        {isOrg ? (
-          <div className="diag-form-wide">
-            <label htmlFor="diag-intent">{DIAGNOSTIC_FORM.intentLabel}</label>
-            <select
-              id="diag-intent"
-              name="intent"
-              value={intent}
-              onChange={(event) => onIntentChange(event.target.value)}
-            >
-              {DIAGNOSTIC_FORM.intents.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        ) : null}
         <div>
           <label htmlFor="diag-name">
             {t.form.name} <span className="req">{t.required}</span>
@@ -511,20 +446,6 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
           ) : null}
         </div>
         <div>
-          <label htmlFor="diag-company">
-            {t.form.company} <span className="opt">{t.optional}</span>
-          </label>
-          <input
-            id="diag-company"
-            name="company"
-            type="text"
-            autoComplete="organization"
-            maxLength={120}
-            value={values.company}
-            onChange={update("company")}
-          />
-        </div>
-        <div>
           <label htmlFor="diag-email">
             {t.form.email} <span className="req">{t.required}</span>
           </label>
@@ -546,98 +467,81 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
             </p>
           ) : null}
         </div>
-        {isPartner ? (
-          <>
-            <div>
-              <label htmlFor="diag-role">
-                {DIAGNOSTIC_FORM.roleLabel} <span className="req">{t.required}</span>
-              </label>
-              <input
-                id="diag-role"
-                name="role"
-                type="text"
-                autoComplete="organization-title"
-                maxLength={120}
-                value={values.role}
-                onChange={update("role")}
-                aria-invalid={errors.role ? "true" : "false"}
-                aria-describedby={errors.role ? "diag-role-error" : undefined}
-                required
-              />
-              {errors.role ? (
-                <p className="field-error" id="diag-role-error">
-                  {errors.role}
-                </p>
-              ) : null}
-            </div>
-            <div>
-              <label htmlFor="diag-practice">
-                {DIAGNOSTIC_FORM.practiceLabel} <span className="opt">{t.optional}</span>
-              </label>
-              <input
-                id="diag-practice"
-                name="practice"
-                type="text"
-                maxLength={120}
-                value={values.practice}
-                onChange={update("practice")}
-              />
-            </div>
-            <div>
-              <label htmlFor="diag-delivery">
-                {DIAGNOSTIC_FORM.deliveryLabel} <span className="req">{t.required}</span>
-              </label>
-              <select
-                id="diag-delivery"
-                name="delivery"
-                value={values.delivery}
-                onChange={update("delivery")}
-                aria-invalid={errors.delivery ? "true" : "false"}
-                aria-describedby={errors.delivery ? "diag-delivery-error" : undefined}
-                required
-              >
-                {DIAGNOSTIC_FORM.deliveries.map((option) => (
-                  <option key={option.label} value={option.value} disabled={option.value === ""}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {errors.delivery ? (
-                <p className="field-error" id="diag-delivery-error">
-                  {errors.delivery}
-                </p>
-              ) : null}
-            </div>
-            <div>
-              <label htmlFor="diag-nda">
-                {DIAGNOSTIC_FORM.ndaLabel} <span className="opt">{t.optional}</span>
-              </label>
-              <select id="diag-nda" name="nda" value={values.nda} onChange={update("nda")}>
-                {DIAGNOSTIC_FORM.ndaOptions.map((option) => (
-                  <option key={option.label} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </>
-        ) : isOrg ? (
-          <div>
-            <label htmlFor="diag-stage">
-              {DIAGNOSTIC_FORM.stageLabel} <span className="opt">{t.optional}</span>
-            </label>
-            <select id="diag-stage" name="stage" value={values.stage} onChange={update("stage")}>
-              {DIAGNOSTIC_FORM.stages.map((option) => (
-                <option key={option.label} value={option.value} disabled={option.value === ""}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        ) : null}
+        <div className="diag-form-wide">
+          <label htmlFor="diag-company">
+            {t.form.company} <span className="req">{t.required}</span>
+          </label>
+          <input
+            id="diag-company"
+            name="company"
+            type="text"
+            autoComplete="organization"
+            maxLength={120}
+            value={values.company}
+            onChange={update("company")}
+            aria-invalid={errors.company ? "true" : "false"}
+            aria-describedby={errors.company ? "diag-company-error" : undefined}
+            required
+          />
+          {errors.company ? (
+            <p className="field-error" id="diag-company-error">
+              {errors.company}
+            </p>
+          ) : null}
+        </div>
+        <div>
+          <label htmlFor="diag-system-type">
+            {t.form.systemType} <span className="req">{t.required}</span>
+          </label>
+          <select
+            id="diag-system-type"
+            name="systemType"
+            value={values.systemType}
+            onChange={update("systemType")}
+            aria-invalid={errors.systemType ? "true" : "false"}
+            aria-describedby={errors.systemType ? "diag-system-type-error" : undefined}
+            required
+          >
+            {DIAGNOSTIC_FORM.systemTypes.map((option) => (
+              <option key={option.label} value={option.value} disabled={option.value === ""}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          {errors.systemType ? (
+            <p className="field-error" id="diag-system-type-error">
+              {errors.systemType}
+            </p>
+          ) : null}
+        </div>
+        <div>
+          <label htmlFor="diag-capability">
+            {t.form.capability} <span className="req">{t.required}</span>
+          </label>
+          <select
+            id="diag-capability"
+            name="capability"
+            value={values.capability}
+            onChange={update("capability")}
+            aria-invalid={errors.capability ? "true" : "false"}
+            aria-describedby={errors.capability ? "diag-capability-error" : undefined}
+            required
+          >
+            {DIAGNOSTIC_FORM.capabilities.map((option) => (
+              <option key={option.label} value={option.value} disabled={option.value === ""}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          {errors.capability ? (
+            <p className="field-error" id="diag-capability-error">
+              {errors.capability}
+            </p>
+          ) : null}
+        </div>
         <div className="diag-form-wide">
           <label htmlFor="diag-govern">
-            {governLabel} <span className="req">{t.required}</span>
+            {t.form.govern} <span className="req">{t.required}</span>
           </label>
           <textarea
             id="diag-govern"
@@ -646,13 +550,7 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
             maxLength={2000}
             value={values.govern}
             onChange={update("govern")}
-            placeholder={
-              isPartner
-                ? DIAGNOSTIC_FORM.partnerNeedPlaceholder
-                : isPeer
-                  ? DIAGNOSTIC_FORM.discussPlaceholder
-                  : DIAGNOSTIC_FORM.governPlaceholder
-            }
+            placeholder={DIAGNOSTIC_FORM.governPlaceholder}
             aria-invalid={errors.govern ? "true" : "false"}
             aria-describedby={errors.govern ? "diag-govern-error diag-govern-hint" : "diag-govern-hint"}
             required
@@ -663,6 +561,32 @@ function DiagnosticForm({ intent, onIntentChange, caller, onCallerChange }) {
           {errors.govern ? (
             <p className="field-error" id="diag-govern-error">
               {errors.govern}
+            </p>
+          ) : null}
+        </div>
+        <div className="diag-form-wide consent-field">
+          <label className="consent-checkbox-label" htmlFor="diag-consent">
+            <input
+              id="diag-consent"
+              name="consent"
+              type="checkbox"
+              checked={values.consent}
+              onChange={update("consent")}
+              aria-invalid={errors.consent ? "true" : "false"}
+              aria-describedby={errors.consent ? "diag-consent-error" : undefined}
+              required
+            />
+            <span>
+              {DIAGNOSTIC_FORM.consentLabel}{" "}
+              <Link to={localizedPath(PRIVACY_PATH)} className="text-link">
+                {DIAGNOSTIC_FORM.privacyLinkText}
+              </Link>
+              . <span className="req">{t.required}</span>
+            </span>
+          </label>
+          {errors.consent ? (
+            <p className="field-error" id="diag-consent-error">
+              {errors.consent}
             </p>
           ) : null}
         </div>
@@ -710,6 +634,7 @@ export default function App() {
     ABOUT_INTRO,
     ABOUT_SITE,
     APPROACH,
+    AUTHORITY_ARCHITECTURE,
     BEST_FIT,
     HERO,
     CAPABILITIES,
@@ -723,15 +648,19 @@ export default function App() {
     DGOM,
     DGOM_MODEL,
     DIAGNOSTIC,
+    ENABLEMENT_PROGRAMS,
     ENGAGEMENT,
     EXECUTIVE_BRIEF_PDF,
+    FEATURED_HR_COPILOT,
     FRAMEWORKS,
     INSIGHTS,
     LINKS,
     LOCATION,
     LOCATION_HERO,
     MAPPING_TEASER,
+    PAIN_SECTION,
     PARTNERS,
+    PATH_SELECTOR,
     PROBLEMS,
     PROJECTS,
     SERVICE_LADDER,
@@ -742,21 +671,23 @@ export default function App() {
   const paperPdf = locale === "es" ? WHITEPAPER_PDF_ES : WHITEPAPER_PDF;
   const otherLocale = locale === "es" ? "en" : "es";
   const navSections = [
-    { id: "dgom", label: t.nav.dgom },
+    { id: "risk-check", label: t.nav.riskCheck },
     { id: "services", label: t.nav.services },
-    { id: "case-studies", label: t.nav.caseStudies },
-    { id: "contact", label: t.nav.contact },
+    { id: "hr-copilot-case", label: t.nav.caseStudies },
+    { id: "dgom", label: t.nav.dgom },
   ];
   const mobileNav = [
+    { to: localizedPath(RISK_CHECK_PATH), label: t.mobile.riskCheck, view: "riskcheck" },
     { id: "diagnostic", label: t.mobile.diagnostic },
-    { id: "dgom", label: t.mobile.dgom },
     { id: "services", label: t.mobile.services },
+    { id: "enablement", label: locale === "es" ? "Talleres In-Company" : "In-Company Workshops" },
+    { id: "hr-copilot-case", label: t.mobile.caseStudy },
+    { id: "dgom", label: t.mobile.dgom },
     { id: "partners", label: t.mobile.partners },
-    { id: "case-studies", label: t.mobile.caseStudy },
     { id: "projects", label: t.mobile.projects },
-    { id: "contact", label: t.mobile.contact },
     { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
     { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
+    { to: localizedPath(PRIVACY_PATH), label: t.mobile.privacy, view: "privacy" },
     { id: "about", label: t.mobile.about },
   ];
   const [view, setView] = useState(() => viewFromLocation(location.pathname, location.hash));
@@ -764,7 +695,6 @@ export default function App() {
   const [moreOpen, setMoreOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [enquiryIntent, setEnquiryIntent] = useState("snapshot");
-  const [enquiryCaller, setEnquiryCaller] = useState("");
   const menuBtnRef = useRef(null);
   const moreBtnRef = useRef(null);
   const moreWrapRef = useRef(null);
@@ -896,11 +826,7 @@ export default function App() {
     setMenuOpen(false);
     setMoreOpen(false);
     const hash = id || "top";
-    if (location.pathname !== home) {
-      navigate(`${home}#${hash}`);
-      return;
-    }
-    if (view !== "home") {
+    if (location.pathname !== home || view !== "home") {
       navigate(`${home}#${hash}`);
       return;
     }
@@ -908,14 +834,22 @@ export default function App() {
     window.history.replaceState(null, "", `#${id}`);
   }
 
-  function goToEnquiry(intent, caller = "organisation") {
+  function goToRiskCheck() {
+    setMenuOpen(false);
+    setMoreOpen(false);
+    if (view === "home") {
+      goHomeSection("risk-check");
+      return;
+    }
+    navigate(localizedPath(RISK_CHECK_PATH));
+  }
+
+  function goToEnquiry(intent = "snapshot") {
     const product = intent === "diagnostic" ? "snapshot" : intent || "snapshot";
-    setEnquiryCaller(caller);
-    setEnquiryIntent(caller === "organisation" ? product : "snapshot");
+    setEnquiryIntent(product);
     goHomeSection("diagnostic");
     requestAnimationFrame(() => {
-      const focusId = caller === "organisation" ? "diag-name" : "diag-caller";
-      document.getElementById(focusId)?.focus();
+      document.getElementById("diag-name")?.focus();
     });
   }
 
@@ -934,6 +868,24 @@ export default function App() {
   );
   const resourceLinks = (
     <>
+      <Link
+        to={localizedPath(RISK_CHECK_PATH)}
+        onClick={() => {
+          setMenuOpen(false);
+          setMoreOpen(false);
+        }}
+      >
+        {t.mobile.riskCheck}
+      </Link>
+      <a
+        href="#enablement"
+        onClick={(event) => {
+          event.preventDefault();
+          goHomeSection("enablement");
+        }}
+      >
+        {locale === "es" ? "Talleres In-Company" : "In-Company Workshops"}
+      </a>
       <a
         href="#partners"
         onClick={(event) => {
@@ -952,6 +904,15 @@ export default function App() {
       >
         {t.nav.about}
       </a>
+      <Link
+        to={localizedPath(PRIVACY_PATH)}
+        onClick={() => {
+          setMenuOpen(false);
+          setMoreOpen(false);
+        }}
+      >
+        {t.nav.privacy}
+      </Link>
       {identityLinks}
     </>
   );
@@ -989,13 +950,13 @@ export default function App() {
         </Link>
         <a
           className="nav-cta nav-cta-bar"
-          href="#diagnostic"
+          href="#risk-check"
           onClick={(event) => {
             event.preventDefault();
-            goHomeSection("diagnostic");
+            goToRiskCheck();
           }}
         >
-          {t.discuss}
+          {CTA.persistentPrimary || t.discuss}
         </a>
         <nav className="lang-switch" aria-label={t.language}>
           <Link
@@ -1064,14 +1025,24 @@ export default function App() {
               {t.nav.whitepaper}
             </Link>
             <a
-              className="nav-cta"
+              className="nav-cta-secondary"
               href="#diagnostic"
               onClick={(event) => {
                 event.preventDefault();
-                goHomeSection("diagnostic");
+                goToEnquiry("snapshot");
               }}
             >
-              {t.discuss}
+              {CTA.persistentSecondary || t.discussSecondary}
+            </a>
+            <a
+              className="nav-cta"
+              href="#risk-check"
+              onClick={(event) => {
+                event.preventDefault();
+                goToRiskCheck();
+              }}
+            >
+              {CTA.persistentPrimary || t.discuss}
             </a>
             <div className="more-wrap" ref={moreWrapRef}>
               <button
@@ -1128,13 +1099,13 @@ export default function App() {
             )}
             <a
               className="nav-cta"
-              href="#diagnostic"
+              href="#risk-check"
               onClick={(event) => {
                 event.preventDefault();
-                goHomeSection("diagnostic");
+                goToRiskCheck();
               }}
             >
-              {t.discuss}
+              {CTA.persistentPrimary || t.discuss}
             </a>
             <div className="nav-secondary">{identityLinks}</div>
             <Link
@@ -1154,7 +1125,11 @@ export default function App() {
       </header>
 
       <main id="main" tabIndex={-1} inert={menuOpen ? true : undefined}>
-        {view === "mapping" ? (
+        {view === "riskcheck" ? (
+          <AiRuntimeRiskCheckPage />
+        ) : view === "privacy" ? (
+          <PrivacyPage />
+        ) : view === "mapping" ? (
           <EuAiActMapping />
         ) : view === "whitepaper" ? (
           locale === "es" ? <WhitepaperEs /> : <Whitepaper />
@@ -1168,6 +1143,7 @@ export default function App() {
           <NotFound />
         ) : (
           <>
+            {/* 1. HERO */}
             <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
@@ -1179,42 +1155,42 @@ export default function App() {
                     </span>
                   </h1>
                   <p className="value-prop">{HERO.value}</p>
-                  <p className="hero-assets">{HERO.assets}</p>
+                  {HERO.assets ? <p className="hero-assets">{HERO.assets}</p> : null}
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
                         className="btn btn-solid"
-                        href="#diagnostic"
+                        href="#risk-check"
                         onClick={(event) => {
                           event.preventDefault();
-                          goToEnquiry("snapshot");
+                          goHomeSection("risk-check");
                         }}
                       >
                         {CTA.primary}
                       </a>
                       <a
                         className="btn btn-ghost"
-                        href="#dgom"
+                        href="#hr-copilot-case"
                         onClick={(event) => {
                           event.preventDefault();
-                          goHomeSection("dgom");
+                          goHomeSection("hr-copilot-case");
                         }}
                       >
-                        {CTA.secondary}
+                        {locale === "es" ? "Ver la demo técnica" : "Watch the technical demo"}
+                      </a>
+                      <a
+                        className="btn btn-ghost"
+                        href="#partners"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("partners");
+                        }}
+                      >
+                        {locale === "es" ? "Explorar co-delivery" : "Explore co-delivery"}
                       </a>
                     </div>
                     <p className="hero-qualify">{HERO.qualify}</p>
                     <p className="cta-note">{CTA.note}</p>
-                    <a
-                      className="text-link hero-recruiter"
-                      href="#about"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        goHomeSection("about");
-                      }}
-                    >
-                      {t.hero.recruiter}
-                    </a>
                   </div>
                 </div>
                 <details className="mobile-disclose hero-diagram">
@@ -1224,34 +1200,42 @@ export default function App() {
               </div>
             </section>
 
+            {/* 2. SECCIÓN DE DOLOR INMEDIATA */}
             <section id="why" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
                     {t.why.num}
                   </p>
-                  <h2>{t.why.title}</h2>
+                  <h2>{PAIN_SECTION ? PAIN_SECTION.title : t.why.title}</h2>
                 </div>
-                <p className="why-lead">{t.why.lead}</p>
-                <details className="mobile-disclose why-more">
-                  <summary>{t.why.readMore}</summary>
-                  <div>
-                    <p className="why-brutal">{t.why.brutal}</p>
-                    <p className="why-close">{t.why.close}</p>
-                  </div>
-                </details>
-                <div className="problem-grid">
-                  {PROBLEMS.map((item) => (
+                <p className="why-lead">{PAIN_SECTION ? PAIN_SECTION.lead : t.why.lead}</p>
+                <div className="problem-grid pain-cards-grid">
+                  {(PAIN_SECTION ? PAIN_SECTION.cards : PROBLEMS).map((item) => (
                     <article className="risk-panel" key={item.title}>
                       <Icon name={item.icon} />
                       <h3>{item.title}</h3>
                       <p className="risk-sub">{item.subtitle}</p>
-                      <details className="mobile-disclose risk-body">
-                        <summary>{t.why.readMore}</summary>
-                        <p>{item.text}</p>
-                      </details>
+                      <p className="risk-text">{item.text}</p>
                     </article>
                   ))}
+                </div>
+                <div className="pain-cta-bar">
+                  <a
+                    className="btn btn-solid"
+                    href="#risk-check"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      goHomeSection("risk-check");
+                    }}
+                  >
+                    {PAIN_SECTION ? PAIN_SECTION.cta : CTA.primary}
+                  </a>
+                  <Link className="btn btn-ghost" to={localizedPath(RISK_CHECK_PATH)}>
+                    {locale === "es"
+                      ? "Abrir en página dedicada (/es/ai-runtime-risk-check)"
+                      : "Open dedicated assessment page (/ai-runtime-risk-check)"}
+                  </Link>
                 </div>
                 <aside className="callout-pair">
                   <p className="best-fit">
@@ -1259,14 +1243,354 @@ export default function App() {
                     {BEST_FIT.replace(/^(Best fit|Mejor encaje):\s*/i, "")}
                   </p>
                 </aside>
+
+                {PATH_SELECTOR ? (
+                  <div className="path-selector-box" aria-labelledby="path-selector-title">
+                    <div className="path-selector-head">
+                      <h3 id="path-selector-title">{PATH_SELECTOR.title}</h3>
+                      <p className="path-selector-sub">{PATH_SELECTOR.subtitle}</p>
+                    </div>
+                    <div className="path-selector-buttons" role="group" aria-label={PATH_SELECTOR.title}>
+                      {PATH_SELECTOR.options.map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          className="path-selector-btn"
+                          onClick={() => {
+                            if (opt.intent) setEnquiryIntent(opt.intent);
+                            goHomeSection(opt.target);
+                          }}
+                        >
+                          <span className="path-selector-btn-label">[{opt.label}]</span>
+                          <span className="path-selector-btn-sub">{opt.sub}</span>
+                        </button>
+                      ))}
+                    </div>
+                    {PATH_SELECTOR.threeEntries ? (
+                      <div className="path-three-routes">
+                        {PATH_SELECTOR.threeEntries.map((route) => (
+                          <article key={route.id} className={`path-route-card path-route-${route.id}`}>
+                            <p className="path-route-title">{route.title}</p>
+                            <p className="path-route-role">{route.role}</p>
+                            <ol className="path-route-steps">
+                              {route.steps.map((step, idx) => (
+                                <li key={step}>
+                                  <span>{step}</span>
+                                  {idx < route.steps.length - 1 ? (
+                                    <span className="path-step-arrow" aria-hidden="true">
+                                      ↓
+                                    </span>
+                                  ) : null}
+                                </li>
+                              ))}
+                            </ol>
+                            <a
+                              className="btn btn-ghost path-route-cta"
+                              href={`#${route.target}`}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                goHomeSection(route.target);
+                              }}
+                            >
+                              {route.cta}
+                            </a>
+                          </article>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             </section>
 
+            {/* 3. AI RUNTIME RISK CHECK (EMBEBIDO) */}
+            <section id="risk-check" className="region region-dark risk-check-band region-major">
+              <div className="region-inner">
+                <AiRuntimeRiskCheck
+                  embedded={true}
+                  onRequestSnapshot={() => goToEnquiry("snapshot")}
+                  onViewDemo={() => goHomeSection("hr-copilot-case")}
+                />
+              </div>
+            </section>
+
+            {/* 4. CASO DESTACADO HR COPILOT (TGI v1) */}
+            {FEATURED_HR_COPILOT ? (
+              <section id="hr-copilot-case" className="region region-light region-mid hr-copilot-band">
+                <div className="region-inner">
+                  <div className="section-head">
+                    <p className="num" aria-hidden="true">
+                      02
+                    </p>
+                    <div>
+                      <p className="eyebrow">{FEATURED_HR_COPILOT.kicker}</p>
+                      <h2>{FEATURED_HR_COPILOT.title}</h2>
+                    </div>
+                  </div>
+                  <p className="section-lede">{FEATURED_HR_COPILOT.subtitle}</p>
+
+                  <div className="hr-acts-grid">
+                    {FEATURED_HR_COPILOT.acts.map((act) => (
+                      <article
+                        key={act.id}
+                        className={`hr-act-card hr-act-${act.tone}`}
+                      >
+                        <p className="hr-act-label">{act.label}</p>
+                        <h3>{act.title}</h3>
+                        <p>{act.text}</p>
+                      </article>
+                    ))}
+                  </div>
+
+                  <div className="hr-copilot-showcase">
+                    <div className="hr-controls-panel">
+                      <h3>{FEATURED_HR_COPILOT.controlsTitle}</h3>
+                      <ol className="hr-controls-list">
+                        {FEATURED_HR_COPILOT.controls.map((ctrl) => (
+                          <li key={ctrl}>{ctrl}</li>
+                        ))}
+                      </ol>
+                      <div className="hr-claim-box" role="note">
+                        <p className="hr-claim-headline">{FEATURED_HR_COPILOT.resultClaim}</p>
+                        <p className="hr-claim-scope">{FEATURED_HR_COPILOT.scopeNote}</p>
+                      </div>
+                      <div className="hero-cta-row hr-case-actions">
+                        <a
+                          className="btn btn-solid"
+                          href="#risk-check"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            goHomeSection("risk-check");
+                          }}
+                        >
+                          {CTA.primary}
+                        </a>
+                        <a
+                          className="btn btn-ghost"
+                          href="#diagnostic"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            goToEnquiry("snapshot");
+                          }}
+                        >
+                          {locale === "es" ? "Solicitar AI Governance Snapshot" : "Request AI Governance Snapshot"}
+                        </a>
+                        <Link className="btn btn-ghost" to={FEATURED_HR_COPILOT.docsHref}>
+                          {FEATURED_HR_COPILOT.docsCta}
+                        </Link>
+                      </div>
+                    </div>
+
+                    <figure className="project-demo hr-video-figure">
+                      <video
+                        key={`hr-featured-${locale}`}
+                        controls
+                        playsInline
+                        preload="metadata"
+                        poster={FEATURED_HR_COPILOT.poster}
+                        width={1280}
+                        height={800}
+                      >
+                        <source src={FEATURED_HR_COPILOT.video} type="video/mp4" />
+                        {FEATURED_HR_COPILOT.captions ? (
+                          <track
+                            kind="subtitles"
+                            src={FEATURED_HR_COPILOT.captions}
+                            srcLang="es"
+                            label="Español"
+                            default
+                          />
+                        ) : null}
+                      </video>
+                      <figcaption>{FEATURED_HR_COPILOT.videoCaption}</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </section>
+            ) : null}
+
+            {/* 5. SERVICIOS REPOSICIONADOS EN 3 PASOS + PRECIOS */}
+            <section id="services" className="region region-light region-mist region-mid">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    {t.services.num}
+                  </p>
+                  <div>
+                    <p className="eyebrow">{SERVICE_LADDER.kicker}</p>
+                    <h2>{SERVICE_LADDER.title}</h2>
+                  </div>
+                </div>
+                <p className="section-lede">{SERVICE_LADDER.lead}</p>
+                {DIAGNOSTIC.hierarchySteps ? (
+                  <div className="service-hierarchy-strip" aria-label={DIAGNOSTIC.hierarchyTitle}>
+                    <p className="service-hierarchy-title">{DIAGNOSTIC.hierarchyTitle}</p>
+                    <ol className="service-hierarchy-list">
+                      {DIAGNOSTIC.hierarchySteps.map((step) => (
+                        <li key={step.rank} className="service-hierarchy-item">
+                          <a
+                            href={`#${step.target}`}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              goHomeSection(step.target);
+                            }}
+                          >
+                            <span className="service-hierarchy-rank">{step.rank}</span>
+                            <div className="service-hierarchy-body">
+                              <strong>{step.name}</strong>
+                              <span className="service-hierarchy-tag">{step.tag}</span>
+                              <p>{step.desc}</p>
+                            </div>
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ) : null}
+                <ul className="service-ladder">
+                  {SERVICE_LADDER.items.map((item) => (
+                    <li key={item.id}>
+                      <article className="service-card">
+                        <div className="service-card-top">
+                          <p className="service-stage">{item.stage}</p>
+                          {item.price ? <p className="service-price-badge">{item.price}</p> : null}
+                        </div>
+                        <h3>{item.name}</h3>
+                        <p className="service-desc">{item.description}</p>
+                        <p>
+                          <span className="callout-label">{SERVICE_LADDER.problem}</span>
+                          {item.problem}
+                        </p>
+                        <p>
+                          <span className="callout-label">{SERVICE_LADDER.outcome}</span>
+                          {item.outcome}
+                        </p>
+                        <p className="service-delivers-label">{SERVICE_LADDER.deliverables}</p>
+                        <ul>
+                          {item.deliverables.map((line) => (
+                            <li key={line}>{line}</li>
+                          ))}
+                        </ul>
+                        <p className="service-legal-note">
+                          <span className="callout-label">{SERVICE_LADDER.audience}</span>
+                          {item.audience}
+                        </p>
+                        {item.intent === "risk-check" ? (
+                          <a
+                            className="btn btn-solid"
+                            href="#risk-check"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              goHomeSection("risk-check");
+                            }}
+                          >
+                            {item.cta}
+                          </a>
+                        ) : (
+                          <a
+                            className="btn btn-solid"
+                            href="#diagnostic"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              goToEnquiry(item.intent);
+                            }}
+                          >
+                            {item.cta}
+                          </a>
+                        )}
+                      </article>
+                    </li>
+                  ))}
+                </ul>
+                <p className="service-expand">{SERVICE_LADDER.expand}</p>
+              </div>
+            </section>
+
+            {/* 5B. PUERTA DE ENTRADA IN-COMPANY: DEL PDF LEGAL AL CÓDIGO */}
+            {ENABLEMENT_PROGRAMS ? (
+              <section id="enablement" className="region region-light region-mid enablement-band">
+                <div className="region-inner">
+                  <div className="section-head">
+                    <p className="num" aria-hidden="true">
+                      04
+                    </p>
+                    <div>
+                      <p className="eyebrow">{ENABLEMENT_PROGRAMS.kicker}</p>
+                      <h2>{ENABLEMENT_PROGRAMS.title}</h2>
+                    </div>
+                  </div>
+                  <p className="section-lede">{ENABLEMENT_PROGRAMS.lead}</p>
+                  <p className="enablement-audience-badge">{ENABLEMENT_PROGRAMS.audienceTag}</p>
+                  <ul className="service-ladder enablement-grid">
+                    {ENABLEMENT_PROGRAMS.formats
+                      .filter((fmt) => fmt.id !== "briefing")
+                      .map((fmt) => (
+                        <li key={fmt.id}>
+                          <article className="service-card enablement-card">
+                            <div className="service-card-top">
+                              <p className="service-stage">{fmt.badge}</p>
+                              <p className="service-price-badge">{fmt.price}</p>
+                            </div>
+                            <h3>{fmt.title}</h3>
+                            <p className="enablement-duration">{fmt.duration}</p>
+                            <p className="service-desc">{fmt.hook}</p>
+                            <ul className="enablement-topics">
+                              {fmt.topics.map((topic) => (
+                                <li key={topic}>{topic}</li>
+                              ))}
+                            </ul>
+                            <a
+                              className="btn btn-solid"
+                              href="#diagnostic"
+                              onClick={(event) => {
+                                event.preventDefault();
+                                goToEnquiry(fmt.intent);
+                              }}
+                            >
+                              {fmt.cta}
+                            </a>
+                          </article>
+                        </li>
+                      ))}
+                  </ul>
+                  {ENABLEMENT_PROGRAMS.formats
+                    .filter((fmt) => fmt.id === "briefing")
+                    .map((briefing) => (
+                      <aside key={briefing.id} className="enablement-briefing-bar">
+                        <div className="enablement-briefing-copy">
+                          <p className="callout-label">
+                            {briefing.badge} · {briefing.duration} · {briefing.price}
+                          </p>
+                          <h3>{briefing.title}</h3>
+                          <p>{briefing.hook}</p>
+                        </div>
+                        <a
+                          className="btn btn-ghost"
+                          href="#diagnostic"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            goToEnquiry(briefing.intent);
+                          }}
+                        >
+                          {briefing.cta}
+                        </a>
+                      </aside>
+                    ))}
+                  <aside className="enablement-bridge">
+                    <p className="callout-label">{ENABLEMENT_PROGRAMS.bridge.kicker}</p>
+                    <h3>{ENABLEMENT_PROGRAMS.bridge.title}</h3>
+                    <p>{ENABLEMENT_PROGRAMS.bridge.text}</p>
+                  </aside>
+                </div>
+              </section>
+            ) : null}
+
+            {/* 6. DGOM OPERATING MODEL */}
             <section id="dgom" className="region region-dark dgom-band region-major">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.dgom.num}
+                    05
                   </p>
                   <h2>{DGOM_MODEL.title}</h2>
                 </div>
@@ -1295,65 +1619,45 @@ export default function App() {
                       goToEnquiry("blueprint");
                     }}
                   >
-                    {CTA.primary}
+                    {CTA.persistentSecondary || t.discussSecondary}
                   </a>
                 </div>
               </div>
             </section>
 
-            <section id="services" className="region region-light region-mid">
-              <div className="region-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    {t.services.num}
-                  </p>
-                  <h2>{SERVICE_LADDER.title}</h2>
-                </div>
-                <p className="section-lede">{SERVICE_LADDER.lead}</p>
-                <ul className="service-ladder">
-                  {SERVICE_LADDER.items.map((item) => (
-                    <li key={item.id}>
-                      <article className="service-card">
-                        <p className="service-stage">{item.stage}</p>
-                        <h3>{item.name}</h3>
-                        {item.aka ? <p className="service-aka">{item.aka}</p> : null}
-                        <p>{item.description}</p>
-                        <p>
-                          <span className="callout-label">{SERVICE_LADDER.problem}</span>
-                          {item.problem}
-                        </p>
-                        <p>
-                          <span className="callout-label">{SERVICE_LADDER.outcome}</span>
-                          {item.outcome}
-                        </p>
-                        <p className="service-delivers-label">{SERVICE_LADDER.deliverables}</p>
+            {/* 7. ARQUITECTURA DE AUTORIDAD Y PRUEBA SOCIAL (4 BLOQUES) */}
+            {AUTHORITY_ARCHITECTURE ? (
+              <section id="authority" className="region region-light region-mid authority-band">
+                <div className="region-inner">
+                  <div className="section-head">
+                    <p className="num" aria-hidden="true">
+                      06
+                    </p>
+                    <div>
+                      <p className="eyebrow">{AUTHORITY_ARCHITECTURE.kicker}</p>
+                      <h2>{AUTHORITY_ARCHITECTURE.title}</h2>
+                    </div>
+                  </div>
+                  <p className="section-lede">{AUTHORITY_ARCHITECTURE.lead}</p>
+                  <div className="authority-grid">
+                    {AUTHORITY_ARCHITECTURE.blocks.map((block) => (
+                      <article className="authority-card" key={block.step}>
+                        <p className="authority-step">{block.step}</p>
+                        <h3>{block.title}</h3>
+                        <p className="authority-summary">{block.summary}</p>
                         <ul>
-                          {item.deliverables.map((line) => (
+                          {block.items.map((line) => (
                             <li key={line}>{line}</li>
                           ))}
                         </ul>
-                        <p>
-                          <span className="callout-label">{SERVICE_LADDER.audience}</span>
-                          {item.audience}
-                        </p>
-                        <a
-                          className="btn btn-solid"
-                          href="#diagnostic"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            goToEnquiry(item.intent);
-                          }}
-                        >
-                          {item.cta}
-                        </a>
                       </article>
-                    </li>
-                  ))}
-                </ul>
-                <p className="service-expand">{SERVICE_LADDER.expand}</p>
-              </div>
-            </section>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ) : null}
 
+            {/* 8. FORMULARIO COMERCIAL Y ORIENTACIÓN DE PRECIOS */}
             <section id="diagnostic" className="region region-dark diagnostic-band region-major">
               <div className="region-inner diagnostic-layout">
                 <article className="diag-panel">
@@ -1429,8 +1733,6 @@ export default function App() {
                 <DiagnosticForm
                   intent={enquiryIntent}
                   onIntentChange={setEnquiryIntent}
-                  caller={enquiryCaller}
-                  onCallerChange={setEnquiryCaller}
                 />
               </div>
             </section>
@@ -1458,7 +1760,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.partners.num}
+                    07
                   </p>
                   <h2>{PARTNERS.title}</h2>
                 </div>
@@ -1498,7 +1800,7 @@ export default function App() {
                   href="#diagnostic"
                   onClick={(event) => {
                     event.preventDefault();
-                    goToEnquiry("partners", "legal");
+                    goToEnquiry("partners");
                   }}
                 >
                   {PARTNERS.cta}
@@ -1542,7 +1844,7 @@ export default function App() {
               <div className="region-inner guard-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.guard.num}
+                    08
                   </p>
                   <h2>{t.guard.title}</h2>
                 </div>
@@ -1566,7 +1868,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.approach.num}
+                    09
                   </p>
                   <h2>{t.approach.title}</h2>
                 </div>
@@ -1637,7 +1939,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.deliver.num}
+                    10
                   </p>
                   <h2>{t.deliver.title}</h2>
                 </div>
@@ -1689,7 +1991,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.cases.num}
+                    11
                   </p>
                   <h2>{t.cases.title}</h2>
                 </div>
@@ -1744,7 +2046,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.projects.num}
+                    12
                   </p>
                   <h2>{t.projects.title}</h2>
                 </div>
@@ -1845,7 +2147,7 @@ export default function App() {
                 <div>
                   <div className="section-head">
                     <p className="num" aria-hidden="true">
-                      {t.paper.num}
+                      13
                     </p>
                     <h2>{t.paper.title}</h2>
                   </div>
@@ -1893,7 +2195,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.insights.num}
+                    14
                   </p>
                   <h2>{t.insights.title}</h2>
                 </div>
@@ -1941,7 +2243,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.creds.num}
+                    15
                   </p>
                   <h2>{t.creds.title}</h2>
                 </div>
@@ -2025,7 +2327,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.about.num}
+                    16
                   </p>
                   <h2>{t.about.title}</h2>
                 </div>
@@ -2055,7 +2357,7 @@ export default function App() {
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    {t.contact.num}
+                    17
                   </p>
                   <h2>{t.contact.title}</h2>
                 </div>
@@ -2063,16 +2365,28 @@ export default function App() {
                   {HERO.principle} {t.contact.closing}
                 </p>
                 <div className="cta-primary">
-                  <a
-                    className="btn btn-solid"
-                    href="#diagnostic"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      goHomeSection("diagnostic");
-                    }}
-                  >
-                    {CTA.primary}
-                  </a>
+                  <div className="hero-cta-row">
+                    <a
+                      className="btn btn-solid"
+                      href="#risk-check"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goHomeSection("risk-check");
+                      }}
+                    >
+                      {CTA.primary}
+                    </a>
+                    <a
+                      className="btn btn-ghost"
+                      href="#diagnostic"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        goToEnquiry("snapshot");
+                      }}
+                    >
+                      {CTA.persistentSecondary || t.discussSecondary}
+                    </a>
+                  </div>
                   <p className="cta-note cta-note-repeat">{CTA.note}</p>
                 </div>
               </div>
@@ -2085,13 +2399,13 @@ export default function App() {
         <div className="foot-main">
           <a
             className="btn btn-solid"
-            href="#diagnostic"
+            href="#risk-check"
             onClick={(event) => {
               event.preventDefault();
-              goHomeSection("diagnostic");
+              goToRiskCheck();
             }}
           >
-            {t.discuss}
+            {CTA.persistentPrimary || t.discuss}
           </a>
           <p className="cta-note foot-cta-note">{CTA.note}</p>
           <a
@@ -2099,10 +2413,10 @@ export default function App() {
             href="#diagnostic"
             onClick={(event) => {
               event.preventDefault();
-              goHomeSection("diagnostic");
+              goToEnquiry("snapshot");
             }}
           >
-            {t.contact.email}
+            {CTA.persistentSecondary || t.contact.email}
           </a>
         </div>
         <p className="foot-links">
@@ -2116,12 +2430,13 @@ export default function App() {
             {t.contact.medium}
             <span className="visually-hidden">{t.opensNewTab}</span>
           </a>
-          <a href={`${home}#dgom`}>{t.nav.dgom}</a>
+          <Link to={localizedPath(RISK_CHECK_PATH)}>{t.mobile.riskCheck}</Link>
           <a href={`${home}#services`}>{t.nav.services}</a>
-          <a href={`${home}#partners`}>{t.nav.partners}</a>
-          <a href={`${home}#case-studies`}>{t.nav.caseStudies}</a>
+          <a href={`${home}#enablement`}>{locale === "es" ? "Talleres In-Company" : "Workshops"}</a>
+          <a href={`${home}#hr-copilot-case`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
           <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>
+          <Link to={localizedPath(PRIVACY_PATH)}>{t.nav.privacy}</Link>
         </p>
         <p className="foot-copyright">
           {t.footer.copyright.replace("{year}", String(new Date().getFullYear()))}
