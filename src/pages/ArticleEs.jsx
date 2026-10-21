@@ -124,7 +124,7 @@ export default function ArticleEs() {
 
       <p className="paper-also article-related">
         Desarrollado con más extensión en el whitepaper:{" "}
-        <a href={localize(WHITEPAPER_PATH)}>Modelos probabilísticos requieren gobernanza determinista</a>
+        <a href={localize(WHITEPAPER_PATH)}>Los modelos probabilísticos requieren gobernanza determinista</a>
         {" · "}
         <a href={MONTEQUIEU_PATH}>{t.essays.readEn}</a>.
       </p>

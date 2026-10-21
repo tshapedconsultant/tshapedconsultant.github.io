@@ -76,7 +76,7 @@ const NOSCRIPT_ES = `<noscript>
           ·
           <a href="/responsible-ai-resume-job-matching.pdf">Marco: IA responsable para emparejar currículum y puesto</a>
           ·
-          <a href="/Gobernanza-Determinista-IA.pdf">Gobernanza determinista para IA probabilística (PDF)</a>
+          <a href="/Gobernanza-Determinista-IA.pdf">Los modelos probabilísticos requieren gobernanza determinista (PDF)</a>
           ·
           <a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief (PDF)</a>
         </p>

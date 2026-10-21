@@ -341,7 +341,7 @@ export const AUTHORITY_ARCHITECTURE = {
         "Premio al Emprendimiento de la Fundación Repsol (2018)",
         "Caso de estudio: Estrategia de plataforma e IA de BBVA (análisis independiente)",
         "Responsible AI Framework para selección de talento y emparejamiento CV-puesto",
-        "Whitepaper: Modelos probabilísticos requieren gobernanza determinista",
+        "Whitepaper: Los modelos probabilísticos requieren gobernanza determinista",
       ],
     },
     {
@@ -596,7 +596,7 @@ export const SOCIAL_PROOF = [
   },
   {
     id: "whitepaper",
-    text: "Whitepaper: Modelos probabilísticos requieren gobernanza determinista",
+    text: "Whitepaper: Los modelos probabilísticos requieren gobernanza determinista",
     href: WHITEPAPER_PDF_ES,
     download: true,
   },
@@ -1302,7 +1302,7 @@ export const CREDENTIAL_GROUPS = [
     items: [
       {
         kind: "Publicación",
-        title: "Modelos probabilísticos requieren gobernanza determinista",
+        title: "Los modelos probabilísticos requieren gobernanza determinista",
         detail: "Whitepaper · tshapedconsultant",
         href: "/whitepaper",
       },

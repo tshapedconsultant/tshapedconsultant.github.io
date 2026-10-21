@@ -489,7 +489,13 @@ export default function Whitepaper() {
           The same principle applies to data leaving the system. Pre-egress sanitisation can detect
           and redact known sensitive data classes — secrets, credentials, regulated data, personally
           identifiable information, and confidential business information — where technically
-          feasible, before data traverses network sockets. Tamper-evident audit logs emit structured,
+          feasible, before data traverses network sockets. In interactive production deployments
+          using token-by-token streaming (Server-Sent Events or WebSockets), where a sensitive
+          entity such as an API key or payment card number may span multiple consecutive tokens, the
+          Policy Enforcement Point (PEP) interposes a sliding-window lookahead buffer on text
+          streams and buffers tool-call JSON payloads until completion before evaluation and socket
+          flush — trading a bounded, predictable latency of tens of milliseconds to prevent partial
+          secret leakage prior to stream termination. Tamper-evident audit logs emit structured,
           verifiable telemetry into central security operations and GRC pipelines at runtime,
           creating provable containment evidence.
         </p>
@@ -765,11 +771,13 @@ export default function Whitepaper() {
         </p>
         <p>
           Governance does not have to be a brake. Deterministic controls (AST parsing, regular
-          expressions, OPA policies, allow-lists and asset-registry lookups) typically run in the
-          order of milliseconds, whereas model inference typically takes seconds. When a request is
-          blocked before it reaches the LLM, no tokens or inference time are spent on it. Actual
-          figures depend on each deployment and should be measured in it; the design principle is
-          that cutting early is cheaper than correcting late.
+          expressions, OPA policies, allow-lists and asset-registry lookups against locally
+          synchronised, signed in-memory bundles with bounded TTL) typically run in the order of
+          milliseconds without synchronous network I/O to external databases on the critical path,
+          whereas model inference typically takes seconds. When a request is blocked before it
+          reaches the LLM, no tokens or inference time are spent on it. Actual figures depend on
+          each deployment and should be measured in it; the design principle is that cutting early
+          is cheaper than correcting late.
         </p>
       </section>
 
@@ -854,7 +862,11 @@ export default function Whitepaper() {
           <dt>Human-in-the-loop gates</dt>
           <dd>Sensitive actions require human approval.</dd>
           <dt>Output DLP</dt>
-          <dd>Detects and redacts sensitive data before the reply leaves the system.</dd>
+          <dd>
+            Detects and redacts sensitive data before the reply leaves the system (using full-payload
+            evaluation or a sliding-window lookahead buffer on streaming responses prior to network
+            socket flush).
+          </dd>
           <dt>Row-level authorisation</dt>
           <dd>The agent only reads the records the requester is entitled to.</dd>
           <dt>Secret hygiene</dt>
@@ -903,12 +915,16 @@ export default function Whitepaper() {
         <p>
           Where the judicial layer intervenes: before reaching the LLM, the query passes through
           input security, RAG retrieval, context assurance, the LLM, and output validation. Input
-          security detects hidden characters and extracts encoded instructions. Context assurance
-          identifies prompt injection, context poisoning and instruction-override patterns in
+          security detects hidden characters and extracts encoded instructions. To avoid a
+          probabilistic paradox (relying on another stochastic model that could itself be bypassed),
+          deterministic context assurance relies on structural channel isolation (immutable XML/JSON
+          delimiters that confine retrieved chunks as non-executable data separate from system
+          instructions), cryptographic provenance and retrieval-ACL verification over vector-store
+          metadata, and deterministic lexical/syntactic rules for instruction-override patterns in
           retrieved content. Output validation is fail-closed: it blocks the response, generates an
-          alert, and records evidence. The malicious content is blocked before it can influence model
-          inference. The decision is made by the architecture, not by the statistical probability of
-          the LLM.
+          alert, and records evidence. The malicious content is neutralised before it can alter
+          authority during model inference. The decision is made by the architecture, not by the
+          statistical probability of the LLM.
         </p>
 
         <h3>03 · Autonomous AWS agent</h3>
@@ -942,10 +958,15 @@ export default function Whitepaper() {
         </p>
         <p>
           Where Runtime Assurance intervenes: before executing the action, the judicial layer
-          consults the asset criticality registry. Classification: critical infrastructure asset.
-          Inline veto: critical network resource · human approval required. Threshold gate: proposed
-          action delete route table · impact HIGH. Result: execution blocked. A change-request ticket
-          is generated; the architect reviews, identifies the failover, and rejects the action.
+          consults the asset criticality registry, replicated as a signed in-memory bundle at the
+          PDP with a bounded TTL to preserve millisecond-level evaluation without synchronous
+          network I/O to the CMDB on the critical path. If the registry or signed cache is
+          unreachable, expired, or lacks an explicit classification for the target resource, the
+          gate enforces a strict <em>fail-closed</em> posture — denying destructive execution by
+          default. Classification: critical infrastructure asset. Inline veto: critical network
+          resource · human approval required. Threshold gate: proposed action delete route table ·
+          impact HIGH. Result: execution blocked. A change-request ticket is generated; the
+          architect reviews, identifies the failover, and rejects the action.
         </p>
         <p>The agent remains autonomous. But not sovereign.</p>
         <p>
@@ -1071,6 +1092,7 @@ export default function Whitepaper() {
         <p className="note"><code>runtime_authz.rego</code> · OPA policy</p>
         <pre className="rego">
           <code>{`package ai_governance
+import rego.v1
 
 # Default deny: every action must be explicitly authorized
 default allow := false
@@ -1078,14 +1100,17 @@ default allow := false
 # Authority levels use a monotonic scale where higher values
 # represent greater authority (e.g. 1=observer, 5=operator, 9=admin).
 
-# Delegation gate: mandatory on EVERY allow path.
-# Satisfied when no delegation is requested, or when the child agent
-# stays within the parent's authority and the action's scope.
+# Delegation gate (Principle #1, Section 04 — least privilege):
+# mandatory on EVERY allow path. Satisfied when no delegation is
+# requested, or when the child agent's authority does not exceed the
+# parent's and the action's required scopes are a subset of the
+# delegated scope (which itself must be a subset of the parent's scope).
 delegation_ok if not input.delegation.requested
 delegation_ok if {
     input.delegation.requested
     input.delegation.child_authority <= input.delegation.parent_authority
-    input.delegation.scope == input.action.scope
+    every s in input.delegation.scope { s in input.delegation.parent_scope }
+    every req in input.action.required_scopes { req in input.delegation.scope }
 }
 
 # Base gates: must hold for ALL actions, standard or critical
@@ -1103,21 +1128,28 @@ allow if {
     input.human_oversight.required == false
 }
 
-# Critical infrastructure: base gates PLUS explicit human approval
+# Critical infrastructure: base gates PLUS explicit human approval,
+# cryptographically bound to the action hash and within its TTL window
 allow if {
     base_gates
     input.action.critical_infrastructure
     input.human_oversight.approved == true
     input.human_oversight.approver_role == "safety_manager"
+    input.human_oversight.action_hash == input.action.hash
+    input.human_oversight.expires_at >= time.now_ns()
 }`}</code>
         </pre>
         <p>
           Because multiple <code>allow</code> rules in Rego are combined with a logical OR, every
-          control that must apply universally (classification, authority and the delegation gate) is
-          factored into <code>base_gates</code> and required on every allow path; no path can bypass
-          the delegation check. This policy is evaluated before every consequential action. The
-          agent proposes; the policy engine decides; the evidence is recorded. No action executes
-          without an explicit allow decision.
+          control that must apply universally (classification, authority and subset-based delegation
+          enforcement) is factored into <code>base_gates</code> and required on every allow path; no
+          path can bypass the delegation check or break least-privilege scope narrowing for
+          sub-agents. For critical-infrastructure actions, human approval must also match the unique
+          digest of the proposed action (<code>action_hash</code>) and remain within its expiration
+          window (<code>expires_at &gt;= time.now_ns()</code>), preventing replay of stale
+          approvals. This policy is evaluated before every consequential action. The agent proposes;
+          the policy engine decides; the evidence is recorded. No action executes without an
+          explicit allow decision.
         </p>
         <h3>Threat intelligence references</h3>
         <p>The risks described in this paper map to established adversarial AI taxonomies:</p>

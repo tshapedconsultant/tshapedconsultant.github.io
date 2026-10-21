@@ -35,11 +35,17 @@ function markUnlocked() {
   }
 }
 
+const PDF_DOWNLOAD_FILENAMES = {
+  [WHITEPAPER_PDF_ES]: "Los modelos probabilísticos requieren gobernanza determinista.pdf",
+  [WHITEPAPER_PDF]: "Probabilistic Models Require Deterministic Governance.pdf",
+  [EXECUTIVE_BRIEF_PDF]: "Dedalo-Executive-Brief.pdf",
+};
+
 function triggerBrowserDownload(href) {
   if (typeof document === "undefined" || !href) return;
   const link = document.createElement("a");
   link.href = href;
-  link.setAttribute("download", "");
+  link.setAttribute("download", PDF_DOWNLOAD_FILENAMES[href] || "");
   link.style.display = "none";
   document.body.appendChild(link);
   link.click();
@@ -198,7 +204,7 @@ export default function WhitepaperDownloadGate({
         <a
           className={showReadOnlineButton ? "btn btn-ghost" : "btn btn-solid"}
           href={primaryPdf}
-          download={unlocked ? true : undefined}
+          download={unlocked ? PDF_DOWNLOAD_FILENAMES[primaryPdf] : undefined}
           onClick={(e) => handleLockedClick(e, primaryPdf)}
         >
           {isEs ? copy.downloadEs : copy.downloadEn}
@@ -206,7 +212,7 @@ export default function WhitepaperDownloadGate({
         <a
           className="btn btn-ghost"
           href={EXECUTIVE_BRIEF_PDF}
-          download={unlocked ? true : undefined}
+          download={unlocked ? PDF_DOWNLOAD_FILENAMES[EXECUTIVE_BRIEF_PDF] : undefined}
           onClick={(e) => handleLockedClick(e, EXECUTIVE_BRIEF_PDF)}
         >
           {copy.downloadBrief}
@@ -218,13 +224,25 @@ export default function WhitepaperDownloadGate({
           <p className="wp-mailing-kicker">{copy.unlockedTitle}</p>
           <p className="wp-mailing-lead">{copy.unlockedLead}</p>
           <div className="wp-mailing-links">
-            <a className="btn btn-solid" href={WHITEPAPER_PDF_ES} download>
+            <a
+              className="btn btn-solid"
+              href={WHITEPAPER_PDF_ES}
+              download={PDF_DOWNLOAD_FILENAMES[WHITEPAPER_PDF_ES]}
+            >
               {copy.downloadEs}
             </a>
-            <a className="btn btn-ghost" href={WHITEPAPER_PDF} download>
+            <a
+              className="btn btn-ghost"
+              href={WHITEPAPER_PDF}
+              download={PDF_DOWNLOAD_FILENAMES[WHITEPAPER_PDF]}
+            >
               {copy.downloadEn}
             </a>
-            <a className="btn btn-ghost" href={EXECUTIVE_BRIEF_PDF} download>
+            <a
+              className="btn btn-ghost"
+              href={EXECUTIVE_BRIEF_PDF}
+              download={PDF_DOWNLOAD_FILENAMES[EXECUTIVE_BRIEF_PDF]}
+            >
               {copy.downloadBrief}
             </a>
           </div>

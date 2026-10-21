@@ -584,12 +584,12 @@ export const UI = {
     paper: {
       num: "10",
       title: "Whitepaper",
-      heading: "Modelos probabilísticos requieren gobernanza determinista",
+      heading: "Los modelos probabilísticos requieren gobernanza determinista",
       sub: "Por qué la IA empresarial y agéntica necesita una arquitectura constitucional — una separación entre política, ejecución y supervisión independiente.",
       body: "El software determinista aspira a la misma salida para la misma entrada. Los modelos fundacionales no. No podemos hacer deterministas los sistemas probabilísticos. Sí podemos limitar su autoridad y acotar sus consecuencias con controles independientes en runtime: el Deterministic Cage (Jaula Determinista).",
       read: "Leer en este sitio",
       pdf: "Descargar PDF",
-      pdfLong: "Descargar Gobernanza determinista para IA probabilística (PDF)",
+      pdfLong: "Descargar Los modelos probabilísticos requieren gobernanza determinista (PDF)",
       briefLead:
         "¿Necesitas la versión ejecutiva? El Dédalo™ Executive Brief resume en dos páginas el Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo regulatorio.",
       brief: "Descargar Dédalo™ Executive Brief (PDF, EN)",

@@ -565,10 +565,17 @@ export default function WhitepaperEs() {
           la salida puede detectar y ocultar clases conocidas de datos sensibles, como secretos,
           credenciales, datos regulados, información de identificación personal e información
           empresarial confidencial, cuando sea técnicamente viable, antes de que los datos
-          atraviesen los sockets de red. Los registros de auditoría a prueba de manipulaciones
-          emiten telemetría estructurada y verificable hacia las operaciones centrales de seguridad
-          y los flujos de GRC en tiempo de ejecución, generando evidencias demostrables de
-          contención.
+          atraviesen los sockets de red. En arquitecturas interactivas con transmisión de tokens en
+          tiempo real (Server-Sent Events o WebSockets), donde una entidad sensible —como una clave
+          de API o un identificador financiero— puede fragmentarse en varios tokens consecutivos, el
+          punto de aplicación (PEP) interpone un búfer de ventana deslizante con solapamiento
+          (<em>sliding-window lookahead buffer</em>) para el flujo de texto y retiene hasta su
+          cierre completo los objetos JSON de llamadas a herramientas antes de evaluarlos y vaciar
+          el socket, asumiendo una latencia acotada de decenas de milisegundos a cambio de impedir
+          la filtración parcial de bytes antes del corte. Los registros de auditoría a prueba de
+          manipulaciones emiten telemetría estructurada y verificable hacia las operaciones
+          centrales de seguridad y los flujos de GRC en tiempo de ejecución, generando evidencias
+          demostrables de contención.
         </p>
       </section>
 
@@ -889,12 +896,13 @@ export default function WhitepaperEs() {
         </p>
         <p>
           La gobernanza no tiene por qué ser un freno. Los controles deterministas (análisis AST,
-          expresiones regulares, políticas OPA, listas de permitidos y consultas al registro de
-          activos) suelen ejecutarse en el orden de los milisegundos, mientras que una inferencia
-          del modelo suele tardar segundos. Cuando una solicitud se bloquea antes de llegar al LLM,
-          no consume tokens ni tiempo de inferencia. Las cifras reales dependen de cada despliegue y
-          deben medirse en él; el principio de diseño es que cortar pronto cuesta menos que corregir
-          tarde.
+          expresiones regulares, políticas OPA, listas de permitidos y consultas al catálogo de
+          criticidad sincronizado en memoria local mediante paquetes firmados con TTL) suelen
+          ejecutarse en el orden de los milisegundos sin depender de llamadas de red síncronas a
+          bases de datos externas en la ruta crítica, mientras que una inferencia del modelo suele
+          tardar segundos. Cuando una solicitud se bloquea antes de llegar al LLM, no consume tokens
+          ni tiempo de inferencia. Las cifras reales dependen de cada despliegue y deben medirse en
+          él; el principio de diseño es que cortar pronto cuesta menos que corregir tarde.
         </p>
       </section>
 
@@ -980,7 +988,11 @@ export default function WhitepaperEs() {
           <dt>Aprobación humana (HITL)</dt>
           <dd>Las acciones sensibles requieren la aprobación de una persona.</dd>
           <dt>Prevención de fuga de datos en la salida (DLP)</dt>
-          <dd>Detecta y oculta datos sensibles antes de que la respuesta salga del sistema.</dd>
+          <dd>
+            Detecta y oculta datos sensibles antes de que la respuesta salga del sistema (mediante
+            evaluación de carga completa o búfer de ventana deslizante en respuestas por streaming
+            antes de vaciar el socket de red).
+          </dd>
           <dt>Autorización por fila</dt>
           <dd>El agente solo lee los registros a los que tiene derecho quien realiza la solicitud.</dd>
           <dt>Higiene de secretos</dt>
@@ -1031,13 +1043,18 @@ export default function WhitepaperEs() {
         <p>
           Dónde interviene la capa judicial: antes de llegar al LLM, la consulta pasa por seguridad
           de entrada, recuperación RAG, aseguramiento del contexto, el LLM y validación de salida.
-          Seguridad de entrada detecta caracteres ocultos y extrae instrucciones codificadas.
-          Aseguramiento del contexto identifica patrones de inyección de instrucciones,
-          envenenamiento del contexto y anulación de instrucciones en el contenido recuperado.
-          Validación de salida aplica una política de denegación por defecto en caso de fallo
-          (fail-closed): bloquea la respuesta, genera una alerta y registra evidencias. El contenido
-          malicioso se bloquea antes de que pueda influir en la inferencia del modelo. La decisión
-          la toma la arquitectura, no la probabilidad estadística del LLM.
+          Seguridad de entrada detecta caracteres ocultos y extrae instrucciones codificadas. Para
+          no introducir una paradoja probabilística (depender de otro modelo estocástico que también
+          pueda ser evadido), el aseguramiento determinista del contexto se fundamenta en el
+          aislamiento estructural de canales (delimitadores XML/JSON inmutables que confinan los
+          fragmentos recuperados como datos no ejecutables separados de las instrucciones del
+          sistema), la verificación criptográfica de procedencia y metadatos de autorización del
+          repositorio vectorial, y reglas léxicas/sintácticas deterministas que detectan patrones de
+          anulación de instrucciones en el contenido recuperado. Validación de salida aplica una
+          política de denegación por defecto en caso de fallo (fail-closed): bloquea la respuesta,
+          genera una alerta y registra evidencias. El contenido malicioso queda neutralizado antes
+          de que pueda alterar la autoridad durante la inferencia del modelo. La decisión la toma la
+          arquitectura, no la probabilidad estadística del LLM.
         </p>
 
         <h3>Caso 3 (ilustrativo): agente autónomo de AWS</h3>
@@ -1073,11 +1090,17 @@ export default function WhitepaperEs() {
         </p>
         <p>
           Dónde interviene Runtime Assurance: antes de ejecutar la acción, la capa judicial consulta
-          el registro de criticidad de activos. Clasificación: activo de infraestructura crítica.
-          Control de interceptación en tiempo de ejecución: recurso de red crítico; se requiere
-          aprobación humana. Control por umbral: acción propuesta eliminar tabla de rutas · impacto
-          ALTO. Resultado: ejecución bloqueada. Se genera una solicitud de cambio; el arquitecto la
-          revisa, identifica la función de conmutación por error y rechaza la acción.
+          el registro de criticidad de activos, replicado como un paquete firmado en memoria local
+          del PDP con tiempo de vida (TTL) acotado para conservar una latencia de milisegundos sin
+          depender de consultas de red síncronas a la CMDB en la ruta crítica. Si el registro o la
+          caché firmada no están disponibles, han expirado o el recurso carece de clasificación
+          explícita, la compuerta aplica obligatoriamente una postura cerrada ante fallos
+          (<em>fail-closed</em>), denegando cualquier acción destructiva por defecto. Clasificación:
+          activo de infraestructura crítica. Control de interceptación en tiempo de ejecución:
+          recurso de red crítico; se requiere aprobación humana. Control por umbral: acción
+          propuesta eliminar tabla de rutas · impacto ALTO. Resultado: ejecución bloqueada. Se
+          genera una solicitud de cambio; el arquitecto la revisa, identifica la función de
+          conmutación por error y rechaza la acción.
         </p>
         <p>El agente sigue siendo autónomo. Pero no soberano.</p>
         <p>
@@ -1215,6 +1238,7 @@ export default function WhitepaperEs() {
         <p className="note"><code>runtime_authz.rego</code> · Política OPA.</p>
         <pre className="rego">
           <code>{`package ai_governance
+import rego.v1
 
 # Denegación por defecto: cada acción requiere autorización explícita
 default allow := false
@@ -1222,14 +1246,17 @@ default allow := false
 # Los niveles de autoridad usan una escala monótona: a mayor valor,
 # mayor autoridad (p. ej., 1=observador, 5=operador, 9=administrador).
 
-# Control de delegación: obligatorio en TODAS las vías de autorización.
-# Se cumple si no se solicita delegación o si el agente hijo no supera
-# la autoridad del padre ni el ámbito de la acción.
+# Control de delegación (Principio n.º 1, Sección 04 — mínimo privilegio):
+# obligatorio en TODAS las vías de autorización. Se cumple si no hay
+# delegación o si la autoridad del hijo no supera la del padre y el
+# ámbito requerido por la acción es un subconjunto del ámbito delegado
+# (y este, a su vez, un subconjunto del ámbito del agente padre).
 delegation_ok if not input.delegation.requested
 delegation_ok if {
     input.delegation.requested
     input.delegation.child_authority <= input.delegation.parent_authority
-    input.delegation.scope == input.action.scope
+    every s in input.delegation.scope { s in input.delegation.parent_scope }
+    every req in input.action.required_scopes { req in input.delegation.scope }
 }
 
 # Condiciones base: deben cumplirse en TODAS las acciones, estándar o críticas
@@ -1247,22 +1274,29 @@ allow if {
     input.human_oversight.required == false
 }
 
-# Infraestructura crítica: condiciones base MÁS aprobación humana explícita
+# Infraestructura crítica: condiciones base MÁS aprobación humana explícita,
+# vinculada criptográficamente al hash de la acción y con validez temporal (TTL)
 allow if {
     base_gates
     input.action.critical_infrastructure
     input.human_oversight.approved == true
     input.human_oversight.approver_role == "safety_manager"
+    input.human_oversight.action_hash == input.action.hash
+    input.human_oversight.expires_at >= time.now_ns()
 }`}</code>
         </pre>
         <p>
           Como en Rego varias reglas <code>allow</code> se combinan con un O lógico, todos los
-          controles que deben aplicarse siempre (clasificación, autoridad y control de delegación)
-          se agrupan en <code>base_gates</code>, que es obligatorio en todas las vías de
-          autorización; ninguna vía puede eludir el control de delegación. Esta política se evalúa
-          antes de cada acción con consecuencias. El agente propone; el motor de políticas decide;
-          se registran las evidencias. No se ejecuta ninguna acción sin una decisión explícita de
-          autorización.
+          controles que deben aplicarse siempre (clasificación, autoridad y control de delegación
+          por subconjunto de ámbitos) se agrupan en <code>base_gates</code>, que es obligatorio en
+          todas las vías de autorización; ninguna vía puede eludir el control de delegación ni
+          impedir la reducción de privilegios en subagentes. Asimismo, para acciones sobre
+          infraestructura crítica, el visto bueno humano debe coincidir con el hash unívoco de la
+          acción propuesta (<code>action_hash</code>) y encontrarse dentro de su ventana de validez
+          temporal (<code>expires_at &gt;= time.now_ns()</code>), impidiendo la reutilización de
+          aprobaciones caducadas. Esta política se evalúa antes de cada acción con consecuencias. El
+          agente propone; el motor de políticas decide; se registran las evidencias. No se ejecuta
+          ninguna acción sin una decisión explícita de autorización.
         </p>
         <h3>Referencias de inteligencia de amenazas</h3>
         <p>

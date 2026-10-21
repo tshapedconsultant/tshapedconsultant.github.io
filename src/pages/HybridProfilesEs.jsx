@@ -343,7 +343,7 @@ export default function HybridProfilesEs() {
 
       <p className="paper-also article-related">
         Una práctica en T en gobernanza de IA:{" "}
-        <a href={localize(WHITEPAPER_PATH)}>Modelos probabilísticos requieren gobernanza determinista</a>
+        <a href={localize(WHITEPAPER_PATH)}>Los modelos probabilísticos requieren gobernanza determinista</a>
         {" · "}
         <a href={localize("/#diagnostic")}>Consultar un diagnóstico</a>
         {" · "}

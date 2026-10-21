@@ -95,7 +95,7 @@ export const PAGE_SEO_ES = {
       "Tratamiento de datos mínimo, base legal y política de retención para el AI Runtime Risk Check y las consultas técnicas en tshapedconsultant.com.",
   },
   [WHITEPAPER_PATH]: {
-    title: "Gobernanza de IA: modelos probabilísticos y arquitectura constitucional | tshapedconsultant",
+    title: "Los modelos probabilísticos requieren gobernanza determinista | tshapedconsultant",
     description:
       "Whitepaper de gobernanza de IA: por qué los modelos probabilísticos requieren una arquitectura constitucional. Deterministic Cage (Jaula Determinista), EU AI Act, garantía en runtime y cumplimiento.",
   },
@@ -247,7 +247,7 @@ export function jsonLdForLocale(locale) {
       {
         "@type": "Article",
         "@id": `${absoluteUrl(withLocale(WHITEPAPER_PATH, locale))}#article`,
-        headline: locale === "es" ? "Modelos probabilísticos requieren gobernanza determinista" : paper.title.replace(" | tshapedconsultant", ""),
+        headline: locale === "es" ? "Los modelos probabilísticos requieren gobernanza determinista" : paper.title.replace(" | tshapedconsultant", ""),
         description: paper.description,
         url: absoluteUrl(withLocale(WHITEPAPER_PATH, locale)),
         inLanguage,
