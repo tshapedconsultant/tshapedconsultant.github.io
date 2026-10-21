@@ -674,7 +674,11 @@ export default function Whitepaper() {
         <h2><span>17</span> Governance + red teaming = the learning loop</h2>
         <p>Most governance programmes are designed to pass audits. Few are designed to survive attacks.</p>
         <p>This is where red teaming becomes essential. Governance defines the hypothesis. Red teaming tries to falsify it.</p>
-        <p>The cycle is straightforward: define controls, test controls, discover weaknesses, update controls, repeat.</p>
+        <p>
+          The cycle is straightforward: define controls, test controls with automated adversarial
+          probes (such as <strong>NVIDIA Garak</strong> and <strong>Microsoft PyRIT</strong>) and
+          stress scenarios, discover weaknesses, update controls, repeat.
+        </p>
         <p>This loop transforms governance from documentation into capability. Without this loop, governance becomes theatre.</p>
         <p>
           C-level decision is the strategic enabler: resource allocation, real risk management, and a
@@ -1296,6 +1300,15 @@ allow if {
             Lakera. <em>Lakera Guard</em> — real-time defence against prompt injection and data
             leakage. <a href="https://www.lakera.ai/lakera-guard">lakera.ai/lakera-guard</a>
           </li>
+          <li>
+            NVIDIA / Derczynski, L. et al. <em>Garak</em> — LLM vulnerability scanner and automated
+            red-teaming probes. <a href="https://github.com/NVIDIA/garak">github.com/NVIDIA/garak</a>
+          </li>
+          <li>
+            Microsoft AI Red Team. <em>PyRIT (Python Risk Identification Tool for generative AI)</em>{" "}
+            — adversarial testing automation framework for generative and agentic AI systems.{" "}
+            <a href="https://github.com/Azure/PyRIT">github.com/Azure/PyRIT</a>
+          </li>
         </ul>
 
         <h3>5. Datasets and reference implementations (Dédalo™ / TGI v1)</h3>
@@ -1331,6 +1344,18 @@ allow if {
             </a>
           </li>
         </ul>
+
+        <p className="note">
+          <strong>AI transparency disclosure:</strong> Consistent with the governance and
+          human-oversight principles set out in this work, artificial intelligence tools were used
+          to assist in the drafting, structuring, translation and editorial review of this document.
+          The architectural thesis, control design, technical verification and ultimate
+          accountability for all content rest solely with the author.
+        </p>
+        <p className="note">
+          © 2026 Andrés Lage Freire. All rights reserved. Provided for information purposes only. No
+          part may be reproduced, adapted or commercialised without written permission.
+        </p>
       </section>
     </article>
   );

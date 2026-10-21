@@ -786,8 +786,9 @@ export default function WhitepaperEs() {
           falsación.
         </p>
         <p>
-          El ciclo es sencillo: definir controles, probar los controles, descubrir debilidades,
-          actualizar los controles y repetir.
+          El ciclo es sencillo: definir controles, probar los controles mediante sondas adversarias
+          automatizadas (como <strong>NVIDIA Garak</strong> y <strong>Microsoft PyRIT</strong>) y
+          escenarios de estrés, descubrir debilidades, actualizar los controles y repetir.
         </p>
         <p>
           Este bucle transforma la gobernanza: de documentación a capacidad. Sin él, la gobernanza
@@ -1432,6 +1433,16 @@ allow if {
             instrucciones y la fuga de datos.{" "}
             <a href="https://www.lakera.ai/lakera-guard">Lakera</a>
           </li>
+          <li>
+            NVIDIA / Derczynski, L. et al. <em>Garak</em>: escáner de vulnerabilidades y sondas de{" "}
+            <em>red teaming</em> para modelos de lenguaje (LLM).{" "}
+            <a href="https://github.com/NVIDIA/garak">GitHub</a>
+          </li>
+          <li>
+            Microsoft AI Red Team. <em>PyRIT (Python Risk Identification Tool for generative AI)</em>
+            : marco de automatización de pruebas adversarias para sistemas de IA generativa y
+            agéntica. <a href="https://github.com/Azure/PyRIT">GitHub</a>
+          </li>
         </ul>
 
         <h3>5. Conjuntos de datos e implementaciones de referencia (Dédalo™ / TGI v1)</h3>
@@ -1467,6 +1478,20 @@ allow if {
             <a href="https://github.com/tshapedconsultant/porto-seguro-compliance-hub">GitHub</a>
           </li>
         </ul>
+
+        <p className="note">
+          <strong>Nota de transparencia sobre uso de IA:</strong> En coherencia con los principios
+          de gobernanza y supervisión humana expuestos en esta obra, se han utilizado herramientas
+          de inteligencia artificial como apoyo en la redacción, estructuración, traducción y
+          revisión editorial de este documento. La tesis arquitectónica, el diseño de controles, la
+          verificación técnica y la responsabilidad última sobre el contenido corresponden
+          íntegramente al autor.
+        </p>
+        <p className="note">
+          © 2026 Andrés Lage Freire. Todos los derechos reservados. Documento facilitado
+          exclusivamente con fines informativos. Queda prohibida su reproducción, adaptación o
+          comercialización, total o parcial, sin autorización previa por escrito.
+        </p>
       </section>
 
       <p className="paper-also article-related">
