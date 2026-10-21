@@ -1,9 +1,23 @@
-import WhitepaperDownloadGate from "../components/WhitepaperDownloadGate.jsx";
+import WhitepaperDownloadGate, {
+  useWhitepaperUnlocked,
+} from "../components/WhitepaperDownloadGate.jsx";
 import { HYBRID_PROFILES_PATH, MONTEQUIEU_PATH, WHITEPAPER_PATH } from "../routes";
 import { useI18n } from "../i18n/LocaleContext";
 
 export default function WhitepaperEs() {
   const { localize, t } = useI18n();
+  const [unlocked] = useWhitepaperUnlocked();
+
+  function handleTocClick(event, sectionNumber) {
+    if (unlocked || sectionNumber <= 1) return;
+    event.preventDefault();
+    const gateEl = document.getElementById("whitepaper-reading-gate");
+    if (gateEl) {
+      gateEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      const emailInput = gateEl.querySelector('input[type="email"]');
+      emailInput?.focus();
+    }
+  }
 
   return (
     <article className="paper">
@@ -27,7 +41,16 @@ export default function WhitepaperEs() {
       <WhitepaperDownloadGate source="whitepaper_es" />
       <p className="paper-brief-lead">{t.paper.briefLead}</p>
 
-      <nav className="paper-toc" aria-label="Índice del whitepaper">
+      <nav
+        className="paper-toc"
+        aria-label="Índice del whitepaper"
+        onClick={(e) => {
+          const anchor = e.target.closest("a[href^='#s']");
+          if (!anchor) return;
+          const num = parseInt(anchor.getAttribute("href").slice(2), 10);
+          if (!Number.isNaN(num)) handleTocClick(e, num);
+        }}
+      >
         <h2>Índice</h2>
         <ol>
           <li><a href="#s00">00 Resumen ejecutivo</a></li>
@@ -144,6 +167,31 @@ export default function WhitepaperEs() {
         </p>
       </section>
 
+      {!unlocked ? (
+        <div className="paper-reading-gate-wrap">
+          <div className="paper-reading-preview-fade" aria-hidden="true">
+            <section>
+              <h2>
+                <span>02</span> La ecuación del riesgo de la IA agéntica
+              </h2>
+              <p>
+                A menudo hablamos del riesgo de la IA como si fuera una propiedad inevitable del
+                modelo. Ese planteamiento es incompleto. Los grandes modelos de lenguaje son
+                probabilísticos por diseño. Pueden alucinar, interpretar mal las instrucciones,
+                seleccionar la herramienta equivocada o producir salidas diferentes ante una misma
+                entrada…
+              </p>
+              <p className="callout">Riesgo ≈ Probabilidad × Impacto</p>
+            </section>
+          </div>
+          <WhitepaperDownloadGate source="whitepaper_es_reading_gate" mode="reading" />
+        </div>
+      ) : null}
+
+      <div
+        className={unlocked ? "paper-gated-body is-unlocked" : "paper-gated-body is-locked"}
+        aria-hidden={!unlocked ? "true" : undefined}
+      >
       <section id="s02">
         <h2><span>02</span> La ecuación del riesgo de la IA agéntica</h2>
         <p>
@@ -1493,6 +1541,7 @@ allow if {
           comercialización, total o parcial, sin autorización previa por escrito.
         </p>
       </section>
+      </div>
 
       <p className="paper-also article-related">
         <a href={WHITEPAPER_PATH}>{t.essays.readEnPaper}</a>

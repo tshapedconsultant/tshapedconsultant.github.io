@@ -1,6 +1,21 @@
-import WhitepaperDownloadGate from "./components/WhitepaperDownloadGate.jsx";
+import WhitepaperDownloadGate, {
+  useWhitepaperUnlocked,
+} from "./components/WhitepaperDownloadGate.jsx";
 
 export default function Whitepaper() {
+  const [unlocked] = useWhitepaperUnlocked();
+
+  function handleTocClick(event, sectionNumber) {
+    if (unlocked || sectionNumber <= 1) return;
+    event.preventDefault();
+    const gateEl = document.getElementById("whitepaper-reading-gate");
+    if (gateEl) {
+      gateEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      const emailInput = gateEl.querySelector('input[type="email"]');
+      emailInput?.focus();
+    }
+  }
+
   return (
     <article className="paper">
       <p className="paper-nav">
@@ -24,7 +39,16 @@ export default function Whitepaper() {
         NIST AI RMF and ISO 42001 — with links to the public reference implementations.
       </p>
 
-      <nav className="paper-toc" aria-label="Whitepaper contents">
+      <nav
+        className="paper-toc"
+        aria-label="Whitepaper contents"
+        onClick={(e) => {
+          const anchor = e.target.closest("a[href^='#s']");
+          if (!anchor) return;
+          const num = parseInt(anchor.getAttribute("href").slice(2), 10);
+          if (!Number.isNaN(num)) handleTocClick(e, num);
+        }}
+      >
         <h2>Contents</h2>
         <ol>
           <li><a href="#s00">00 Executive summary</a></li>
@@ -123,6 +147,30 @@ export default function Whitepaper() {
         </p>
       </section>
 
+      {!unlocked ? (
+        <div className="paper-reading-gate-wrap">
+          <div className="paper-reading-preview-fade" aria-hidden="true">
+            <section>
+              <h2>
+                <span>02</span> The risk equation of agentic AI
+              </h2>
+              <p>
+                We often discuss AI risk as if it were an unavoidable property of the model. That
+                framing is incomplete. Large language models are probabilistic by design. They can
+                hallucinate, misunderstand instructions, select the wrong tool, or produce different
+                outputs from the same input…
+              </p>
+              <p className="callout">Risk ≈ Likelihood × Impact</p>
+            </section>
+          </div>
+          <WhitepaperDownloadGate source="whitepaper_en_reading_gate" mode="reading" />
+        </div>
+      ) : null}
+
+      <div
+        className={unlocked ? "paper-gated-body is-unlocked" : "paper-gated-body is-locked"}
+        aria-hidden={!unlocked ? "true" : undefined}
+      >
       <section id="s02">
         <h2><span>02</span> The risk equation of agentic AI</h2>
         <p>
@@ -1357,6 +1405,7 @@ allow if {
           part may be reproduced, adapted or commercialised without written permission.
         </p>
       </section>
+      </div>
     </article>
   );
 }
