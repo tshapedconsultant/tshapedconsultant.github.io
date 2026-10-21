@@ -11,6 +11,7 @@ import InsightArticle from "./pages/InsightArticle.jsx";
 import AiRuntimeRiskCheckPage from "./pages/AiRuntimeRiskCheckPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import AiRuntimeRiskCheck from "./components/AiRuntimeRiskCheck";
+import WhitepaperDownloadGate from "./components/WhitepaperDownloadGate.jsx";
 import { pulseByPath } from "./data/pulseLibrary.ts";
 import { Icon } from "./Icons.jsx";
 import Picture from "./components/Picture.jsx";
@@ -1737,6 +1738,16 @@ export default function App() {
                         {item.text}
                         <span className="visually-hidden">{t.opensNewTab}</span>
                       </a>
+                    ) : item.id === "whitepaper" || item.id === "executive-brief" ? (
+                      <a
+                        href="#whitepaper-teaser"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("whitepaper-teaser");
+                        }}
+                      >
+                        {item.text}
+                      </a>
                     ) : (
                       <a href={item.href} download={item.download ? true : undefined}>
                         {item.text}
@@ -2147,20 +2158,11 @@ export default function App() {
                   <div className="prose">
                     <p>{t.paper.body}</p>
                   </div>
-                  <div className="hero-actions">
-                    <a className="btn btn-solid" href={localizedPath(WHITEPAPER_PATH)}>
-                      {t.paper.read}
-                    </a>
-                    <a className="btn btn-ghost" href={paperPdf} download>
-                      {t.paper.pdf}
-                    </a>
-                  </div>
+                  <WhitepaperDownloadGate
+                    source="home_whitepaper_teaser"
+                    showReadOnlineButton
+                  />
                   <p className="paper-brief-lead">{t.paper.briefLead}</p>
-                  <div className="hero-actions">
-                    <a className="btn btn-ghost" href={EXECUTIVE_BRIEF_PDF} download>
-                      {t.paper.brief}
-                    </a>
-                  </div>
                   <p className="paper-also">
                     {t.paper.also}{" "}
                     <a href={LINKS.medium} target="_blank" rel="noopener noreferrer">

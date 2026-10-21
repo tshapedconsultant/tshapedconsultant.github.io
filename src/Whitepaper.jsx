@@ -1,4 +1,4 @@
-import { EXECUTIVE_BRIEF_PDF, WHITEPAPER_PDF } from "./content.js";
+import WhitepaperDownloadGate from "./components/WhitepaperDownloadGate.jsx";
 
 export default function Whitepaper() {
   return (
@@ -15,16 +15,10 @@ export default function Whitepaper() {
       </blockquote>
       <p className="wings">Daedalus gave us wings. Icarus taught us the limits.</p>
       <p className="paper-brand">
-        Dédalo™ · Deterministic Governance for Probabilistic AI ·         tshapedconsultant · <a href="/#diagnostic">Discuss a diagnostic</a>
+        Dédalo™ · Deterministic Governance for Probabilistic AI · tshapedconsultant ·{" "}
+        <a href="/#diagnostic">Discuss a diagnostic</a>
       </p>
-      <p className="paper-download">
-        <a className="btn btn-solid" href={WHITEPAPER_PDF} download>
-          Download the PDF
-        </a>
-        <a className="btn btn-ghost" href={EXECUTIVE_BRIEF_PDF} download>
-          Download Dédalo™ Executive Brief
-        </a>
-      </p>
+      <WhitepaperDownloadGate source="whitepaper_en" />
       <p className="paper-brief-lead">
         Two-page board brief: Deterministic Cage bounds, DGOM™ lifecycle, and mapping to EU AI Act,
         NIST AI RMF and ISO 42001 — with links to the public reference implementations.
@@ -58,7 +52,8 @@ export default function Whitepaper() {
           <li><a href="#s22">22 Practical cases</a></li>
           <li><a href="#s23">23 Executive decision matrix</a></li>
           <li><a href="#s24">24 Conclusion</a></li>
-          <li><a href="#s25">25 Technical appendix: compliance as code</a></li>
+          <li><a href="#s25">25 Technical appendix: policy as code</a></li>
+          <li><a href="#s26">26 Bibliography and technical references</a></li>
         </ol>
       </nav>
 
@@ -339,8 +334,11 @@ export default function Whitepaper() {
           <div className="powers-grid">
             <div>
               <p className="layer-num">Layer 1 · Legislative</p>
-              <h4>Model base alignment</h4>
-              <p>Fundamental rules, values and inherent safety of the LLM.</p>
+              <h4>Deterministic policy &amp; mandate</h4>
+              <p>
+                Corporate policies, risk appetite and regulatory mandate (EU AI Act, DORA, ISO/IEC
+                42001).
+              </p>
             </div>
             <div>
               <p className="layer-num">Layer 2 · Executive</p>
@@ -417,17 +415,24 @@ export default function Whitepaper() {
 
       <section id="s11">
         <h2><span>11</span> Architectural blueprint</h2>
-        <p>Conceptually, Runtime Assurance sits between the application and the model.</p>
+        <p>
+          Runtime Assurance is not a single checkpoint between the application and the model. It
+          intercepts on both sides of inference: pre-inference, it inspects incoming context (user
+          prompts, retrieved documents and tool results fed back to the model) before the model sees
+          it; post-inference, it evaluates proposed tool calls and outputs through the Policy
+          Decision Point / Policy Enforcement Point (PDP/PEP) pair that sits between the agent and
+          tools, APIs and infrastructure.
+        </p>
         <ol className="flow">
           <li>User</li>
           <li>Application layer</li>
           <li>
-            Runtime Assurance layer — policy engine, runtime assurance, inline veto controls,
-            threshold gates, audit and observability
+            Runtime Assurance layer (pre-inference) — policy engine, runtime assurance, inline veto
+            controls, threshold gates, audit and observability
           </li>
           <li>LLM / agent</li>
-          <li>Policy decision point</li>
-          <li>Policy enforcement point</li>
+          <li>Runtime Assurance (post-inference): Policy Decision Point (PDP)</li>
+          <li>Policy Enforcement Point (PEP)</li>
           <li>Tools / APIs / infrastructure</li>
         </ol>
         <p>
@@ -463,7 +468,8 @@ export default function Whitepaper() {
         <p>
           Most organisations still treat risk as something you assess once. But with agents, the real
           risk surface only appears at runtime — when context, authority and workflow state are all
-          moving.
+          moving. Teams can model the agent, but they cannot continuously check whether an action is
+          still permitted or still safe in the moment it is taken.
         </p>
         <h3>Behaviour-as-data vs governance-as-code</h3>
         <p>
@@ -611,6 +617,11 @@ export default function Whitepaper() {
           giving the human a consistent, comparable decision context — and preserving the conditions
           under which meaningful human judgement is exercised over time.
         </p>
+        <p>
+          This leaves a longitudinal question: not only was a human authorised and able to
+          intervene, but are the conditions under which meaningful human judgement is exercised
+          remaining healthy over time?
+        </p>
         <p className="note">
           Boundary lifecycle management — triggers, evidence review, recalibration, and accountable
           sign-off — is operationalized in the DGOM™ MONITOR phase, which governs residual risk,
@@ -752,6 +763,14 @@ export default function Whitepaper() {
           The strategic differentiator is not intelligence. It is controlled intelligence. Not
           capability. Capability under supervision. Not autonomy. Auditable autonomy.
         </p>
+        <p>
+          Governance does not have to be a brake. Deterministic controls (AST parsing, regular
+          expressions, OPA policies, allow-lists and asset-registry lookups) typically run in the
+          order of milliseconds, whereas model inference typically takes seconds. When a request is
+          blocked before it reaches the LLM, no tokens or inference time are spent on it. Actual
+          figures depend on each deployment and should be measured in it; the design principle is
+          that cutting early is cheaper than correcting late.
+        </p>
       </section>
 
       <section id="s21">
@@ -801,12 +820,62 @@ export default function Whitepaper() {
       <section id="s22">
         <h2><span>22</span> Practical cases</h2>
         <p>
-          Two representative enterprise scenarios that show the difference between governing models
-          and governing consequences. Both are illustrative; metrics are drawn from public reference
+          Three enterprise cases that show the difference between governing models and governing
+          consequences. The first is a working implementation with a recorded live demonstration
+          over synthetic data. The other two are illustrative scenarios informed by public reference
           implementations.
         </p>
 
-        <h3>01 · Corporate RAG and context poisoning</h3>
+        <h3>01 · HR Copilot — Technical Governance Implementation (TGI v1)</h3>
+        <p className="note">Working implementation · Live demo</p>
+        <p>
+          Two side-by-side builds of the same internal HR assistant, running over synthetic
+          enterprise data and tested against the same attack payloads, so that a CISO or CTO can see
+          the difference live. Stack: Python and OpenAI GPT-4o.
+        </p>
+        <p>
+          <strong>Act I — without governance:</strong> A single prompt chains unapproved tool calls
+          and exfiltrates executive compensation, personal data (GDPR Arts. 32/33), confidential
+          M&amp;A plans and internal credentials in under 60 seconds. A single-prompt breach. No
+          exploit in the model is needed: the agent simply has more authority than any control
+          around it.
+        </p>
+        <p>
+          <strong>Act II — the deterministic TGI v1 layer:</strong> The TGI v1 layer wraps the exact
+          same model, without swapping it, with eight deterministic controls:
+        </p>
+        <dl className="defs">
+          <dt>Prompt isolation</dt>
+          <dd>Separates system instructions from untrusted content.</dd>
+          <dt>Input classification</dt>
+          <dd>Classifies requests before they reach the model.</dd>
+          <dt>Tool allow-listing</dt>
+          <dd>Only explicitly authorised tools can be invoked.</dd>
+          <dt>Human-in-the-loop gates</dt>
+          <dd>Sensitive actions require human approval.</dd>
+          <dt>Output DLP</dt>
+          <dd>Detects and redacts sensitive data before the reply leaves the system.</dd>
+          <dt>Row-level authorisation</dt>
+          <dd>The agent only reads the records the requester is entitled to.</dd>
+          <dt>Secret hygiene</dt>
+          <dd>Credentials never reach the context or the reply.</dd>
+          <dt>SIEM-ready audit trail</dt>
+          <dd>Every blocked attempt is recorded as structured evidence.</dd>
+        </dl>
+        <p>
+          Same model, same data: from a single-prompt breach to 0 sensitive findings in the governed
+          reply, with every blocked attempt tagged against OWASP LLM v2025 (LLM01, LLM02,
+          LLM05–LLM07) and OWASP Agentic 2026 (ASI01–ASI03, ASI05).
+        </p>
+        <p className="note">
+          Evidence: recorded two-act walkthrough (Spanish audio, subtitles) at{" "}
+          <a href="/agent-fail-version-1.mp4">/agent-fail-version-1.mp4</a> and project page at{" "}
+          <a href="/#projects">tshapedconsultant.com/#projects</a>. Demonstration environment with
+          synthetic data; not a production deployment.
+        </p>
+
+        <h3>02 · Corporate RAG and context poisoning</h3>
+        <p className="note">Illustrative scenario</p>
         <p>
           A financial institution deploys an internal RAG-based assistant for employees to query
           corporate policies, procedures, and internal regulations.
@@ -842,7 +911,8 @@ export default function Whitepaper() {
           the LLM.
         </p>
 
-        <h3>02 · Autonomous AWS agent</h3>
+        <h3>03 · Autonomous AWS agent</h3>
+        <p className="note">Illustrative scenario</p>
         <p>
           A financial institution deploys an operational agent connected to AWS with three
           objectives: optimise costs, eliminate underutilised resources, and automate housekeeping.
@@ -855,8 +925,8 @@ export default function Whitepaper() {
         </p>
         <p>
           The agent detects a Route Table (RTB-3491) with 0 calls in the last 90 days. The historical
-          pattern indicates “idle resource → delete” with a delete-resource probability of 92%. The
-          agent executes <code>delete_route_table()</code>.
+          pattern classifies idle resources as deletion candidates, with a 92% probability of
+          selecting the action “Delete Resource”. The agent executes <code>delete_route_table()</code>.
         </p>
         <p>
           What the model does not know: the table belongs to the failover network of the payment
@@ -879,12 +949,12 @@ export default function Whitepaper() {
         </p>
         <p>The agent remains autonomous. But not sovereign.</p>
         <p>
-          <strong>Key message.</strong> These two examples show the difference between governing
-          models and governing consequences. The first case protects the cognitive integrity of the
-          system; the second protects the operational resilience of the organisation. Both require
-          exactly the same principle: a probabilistic system should never be the sole power capable
-          of deciding on actions with real impact. That is the core of “Probabilistic Models Require
-          Deterministic Governance”.
+          <strong>Key message.</strong> These three cases show the difference between governing
+          models and governing consequences. The first demonstrates it live on a working agent; the
+          second protects the cognitive integrity of the system; the third protects the operational
+          resilience of the organisation. All three require exactly the same principle: a
+          probabilistic system should never be the sole power capable of deciding on actions with
+          real impact. That is the core of “Probabilistic Models Require Deterministic Governance”.
         </p>
       </section>
 
@@ -991,13 +1061,14 @@ export default function Whitepaper() {
       </section>
 
       <section id="s25">
-        <h2><span>25</span> Technical appendix: compliance as code</h2>
+        <h2><span>25</span> Technical appendix: policy as code</h2>
         <p>
           The Runtime Assurance architecture described in this paper is not theoretical. Policies can
           be expressed as executable code and enforced at every trust boundary. The following Open
           Policy Agent (OPA / Rego) snippet illustrates a runtime authorization gate for an agentic
           action.
         </p>
+        <p className="note"><code>runtime_authz.rego</code> · OPA policy</p>
         <pre className="rego">
           <code>{`package ai_governance
 
@@ -1006,60 +1077,71 @@ default allow := false
 
 # Authority levels use a monotonic scale where higher values
 # represent greater authority (e.g. 1=observer, 5=operator, 9=admin).
-# Common gating conditions — must hold for ALL actions
-common_gates if {
+
+# Delegation gate: mandatory on EVERY allow path.
+# Satisfied when no delegation is requested, or when the child agent
+# stays within the parent's authority and the action's scope.
+delegation_ok if not input.delegation.requested
+delegation_ok if {
+    input.delegation.requested
+    input.delegation.child_authority <= input.delegation.parent_authority
+    input.delegation.scope == input.action.scope
+}
+
+# Base gates: must hold for ALL actions, standard or critical
+base_gates if {
     input.action.classification == "approved"
     input.agent.authority_level >= input.action.required_authority
+    delegation_ok
+}
+
+# Standard action: base gates, bounded impact, no human sign-off needed
+allow if {
+    base_gates
     input.action.impact_level in ["low", "medium"]
     not input.action.critical_infrastructure
     input.human_oversight.required == false
 }
 
-# Standard action: common gates only
+# Critical infrastructure: base gates PLUS explicit human approval
 allow if {
-    common_gates
-}
-
-# Critical infrastructure: common gates PLUS human approval
-allow if {
-    input.action.classification == "approved"
-    input.agent.authority_level >= input.action.required_authority
+    base_gates
     input.action.critical_infrastructure
     input.human_oversight.approved == true
     input.human_oversight.approver_role == "safety_manager"
-}
-
-# Delegation: child agent cannot exceed parent authority
-allow if {
-    input.delegation.requested
-    input.delegation.child_authority <= input.delegation.parent_authority
-    input.delegation.scope == input.action.scope
-    common_gates
 }`}</code>
         </pre>
         <p>
-          This policy is evaluated before every consequential action. The agent proposes; the policy
-          engine decides; the evidence is recorded. No action executes without an explicit allow
-          decision.
+          Because multiple <code>allow</code> rules in Rego are combined with a logical OR, every
+          control that must apply universally (classification, authority and the delegation gate) is
+          factored into <code>base_gates</code> and required on every allow path; no path can bypass
+          the delegation check. This policy is evaluated before every consequential action. The
+          agent proposes; the policy engine decides; the evidence is recorded. No action executes
+          without an explicit allow decision.
         </p>
         <h3>Threat intelligence references</h3>
         <p>The risks described in this paper map to established adversarial AI taxonomies:</p>
         <ul>
           <li>
-            OWASP Top 10 for LLM &amp; GenAI Applications — prompt injection, context poisoning, tool
-            abuse, excessive agency.
+            <strong>OWASP Top 10 for LLM Applications v2025</strong> — LLM01 Prompt Injection, LLM02
+            Sensitive Information Disclosure, LLM06 Excessive Agency, LLM07 System Prompt Leakage.
           </li>
           <li>
-            MITRE ATLAS (Adversarial Threat Landscape for AI Systems) — adversarial tactics and
-            techniques against ML-enabled systems.
+            <strong>OWASP Top 10 for Agentic Applications 2026</strong> — ASI01 Agent Goal Hijack,
+            ASI02 Tool Misuse and Exploitation, ASI03 Identity and Privilege Abuse, ASI05 Unexpected
+            Code Execution.
           </li>
           <li>
-            NIST AI 600-1: Generative AI Profile — risk-management controls specific to generative
-            AI, companion to the NIST AI RMF 1.0.
+            <strong>MITRE ATLAS (Adversarial Threat Landscape for AI Systems)</strong> — adversarial
+            tactics and techniques against ML-enabled systems.
           </li>
           <li>
-            NIST AI RMF 1.0 — the foundational risk-management framework (Govern, Map, Measure,
-            Manage).
+            <strong>NIST AI 600-1: Generative AI Profile</strong> — risk-management controls specific
+            to generative AI, companion to the NIST AI RMF 1.0.
+          </li>
+          <li>
+            <strong>NIST AI RMF 1.0</strong> — the foundational risk-management framework (Govern,
+            Map, Measure, Manage).
           </li>
         </ul>
         <p>
@@ -1067,6 +1149,156 @@ allow if {
           control architecture. Deterministic Governance operationalises them as runtime
           enforcement, not documentation.
         </p>
+      </section>
+
+      <section id="s26">
+        <h2><span>26</span> Bibliography and technical references</h2>
+        <h3>1. Regulation and regulatory frameworks (EU)</h3>
+        <ul>
+          <li>
+            European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689
+            laying down harmonised rules on artificial intelligence (Artificial Intelligence Act).{" "}
+            <em>Official Journal of the European Union</em>, ELI: reg/2024/1689/oj. Arts. 6, 9, 12,
+            14, 15, 26, 27, 72 and 99, and Annex III.{" "}
+            <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">
+              eur-lex.europa.eu/eli/reg/2024/1689/oj
+            </a>
+          </li>
+          <li>
+            European Parliament and Council of the European Union (2022). Regulation (EU) 2022/2554
+            on digital operational resilience for the financial sector (DORA).{" "}
+            <em>Official Journal of the European Union</em>, ELI: reg/2022/2554/oj.{" "}
+            <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj">
+              eur-lex.europa.eu/eli/reg/2022/2554/oj
+            </a>
+          </li>
+        </ul>
+
+        <h3>2. Risk-management and AI governance standards</h3>
+        <ul>
+          <li>
+            NIST — National Institute of Standards and Technology (2023).{" "}
+            <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>. NIST AI 100-1
+            (Govern, Map, Measure, Manage functions).{" "}
+            <a href="https://www.nist.gov/itl/ai-risk-management-framework">
+              nist.gov/itl/ai-risk-management-framework
+            </a>{" "}
+            ·{" "}
+            <a href="https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf">
+              NIST.AI.100-1 (PDF)
+            </a>
+          </li>
+          <li>
+            NIST — National Institute of Standards and Technology (2024).{" "}
+            <em>
+              Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence
+              Profile
+            </em>
+            . NIST AI 600-1.{" "}
+            <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf">
+              NIST.AI.600-1 (PDF)
+            </a>
+          </li>
+          <li>
+            ISO/IEC (2023).{" "}
+            <em>
+              ISO/IEC 42001:2023 — Information technology — Artificial intelligence — Management
+              system
+            </em>
+            . Clauses 6.1, 8, 9 and 10.{" "}
+            <a href="https://www.iso.org/standard/81230.html">iso.org/standard/81230.html</a>
+          </li>
+        </ul>
+
+        <h3>3. Agentic security and threat intelligence</h3>
+        <ul>
+          <li>
+            OWASP GenAI Security Project (2025).{" "}
+            <em>OWASP Top 10 for Agentic Applications for 2026</em>. ASI01 Agent Goal Hijack, ASI02
+            Tool Misuse and Exploitation, ASI03 Identity and Privilege Abuse, ASI05 Unexpected Code
+            Execution (RCE).{" "}
+            <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">
+              genai.owasp.org
+            </a>
+          </li>
+          <li>
+            OWASP GenAI Security Project (2024).{" "}
+            <em>OWASP Top 10 for LLM Applications v2025</em>. LLM01 Prompt Injection, LLM02 Sensitive
+            Information Disclosure, LLM06 Excessive Agency, LLM07 System Prompt Leakage, LLM08 Vector
+            and Embedding Weaknesses.{" "}
+            <a href="https://genai.owasp.org/llm-top-10/">genai.owasp.org/llm-top-10</a>
+          </li>
+          <li>
+            MITRE Corporation.{" "}
+            <em>MITRE ATLAS™ (Adversarial Threat Landscape for Artificial-Intelligence Systems)</em>
+            . Matrix of adversarial tactics and techniques against ML-enabled and AI systems.{" "}
+            <a href="https://atlas.mitre.org/">atlas.mitre.org</a>
+          </li>
+        </ul>
+
+        <h3>4. Deterministic policy engines and technical guardrails</h3>
+        <ul>
+          <li>
+            Open Policy Agent (CNCF graduated project).{" "}
+            <em>OPA &amp; Rego policy language documentation</em>. Deterministic policy evaluation as
+            code (policy-as-code).{" "}
+            <a href="https://www.openpolicyagent.org/docs/policy-language">
+              openpolicyagent.org/docs/policy-language
+            </a>
+          </li>
+          <li>
+            NVIDIA. <em>NeMo Guardrails</em> — programmable guardrails for LLM-based conversational
+            systems (Colang).{" "}
+            <a href="https://github.com/NVIDIA-NeMo/Guardrails">
+              github.com/NVIDIA-NeMo/Guardrails
+            </a>
+          </li>
+          <li>
+            Amazon Web Services. <em>Amazon Bedrock Guardrails</em> — content filters and Automated
+            Reasoning checks.{" "}
+            <a href="https://aws.amazon.com/bedrock/guardrails/">
+              aws.amazon.com/bedrock/guardrails
+            </a>
+          </li>
+          <li>
+            Lakera. <em>Lakera Guard</em> — real-time defence against prompt injection and data
+            leakage. <a href="https://www.lakera.ai/lakera-guard">lakera.ai/lakera-guard</a>
+          </li>
+        </ul>
+
+        <h3>5. Datasets and reference implementations (Dédalo™ / TGI v1)</h3>
+        <ul>
+          <li>
+            Matzka, S. (2020). <em>AI4I 2020 Predictive Maintenance Dataset</em>. UCI Machine
+            Learning Repository. 10,000 records of synthetic industrial telemetry; reference for the
+            governance implementation cited in Case 3 (Section 22).{" "}
+            <a href="https://archive.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset">
+              archive.ics.uci.edu/dataset/601
+            </a>
+          </li>
+          <li>
+            Lage Freire, A. (2026).{" "}
+            <em>HR Copilot — Technical Governance Implementation (TGI v1)</em>. Deterministic
+            control plane with eight controls wrapping the same GPT-4o model; Case 1 (Section 22).{" "}
+            <a href="/agent-fail-version-1.mp4">Recorded walkthrough</a> ·{" "}
+            <a href="/#projects">Project page</a>
+          </li>
+          <li>
+            Lage Freire, A. (2026). <em>Enterprise AI Risk Console</em>. Third-party AI vendor
+            governance: deterministic triage from validated YAML profiles, HMAC-validated Jira gates
+            and hash-chained audit trail.{" "}
+            <a href="https://enterprise-ai-risk.onrender.com">Live demo</a> ·{" "}
+            <a href="https://github.com/tshapedconsultant/enterprise-ai-risk">Repository</a>
+          </li>
+          <li>
+            Lage Freire, A. (2026). <em>Porto Seguro — Responsible AI Compliance Hub</em>. Reference
+            architecture for the EU AI Act and Solvency II in insurance (KS drift detection, JSON
+            evidence packs, CI/CD deploy gate); Case 2 (Section 22).{" "}
+            <a href="https://github.com/tshapedconsultant/porto-seguro-compliance-hub">
+              github.com/tshapedconsultant/porto-seguro-compliance-hub
+            </a>
+          </li>
+        </ul>
       </section>
     </article>
   );

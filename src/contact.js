@@ -112,6 +112,7 @@ export function buildEnquiryPayload({
   delivery,
   nda,
   consent,
+  mailingList,
   source,
   assessmentSummary,
 }) {
@@ -191,7 +192,13 @@ export function buildEnquiryPayload({
   }
 
   if (consent) {
-    payload["Explicit consent"] = "Accepted (response to this request only)";
+    payload["Explicit consent"] = mailingList
+      ? "Accepted (Whitepaper download & AI Governance mailing list)"
+      : "Accepted (response to this request only)";
+  }
+
+  if (mailingList) {
+    payload["Mailing list"] = "Subscribed (AI Governance & Runtime Assurance updates)";
   }
 
   const sourceLine = sanitizeLine(source, 80);
@@ -208,6 +215,7 @@ export function buildEnquiryPayload({
     consulting: "Consulting partner",
     peer: "Peer/research",
     risk_check: "AI Runtime Risk Check",
+    mailing_list: "Mailing List",
     other: "Other",
   }[callerKey] || "Enquiry";
   payload._subject = intentLine

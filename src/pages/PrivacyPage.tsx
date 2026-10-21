@@ -60,7 +60,7 @@ export default function PrivacyPage() {
             <li>Categoría del sistema evaluado, capacidad general y resumen del hallazgo preliminar.</li>
           </ul>
           <p>
-            <strong>Base legal (RGPD art. 6.1.a y 6.1.b):</strong> consentimiento explícito otorgado al marcar la casilla de aceptación y aplicación de medidas precontractuales a petición del interesado. No existe suscripción automática a listas de correo ni boletines comerciales.
+            <strong>Base legal (RGPD art. 6.1.a y 6.1.b):</strong> consentimiento explícito otorgado al marcar la casilla de aceptación (incluyendo la suscripción voluntaria a la lista de correo al descargar el Whitepaper) y aplicación de medidas precontractuales a petición del interesado. Nunca realizamos suscripciones automáticas sin consentimiento expreso, y puedes darte de baja en cualquier momento.
           </p>
         </section>
 
@@ -142,7 +142,7 @@ export default function PrivacyPage() {
           <li>System category, high-level capability and preliminary risk finding summary.</li>
         </ul>
         <p>
-          <strong>Legal basis (GDPR Art. 6(1)(a) and 6(1)(b)):</strong> explicit consent provided via the dedicated checkbox and pre-contractual steps requested by you. We never auto-subscribe visitors to newsletters or marketing lists.
+          <strong>Legal basis (GDPR Art. 6(1)(a) and 6(1)(b)):</strong> explicit consent provided via the dedicated checkbox (including optional opt-in to the AI Governance mailing list when downloading the Whitepaper) and pre-contractual steps requested by you. We never auto-subscribe visitors without explicit opt-in, and you may unsubscribe at any time.
         </p>
       </section>
 

@@ -16,7 +16,8 @@ export type ConversionEventName =
   | "risk_check_result_viewed"
   | "snapshot_cta_clicked"
   | "demo_cta_clicked"
-  | "contact_submitted";
+  | "contact_submitted"
+  | "whitepaper_mailing_list_joined";
 
 const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "risk_check_started",
@@ -28,6 +29,7 @@ const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "snapshot_cta_clicked",
   "demo_cta_clicked",
   "contact_submitted",
+  "whitepaper_mailing_list_joined",
 ]);
 
 const ALLOWED_PROP_KEYS = new Set([

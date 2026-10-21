@@ -273,11 +273,13 @@ describe("Analytics — Zero PII & Sanitization Edge Cases", () => {
     trackEvent("snapshot_cta_clicked", { source: "risk_check_result" });
     trackEvent("demo_cta_clicked", { source: "risk_check_result" });
     trackEvent("contact_submitted", { source: "commercial_form", intent: "snapshot" });
+    trackEvent("whitepaper_mailing_list_joined", { source: "whitepaper_es", intent: "mailing_list" });
 
     const events = getTrackedEvents();
-    assert.equal(events.length, 9);
+    assert.equal(events.length, 10);
     assert.equal(events[0].event, "risk_check_started");
     assert.equal(events[8].event, "contact_submitted");
+    assert.equal(events[9].event, "whitepaper_mailing_list_joined");
   });
 });
 
@@ -357,6 +359,24 @@ describe("Contact & Security — Sanitization, Validation & Rate Limiting", () =
     assert.equal(payload["Explicit consent"], "Accepted (response to this request only)");
     assert.equal(payload.Source, "ai-runtime-risk-check");
     assert.equal(payload["Preliminary risk signal"], "Tier: Exposición sensible");
+
+    const mailingPayload = buildEnquiryPayload({
+      name: "Whitepaper Subscriber",
+      email: "cto@empresa.es",
+      intent: "Whitepaper & AI Governance Mailing List (ES)",
+      consent: true,
+      mailingList: true,
+      source: "whitepaper_es",
+    });
+    assert.equal(
+      mailingPayload["Explicit consent"],
+      "Accepted (Whitepaper download & AI Governance mailing list)"
+    );
+    assert.equal(
+      mailingPayload["Mailing list"],
+      "Subscribed (AI Governance & Runtime Assurance updates)"
+    );
+    assert.equal(mailingPayload.Source, "whitepaper_es");
   });
 
   test("submitEnquiry throws FormNotConfiguredError when no endpoint is configured", async () => {
