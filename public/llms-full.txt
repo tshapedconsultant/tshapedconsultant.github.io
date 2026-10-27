@@ -13,7 +13,7 @@ Practice: AI Governance Engineering — controls, accountability and evidence ac
 - Technical delivery capacity for law firms and advisory partners (referral, co-delivery, white-label support)
 - Priced diagnostic offers remain on the homepage
 - Case studies: BBVA platform and AI strategy (PDF); Responsible AI framework for resume–job matching (PDF)
-- Reference implementations: HR Copilot — Technical Governance Implementation (TGI v1), Enterprise AI Risk Console (live demo: https://enterprise-ai-risk.onrender.com), RAG Security Validator (live demo: https://rag-security-validator-demo.onrender.com), Enterprise Data Analyst Agent, Porto Seguro Compliance Hub, Automated Red Teaming for Safety-Critical AI
+- Reference implementations: HR Copilot — Technical Governance Implementation (TGI v1), Enterprise AI Risk Console (live demo: https://enterprise-ai-risk.onrender.com), RAG Security Validator (live demo: https://rag-security-validator-demo.onrender.com), Enterprise Data Analyst Agent, Porto Seguro Compliance Hub (EIPD walkthrough videos on the project card; anonymized Kaggle dataset, not a live insurance book), Automated Red Teaming for Safety-Critical AI
 - Contact: https://tshapedconsultant.com/#diagnostic
 
 ### Whitepaper — https://tshapedconsultant.com/whitepaper

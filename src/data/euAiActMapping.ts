@@ -28,7 +28,7 @@ export type MappingRow = {
 };
 
 export const MAPPING_SOURCE_NOTE =
-  "Status is scored against the public repos, not README claims. Porto Seguro publishes a committed conformity JSON plus screenshots — pipeline files named in that README are not in the tree. Enterprise AI Risk implements a hash-chained ledger, unique decision IDs, and Jira human gates. Rekor and S3 Object Lock exist as optional sinks and are off by default. Copy is original.";
+  "Status is scored against the public repos, not README claims. Porto Seguro publishes a conformity JSON, a GDPR Art. 35 EIPD pack, an in-process control plane (DENY / HITL / redact / local hash chain) and Streamlit walkthroughs. Demo data is the anonymized Kaggle Porto Seguro file — not a live insurance book. Residual scores are estimates pending verification. Enterprise AI Risk implements a hash-chained ledger, unique decision IDs, and Jira human gates. Rekor and S3 Object Lock exist as optional sinks and are off by default. Copy is original.";
 
 export const MAPPING_SUBTITLE =
   "Selected EU AI Act duties mapped to executable controls that emit a hashed evidence pack — for CTOs, Heads of AI and Risk leaders.";
@@ -252,7 +252,8 @@ fail_pipeline() if not robustness_passed`,
     systemType: "Provider · high-risk",
     controlKind: "runtime kill switch",
     control: "Independent stop-path / kill switch (not in the reference repos)",
-    evidence: "No executable kill switch; Porto Seguro lists agentic runtime controls as out of scope",
+    evidence:
+      "Scoring API has in-process STOP_FILE / execute_guarded. Agentic runtime kill switch remains out of scope. Local hash chain is not WORM.",
     status: "Planned",
     requirement:
       "Resilience against attempts to alter use or performance — including a stop-path that does not depend on the model agreeing to be stopped, with security monitoring of that path.",

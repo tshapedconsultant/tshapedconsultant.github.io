@@ -1,7 +1,7 @@
 import type { MappingRow } from "./euAiActMapping";
 
 export const MAPPING_SOURCE_NOTE_ES =
-  "El status se puntúa contra los repos públicos, no contra afirmaciones del README. Porto Seguro publica un JSON de conformidad versionado más capturas — los ficheros de pipeline citados en ese README no están en el árbol. Enterprise AI Risk implanta un ledger encadenado por hash, decision ID únicos y compuertas humanas en Jira. Rekor y S3 Object Lock existen como sinks opcionales y están desactivados por defecto. El texto es original.";
+  "El status se puntúa contra los repos públicos, no contra afirmaciones del README. Porto Seguro publica un JSON de conformidad, un pack EIPD (art. 35 RGPD), un plano de control en proceso (DENY / HITL / redacción / cadena hash local) y recorridos Streamlit. Los datos de demo son el fichero Kaggle Porto Seguro anonimizado — no una cartera real. Las puntuaciones residuales son estimaciones pendientes de verificación. Enterprise AI Risk implanta un ledger encadenado por hash, decision ID únicos y compuertas humanas en Jira. Rekor y S3 Object Lock existen como sinks opcionales y están desactivados por defecto. El texto es original.";
 
 export const MAPPING_SUBTITLE_ES =
   "Deberes seleccionados del EU AI Act mapeados a controles ejecutables que emiten un paquete de evidencia con hash — para CTOs, responsables de IA y líderes de Riesgo.";
@@ -120,7 +120,8 @@ export const MAPPING_ROWS_ES: Record<
     article: "Art. 15 – Ciberseguridad",
     systemType: "Proveedor · alto riesgo",
     control: "Camino de parada independiente / kill switch (no está en los repos de referencia)",
-    evidence: "No hay kill switch ejecutable; Porto Seguro declara fuera de alcance los controles de runtime agéntico",
+    evidence:
+      "La API de scoring tiene STOP_FILE / execute_guarded en proceso. El kill switch agéntico sigue fuera de alcance. La cadena hash local no es WORM.",
     requirement:
       "Resiliencia frente a intentos de alterar el uso o el rendimiento — incluido un camino de parada que no dependa de que el modelo acepte ser detenido, con monitorización de seguridad de ese camino.",
   },

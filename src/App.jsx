@@ -2101,12 +2101,13 @@ export default function App() {
                       {project.schemaVideo ? (
                         <figure className="project-demo">
                           <video
+                            key={`${locale}-schema`}
                             controls
                             playsInline
                             preload="metadata"
                             poster={project.schemaPoster}
-                            width="1600"
-                            height="948"
+                            width={project.schemaVideoWidth || project.videoWidth || 1600}
+                            height={project.schemaVideoHeight || project.videoHeight || 948}
                           >
                             <source src={project.schemaVideo} type="video/mp4" />
                           </video>

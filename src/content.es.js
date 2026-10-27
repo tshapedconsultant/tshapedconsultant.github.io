@@ -1151,12 +1151,32 @@ export const PROJECTS = [
   {
     num: "05",
     name: "Porto Seguro Compliance Hub",
-    category: "IA regulada / evidencia",
+    category: "IA regulada / evidencia EIPD",
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",
-    stack: "EBM · Polars · Streamlit · SHA-256 evidence packs",
+    stack: "EBM · Polars · Streamlit · plano de control · pack EIPD RGPD",
+    lead: "El modelo propone. Los controles deciden. El riesgo residual permanece visible.",
     summary:
-      "EU AI Act, equidad, deriva, explicabilidad y paquetes de evidencia. Predicción glass-box de siniestros de seguros con compuertas KS de deriva y artefactos JSON de evidencia.",
-    outcome: "Arquitectura de referencia que mapea los artículos 9–15 del EU AI Act a controles ejecutables.",
+      "Arquitectura de referencia para puntuación de siniestros — no es una cartera real de seguros ni una presentación a la AEPD. El relato sigue la EIPD: identificar el tratamiento (Kaggle Porto Seguro anonimizado, 595.212 filas), un riesgo para los derechos, un control en vivo (denegación antes del modelo, aprobación humana de un solo uso, redacción) e inspeccionar la cadena hash local. Las puntuaciones residuales son estimaciones pendientes de verificación. Una cadena hash local no es almacenamiento WORM.",
+    controlFlowLabel: "Secuencia EIPD",
+    controlFlow: [
+      "Finalidad del tratamiento",
+      "Riesgo para derechos",
+      "Control (DENY / HITL / redacción)",
+      "Evidencia de auditoría",
+      "Riesgo residual",
+    ],
+    video: "/porto-seguro-aepd-es.mp4",
+    poster: "/porto-seguro-aepd-es-poster.jpg",
+    videoWidth: 1920,
+    videoHeight: 1200,
+    videoCaption:
+      "Corte AEPD (~90 s, castellano): alcance del dataset, EIPD, controles en vivo, pista de auditoría y límites. Evidencia técnica, no certificación.",
+    schemaVideo: "/porto-seguro-governed-es.mp4",
+    schemaPoster: "/porto-seguro-governed-es-poster.jpg",
+    schemaCaption:
+      "Sala de control (castellano): DENY antes de ejecutar, ticket de aprobación, redacción y detección local de manipulación.",
+    outcome:
+      "Mapea los arts. 9–15 del Reglamento de IA y el art. 35 RGPD a controles ejecutables y un pack EIPD. Datos de demo anonimizados; firma de responsable/DPO hipotética. No es una consulta previa del artículo 36.",
   },
   {
     num: "06",

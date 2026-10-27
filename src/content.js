@@ -1135,12 +1135,28 @@ export const PROJECTS = [
   {
     num: "05",
     name: "Porto Seguro Compliance Hub",
-    category: "Regulated AI / evidence",
+    category: "Regulated AI / EIPD evidence",
     href: "https://github.com/tshapedconsultant/porto-seguro-compliance-hub",
-    stack: "EBM · Polars · Streamlit · SHA-256 evidence packs",
+    stack: "EBM · Polars · Streamlit · control plane · GDPR EIPD pack",
+    lead: "The model proposes. Controls decide. Residual risk stays visible.",
     summary:
-      "EU AI Act, fairness, drift, explainability and evidence packs. Glass-box insurance-claim prediction with KS drift gates and JSON evidence artefacts.",
-    outcome: "Reference architecture mapping EU AI Act Articles 9–15 to executable controls.",
+      "Reference architecture for insurance-claim scoring — not a live insurance book and not an AEPD filing. The walkthrough follows the EIPD: identify the processing (anonymized Kaggle Porto Seguro, 595,212 rows), a risk to people’s rights, a live control (deny before the model runs, single-use human approval, redaction), then inspect the local hash chain. Residual scores are estimates pending verification. A local hash chain is not WORM storage.",
+    controlFlowLabel: "EIPD sequence",
+    controlFlow: [
+      "Processing purpose",
+      "Risk to rights",
+      "Control (DENY / HITL / redact)",
+      "Audit evidence",
+      "Residual risk",
+    ],
+    video: "/porto-seguro-governed-en.mp4",
+    poster: "/porto-seguro-governed-en-poster.jpg",
+    videoWidth: 1920,
+    videoHeight: 1200,
+    videoCaption:
+      "English walkthrough: governed decision path — DENY before execution, human approval, redaction, local hash chain. Technical evidence, not certification.",
+    outcome:
+      "Maps EU AI Act Arts. 9–15 and GDPR Art. 35 to executable controls and an EIPD pack. Demo data is anonymized; controller/DPO sign-off is hypothetical. Not an Article 36 prior consultation.",
   },
   {
     num: "06",
