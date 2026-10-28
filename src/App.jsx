@@ -634,6 +634,7 @@ export default function App() {
     ABOUT_BLOCKS,
     ABOUT_INTRO,
     ABOUT_SITE,
+    ABOUT_WHY,
     APPROACH,
     AUTHORITY_ARCHITECTURE,
     BEST_FIT,
@@ -1145,8 +1146,8 @@ export default function App() {
           <NotFound />
         ) : (
           <>
-            {/* 1. HERO */}
-            <section className="hero region-dark" id="top">
+            {/* 1. HERO — valor + tesis determinista */}
+<section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
                   <p className="eyebrow loc-line">{HERO.kicker || LOCATION_HERO}</p>
@@ -1209,8 +1210,8 @@ export default function App() {
               </div>
             </section>
 
-            {/* 2. SECCIÓN DE DOLOR INMEDIATA */}
-            <section id="why" className="region region-light region-mid">
+            {/* 2. DOLOR — Acceso / Autoridad / Evidencia */}
+<section id="why" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1295,8 +1296,8 @@ export default function App() {
               </div>
             </section>
 
-            {/* 3. AI RUNTIME RISK CHECK (EMBEBIDO) */}
-            <section id="risk-check" className="region region-dark risk-check-band region-major">
+            {/* 3. AI RUNTIME RISK CHECK — entrada en 90s */}
+<section id="risk-check" className="region region-dark risk-check-band region-major">
               <div className="region-inner">
                 <AiRuntimeRiskCheck
                   embedded={true}
@@ -1306,13 +1307,34 @@ export default function App() {
               </div>
             </section>
 
-            {/* 4. CASO DESTACADO HR COPILOT (TGI v1) */}
+            {/* 4. POR QUÉ T-SHAPED — puente doctrinal (Legal / Ingeniería / Negocio) */}
+            <section
+              id="why-tshaped"
+              className="region region-light region-mist region-mid why-tshaped-band"
+              aria-labelledby="why-tshaped-title"
+            >
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="eyebrow">{t.about.combo}</p>
+                  <h2 id="why-tshaped-title">{ABOUT_WHY.title}</h2>
+                </div>
+                <div className="why-tshaped-body">
+                  {ABOUT_WHY.paragraphs.map((paragraph) => (
+                    <p key={paragraph.slice(0, 48)} className="about-why why-tshaped-text">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 5. PRUEBA ESTRELLA — HR Copilot (TGI v1) */}
             {FEATURED_HR_COPILOT ? (
               <section id="hr-copilot-case" className="region region-light region-mid hr-copilot-band">
                 <div className="region-inner">
                   <div className="section-head">
                     <p className="num" aria-hidden="true">
-                      02
+                      04
                     </p>
                     <div>
                       <p className="eyebrow">{FEATURED_HR_COPILOT.kicker}</p>
@@ -1401,8 +1423,166 @@ export default function App() {
               </section>
             ) : null}
 
-            {/* 5. SERVICIOS REPOSICIONADOS EN 3 PASOS + PRECIOS */}
-            <section id="services" className="region region-light region-mist region-mid">
+            {/* 6. CASOS — evidencia de cliente */}
+            <section id="case-studies" className="region region-light region-mist region-mid">
+              <div className="region-inner">
+                <div className="section-head">
+                    <p className="num" aria-hidden="true">
+                      05
+                    </p>
+                  <h2>{t.cases.title}</h2>
+                </div>
+                <p className="section-lede">{CASE_STUDIES.lede}</p>
+                {CASE_STUDIES.items.map((study) => (
+                  <article className="case-study" key={study.id} aria-labelledby={`${study.id}-title`}>
+                    <header className="case-head">
+                      <p className="case-kicker">{study.kicker}</p>
+                      <p className="case-client">
+                        {study.client} · {study.sector}
+                      </p>
+                      <h3 id={`${study.id}-title`}>{study.title}</h3>
+                      <p className="case-role">{study.role}</p>
+                    </header>
+                    <div className="case-problem">
+                      <h4>{t.cases.problem}</h4>
+                      <p>{study.problem}</p>
+                    </div>
+                    <h4 className="case-outcomes-label">{t.cases.outcomes}</h4>
+                    <ol className="case-outcomes">
+                      {study.outcomes.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ol>
+                    <details className="mobile-disclose case-extra">
+                      <summary>{t.cases.more}</summary>
+                      <div>
+                        <details className="disclose-always case-done">
+                          <summary>{t.cases.done}</summary>
+                          <ul>
+                            {study.approach.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </details>
+                        <aside className="case-gov">
+                          <h4>{t.cases.governance}</h4>
+                          <p>{study.governance}</p>
+                        </aside>
+                        <p className="case-note">{study.note}</p>
+                      </div>
+                    </details>
+                    <a className="btn btn-solid" href={study.pdf} download>
+                      {study.downloadLabel || t.cases.download}
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* 7. PROYECTOS — evidencia ejecutable */}
+            <section id="projects" className="region region-light region-quiet">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    06
+                  </p>
+                  <h2>{t.projects.title}</h2>
+                </div>
+                <p className="section-lede">{t.projects.lede}</p>
+                <div className="project-grid">
+                  {PROJECTS.filter((project) => project.num !== "01").map((project) => (
+                    <article className="project" key={project.href || project.liveHref || project.name}>
+                      <header>
+                        <p className="flag">{project.num}</p>
+                        <p className="ver">{project.category}</p>
+                        <h3>{project.name}</h3>
+                      </header>
+                      {project.lead ? <p className="project-lead">{project.lead}</p> : null}
+                      <p>{project.summary}</p>
+                      {project.controlFlow ? (
+                        <div className="project-flow-block" role="group" aria-label={project.controlFlowLabel}>
+                          <p className="project-flow-label">{project.controlFlowLabel}</p>
+                          <ol className="project-flow">
+                            {project.controlFlow.map((step) => (
+                              <li key={step}>{step}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      ) : null}
+                      {project.video ? (
+                        <figure className="project-demo">
+                          <video
+                            key={locale}
+                            controls
+                            playsInline
+                            preload="metadata"
+                            poster={project.poster}
+                            width={project.videoWidth || 1280}
+                            height={project.videoHeight || 806}
+                          >
+                            <source src={project.video} type="video/mp4" />
+                            {project.captions ? (
+                              <track
+                                kind="subtitles"
+                                src={project.captions}
+                                srcLang="es"
+                                label="Español"
+                                default
+                              />
+                            ) : null}
+                          </video>
+                          <figcaption>{project.videoCaption}</figcaption>
+                        </figure>
+                      ) : null}
+                      {project.schemaVideo ? (
+                        <figure className="project-demo">
+                          <video
+                            key={`${locale}-schema`}
+                            controls
+                            playsInline
+                            preload="metadata"
+                            poster={project.schemaPoster}
+                            width={project.schemaVideoWidth || project.videoWidth || 1600}
+                            height={project.schemaVideoHeight || project.videoHeight || 948}
+                          >
+                            <source src={project.schemaVideo} type="video/mp4" />
+                          </video>
+                          <figcaption>{project.schemaCaption}</figcaption>
+                        </figure>
+                      ) : null}
+                      <ul className="stack-tags">
+                        {project.stack.split(" · ").map((tag) => (
+                          <li key={tag}>{tag}</li>
+                        ))}
+                      </ul>
+                      <p className="outcome">
+                        <strong>{t.projects.outcome}</strong> {project.outcome}
+                      </p>
+                      <div className="project-actions">
+                        {project.liveHref ? (
+                          <ExternalLink className="btn btn-solid" href={project.liveHref}>
+                            {project.liveCta || t.projects.live}
+                          </ExternalLink>
+                        ) : null}
+                        {project.href ? (
+                          <ExternalLink className="project-link" href={project.href}>
+                            {t.projects.view}
+                          </ExternalLink>
+                        ) : null}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <p className="more-repos">
+                  <ExternalLink className="btn btn-ghost" href={LINKS.githubRepos}>
+                    {t.projects.all}
+                  </ExternalLink>
+                </p>
+              </div>
+            </section>
+
+            {/* 8. SERVICIOS — ladder comercial */}
+<section id="services" className="region region-light region-mist region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
@@ -1498,13 +1678,13 @@ export default function App() {
               </div>
             </section>
 
-            {/* 5B. PUERTA DE ENTRADA IN-COMPANY: DEL PDF LEGAL AL CÓDIGO */}
+            {/* 9. ENABLEMENT — Workshop / Hackathon / Briefing */}
             {ENABLEMENT_PROGRAMS ? (
               <section id="enablement" className="region region-light region-mid enablement-band">
                 <div className="region-inner">
                   <div className="section-head">
                     <p className="num" aria-hidden="true">
-                      04
+                      08
                     </p>
                     <div>
                       <p className="eyebrow">{ENABLEMENT_PROGRAMS.kicker}</p>
@@ -1577,12 +1757,137 @@ export default function App() {
               </section>
             ) : null}
 
-            {/* 6. DGOM OPERATING MODEL */}
-            <section id="dgom" className="region region-dark dgom-band region-major">
+            {/* 10. ENFOQUE — cómo trabajo */}
+            <section id="approach" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    05
+                    09
+                  </p>
+                  <h2>{t.approach.title}</h2>
+                </div>
+                <div className="two-level">
+                  <article>
+                    <p className="level-kicker">{t.approach.business}</p>
+                    <p>{t.approach.businessText}</p>
+                  </article>
+                  <article>
+                    <p className="level-kicker">{t.approach.technical}</p>
+                    <p>{t.approach.technicalText}</p>
+                  </article>
+                </div>
+                <p className="approach-thesis">{HERO.principle}</p>
+
+                <ol className="arch-flow" aria-label={t.pipeline.svgTitle}>
+                  {APPROACH.map((step) => (
+                    <li key={step.id}>
+                      <Icon name={step.icon} />
+                      <h3>{step.title}</h3>
+                      <p>{step.text}</p>
+                    </li>
+                  ))}
+                </ol>
+
+                <details className="mobile-disclose approach-more">
+                  <summary>{t.approach.details}</summary>
+                  <div className="approach-extra">
+                    <div className="frameworks">
+                      {FRAMEWORKS.map((item) => (
+                        <article key={item.name}>
+                          <Icon name={item.icon} />
+                          <h3>{item.name}</h3>
+                          <p>{item.caption}</p>
+                        </article>
+                      ))}
+                    </div>
+                    <p className="reg-line">{t.approach.readiness}</p>
+
+                    <p className="dgom-pointer">
+                      <a
+                        href="#dgom"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          goHomeSection("dgom");
+                        }}
+                      >
+                        {t.approach.seeModel}
+                      </a>
+                    </p>
+
+                    <div className="term-grid">
+                      <article>
+                        <h3>{t.approach.cageTitle}</h3>
+                        <p>{t.approach.cageText}</p>
+                      </article>
+                      <article>
+                        <h3>{t.approach.constitutionTitle}</h3>
+                        <p>{t.approach.constitutionText}</p>
+                      </article>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </section>
+
+            {/* 11. ENTREGABLES */}
+            <section id="deliver" className="region region-light region-mid">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    10
+                  </p>
+                  <h2>{t.deliver.title}</h2>
+                </div>
+                <p className="section-lede">{t.deliver.lede}</p>
+                <ul className="capability-strip">
+                  {CAPABILITIES.map((item) => (
+                    <li key={item.title}>
+                      <Icon name={item.icon} />
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>{item.text}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="deliver-grid">
+                  {DELIVER.map((group) => (
+                    <article key={group.title}>
+                      <h3>{group.title}</h3>
+                      <details className="mobile-disclose deliver-body">
+                        <summary>{t.deliver.included}</summary>
+                        <ul>
+                          {group.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    </article>
+                  ))}
+                </div>
+                <div className="engagement-block" id="engagement">
+                  <h2 id="engagement-heading" className="engagement-title">
+                    {ENGAGEMENT.title}
+                  </h2>
+                  <ol className="engagement-lines">
+                    {ENGAGEMENT.lines.map((line) => (
+                      <li key={line.label}>
+                        <Icon name={line.icon} />
+                        <strong>{line.label}</strong>
+                        <span>{line.text}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </section>
+
+            {/* 12. DGOM™ — modelo operativo */}
+<section id="dgom" className="region region-dark dgom-band region-major">
+              <div className="region-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    11
                   </p>
                   <h2>{DGOM_MODEL.title}</h2>
                 </div>
@@ -1617,40 +1922,8 @@ export default function App() {
               </div>
             </section>
 
-            {/* 7. ARQUITECTURA DE AUTORIDAD Y PRUEBA SOCIAL (4 BLOQUES) */}
-            {AUTHORITY_ARCHITECTURE ? (
-              <section id="authority" className="region region-light region-mid authority-band">
-                <div className="region-inner">
-                  <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      06
-                    </p>
-                    <div>
-                      <p className="eyebrow">{AUTHORITY_ARCHITECTURE.kicker}</p>
-                      <h2>{AUTHORITY_ARCHITECTURE.title}</h2>
-                    </div>
-                  </div>
-                  <p className="section-lede">{AUTHORITY_ARCHITECTURE.lead}</p>
-                  <div className="authority-grid">
-                    {AUTHORITY_ARCHITECTURE.blocks.map((block) => (
-                      <article className="authority-card" key={block.step}>
-                        <p className="authority-step">{block.step}</p>
-                        <h3>{block.title}</h3>
-                        <p className="authority-summary">{block.summary}</p>
-                        <ul>
-                          {block.items.map((line) => (
-                            <li key={line}>{line}</li>
-                          ))}
-                        </ul>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            ) : null}
-
-            {/* 8. FORMULARIO COMERCIAL Y ORIENTACIÓN DE PRECIOS */}
-            <section id="diagnostic" className="region region-dark diagnostic-band region-major">
+            {/* 13. DIAGNÓSTICO — formulario y precios */}
+<section id="diagnostic" className="region region-dark diagnostic-band region-major">
               <div className="region-inner diagnostic-layout">
                 <article className="diag-panel">
                   <p className="eyebrow">{t.diagnostic.kicker}</p>
@@ -1758,11 +2031,69 @@ export default function App() {
               </ul>
             </aside>
 
+            {/* 14. AUTORIDAD — arquitectura de prueba */}
+            {AUTHORITY_ARCHITECTURE ? (
+              <section id="authority" className="region region-light region-mid authority-band">
+                <div className="region-inner">
+                  <div className="section-head">
+                    <p className="num" aria-hidden="true">
+                      12
+                    </p>
+                    <div>
+                      <p className="eyebrow">{AUTHORITY_ARCHITECTURE.kicker}</p>
+                      <h2>{AUTHORITY_ARCHITECTURE.title}</h2>
+                    </div>
+                  </div>
+                  <p className="section-lede">{AUTHORITY_ARCHITECTURE.lead}</p>
+                  <div className="authority-grid">
+                    {AUTHORITY_ARCHITECTURE.blocks.map((block) => (
+                      <article className="authority-card" key={block.step}>
+                        <p className="authority-step">{block.step}</p>
+                        <h3>{block.title}</h3>
+                        <p className="authority-summary">{block.summary}</p>
+                        <ul>
+                          {block.items.map((line) => (
+                            <li key={line}>{line}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ) : null}
+
+            {/* 15. GUARDRAILS */}
+            <section id="guardrails" className="region region-dark guard-band region-quiet">
+              <div className="region-inner guard-inner">
+                <div className="section-head">
+                  <p className="num" aria-hidden="true">
+                    13
+                  </p>
+                  <h2>{t.guard.title}</h2>
+                </div>
+                <p className="guard-lead">{t.guard.lead}</p>
+                <p className="principle-line">{t.guard.principle}</p>
+                <details className="mobile-disclose guard-more">
+                  <summary>{t.guard.cageSummary}</summary>
+                  <div>
+                    <p className="guard-determines">{t.guard.determines}</p>
+                    <ol className="guard-chain">
+                      {t.guard.chain.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ol>
+                  </div>
+                </details>
+              </div>
+            </section>
+
+            {/* 16. PARTNERS — despachos / Big 4 */}
             <section id="partners" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    07
+                    14
                   </p>
                   <h2>{PARTNERS.title}</h2>
                 </div>
@@ -1842,315 +2173,13 @@ export default function App() {
               </div>
             </aside>
 
-            <section id="guardrails" className="region region-dark guard-band region-quiet">
-              <div className="region-inner guard-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    08
-                  </p>
-                  <h2>{t.guard.title}</h2>
-                </div>
-                <p className="guard-lead">{t.guard.lead}</p>
-                <p className="principle-line">{t.guard.principle}</p>
-                <details className="mobile-disclose guard-more">
-                  <summary>{t.guard.cageSummary}</summary>
-                  <div>
-                    <p className="guard-determines">{t.guard.determines}</p>
-                    <ol className="guard-chain">
-                      {t.guard.chain.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ol>
-                  </div>
-                </details>
-              </div>
-            </section>
-
-            <section id="approach" className="region region-light region-quiet">
-              <div className="region-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    09
-                  </p>
-                  <h2>{t.approach.title}</h2>
-                </div>
-                <div className="two-level">
-                  <article>
-                    <p className="level-kicker">{t.approach.business}</p>
-                    <p>{t.approach.businessText}</p>
-                  </article>
-                  <article>
-                    <p className="level-kicker">{t.approach.technical}</p>
-                    <p>{t.approach.technicalText}</p>
-                  </article>
-                </div>
-                <p className="approach-thesis">{HERO.principle}</p>
-
-                <ol className="arch-flow" aria-label={t.pipeline.svgTitle}>
-                  {APPROACH.map((step) => (
-                    <li key={step.id}>
-                      <Icon name={step.icon} />
-                      <h3>{step.title}</h3>
-                      <p>{step.text}</p>
-                    </li>
-                  ))}
-                </ol>
-
-                <details className="mobile-disclose approach-more">
-                  <summary>{t.approach.details}</summary>
-                  <div className="approach-extra">
-                    <div className="frameworks">
-                      {FRAMEWORKS.map((item) => (
-                        <article key={item.name}>
-                          <Icon name={item.icon} />
-                          <h3>{item.name}</h3>
-                          <p>{item.caption}</p>
-                        </article>
-                      ))}
-                    </div>
-                    <p className="reg-line">{t.approach.readiness}</p>
-
-                    <p className="dgom-pointer">
-                      <a
-                        href="#dgom"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          goHomeSection("dgom");
-                        }}
-                      >
-                        {t.approach.seeModel}
-                      </a>
-                    </p>
-
-                    <div className="term-grid">
-                      <article>
-                        <h3>{t.approach.cageTitle}</h3>
-                        <p>{t.approach.cageText}</p>
-                      </article>
-                      <article>
-                        <h3>{t.approach.constitutionTitle}</h3>
-                        <p>{t.approach.constitutionText}</p>
-                      </article>
-                    </div>
-                  </div>
-                </details>
-              </div>
-            </section>
-
-            <section id="deliver" className="region region-light region-mid">
-              <div className="region-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    10
-                  </p>
-                  <h2>{t.deliver.title}</h2>
-                </div>
-                <p className="section-lede">{t.deliver.lede}</p>
-                <ul className="capability-strip">
-                  {CAPABILITIES.map((item) => (
-                    <li key={item.title}>
-                      <Icon name={item.icon} />
-                      <div>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <div className="deliver-grid">
-                  {DELIVER.map((group) => (
-                    <article key={group.title}>
-                      <h3>{group.title}</h3>
-                      <details className="mobile-disclose deliver-body">
-                        <summary>{t.deliver.included}</summary>
-                        <ul>
-                          {group.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </details>
-                    </article>
-                  ))}
-                </div>
-                <div className="engagement-block" id="engagement">
-                  <h2 id="engagement-heading" className="engagement-title">
-                    {ENGAGEMENT.title}
-                  </h2>
-                  <ol className="engagement-lines">
-                    {ENGAGEMENT.lines.map((line) => (
-                      <li key={line.label}>
-                        <Icon name={line.icon} />
-                        <strong>{line.label}</strong>
-                        <span>{line.text}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </section>
-
-            <section id="case-studies" className="region region-light region-mist region-mid">
-              <div className="region-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    11
-                  </p>
-                  <h2>{t.cases.title}</h2>
-                </div>
-                <p className="section-lede">{CASE_STUDIES.lede}</p>
-                {CASE_STUDIES.items.map((study) => (
-                  <article className="case-study" key={study.id} aria-labelledby={`${study.id}-title`}>
-                    <header className="case-head">
-                      <p className="case-kicker">{study.kicker}</p>
-                      <p className="case-client">
-                        {study.client} · {study.sector}
-                      </p>
-                      <h3 id={`${study.id}-title`}>{study.title}</h3>
-                      <p className="case-role">{study.role}</p>
-                    </header>
-                    <div className="case-problem">
-                      <h4>{t.cases.problem}</h4>
-                      <p>{study.problem}</p>
-                    </div>
-                    <h4 className="case-outcomes-label">{t.cases.outcomes}</h4>
-                    <ol className="case-outcomes">
-                      {study.outcomes.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ol>
-                    <details className="mobile-disclose case-extra">
-                      <summary>{t.cases.more}</summary>
-                      <div>
-                        <details className="disclose-always case-done">
-                          <summary>{t.cases.done}</summary>
-                          <ul>
-                            {study.approach.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        </details>
-                        <aside className="case-gov">
-                          <h4>{t.cases.governance}</h4>
-                          <p>{study.governance}</p>
-                        </aside>
-                        <p className="case-note">{study.note}</p>
-                      </div>
-                    </details>
-                    <a className="btn btn-solid" href={study.pdf} download>
-                      {study.downloadLabel || t.cases.download}
-                    </a>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section id="projects" className="region region-light region-quiet">
-              <div className="region-inner">
-                <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    12
-                  </p>
-                  <h2>{t.projects.title}</h2>
-                </div>
-                <p className="section-lede">{t.projects.lede}</p>
-                <div className="project-grid">
-                  {PROJECTS.filter((project) => project.num !== "01").map((project) => (
-                    <article className="project" key={project.href || project.liveHref || project.name}>
-                      <header>
-                        <p className="flag">{project.num}</p>
-                        <p className="ver">{project.category}</p>
-                        <h3>{project.name}</h3>
-                      </header>
-                      {project.lead ? <p className="project-lead">{project.lead}</p> : null}
-                      <p>{project.summary}</p>
-                      {project.controlFlow ? (
-                        <div className="project-flow-block" role="group" aria-label={project.controlFlowLabel}>
-                          <p className="project-flow-label">{project.controlFlowLabel}</p>
-                          <ol className="project-flow">
-                            {project.controlFlow.map((step) => (
-                              <li key={step}>{step}</li>
-                            ))}
-                          </ol>
-                        </div>
-                      ) : null}
-                      {project.video ? (
-                        <figure className="project-demo">
-                          <video
-                            key={locale}
-                            controls
-                            playsInline
-                            preload="metadata"
-                            poster={project.poster}
-                            width={project.videoWidth || 1280}
-                            height={project.videoHeight || 806}
-                          >
-                            <source src={project.video} type="video/mp4" />
-                            {project.captions ? (
-                              <track
-                                kind="subtitles"
-                                src={project.captions}
-                                srcLang="es"
-                                label="Español"
-                                default
-                              />
-                            ) : null}
-                          </video>
-                          <figcaption>{project.videoCaption}</figcaption>
-                        </figure>
-                      ) : null}
-                      {project.schemaVideo ? (
-                        <figure className="project-demo">
-                          <video
-                            key={`${locale}-schema`}
-                            controls
-                            playsInline
-                            preload="metadata"
-                            poster={project.schemaPoster}
-                            width={project.schemaVideoWidth || project.videoWidth || 1600}
-                            height={project.schemaVideoHeight || project.videoHeight || 948}
-                          >
-                            <source src={project.schemaVideo} type="video/mp4" />
-                          </video>
-                          <figcaption>{project.schemaCaption}</figcaption>
-                        </figure>
-                      ) : null}
-                      <ul className="stack-tags">
-                        {project.stack.split(" · ").map((tag) => (
-                          <li key={tag}>{tag}</li>
-                        ))}
-                      </ul>
-                      <p className="outcome">
-                        <strong>{t.projects.outcome}</strong> {project.outcome}
-                      </p>
-                      <div className="project-actions">
-                        {project.liveHref ? (
-                          <ExternalLink className="btn btn-solid" href={project.liveHref}>
-                            {project.liveCta || t.projects.live}
-                          </ExternalLink>
-                        ) : null}
-                        {project.href ? (
-                          <ExternalLink className="project-link" href={project.href}>
-                            {t.projects.view}
-                          </ExternalLink>
-                        ) : null}
-                      </div>
-                    </article>
-                  ))}
-                </div>
-                <p className="more-repos">
-                  <ExternalLink className="btn btn-ghost" href={LINKS.githubRepos}>
-                    {t.projects.all}
-                  </ExternalLink>
-                </p>
-              </div>
-            </section>
-
+            {/* 17. WHITEPAPER */}
             <section id="whitepaper-teaser" className="region region-dark paper-band region-quiet">
               <div className="region-inner paper-teaser">
                 <div>
                   <div className="section-head">
                     <p className="num" aria-hidden="true">
-                      13
+                      15
                     </p>
                     <h2>{t.paper.title}</h2>
                   </div>
@@ -2185,11 +2214,12 @@ export default function App() {
               </div>
             </section>
 
+            {/* 18. INSIGHTS */}
             <section id="insights" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    14
+                    16
                   </p>
                   <h2>{t.insights.title}</h2>
                 </div>
@@ -2233,11 +2263,12 @@ export default function App() {
               </div>
             </section>
 
+            {/* 19. CREDENCIALES */}
             <section id="validation" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    15
+                    17
                   </p>
                   <h2>{t.creds.title}</h2>
                 </div>
@@ -2317,11 +2348,12 @@ export default function App() {
               </div>
             </section>
 
+            {/* 20. SOBRE ANDRÉS */}
             <section id="about" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    16
+                    18
                   </p>
                   <h2>{t.about.title}</h2>
                 </div>
@@ -2347,11 +2379,12 @@ export default function App() {
               </div>
             </section>
 
+            {/* 21. CONTACTO / CIERRE */}
             <section id="contact" className="region region-dark contact-band region-major">
               <div className="region-inner">
                 <div className="section-head">
                   <p className="num" aria-hidden="true">
-                    17
+                    19
                   </p>
                   <h2>{t.contact.title}</h2>
                 </div>
@@ -2385,6 +2418,7 @@ export default function App() {
                 </div>
               </div>
             </section>
+
           </>
         )}
       </main>

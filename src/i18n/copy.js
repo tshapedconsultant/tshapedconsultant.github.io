@@ -73,13 +73,13 @@ export const UI = {
       kicker: "Pricing & Technical Diagnostic",
     },
     dgom: {
-      num: "02",
+      num: "11",
     },
     services: {
-      num: "03",
+      num: "07",
     },
     partners: {
-      num: "04",
+      num: "14",
     },
     form: {
       name: "Name",
@@ -124,7 +124,7 @@ export const UI = {
       mailtoFooter: "Prepared from the site enquiry form. No mailing list; used only to respond.",
     },
     approach: {
-      num: "06",
+      num: "09",
       title: "How I work",
       business: "Business problem",
       businessText:
@@ -164,7 +164,7 @@ export const UI = {
       ],
     },
     guard: {
-      num: "05",
+      num: "13",
       title: "Guardrails are not governance",
       lead: "Guardrails constrain model behaviour.",
       cageSummary: "What the cage determines",
@@ -179,13 +179,13 @@ export const UI = {
       principle: "Model safety is a component. Control architecture is the system.",
     },
     deliver: {
-      num: "07",
+      num: "10",
       title: "What you get",
       lede: "Capabilities you can buy — architecture, engineering, decision traceability and executive output — not a policy workshop that ends in a slide deck.",
       included: "What’s included",
     },
     cases: {
-      num: "08",
+      num: "05",
       title: "Case studies",
       problem: "Problem",
       outcomes: "Outcomes",
@@ -195,7 +195,7 @@ export const UI = {
       more: "More about this case",
     },
     projects: {
-      num: "09",
+      num: "06",
       title: "Selected reference implementations",
       lede: "Runnable systems that show an agentic deterministic control plane (TGI v1), vendor risk, RAG retrieval security, governed SQL agents, regulated evidence, and an industrial deployment gate.",
       outcome: "Outcome.",
@@ -204,7 +204,7 @@ export const UI = {
       all: "View all reference implementations on GitHub",
     },
     paper: {
-      num: "10",
+      num: "15",
       title: "Whitepaper",
       heading: "Probabilistic Models Require Deterministic Governance",
       sub: "Why enterprise and agentic AI needs a constitutional architecture — a separation of policy, execution and independent oversight.",
@@ -219,7 +219,7 @@ export const UI = {
       medium: "articles on Medium",
     },
     insights: {
-      num: "11",
+      num: "16",
       title: "Insights",
       lede: "Essays on responsible AI, operating models and runtime governance — on this site and on Medium.",
       read: "Read article",
@@ -228,7 +228,7 @@ export const UI = {
       allMedium: "All articles on Medium",
     },
     creds: {
-      num: "12",
+      num: "17",
       title: "Credentials, publications and open work",
       inProgress: "In progress",
       press: "Press:",
@@ -236,14 +236,14 @@ export const UI = {
       fewer: "Show fewer credentials",
     },
     about: {
-      num: "13",
+      num: "18",
       title: "About Andrés",
       unusual: "Why my background is unusual",
       combo: "Engineering + AI + Governance + Regulation",
       bio: "Read background",
     },
     contact: {
-      num: "14",
+      num: "19",
       title: "Next step",
       closing:
         "Your AI system becomes governed when policy is enforced in design, deployment and runtime—and when audit-ready evidence proves that it happened.",
@@ -451,13 +451,13 @@ export const UI = {
       kicker: "Precios y Diagnóstico Técnico",
     },
     dgom: {
-      num: "02",
+      num: "11",
     },
     services: {
-      num: "03",
+      num: "07",
     },
     partners: {
-      num: "04",
+      num: "14",
     },
     form: {
       name: "Nombre",
@@ -502,7 +502,7 @@ export const UI = {
       mailtoFooter: "Preparado desde el formulario del sitio. Sin lista de correo; se usa solo para responder.",
     },
     approach: {
-      num: "06",
+      num: "09",
       title: "Cómo trabajo",
       business: "Problema de negocio",
       businessText:
@@ -542,7 +542,7 @@ export const UI = {
       ],
     },
     guard: {
-      num: "05",
+      num: "13",
       title: "Los guardrails no son gobernanza",
       lead: "Los guardrails restringen el comportamiento del modelo.",
       cageSummary: "Qué determina la jaula",
@@ -557,13 +557,13 @@ export const UI = {
       principle: "La seguridad del modelo es un componente. La arquitectura de control es el sistema.",
     },
     deliver: {
-      num: "07",
+      num: "10",
       title: "Qué obtienes",
       lede: "Capacidades técnicas contratables — arquitectura, controles en runtime, trazabilidad de decisiones y entregables ejecutivos — no un taller teórico que termina en una presentación.",
       included: "Qué incluye",
     },
     cases: {
-      num: "08",
+      num: "05",
       title: "Casos y marcos operativos",
       problem: "Problema",
       outcomes: "Resultados",
@@ -573,7 +573,7 @@ export const UI = {
       more: "Más sobre este caso",
     },
     projects: {
-      num: "09",
+      num: "06",
       title: "Implementaciones de referencia seleccionadas",
       lede: "Sistemas ejecutables que muestran un plano de control determinista para agentes (TGI v1), riesgo de proveedor, seguridad de recuperación RAG, agentes SQL gobernados, evidencia regulada y compuertas de despliegue industrial.",
       outcome: "Resultado.",
@@ -582,7 +582,7 @@ export const UI = {
       all: "Ver todas las implementaciones de referencia en GitHub",
     },
     paper: {
-      num: "10",
+      num: "15",
       title: "Whitepaper",
       heading: "Los modelos probabilísticos requieren gobernanza determinista",
       sub: "Por qué la IA empresarial y agéntica necesita una arquitectura constitucional — una separación entre política, ejecución y supervisión independiente.",
@@ -597,7 +597,7 @@ export const UI = {
       medium: "artículos en Medium",
     },
     insights: {
-      num: "11",
+      num: "16",
       title: "Análisis",
       lede: "Ensayos sobre IA responsable, modelos operativos y gobernanza en runtime — en este sitio y en Medium.",
       read: "Leer artículo",
@@ -606,7 +606,7 @@ export const UI = {
       allMedium: "Todos los artículos en Medium",
     },
     creds: {
-      num: "12",
+      num: "17",
       title: "Credenciales, publicaciones y trabajo abierto",
       inProgress: "En curso",
       press: "Prensa:",
@@ -614,14 +614,14 @@ export const UI = {
       fewer: "Mostrar menos credenciales",
     },
     about: {
-      num: "13",
+      num: "18",
       title: "Sobre Andrés",
       unusual: "Por qué este perfil es poco habitual",
       combo: "Ingeniería + IA + Gobernanza + Regulación",
       bio: "Leer la trayectoria",
     },
     contact: {
-      num: "14",
+      num: "19",
       title: "Siguiente paso",
       closing:
         "Un sistema de IA queda gobernado cuando la política se exige en el diseño, el despliegue y el runtime — y cuando una evidencia lista para auditoría demuestra que ocurrió.",

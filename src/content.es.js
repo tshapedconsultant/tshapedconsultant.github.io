@@ -36,6 +36,17 @@ export const ABOUT_INTRO =
 export const ABOUT_SITE =
   "Este sitio lo he diseñado y construido yo, con programación asistida por IA. Trato la accesibilidad, la privacidad, el rendimiento y la auditabilidad como requisitos de primer orden.";
 
+/** Doctrinal bridge for #why-tshaped — source of truth ES (approved copy only). */
+export const ABOUT_WHY = {
+  title: "Por qué consultoría T-Shaped",
+  paragraphs: [
+    "La IA corporativa ya no solo predice variables o genera respuestas: hoy consulta datos, invoca herramientas y modifica sistemas. Gobernarla exige conectar regulación, ciberseguridad, arquitectura y objetivos de negocio.",
+    "Legal necesita obligaciones y responsabilidades claras. Ingeniería necesita requisitos implementables y verificables. Negocio necesita capturar valor con una exposición al riesgo explícita.",
+    "Mi trabajo es traducir esas tres perspectivas en una especificación técnica compartida: quién puede acceder a qué, qué acciones están autorizadas, cuándo se requiere aprobación y qué evidencia debe conservarse.",
+    "Eso es consultoría T-Shaped: visión transversal para conectar las decisiones y profundidad técnica para convertirlas en controles ejecutables.",
+  ],
+};
+
 export const HERO = {
   kicker: "Andrés Lage Freire · TShaped Consultant · Ingeniería de Gobernanza de IA",
   headline:

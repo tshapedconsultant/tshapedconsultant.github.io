@@ -32,6 +32,17 @@ export const ABOUT_INTRO =
 export const ABOUT_SITE =
   "This site was designed and built by me with AI-assisted coding, treating accessibility, privacy, performance and auditability as first-class constraints.";
 
+/** Doctrinal bridge for #why-tshaped — EN mirror of content.es.js (approved copy only). */
+export const ABOUT_WHY = {
+  title: "Why T-Shaped Consulting",
+  paragraphs: [
+    "Enterprise AI no longer just predicts variables or generates responses: it now queries data, invokes tools, and modifies systems. Governing it requires connecting regulation, cybersecurity, architecture, and business objectives.",
+    "Legal needs clear obligations and responsibilities. Engineering needs requirements that can be implemented and verified. Business needs to capture value with explicit visibility into risk exposure.",
+    "My work is to translate these three perspectives into a shared technical specification: who can access what, which actions are authorized, when approval is required, and what evidence must be retained.",
+    "That is T-Shaped consulting: cross-functional breadth to connect decisions and technical depth to turn them into executable controls.",
+  ],
+};
+
 export const HERO = {
   kicker: "Andrés Lage Freire · TShaped Consultant · AI Governance Engineering",
   headline: "Executable governance for AI systems that can access, decide and act.",

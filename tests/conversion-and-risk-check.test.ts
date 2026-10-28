@@ -477,6 +477,14 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
       assert.ok(card.subtitle && card.subtitle.length > 5, "EN Card subtitle must be populated");
       assert.ok(card.text && card.text.length > 10, "EN Card text must be populated");
     }
+    assert.equal(contentEs.ABOUT_WHY.title, "Por qué consultoría T-Shaped");
+    assert.equal(contentEs.ABOUT_WHY.paragraphs.length, 4);
+    assert.ok(contentEs.ABOUT_WHY.paragraphs[2].includes("especificación técnica compartida"));
+    assert.ok(contentEs.ABOUT_WHY.paragraphs[3].includes("controles ejecutables"));
+    assert.equal(contentEn.ABOUT_WHY.title, "Why T-Shaped Consulting");
+    assert.equal(contentEn.ABOUT_WHY.paragraphs.length, 4);
+    assert.ok(contentEn.ABOUT_WHY.paragraphs[2].includes("shared technical specification"));
+    assert.ok(contentEn.ABOUT_WHY.paragraphs[3].includes("executable controls"));
     assert.equal(
       contentEs.FEATURED_HR_COPILOT.title,
       "Mismo modelo. Mismas peticiones. Dos posturas de riesgo."

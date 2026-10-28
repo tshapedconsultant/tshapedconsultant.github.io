@@ -2667,6 +2667,40 @@ a:hover {
   font-size: 0.7rem;
 }
 
+.about-why {
+  margin: 0 0 1rem;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.why-tshaped-band .section-head {
+  margin-bottom: 0.85rem;
+}
+
+.why-tshaped-band .eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--blue-700);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.why-tshaped-body {
+  max-width: 68ch;
+  text-align: left;
+}
+
+.why-tshaped-text {
+  margin: 0 0 1rem;
+  max-width: 68ch;
+}
+
+.why-tshaped-text:last-child {
+  margin-bottom: 0;
+}
+
 .about-combo {
   margin: 0 0 0.45rem;
   color: var(--blue-700);
