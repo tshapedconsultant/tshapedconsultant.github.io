@@ -1094,16 +1094,19 @@ export default function WhitepaperEs() {
           de entrada, recuperación RAG, aseguramiento del contexto, el LLM y validación de salida.
           Seguridad de entrada detecta caracteres ocultos y extrae instrucciones codificadas. Para
           no introducir una paradoja probabilística (depender de otro modelo estocástico que también
-          pueda ser evadido), el aseguramiento determinista del contexto se fundamenta en el
-          aislamiento estructural de canales (delimitadores XML/JSON inmutables que confinan los
-          fragmentos recuperados como datos no ejecutables separados de las instrucciones del
-          sistema), la verificación criptográfica de procedencia y metadatos de autorización del
-          repositorio vectorial, y reglas léxicas/sintácticas deterministas que detectan patrones de
-          anulación de instrucciones en el contenido recuperado. Validación de salida aplica una
-          política de denegación por defecto en caso de fallo (fail-closed): bloquea la respuesta,
-          genera una alerta y registra evidencias. El contenido malicioso queda neutralizado antes
-          de que pueda alterar la autoridad durante la inferencia del modelo. La decisión la toma la
-          arquitectura, no la probabilidad estadística del LLM.
+          pueda ser evadido), el aseguramiento del contexto se fundamenta en canales de contexto
+          tipados y etiquetados por procedencia, separación explícita entre instrucciones confiables
+          y contenido recuperado no confiable, validación determinista de listas de control de
+          acceso (ACL), reglas léxico-sintácticas frente a patrones de anulación de instrucciones y
+          autorización de ejecución independiente. Validación de salida aplica una política cerrada
+          ante fallos (<em>fail-closed</em>): bloquea respuestas no conformes, genera una alerta y
+          registra evidencias. Dado que los fragmentos recuperados siguen entrando en la ventana de
+          contexto del modelo, la separación de canales reduce la superficie de inyección e impide
+          escaladas de privilegios, pero el riesgo residual de influencia semántica durante la
+          inferencia no se elimina solo mediante delimitadores; por ello, la validación de salida{" "}
+          <em>fail-closed</em> y la autorización de ejecución independiente actúan como barreras
+          obligatorias para que los efectos reales los decida la arquitectura y no la probabilidad
+          del LLM.
         </p>
 
         <h3>Caso 3 (ilustrativo): agente autónomo de AWS</h3>
@@ -1207,7 +1210,7 @@ export default function WhitepaperEs() {
               <tr>
                 <td>Reglamento de IA de la UE, art. 14</td>
                 <td>Difícil de demostrar</td>
-                <td>Evidencia directa</td>
+                <td>Evidencia en runtime de eventos de supervisión</td>
               </tr>
               <tr>
                 <td>Supervisión humana</td>
@@ -1286,66 +1289,97 @@ export default function WhitepaperEs() {
         </p>
         <p className="note"><code>runtime_authz.rego</code> · Política OPA.</p>
         <pre className="rego">
-          <code>{`package ai_governance
+          <code>{`package dedalo.runtime.authz
 import rego.v1
 
-# Denegación por defecto: cada acción requiere autorización explícita
+# Postura por defecto: denegación cerrada (fail-closed)
 default allow := false
 
-# Los niveles de autoridad usan una escala monótona: a mayor valor,
-# mayor autoridad (p. ej., 1=observador, 5=operador, 9=administrador).
-
-# Control de delegación (Principio n.º 1, Sección 04 — mínimo privilegio):
-# obligatorio en TODAS las vías de autorización. Se cumple si no hay
-# delegación o si la autoridad del hijo no supera la del padre y el
-# ámbito requerido por la acción es un subconjunto del ámbito delegado
-# (y este, a su vez, un subconjunto del ámbito del agente padre).
-delegation_ok if not input.delegation.requested
-delegation_ok if {
-    input.delegation.requested
-    input.delegation.child_authority <= input.delegation.parent_authority
-    every s in input.delegation.scope { s in input.delegation.parent_scope }
-    every req in input.action.required_scopes { req in input.delegation.scope }
+# Controles base obligatorios en TODOS los niveles de riesgo
+mandatory_runtime_guards if {
+    valid_delegation_scope
+    within_budget_and_rate_limits
+    dlp_scan_clean
 }
 
-# Condiciones base: deben cumplirse en TODAS las acciones, estándar o críticas
-base_gates if {
-    input.action.classification == "approved"
-    input.agent.authority_level >= input.action.required_authority
-    delegation_ok
-}
-
-# Acción estándar: condiciones base, impacto acotado, sin aprobación humana
+# Regla 1: Herramientas de solo lectura o impacto bajo/medio
 allow if {
-    base_gates
-    input.action.impact_level in ["low", "medium"]
-    not input.action.critical_infrastructure
-    input.human_oversight.required == false
+    mandatory_runtime_guards
+    input.action.risk_tier in {"low", "medium"}
 }
 
-# Infraestructura crítica: condiciones base MÁS aprobación humana explícita,
-# vinculada criptográficamente al hash de la acción y con validez temporal (TTL)
+# Regla 2: Acciones de alto impacto exigen aprobación humana verificada
 allow if {
-    base_gates
-    input.action.critical_infrastructure
-    input.human_oversight.approved == true
-    input.human_oversight.approver_role == "safety_manager"
+    mandatory_runtime_guards
+    input.action.risk_tier == "high"
+    input.human_oversight.verified == true
+    input.human_oversight.approver_role in {"risk_officer", "domain_owner"}
     input.human_oversight.action_hash == input.action.hash
     input.human_oversight.expires_at >= time.now_ns()
+}
+
+# Regla 3: Infraestructura crítica exige doble control (dos aprobadores y roles autorizados distintos)
+allow if {
+    mandatory_runtime_guards
+    input.action.risk_tier == "critical_infrastructure"
+    input.change_window.open == true
+    input.human_oversight.verified == true
+    distinct_dual_approvers
+    input.human_oversight.action_hash == input.action.hash
+    input.human_oversight.expires_at >= time.now_ns()
+}
+
+# No escalada de autoridad (Sección 04): acción <= delegado <= principal
+valid_delegation_scope if {
+    input.delegation.token_valid == true
+    input.delegation.expires_at >= time.now_ns()
+    every req in input.action.required_scopes { req in input.delegation.scope }
+    every s in input.delegation.scope { s in input.delegation.parent_scope }
+    input.delegation.depth <= input.policy.max_delegation_depth
+}
+
+within_budget_and_rate_limits if {
+    input.telemetry.session_tokens_used < input.policy.max_session_tokens
+    input.telemetry.tool_calls_in_turn < input.policy.max_tool_calls_per_turn
+}
+
+# Comprobación DLP positiva: escaneos ausentes o incompletos fallan en cerrado
+dlp_scan_clean if {
+    input.dlp_scan.completed == true
+    is_array(input.dlp_scan.detected_entities)
+    count(input.dlp_scan.detected_entities) == 0
+}
+
+# Doble control: >= 2 aprobadores verificados distintos en roles autorizados distintos
+distinct_dual_approvers if {
+    valid := [a |
+        some a in input.human_oversight.approvals
+        a.verified == true
+        a.id != ""
+        a.role in {"risk_officer", "domain_owner", "safety_manager", "ciso"}
+    ]
+    count({a.id | some a in valid}) >= 2
+    count({a.role | some a in valid}) >= 2
 }`}</code>
         </pre>
         <p>
-          Como en Rego varias reglas <code>allow</code> se combinan con un O lógico, todos los
-          controles que deben aplicarse siempre (clasificación, autoridad y control de delegación
-          por subconjunto de ámbitos) se agrupan en <code>base_gates</code>, que es obligatorio en
-          todas las vías de autorización; ninguna vía puede eludir el control de delegación ni
-          impedir la reducción de privilegios en subagentes. Asimismo, para acciones sobre
-          infraestructura crítica, el visto bueno humano debe coincidir con el hash unívoco de la
-          acción propuesta (<code>action_hash</code>) y encontrarse dentro de su ventana de validez
-          temporal (<code>expires_at &gt;= time.now_ns()</code>), impidiendo la reutilización de
-          aprobaciones caducadas. Esta política se evalúa antes de cada acción con consecuencias. El
-          agente propone; el motor de políticas decide; se registran las evidencias. No se ejecuta
-          ninguna acción sin una decisión explícita de autorización.
+          La entrada de políticas (<code>input</code>), incluidas las afirmaciones verificadas de
+          aprobación, las identidades de los aprobadores y los resultados de DLP, debe construirse
+          exclusivamente a partir de salidas autenticadas de servicios confiables; nunca se aceptan
+          indicadores de verificación suministrados por el agente o por el invocador. En este
+          diseño, el modelo de lenguaje propone una llamada a herramienta y sus argumentos, mientras
+          que el proxy de ejecución confiable (PEP) intercepta la solicitud, valida las firmas
+          criptográficas de los tokens de delegación y aprobación mediante un servicio de
+          verificación independiente (poblando registros verificados <code>{"{id, role}"}</code>{" "}
+          para que <code>distinct_dual_approvers</code> exija tanto dos identidades distintas como
+          separación de funciones por rol autorizado) y consulta al motor de políticas. Como en Rego
+          varias reglas <code>allow</code> se combinan con un O lógico y{" "}
+          <code>not &lt;indefinido&gt;</code> se evalúa como verdadero,{" "}
+          <code>mandatory_runtime_guards</code> utiliza aserciones positivas —incluido{" "}
+          <code>dlp_scan_clean</code>— en todas las rutas junto con la coincidencia de{" "}
+          <code>action_hash</code> y la vigencia temporal (TTL). Cualquier resultado{" "}
+          <code>allow = false</code> bloquea la ejecución y registra evidencia a prueba de
+          manipulación.
         </p>
         <h3>Referencias de inteligencia de amenazas</h3>
         <p>

@@ -5775,6 +5775,247 @@ details.mobile-disclose > summary:focus-visible {
   display: block;
 }
 
+/* ——— Above-the-fold Hero Proof Metrics & Leadership / Mentoring + Mobile CRO ——— */
+.hero-proof-metrics {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.hero-proof-metrics li {
+  margin: 0;
+}
+
+.hero-proof-metrics a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  height: 100%;
+  padding: 0.65rem 0.8rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 0.35rem;
+  text-decoration: none;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.hero-proof-metrics a:hover,
+.hero-proof-metrics a:focus-visible {
+  border-color: var(--cyan-400);
+  background: rgba(15, 23, 42, 0.95);
+  transform: translateY(-1px);
+}
+
+.hero-proof-metrics strong {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--cyan-400);
+  line-height: 1.25;
+}
+
+.hero-proof-metrics span {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: var(--slate-200);
+}
+
+.leadership-band .leadership-lede {
+  color: var(--slate-200);
+  max-width: 72ch;
+}
+
+.leadership-offer-card {
+  margin: 1.75rem 0;
+  padding: 1.65rem 1.8rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(10, 25, 47, 0.98) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.42);
+  border-left: 4px solid var(--cyan-400);
+  border-radius: 0.5rem;
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.45);
+}
+
+.leadership-offer-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.leadership-offer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cyan-400);
+}
+
+.leadership-offer-price {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.14);
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  color: var(--white);
+}
+
+.leadership-offer-copy h3 {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.48rem);
+  color: var(--white);
+}
+
+.leadership-offer-copy p {
+  margin: 0 0 0.95rem;
+  color: var(--slate-200);
+  max-width: 74ch;
+  line-height: 1.55;
+}
+
+.leadership-offer-bullets {
+  margin: 0 0 1.25rem;
+  padding-left: 1.15rem;
+  color: var(--slate-200);
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+}
+
+.leadership-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.leadership-card {
+  padding: 1.25rem 1.35rem;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.leadership-kind {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cyan-400);
+}
+
+.leadership-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--white);
+}
+
+.leadership-org {
+  margin: 0;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.leadership-text {
+  margin: 0.25rem 0 0;
+  font-size: 0.89rem;
+  line-height: 1.5;
+  color: var(--slate-200);
+}
+
+/* Mobile sticky conversion bar — hidden on desktop, thumb-accessible on <=768px */
+.mobile-conversion-bar {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .hero-proof-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .leadership-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leadership-offer-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .leadership-offer-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leadership-offer-actions .btn {
+    width: 100%;
+    text-align: center;
+    min-height: 46px;
+  }
+
+  .mobile-conversion-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem calc(0.55rem + env(safe-area-inset-bottom, 0px));
+    background: rgba(10, 25, 47, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 -8px 24px rgba(2, 6, 23, 0.55);
+  }
+
+  .mobile-conversion-bar .btn {
+    min-height: 46px;
+    padding: 0.55rem 0.65rem;
+    font-size: 0.83rem;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .foot {
+    padding-bottom: 5.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-proof-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-conversion-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mobile-conversion-bar .btn {
+    font-size: 0.78rem;
+    padding: 0.5rem 0.45rem;
+  }
+}
+
 
 
 

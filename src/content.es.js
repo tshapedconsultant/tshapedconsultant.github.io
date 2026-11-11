@@ -315,6 +315,85 @@ export const ENABLEMENT_PROGRAMS = {
   },
 };
 
+export const HERO_PROOF_METRICS = [
+  {
+    metric: "6 sistemas ejecutables",
+    detail: "Planos de control abiertos y demos en vivo",
+    href: "#projects",
+  },
+  {
+    metric: "~30 % menos tiempo",
+    detail: "Entrega cliente CRM multiagente gobernado (Coco Mind)",
+    href: "#leadership",
+  },
+  {
+    metric: "Panel de 24 registros",
+    detail: "Revisor independiente · Piloto de validación JRS (2026)",
+    href: "#leadership",
+  },
+  {
+    metric: "Mentor y ponente",
+    detail: "AImpacto Hackathon (MIL & IE) · AI Safety Meetup",
+    href: "#leadership",
+  },
+];
+
+export const LEADERSHIP_MENTORING = {
+  kicker: "Liderazgo, Mentoría y Entrega Real",
+  title: "Advisory Ejecutivo de IA, Mentoría Técnica y Liderazgo en la Comunidad",
+  lead:
+    "Además de diseñar e implantar arquitecturas de control, acompaño como mentor y advisor a CTOs, CISOs, equipos de ingeniería y fundadores para alinear dirección, legal, ciberseguridad y producto e integrar gobernanza determinista desde el día cero.",
+  advisoryOffer: {
+    badge: "Advisory 1:1 y Equipos · Bolsa de horas o acompañamiento mensual",
+    title: "Mentoría Técnica y Sparring Ejecutivo de Gobernanza de IA",
+    price: "Desde €950 / mes o paquete acotado",
+    text:
+      "Acompañamiento directo para CTOs, CISOs, Heads of AI y equipos técnicos que pasan de prototipo a producción: revisión de arquitectura, seguridad en tool-calling, preparación técnica para EU AI Act / ISO 42001 y alineamiento entre ingeniería, legal y negocio.",
+    bullets: [
+      "Revisiones quincenales o por sprint de arquitectura, permisos y plano de control",
+      "Mentoría práctica para ingenieros de IA sobre RAG seguro, LangGraph y agentes gobernados",
+      "Preparación ejecutiva ante comités de riesgo, CISO, DPO y due diligence de clientes enterprise",
+    ],
+    cta: "Solicitar Mentoría o Advisory Ejecutivo",
+    secondaryCta: "Seguir análisis técnicos en LinkedIn",
+    intent: "mentoring",
+  },
+  highlights: [
+    {
+      id: "aimpacto",
+      kind: "Mentor Técnico y de IA Responsable · oct 2026",
+      org: "Madrid Innovation Lab (MIL) e IE Big Data & AI Club",
+      title: "AImpacto Hackathon 2026",
+      text:
+        "Mentoría a equipos multidisciplinares en el paso de prototipos rápidos a arquitecturas de IA viables, incorporando gobernanza desde el diseño (day-zero governance) y criterios de impacto responsable.",
+    },
+    {
+      id: "aisafety-meetup",
+      kind: "Ponente invitado · oct 2026",
+      org: "Spanish Speaking AI Safety Meetup · Remoto / Global",
+      title: "Seguridad en Tool-Calling Agéntico y Envoltorios Deterministas",
+      text:
+        "Sesión técnica sobre riesgos de seguridad cuando los agentes invocan herramientas sobre bases de datos y por qué los envoltorios de ejecución deterministas deben complementar a los system prompts.",
+    },
+    {
+      id: "jrs-pilot",
+      kind: "Revisor Independiente de Aseguramiento · 2026",
+      org: "JRS AI-Assisted Records Validation Pilot · Panel internacional",
+      title: "Revisión de Auditabilidad y Defensibilidad (24 registros)",
+      text:
+        "Revisión independiente sobre 24 registros en un panel internacional evaluando si expedientes asistidos por IA pueden reconstruirse, verificarse y defenderse bajo escrutinio de auditoría.",
+    },
+    {
+      id: "cocomind-delivery",
+      kind: "Entrega a Cliente · Consultora Boutique",
+      org: "Coco Mind · Automatización CRM Multiagente",
+      title: "~30 % de reducción en tiempo de cualificación y redacción",
+      text:
+        "Diseño y despliegue de un flujo multiagente que redujo en ~30 % el tiempo de preparación y borrador frente al proceso previo, incorporando allowlists de herramientas, guardrails y DLP alineados con EU AI Act, RGPD y OWASP.",
+    },
+  ],
+};
+
 export const AUTHORITY_ARCHITECTURE = {
   kicker: "Autoridad y trayectoria verificable",
   title: "De la señal de riesgo a la arquitectura auditable",
@@ -441,6 +520,7 @@ export const DIAGNOSTIC_FORM = {
   intentLabel: "Servicio o taller de interés",
   intents: [
     { value: "snapshot", label: "AI Governance Snapshot (Desde €2.495)" },
+    { value: "mentoring", label: "Mentoría Técnica y Advisory Ejecutivo (Desde €950)" },
     { value: "workshop", label: "Workshop In-Company «Del PDF Legal al Código» (€1.200–€1.800)" },
     { value: "hackathon", label: "Hackathon de Auditoría Conjunta — 1 jornada (€2.500–€3.000)" },
     { value: "briefing", label: "Executive Briefing (45 min · Dirección / CTO / CRO)" },
@@ -1213,14 +1293,14 @@ export const PROJECTS = [
 
 export const CREDENTIAL_GROUPS = [
   {
-    label: "Reconocimiento",
+    label: "Reconocimiento, liderazgo y mentoría",
     items: [
       {
         kind: "Premio",
         title: "Premio al Emprendimiento de la Fundación Repsol",
-        detail: "2018 · Innovation Project Lead",
+        detail: "2018 · Co-líder de proyecto de innovación",
         featured: true,
-        note: "Co-lideré el equipo reconocido por una plataforma que conecta empresas con estudiantes para resolver retos operativos. Desarrollada con experimentación Lean y validación de modelo de negocio con las empresas participantes.",
+        note: "Co-lideré el equipo ganador reconocido por una plataforma que conecta empresas con estudiantes para resolver retos operativos. Validada con socios corporativos mediante experimentación Lean.",
         skills: [
           "Liderazgo de innovación",
           "Entrega de retos corporativos",
@@ -1230,27 +1310,55 @@ export const CREDENTIAL_GROUPS = [
         sourceHref: LINKS.pressRepsol,
       },
       {
+        kind: "Mentoría",
+        title: "Mentor Técnico y de IA Responsable — AImpacto Hackathon 2026",
+        detail: "Oct 2026 · Madrid Innovation Lab (MIL) e IE Big Data & AI Club",
+        note:
+          "Mentoría a equipos multidisciplinares en la transición de prototipos rápidos a arquitecturas de IA viables con gobernanza desde el día cero.",
+      },
+      {
+        kind: "Ponencia",
+        title: "Ponente invitado — Spanish Speaking AI Safety Meetup",
+        detail: "Oct 2026 · Seguridad en tool-calling agéntico y envoltorios de ejecución deterministas",
+      },
+      {
+        kind: "Panel de aseguramiento",
+        title: "Revisor Independiente — JRS AI-Assisted Records Validation Pilot",
+        detail: "2026 · Revisión de auditabilidad y defensibilidad de 24 registros en panel internacional",
+      },
+      {
         kind: "Práctica",
         title: "Consultor estratégico independiente en IA y arquitecto de IA responsable",
-        detail: "Junio 2021 – actualidad",
+        detail: "Junio 2021 – actualidad · Entrega a clientes incl. CRM multiagente en Coco Mind (~30 % menos tiempo)",
       },
     ],
   },
   {
-    label: "Credenciales de gobernanza",
+    label: "Credenciales de gobernanza y estrategia ejecutiva",
     intro:
-      "Credenciales de gobernanza centradas en el EU AI Act, sistemas de gestión de IA al estilo ISO/IEC 42001, sesgo/ética y rendición de cuentas organizativa.",
+      "Credenciales centradas en el EU AI Act, sistemas de gestión de IA al estilo ISO/IEC 42001, dinámicas de poder, alineamiento ejecutivo y rendición de cuentas organizativa.",
     items: [
       {
         kind: "Credencial",
-        title: "IAPP AIGP",
+        title: "IAPP AIGP — Artificial Intelligence Governance Professional",
         detail: "En curso · examen convocado el 30 de noviembre de 2026",
+        inProgress: true,
+      },
+      {
+        kind: "Especialización ejecutiva",
+        title: "Executive Strategy & Power Dynamics · Harvard Business School Online",
+        detail: "2026 · En curso · Módulos dirigidos por J. Battilana, F. Oberholzer-Gee, A. Edmondson y J. Fuller",
         inProgress: true,
       },
       {
         kind: "Programa",
         title: "AI Governance · Oxford Saïd",
         detail: "Programa online · Completado en 2026",
+      },
+      {
+        kind: "Programa",
+        title: "AI Cybersecurity & Governance · Columbia Engineering (N. Daswani)",
+        detail: "Programa online · 2025 – 2026",
       },
       {
         kind: "Programa",
@@ -1323,8 +1431,8 @@ export const CREDENTIAL_GROUPS = [
     items: [
       {
         kind: "Formación",
-        title: "Ingeniería Química (Plan Superior) · IQS School of Engineering – Universitat Ramon Llull",
-        detail: "247,5 ECTS",
+        title: "Estudios de Ingeniería Química · IQS School of Engineering – Universitat Ramon Llull",
+        detail: "247,5 créditos superados (2002 – 2009)",
       },
     ],
   },
@@ -1395,8 +1503,8 @@ export const ABOUT_BLOCKS = [
     icon: "doc",
   },
   {
-    title: "Estrategia",
-    text: "Modelos operativos de IA · riesgo · arquitectura · asesoramiento ejecutivo",
+    title: "Liderazgo y Mentoría",
+    text: "Advisory ejecutivo de IA · mentoría a CTOs/equipos · alineamiento transversal",
     icon: "people",
   },
 ];

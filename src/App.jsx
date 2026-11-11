@@ -639,6 +639,8 @@ export default function App() {
     AUTHORITY_ARCHITECTURE,
     BEST_FIT,
     HERO,
+    HERO_PROOF_METRICS,
+    LEADERSHIP_MENTORING,
     CAPABILITIES,
     CASE_STUDIES,
     COVER,
@@ -683,6 +685,7 @@ export default function App() {
     { id: "diagnostic", label: t.mobile.diagnostic },
     { id: "services", label: t.mobile.services },
     { id: "enablement", label: locale === "es" ? "Talleres In-Company" : "In-Company Workshops" },
+    { id: "leadership", label: locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership" },
     { id: "hr-copilot-case", label: t.mobile.caseStudy },
     { id: "dgom", label: t.mobile.dgom },
     { id: "partners", label: t.mobile.partners },
@@ -697,6 +700,7 @@ export default function App() {
   const [moreOpen, setMoreOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [enquiryIntent, setEnquiryIntent] = useState("snapshot");
+  const [showMobileBar, setShowMobileBar] = useState(false);
   const menuBtnRef = useRef(null);
   const moreBtnRef = useRef(null);
   const moreWrapRef = useRef(null);
@@ -811,6 +815,33 @@ export default function App() {
   }, [view]);
 
   useEffect(() => {
+    if (view !== "home") {
+      setShowMobileBar(false);
+      return undefined;
+    }
+    const heroEl = document.getElementById("top");
+    const riskEl = document.getElementById("risk-check");
+    const diagEl = document.getElementById("diagnostic");
+    const state = { hero: true, risk: false, diag: false };
+    function sync() {
+      setShowMobileBar(!state.hero && !state.risk && !state.diag);
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target === heroEl) state.hero = entry.isIntersecting;
+          if (entry.target === riskEl) state.risk = entry.isIntersecting;
+          if (entry.target === diagEl) state.diag = entry.isIntersecting;
+        }
+        sync();
+      },
+      { threshold: 0.08 }
+    );
+    [heroEl, riskEl, diagEl].filter(Boolean).forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [view]);
+
+  useEffect(() => {
     const mq = window.matchMedia("(min-width: 769px)");
     function apply() {
       document
@@ -887,6 +918,15 @@ export default function App() {
         }}
       >
         {locale === "es" ? "Talleres In-Company" : "In-Company Workshops"}
+      </a>
+      <a
+        href="#leadership"
+        onClick={(event) => {
+          event.preventDefault();
+          goHomeSection("leadership");
+        }}
+      >
+        {locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership"}
       </a>
       <a
         href="#partners"
@@ -1192,6 +1232,31 @@ export default function App() {
                     <p className="hero-qualify">{HERO.qualify}</p>
                     <p className="cta-note">{CTA.note}</p>
                   </div>
+                  {HERO_PROOF_METRICS ? (
+                    <ul
+                      className="hero-proof-metrics"
+                      aria-label={
+                        locale === "es"
+                          ? "Resultados verificables, liderazgo y entregas"
+                          : "Verified delivery, leadership & mentoring"
+                      }
+                    >
+                      {HERO_PROOF_METRICS.map((item) => (
+                        <li key={item.metric}>
+                          <a
+                            href={item.href}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              goHomeSection(item.href.replace(/^#/, ""));
+                            }}
+                          >
+                            <strong>{item.metric}</strong>
+                            <span>{item.detail}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                   {HERO.executiveSummary ? (
                     <div className="hero-exec-answers" role="region" aria-label={locale === "es" ? "Resumen ejecutivo" : "Executive summary"}>
                       {HERO.executiveSummary.map((item) => (
@@ -1753,6 +1818,70 @@ export default function App() {
                     <h3>{ENABLEMENT_PROGRAMS.bridge.title}</h3>
                     <p>{ENABLEMENT_PROGRAMS.bridge.text}</p>
                   </aside>
+                </div>
+              </section>
+            ) : null}
+
+            {/* 9B. LEADERSHIP, MENTORING & APPLIED DELIVERY */}
+            {LEADERSHIP_MENTORING ? (
+              <section id="leadership" className="region region-dark region-mid leadership-band">
+                <div className="region-inner">
+                  <div className="section-head">
+                    <p className="num" aria-hidden="true">
+                      08B
+                    </p>
+                    <div>
+                      <p className="eyebrow">{LEADERSHIP_MENTORING.kicker}</p>
+                      <h2>{LEADERSHIP_MENTORING.title}</h2>
+                    </div>
+                  </div>
+                  <p className="section-lede leadership-lede">{LEADERSHIP_MENTORING.lead}</p>
+
+                  <article className="leadership-offer-card">
+                    <div className="leadership-offer-copy">
+                      <div className="leadership-offer-top">
+                        <span className="leadership-offer-badge">
+                          {LEADERSHIP_MENTORING.advisoryOffer.badge}
+                        </span>
+                        <span className="leadership-offer-price">
+                          {LEADERSHIP_MENTORING.advisoryOffer.price}
+                        </span>
+                      </div>
+                      <h3>{LEADERSHIP_MENTORING.advisoryOffer.title}</h3>
+                      <p>{LEADERSHIP_MENTORING.advisoryOffer.text}</p>
+                      <ul className="leadership-offer-bullets">
+                        {LEADERSHIP_MENTORING.advisoryOffer.bullets.map((b) => (
+                          <li key={b}>{b}</li>
+                        ))}
+                      </ul>
+                      <div className="hero-cta-row leadership-offer-actions">
+                        <a
+                          className="btn btn-solid"
+                          href="#diagnostic"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            goToEnquiry(LEADERSHIP_MENTORING.advisoryOffer.intent || "mentoring");
+                          }}
+                        >
+                          {LEADERSHIP_MENTORING.advisoryOffer.cta}
+                        </a>
+                        <ExternalLink className="btn btn-ghost" href={LINKS.linkedin}>
+                          {LEADERSHIP_MENTORING.advisoryOffer.secondaryCta}
+                        </ExternalLink>
+                      </div>
+                    </div>
+                  </article>
+
+                  <div className="leadership-highlights-grid">
+                    {LEADERSHIP_MENTORING.highlights.map((item) => (
+                      <article className="leadership-card" key={item.id}>
+                        <p className="leadership-kind">{item.kind}</p>
+                        <h3>{item.title}</h3>
+                        <p className="leadership-org">{item.org}</p>
+                        <p className="leadership-text">{item.text}</p>
+                      </article>
+                    ))}
+                  </div>
                 </div>
               </section>
             ) : null}
@@ -2461,6 +2590,7 @@ export default function App() {
           <Link to={localizedPath(RISK_CHECK_PATH)}>{t.mobile.riskCheck}</Link>
           <a href={`${home}#services`}>{t.nav.services}</a>
           <a href={`${home}#enablement`}>{locale === "es" ? "Talleres In-Company" : "Workshops"}</a>
+          <a href={`${home}#leadership`}>{locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership"}</a>
           <a href={`${home}#hr-copilot-case`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
           <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>
@@ -2473,6 +2603,34 @@ export default function App() {
         <p>{LOCATION}</p>
         <p>{t.contact.tagline}</p>
       </footer>
+
+      {view === "home" && !menuOpen && showMobileBar ? (
+        <aside
+          className="mobile-conversion-bar"
+          aria-label={locale === "es" ? "Acceso rápido a diagnóstico" : "Quick diagnostic actions"}
+        >
+          <a
+            className="btn btn-solid mobile-bar-primary"
+            href="#risk-check"
+            onClick={(event) => {
+              event.preventDefault();
+              goToRiskCheck();
+            }}
+          >
+            {locale === "es" ? "Test de riesgo (90s)" : "Risk Check (90s)"}
+          </a>
+          <a
+            className="btn btn-ghost mobile-bar-secondary"
+            href="#diagnostic"
+            onClick={(event) => {
+              event.preventDefault();
+              goToEnquiry("snapshot");
+            }}
+          >
+            {locale === "es" ? "Diagnóstico / Mentoría" : "Diagnostic / Mentoring"}
+          </a>
+        </aside>
+      ) : null}
     </div>
   );
 }

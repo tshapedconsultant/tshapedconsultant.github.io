@@ -315,21 +315,21 @@ export default function Whitepaper() {
         <p>
           That is why critical systems are not designed solely to maximise the probability of
           success. They are designed to limit the consequences of inevitable errors. Deterministic
-          governance exists precisely to manage that residual 1%.
+          governance exists precisely to contain the residual tail of high-impact failures.
         </p>
         <p>
-          Because the problem is not the 99% of correct decisions. The problem is the 1% that can
-          cause financial losses, operational disruptions, reputational damage, regulatory
-          non-compliance, litigation, and penalties that, depending on the infringement, Article 99
-          of the EU AI Act provides for administrative fines of up to €35 million or 7% of worldwide
-          annual turnover for prohibited practices, with lower maximums applying to other categories
-          of infringement.
+          Because the problem is not the routine majority of correct decisions — it is the failure
+          tail that can cause financial losses, operational disruptions, reputational damage,
+          regulatory non-compliance, litigation, and penalties that, depending on the infringement,
+          Article 99 of the EU AI Act provides for administrative fines of up to €35 million or 7%
+          of worldwide annual turnover for prohibited practices, with lower maximums applying to
+          other categories of infringement.
         </p>
         <p>The strategic question is not “What accuracy does my model have?”</p>
         <p className="callout">The strategic question is: “What happens when it inevitably makes a mistake?”</p>
         <p>
-          That 1% is where real enterprise risk lives. And it is exactly there that deterministic
-          governance creates value.
+          That residual tail of high-impact failures is where real enterprise risk lives — and it is
+          exactly there that deterministic governance creates value.
         </p>
         <p className="note">Source: Regulation (EU) 2024/1689 (AI Act), Art. 99.</p>
       </section>
@@ -805,8 +805,12 @@ export default function Whitepaper() {
         </div>
         <p>This is where compliance moves from policy to architecture.</p>
         <p className="note">
-          Regulation (EU) 2024/1689 (AI Act) · Regulation (EU) 2022/2554 (DORA) · NIST AI RMF ·
-          ISO/IEC 42001
+          <em>Note:</em> EU AI Act Arts. 12, 14 and 15 establish obligations for high-risk AI
+          systems subject to system classification and provider/deployer role (Regulation (EU)
+          2024/1689; paired here with Regulation (EU) 2022/2554 (DORA), NIST AI RMF and ISO/IEC
+          42001). This mapping illustrates architectural capabilities that can support applicable AI
+          Act obligations; it does not establish conformity or replace system-specific
+          classification and assessment.
         </p>
       </section>
 
@@ -969,14 +973,16 @@ export default function Whitepaper() {
           input security, RAG retrieval, context assurance, the LLM, and output validation. Input
           security detects hidden characters and extracts encoded instructions. To avoid a
           probabilistic paradox (relying on another stochastic model that could itself be bypassed),
-          deterministic context assurance relies on structural channel isolation (immutable XML/JSON
-          delimiters that confine retrieved chunks as non-executable data separate from system
-          instructions), cryptographic provenance and retrieval-ACL verification over vector-store
-          metadata, and deterministic lexical/syntactic rules for instruction-override patterns in
-          retrieved content. Output validation is fail-closed: it blocks the response, generates an
-          alert, and records evidence. The malicious content is neutralised before it can alter
-          authority during model inference. The decision is made by the architecture, not by the
-          statistical probability of the LLM.
+          context assurance relies on typed and provenance-labelled context channels, explicit
+          separation of trusted instructions from untrusted retrieved content, deterministic ACL
+          validation, lexical/syntactic rules for instruction-override patterns, and independent
+          execution authorisation. Output validation is fail-closed: it blocks non-compliant
+          responses, generates an alert, and records evidence. Because retrieved passages still
+          enter the model’s context window, channel separation reduces the injection surface and
+          prevents untrusted text from escalating privileges, while residual semantic influence
+          during inference cannot be eliminated by prompt structure alone — making fail-closed
+          output validation and independent execution gates mandatory boundaries so architectural
+          controls, not LLM probabilities, govern real-world consequences.
         </p>
 
         <h3>03 · Autonomous AWS agent</h3>
@@ -1033,7 +1039,13 @@ export default function Whitepaper() {
 
       <section id="s23">
         <h2><span>23</span> Executive decision matrix</h2>
-        <p>Direct comparison of the risk and compliance profile with and without the Runtime Assurance layer.</p>
+        <p>Comparison of the risk and governance profile with and without the Runtime Assurance layer.</p>
+        <p className="note">
+          <em>
+            Illustrative expected control effectiveness — not empirical performance results from
+            Cases 01–03 or a compliance certification.
+          </em>
+        </p>
         <div className="table-wrap">
           <table>
             <thead>
@@ -1072,7 +1084,7 @@ export default function Whitepaper() {
               <tr>
                 <td>EU AI Act · Art. 14</td>
                 <td>Hard to prove</td>
-                <td>Direct evidence</td>
+                <td>Runtime evidence of oversight events</td>
               </tr>
               <tr>
                 <td>Human oversight</td>
@@ -1138,70 +1150,97 @@ export default function Whitepaper() {
         <p>
           The Runtime Assurance architecture described in this paper is not theoretical. Policies can
           be expressed as executable code and enforced at every trust boundary. The following Open
-          Policy Agent (OPA / Rego) snippet illustrates a runtime authorization gate for an agentic
+          Policy Agent (OPA / Rego) snippet illustrates a runtime authorisation gate for an agentic
           action.
         </p>
-        <p className="note"><code>runtime_authz.rego</code> · OPA policy</p>
+        <p className="note"><code>runtime_authz.rego</code> · OPA policy (Rego v1)</p>
         <pre className="rego">
-          <code>{`package ai_governance
+          <code>{`package dedalo.runtime.authz
 import rego.v1
 
-# Default deny: every action must be explicitly authorized
+# Default posture: fail-closed
 default allow := false
 
-# Authority levels use a monotonic scale where higher values
-# represent greater authority (e.g. 1=observer, 5=operator, 9=admin).
-
-# Delegation gate (Principle #1, Section 04 — least privilege):
-# mandatory on EVERY allow path. Satisfied when no delegation is
-# requested, or when the child agent's authority does not exceed the
-# parent's and the action's required scopes are a subset of the
-# delegated scope (which itself must be a subset of the parent's scope).
-delegation_ok if not input.delegation.requested
-delegation_ok if {
-    input.delegation.requested
-    input.delegation.child_authority <= input.delegation.parent_authority
-    every s in input.delegation.scope { s in input.delegation.parent_scope }
-    every req in input.action.required_scopes { req in input.delegation.scope }
+# Mandatory baseline guards enforced across EVERY risk tier
+mandatory_runtime_guards if {
+    valid_delegation_scope
+    within_budget_and_rate_limits
+    dlp_scan_clean
 }
 
-# Base gates: must hold for ALL actions, standard or critical
-base_gates if {
-    input.action.classification == "approved"
-    input.agent.authority_level >= input.action.required_authority
-    delegation_ok
-}
-
-# Standard action: base gates, bounded impact, no human sign-off needed
+# Rule 1: Read-only or low/medium-impact tools
 allow if {
-    base_gates
-    input.action.impact_level in ["low", "medium"]
-    not input.action.critical_infrastructure
-    input.human_oversight.required == false
+    mandatory_runtime_guards
+    input.action.risk_tier in {"low", "medium"}
 }
 
-# Critical infrastructure: base gates PLUS explicit human approval,
-# cryptographically bound to the action hash and within its TTL window
+# Rule 2: High-impact actions require verified human approval
 allow if {
-    base_gates
-    input.action.critical_infrastructure
-    input.human_oversight.approved == true
-    input.human_oversight.approver_role == "safety_manager"
+    mandatory_runtime_guards
+    input.action.risk_tier == "high"
+    input.human_oversight.verified == true
+    input.human_oversight.approver_role in {"risk_officer", "domain_owner"}
     input.human_oversight.action_hash == input.action.hash
     input.human_oversight.expires_at >= time.now_ns()
+}
+
+# Rule 3: Critical infrastructure requires dual control (two distinct approvers)
+allow if {
+    mandatory_runtime_guards
+    input.action.risk_tier == "critical_infrastructure"
+    input.change_window.open == true
+    input.human_oversight.verified == true
+    distinct_dual_approvers
+    input.human_oversight.action_hash == input.action.hash
+    input.human_oversight.expires_at >= time.now_ns()
+}
+
+# Authority Non-Escalation (Section 04): action <= delegated <= parent scope
+valid_delegation_scope if {
+    input.delegation.token_valid == true
+    input.delegation.expires_at >= time.now_ns()
+    every req in input.action.required_scopes { req in input.delegation.scope }
+    every s in input.delegation.scope { s in input.delegation.parent_scope }
+    input.delegation.depth <= input.policy.max_delegation_depth
+}
+
+within_budget_and_rate_limits if {
+    input.telemetry.session_tokens_used < input.policy.max_session_tokens
+    input.telemetry.tool_calls_in_turn < input.policy.max_tool_calls_per_turn
+}
+
+# Positive DLP check: missing, incomplete or non-array scans fail closed
+dlp_scan_clean if {
+    input.dlp_scan.completed == true
+    is_array(input.dlp_scan.detected_entities)
+    count(input.dlp_scan.detected_entities) == 0
+}
+
+# Dual control: >= 2 distinct verified approvers in distinct authorised roles
+distinct_dual_approvers if {
+    valid := [a |
+        some a in input.human_oversight.approvals
+        a.verified == true
+        a.id != ""
+        a.role in {"risk_officer", "domain_owner", "safety_manager", "ciso"}
+    ]
+    count({a.id | some a in valid}) >= 2
+    count({a.role | some a in valid}) >= 2
 }`}</code>
         </pre>
         <p>
-          Because multiple <code>allow</code> rules in Rego are combined with a logical OR, every
-          control that must apply universally (classification, authority and subset-based delegation
-          enforcement) is factored into <code>base_gates</code> and required on every allow path; no
-          path can bypass the delegation check or break least-privilege scope narrowing for
-          sub-agents. For critical-infrastructure actions, human approval must also match the unique
-          digest of the proposed action (<code>action_hash</code>) and remain within its expiration
-          window (<code>expires_at &gt;= time.now_ns()</code>), preventing replay of stale
-          approvals. This policy is evaluated before every consequential action. The agent proposes;
-          the policy engine decides; the evidence is recorded. No action executes without an
-          explicit allow decision.
+          The policy input, including verified approval claims, approver identities and DLP results,
+          must be constructed exclusively from authenticated trusted-service outputs. Agent- or
+          caller-supplied verification flags are never accepted. In this design, the language model
+          proposes a tool call and arguments, whilst the trusted execution proxy (PEP) intercepts
+          the request, validates cryptographic signatures on delegation and approval tokens via an
+          independent verification service (populating verified <code>{"{id, role}"}</code> records
+          so <code>distinct_dual_approvers</code> enforces both two distinct principals and
+          role-level separation of duties), and queries the policy engine. Because Rego ORs multiple{" "}
+          <code>allow</code> rules and evaluates <code>not &lt;undefined&gt;</code> as true,{" "}
+          <code>mandatory_runtime_guards</code> uses positive assertions — including{" "}
+          <code>dlp_scan_clean</code> — on every path alongside action-hash matching and TTL checks.
+          Any <code>allow = false</code> result blocks execution and logs tamper-evident evidence.
         </p>
         <h3>Threat intelligence references</h3>
         <p>The risks described in this paper map to established adversarial AI taxonomies:</p>
