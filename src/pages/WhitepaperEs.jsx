@@ -1105,8 +1105,9 @@ export default function WhitepaperEs() {
           escaladas de privilegios, pero el riesgo residual de influencia semántica durante la
           inferencia no se elimina solo mediante delimitadores; por ello, la validación de salida{" "}
           <em>fail-closed</em> y la autorización de ejecución independiente actúan como barreras
-          obligatorias para que los efectos reales los decida la arquitectura y no la probabilidad
-          del LLM.
+          obligatorias. El contenido inyectado puede entrar en el contexto del modelo, pero no puede
+          autorizar por sí mismo la acción solicitada: la arquitectura impone la frontera de
+          decisión en lugar de confiar en que el modelo ignore instrucciones maliciosas.
         </p>
 
         <h3>Caso 3 (ilustrativo): agente autónomo de AWS</h3>
@@ -1282,10 +1283,13 @@ export default function WhitepaperEs() {
       <section id="s25">
         <h2><span>25</span> Anexo técnico: políticas como código</h2>
         <p>
-          La arquitectura de Runtime Assurance descrita en este documento no es teórica. Las
-          políticas pueden expresarse como código ejecutable y aplicarse en cada frontera de
-          confianza. El siguiente fragmento de Open Policy Agent (OPA / Rego) ilustra un control de
-          autorización en tiempo de ejecución para una acción agéntica.
+          Las políticas pueden expresarse como código ejecutable y aplicarse en cada frontera de
+          confianza. La política de referencia en Open Policy Agent (OPA / Rego v1) mostrada a
+          continuación ilustra una compuerta de autorización en tiempo de ejecución; compila sin
+          errores bajo <code>opa check --strict</code> y supera pruebas unitarias (
+          <code>opa test</code>) sobre escenarios representativos de permiso y denegación, mientras
+          que el aseguramiento en producción exige además pruebas de integración extremo a extremo
+          del proxy PEP, el servicio de verificación criptográfica y la gestión de claves.
         </p>
         <p className="note"><code>runtime_authz.rego</code> · Política OPA.</p>
         <pre className="rego">

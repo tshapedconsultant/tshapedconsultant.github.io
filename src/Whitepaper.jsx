@@ -981,8 +981,10 @@ export default function Whitepaper() {
           enter the model’s context window, channel separation reduces the injection surface and
           prevents untrusted text from escalating privileges, while residual semantic influence
           during inference cannot be eliminated by prompt structure alone — making fail-closed
-          output validation and independent execution gates mandatory boundaries so architectural
-          controls, not LLM probabilities, govern real-world consequences.
+          output validation and independent execution gates mandatory boundaries. The injected
+          content may enter the model’s context, but it cannot independently authorise the requested
+          action: the architecture enforces the decision boundary rather than relying on the model
+          to ignore malicious instructions.
         </p>
 
         <h3>03 · Autonomous AWS agent</h3>
@@ -1148,10 +1150,13 @@ export default function Whitepaper() {
       <section id="s25">
         <h2><span>25</span> Technical appendix: policy as code</h2>
         <p>
-          The Runtime Assurance architecture described in this paper is not theoretical. Policies can
-          be expressed as executable code and enforced at every trust boundary. The following Open
-          Policy Agent (OPA / Rego) snippet illustrates a runtime authorisation gate for an agentic
-          action.
+          Policies can be expressed as executable code and enforced at every trust boundary. The
+          Open Policy Agent (OPA / Rego v1) reference policy below illustrates a runtime
+          authorisation gate for an agentic action; it compiles cleanly under{" "}
+          <code>opa check --strict</code> and passes unit tests (<code>opa test</code>) across
+          representative allow/deny scenarios, whilst production assurance additionally requires
+          end-to-end integration testing of the PEP proxy, cryptographic verification service, and
+          key management.
         </p>
         <p className="note"><code>runtime_authz.rego</code> · OPA policy (Rego v1)</p>
         <pre className="rego">
