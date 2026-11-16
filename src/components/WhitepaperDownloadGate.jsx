@@ -74,7 +74,7 @@ const COPY = {
   es: {
     kicker: "Lista de correo y acceso completo (Web + PDF)",
     title: "Desbloquea la lectura completa y descarga el Whitepaper en PDF",
-    lead: "Deja tu email para leer las 28 páginas completas en la web, descargar el PDF (ES · 28 págs. / EN · 25 págs.) y recibir nuevos análisis técnicos, plantillas OPA/Rego y actualizaciones de gobernanza de IA.",
+    lead: "Deja tu email para leer las 28 páginas completas en la web, descargar el PDF (ES · 29 págs. / EN · 25 págs.) y recibir nuevos análisis técnicos, plantillas OPA/Rego y actualizaciones de gobernanza de IA.",
     readingKicker: "Vista previa hasta la página 3 · Secciones 02 a 26 bloqueadas",
     readingTitle: "Introduce tu email para seguir leyendo el Whitepaper completo",
     readingLead:
@@ -103,7 +103,7 @@ const COPY = {
   en: {
     kicker: "Mailing list & full access (Web + PDF)",
     title: "Unlock full online reading & download the Whitepaper PDF",
-    lead: "Leave your email to read the full whitepaper online, download the complete PDF edition (EN · 25 pp. / ES · 28 pp.), and receive new technical essays, OPA/Rego templates, and AI governance updates.",
+    lead: "Leave your email to read the full whitepaper online, download the complete PDF edition (EN · 25 pp. / ES · 29 pp.), and receive new technical essays, OPA/Rego templates, and AI governance updates.",
     readingKicker: "Preview ends at page 3 · Sections 02 to 26 locked",
     readingTitle: "Enter your email to continue reading the full Whitepaper",
     readingLead:
