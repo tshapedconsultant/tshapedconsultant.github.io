@@ -3,6 +3,8 @@ import { PULSE_ARTICLES, type PulseArticle } from "./pulseArticles.ts";
 /** Most relevant to executable governance first; market notes and explainers last. */
 const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
   es: [
+    "de-una-multiplicacion-de-primaria-a-la-caja-negra-como-gobernamos-una-ia-que-no",
+    "el-juego-ha-cambiado-ya-no-solo-aseguramos-aplicaciones-gobernamos-agentes-auton",
     "el-genio-la-jaula-y-la-gobernanza-de-la-ia-por-que-las-politicas-no-frenan-a-los",
     "gobernanza-vs-red-teaming-en-ia-el-error-que-debilita-a-la-mayoria-de-las-organi",
     "el-governance-flywheel-de-freno-burocratico-a-motor-de-la-ia-autonoma",
@@ -23,6 +25,8 @@ const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
     "el-tablero-completo-nvidia-no-quiere-controlar-solo-el-hardware-quiere-controlar",
   ],
   en: [
+    "from-a-primary-school-multiplication-to-the-black-box-how-do-we-govern-an-ai-we",
+    "the-game-has-changed-we-no-longer-just-secure-applications-we-govern-autonomous",
     "the-risk-equation-of-agentic-ai",
     "ai-governance-is-a-hypothesis-red-teaming-is-the-test",
     "the-origin-of-ai-governance-why-einstein-was-right-about-the-wrong-thing",

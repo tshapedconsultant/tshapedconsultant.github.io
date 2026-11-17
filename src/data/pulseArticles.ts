@@ -14,6 +14,1264 @@ export type PulseArticle = {
 
 export const PULSE_ARTICLES: PulseArticle[] = [
   {
+    "slug": "de-una-multiplicacion-de-primaria-a-la-caja-negra-como-gobernamos-una-ia-que-no",
+    "title": "De una multiplicación de primaria a la caja negra: ¿cómo gobernamos una IA que no siempre podemos explicar?",
+    "lang": "es",
+    "published": "2026-11-17",
+    "blocks": [
+      {
+        "type": "p",
+        "html": "De backpropagation a Explainable Boosting Machines (EBM): por qué entender cómo aprende una IA no significa necesariamente entender sus decisiones."
+      },
+      {
+        "type": "p",
+        "html": "En 2012, una red neuronal cambió la historia de la inteligencia artificial."
+      },
+      {
+        "type": "p",
+        "html": "AlexNet, desarrollada por Alex Krizhevsky, Ilya Sutskever y Geoffrey Hinton, revolucionó la clasificación de imágenes en ImageNet. Una variante ganadora basada en su arquitectura consiguió una tasa de error top-5 del 15,3%, frente al 26,2% del segundo clasificado."
+      },
+      {
+        "type": "p",
+        "html": "Un detalle importante: aquel 15,3% no correspondió a una única red, sino a un conjunto de siete redes neuronales convolucionales (CNN): cinco CNN combinadas con otras dos preentrenadas sobre una versión más amplia de ImageNet."
+      },
+      {
+        "type": "p",
+        "html": "Doce años después, en 2024, Hinton recibió el Premio Nobel de Física junto a John Hopfield por sus descubrimientos e invenciones fundamentales que permiten el aprendizaje automático mediante redes neuronales artificiales."
+      },
+      {
+        "type": "p",
+        "html": "Sin embargo, detrás de aquella revolución había una idea matemática mucho más sencilla de lo que parece: enseñar a una máquina a corregir sus propios errores."
+      },
+      {
+        "type": "h2",
+        "html": "1. Cómo aprende una máquina a corregirse"
+      },
+      {
+        "type": "p",
+        "html": "El mecanismo que permitió desarrollar redes neuronales cada vez más sofisticadas se apoya, entre otras cosas, en la retropropagación del error (<em>backpropagation</em>), popularizada por Rumelhart, Hinton y Williams en su célebre artículo de 1986, sobre fundamentos matemáticos previos."
+      },
+      {
+        "type": "p",
+        "html": "Su funcionamiento combina dos herramientas fundamentales: la regla de la cadena del cálculo diferencial y la acumulación de gradientes."
+      },
+      {
+        "type": "p",
+        "html": "Para verlo en acción, imaginemos una red neuronal diminuta y simplificada, sin sesgos ni funciones de activación no lineales, que debe distinguir entre gatos y perros."
+      },
+      {
+        "type": "p",
+        "html": "Le mostramos la fotografía de un golden retriever y suponemos que una etapa previa ya ha extraído una característica visual —la presencia de bigotes— representándola mediante el valor 0,8."
+      },
+      {
+        "type": "p",
+        "html": "Ese dato atraviesa una primera conexión con un peso de 0,5:"
+      },
+      {
+        "type": "p",
+        "html": "0,8 × 0,5 = 0,4"
+      },
+      {
+        "type": "p",
+        "html": "La neurona intermedia transmite ese resultado hacia dos salidas con pesos distintos:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Gato: 0,4 × 2,0 = 0,80",
+          "Perro: 0,4 × 0,5 = 0,20"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "La red ha asignado una puntuación cuatro veces mayor a Gato que a Perro. Se ha equivocado."
+      },
+      {
+        "type": "p",
+        "html": "Estas salidas son puntuaciones brutas (<em>scores</em>), no probabilidades matemáticas. Para medir el fallo utilizaremos una función de pérdida cuadrática:"
+      },
+      {
+        "type": "p",
+        "html": "L = ½ Σ (ŷᵢ − yᵢ)²"
+      },
+      {
+        "type": "p",
+        "html": "Donde ŷ representa la predicción e y la etiqueta correcta."
+      },
+      {
+        "type": "p",
+        "html": "Si la etiqueta es 0 para Gato y 1 para Perro, la derivada de la pérdida respecto a cada salida es:"
+      },
+      {
+        "type": "p",
+        "html": "∂L/∂ŷᵢ = ŷᵢ − yᵢ"
+      },
+      {
+        "type": "p",
+        "html": "Obtenemos dos señales de error:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Gato: 0,80 − 0 = +0,80",
+          "Perro: 0,20 − 1 = −0,80"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Aquí comienza <em>backpropagation</em>: calcular cuánto ha contribuido cada peso al error final y propagar esa información hacia las conexiones anteriores mediante la regla de la cadena."
+      },
+      {
+        "type": "p",
+        "html": "Primero calculamos los gradientes de los dos pesos de salida multiplicando la activación intermedia (0,4) por el error de cada rama:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Gato: 0,4 × (+0,80) = +0,32",
+          "Perro: 0,4 × (−0,80) = −0,32"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Un nivel más atrás, la neurona intermedia alimenta ambos caminos. Por tanto, debemos acumular las contribuciones que regresan por las dos ramas:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Rama Gato: 2,0 × (+0,80) = +1,60",
+          "Rama Perro: 0,5 × (−0,80) = −0,40"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "El gradiente del primer peso será:"
+      },
+      {
+        "type": "p",
+        "html": "0,8 × (1,60 − 0,40) = +0,96"
+      },
+      {
+        "type": "p",
+        "html": "Aquí aparece la propiedad distributiva: permite expresar algebraicamente esa acumulación, agrupando las contribuciones que confluyen en una neurona."
+      },
+      {
+        "type": "p",
+        "html": "Pero la verdadera eficiencia computacional de <em>backpropagation</em> procede de aplicar recursivamente la regla de la cadena, reutilizando gradientes intermedios en lugar de recalcular cada trayectoria desde cero. Este mecanismo constituye un caso de diferenciación automática en modo inverso (<em>reverse-mode automatic differentiation</em>)."
+      },
+      {
+        "type": "p",
+        "html": "Finalmente, actualizamos los pesos mediante el descenso del gradiente:"
+      },
+      {
+        "type": "p",
+        "html": "Nuevo peso = peso anterior − tasa de aprendizaje × gradiente"
+      },
+      {
+        "type": "p",
+        "html": "Con una tasa de aprendizaje de 0,1, obtenemos:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Neurona → Gato: 2,000 → 1,968",
+          "Neurona → Perro: 0,500 → 0,532",
+          "Bigotes → Neurona: 0,500 → 0,404"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Tras esta única iteración, si pasamos de nuevo la misma fotografía, las puntuaciones cambian:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Gato: 0,80 → 0,636",
+          "Perro: 0,20 → 0,172"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Ambas disminuyen porque también se ha reducido el peso de entrada compartido. Sin embargo, la diferencia entre ellas se estrecha y la pérdida cuadrática global baja de 0,64 a aproximadamente 0,545."
+      },
+      {
+        "type": "p",
+        "html": "La red ha empezado a corregir su sesgo hacia Gato."
+      },
+      {
+        "type": "p",
+        "html": "Hasta aquí podemos auditar matemáticamente cada operación: sabemos qué entra, qué sale y cómo cambia cada parámetro."
+      },
+      {
+        "type": "p",
+        "html": "Pero ¿qué ocurre cuando pasamos de tres pesos a miles de millones?"
+      },
+      {
+        "type": "h2",
+        "html": "2. La paradoja de la caja negra"
+      },
+      {
+        "type": "p",
+        "html": "Una red neuronal profunda no contiene unas pocas conexiones aisladas, sino muchas capas sucesivas con operaciones matriciales, funciones no lineales y parámetros que aprenden representaciones distribuidas de los datos."
+      },
+      {
+        "type": "p",
+        "html": "Conocemos su arquitectura, conocemos su algoritmo de entrenamiento e incluso podemos inspeccionar sus pesos."
+      },
+      {
+        "type": "p",
+        "html": "Sin embargo, esa transparencia mecánica no significa que podamos traducir sus representaciones internas en explicaciones comprensibles de cada decisión individual."
+      },
+      {
+        "type": "p",
+        "html": "Saber cómo aprende un modelo no equivale a saber por qué ha producido una predicción concreta."
+      },
+      {
+        "type": "p",
+        "html": "Esta es la paradoja de la caja negra."
+      },
+      {
+        "type": "p",
+        "html": "Podemos constatar que un sistema ha rechazado una solicitud de crédito, pero no reconstruir directamente qué combinación de relaciones internas determinó ese resultado."
+      },
+      {
+        "type": "p",
+        "html": "Existen técnicas <em>post-hoc</em> como SHAP o LIME que ayudan a estimar qué variables han influido en una predicción. Sus explicaciones, principalmente locales, pueden agregarse para obtener información global."
+      },
+      {
+        "type": "p",
+        "html": "Pero hay una limitación importante: explicar la contribución de una variable no equivale a demostrar causalidad, ni convierte un modelo complejo en uno intrínsecamente interpretable."
+      },
+      {
+        "type": "p",
+        "html": "En entornos empresariales regulados, esa diferencia importa muchísimo."
+      },
+      {
+        "type": "h2",
+        "html": "3. EBM: ¿y si diseñamos modelos que podamos inspeccionar?"
+      },
+      {
+        "type": "p",
+        "html": "No todos los problemas de negocio requieren redes neuronales profundas."
+      },
+      {
+        "type": "p",
+        "html": "Para determinadas tareas de clasificación y regresión sobre datos tabulares existe una alternativa especialmente interesante: las Explainable Boosting Machines (EBM)."
+      },
+      {
+        "type": "p",
+        "html": "Disponible en el framework abierto InterpretML, EBM es un modelo de tipo <em>glass-box</em> (caja de cristal), basado en Modelos Aditivos Generalizados (GAM) y técnicas de <em>gradient boosting</em>."
+      },
+      {
+        "type": "p",
+        "html": "Su estructura básica puede expresarse así:"
+      },
+      {
+        "type": "p",
+        "html": "g(E[Y | X=x]) = β₀ + Σⱼ fⱼ(xⱼ)"
+      },
+      {
+        "type": "p",
+        "html": "También puede incorporar interacciones entre pares de variables:"
+      },
+      {
+        "type": "p",
+        "html": "g(E[Y | X=x]) = β₀ + Σᵢ fᵢ(xᵢ) + Σᵢⱼ fᵢⱼ(xᵢ, xⱼ)"
+      },
+      {
+        "type": "p",
+        "html": "La idea es relativamente sencilla: el modelo aprende una función de contribución para cada variable y, cuando incorpora interacciones, funciones adicionales que representan cómo determinadas variables se combinan."
+      },
+      {
+        "type": "p",
+        "html": "Esto permite inspeccionar cómo contribuye cada factor a la puntuación interna del modelo y, mediante su función de enlace, al resultado final."
+      },
+      {
+        "type": "p",
+        "html": "Es una especie de <em>scorecard</em> moderno aprendido automáticamente de los datos."
+      },
+      {
+        "type": "p",
+        "html": "Pensemos en una entidad financiera que evalúa el riesgo de impago."
+      },
+      {
+        "type": "p",
+        "html": "Puede utilizar variables como:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Historial de pagos.",
+          "Nivel de endeudamiento.",
+          "Estabilidad laboral.",
+          "Relación entre ingresos y deuda."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Un EBM permite visualizar cómo varía la contribución del endeudamiento a la puntuación de riesgo a medida que aumenta su valor."
+      },
+      {
+        "type": "p",
+        "html": "También permite estudiar las contribuciones individuales de las variables en una predicción concreta."
+      },
+      {
+        "type": "p",
+        "html": "Esto facilita la validación por parte de los equipos de auditoría, la revisión de patrones inesperados y la identificación de variables que requieren un análisis adicional."
+      },
+      {
+        "type": "p",
+        "html": "Conviene mantener el rigor: que un EBM sea interpretable no garantiza por sí solo decisiones justas, ausencia de sesgos históricos ni relaciones causales."
+      },
+      {
+        "type": "p",
+        "html": "Su ventaja es más concreta: su propia arquitectura está diseñada para que podamos inspeccionar y cuestionar sus componentes."
+      },
+      {
+        "type": "h2",
+        "html": "4. ¿Por qué 2027 cambia las reglas del juego?"
+      },
+      {
+        "type": "p",
+        "html": "Esta distinción arquitectónica deja de ser un debate puramente académico cuando entra en escena la regulación europea."
+      },
+      {
+        "type": "p",
+        "html": "Tras las modificaciones introducidas por el Digital Omnibus on AI en 2026, el calendario de aplicación del Reglamento Europeo de Inteligencia Artificial (AI Act) establece dos fechas especialmente relevantes:"
+      },
+      {
+        "type": "p",
+        "html": "<strong>2 de diciembre de 2027:</strong> aplicación de los requisitos específicos para sistemas de IA clasificados como alto riesgo conforme al artículo 6(2) y el Anexo III."
+      },
+      {
+        "type": "p",
+        "html": "Entre sus ámbitos de aplicación encontramos determinados usos relacionados con:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Selección, evaluación y gestión de trabajadores.",
+          "Educación y acceso a la formación.",
+          "Evaluación de la solvencia de personas físicas y establecimiento de puntuaciones crediticias, con la excepción de los sistemas destinados a detectar fraude financiero.",
+          "Infraestructuras críticas y determinados sistemas biométricos."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "<strong>2 de agosto de 2028:</strong> aplicación de los requisitos correspondientes a los sistemas de alto riesgo contemplados en el artículo 6(1) y el Anexo I, vinculados a productos regulados."
+      },
+      {
+        "type": "p",
+        "html": "Una precisión importante: no todo uso de IA en estos sectores es automáticamente de alto riesgo. La clasificación depende de la finalidad, el ámbito de aplicación y los criterios y excepciones establecidos por el Reglamento."
+      },
+      {
+        "type": "p",
+        "html": "¿Significa esto que Europa prohíbe las redes neuronales profundas o impone el uso de EBM?"
+      },
+      {
+        "type": "p",
+        "html": "En absoluto."
+      },
+      {
+        "type": "p",
+        "html": "El AI Act es tecnológicamente neutral, pero exige garantías específicas para los sistemas de alto riesgo."
+      },
+      {
+        "type": "p",
+        "html": "Tres artículos son especialmente relevantes para cualquier arquitectura empresarial:"
+      },
+      {
+        "type": "h3",
+        "html": "Artículo 12 — Trazabilidad"
+      },
+      {
+        "type": "p",
+        "html": "Los sistemas de alto riesgo deben disponer de capacidades de registro automático de eventos a lo largo de su vida útil, con un nivel de trazabilidad adecuado a su finalidad."
+      },
+      {
+        "type": "h3",
+        "html": "Artículo 13 — Transparencia"
+      },
+      {
+        "type": "p",
+        "html": "Su funcionamiento debe ser suficientemente transparente para que quienes los despliegan puedan interpretar sus resultados y utilizarlos adecuadamente. Esto incluye instrucciones e información sobre sus capacidades y limitaciones."
+      },
+      {
+        "type": "h3",
+        "html": "Artículo 14 — Supervisión humana"
+      },
+      {
+        "type": "p",
+        "html": "Deben existir mecanismos efectivos para que las personas responsables comprendan las capacidades y limitaciones del sistema, detecten anomalías, interpreten sus resultados, puedan cuestionarlos e intervengan cuando sea necesario."
+      },
+      {
+        "type": "p",
+        "html": "A esto se suman los requisitos de gestión de riesgos, gobernanza de datos, documentación técnica, precisión, robustez y ciberseguridad."
+      },
+      {
+        "type": "p",
+        "html": "El reto empresarial ya no consiste únicamente en maximizar una métrica predictiva en laboratorio, sino en demostrar cómo se valida, supervisa y controla el impacto del sistema en producción."
+      },
+      {
+        "type": "h2",
+        "html": "5. Más allá de EBM: una arquitectura de gobernanza híbrida"
+      },
+      {
+        "type": "p",
+        "html": "La respuesta madura no consiste en sustituir todas las redes neuronales por modelos aditivos."
+      },
+      {
+        "type": "p",
+        "html": "Consiste en asignar cada tecnología al eslabón donde aporta mayor valor y menor riesgo."
+      },
+      {
+        "type": "p",
+        "html": "Un modelo generativo puede ser extraordinariamente útil extrayendo cláusulas de contratos o sintetizando documentación no estructurada. Pero no debería convertirse, sin controles adicionales, en el único mecanismo que determine si se aprueba una operación financiera."
+      },
+      {
+        "type": "p",
+        "html": "Podemos articular una arquitectura híbrida con cuatro componentes:"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "<strong>Modelos probabilísticos (LLM / Deep Learning).</strong> Procesan información no estructurada —documentos, imágenes y lenguaje natural— y extraen señales o entidades relevantes.",
+          "<strong>Modelos interpretables (EBM / GAM).</strong> Evalúan variables estructuradas y generan puntuaciones acompañadas de contribuciones desglosadas por factor.",
+          "<strong>Motores deterministas de políticas.</strong> Aplican reglas de negocio, umbrales, límites de exposición, permisos y condiciones de autorización que no deben quedar a discreción del modelo probabilístico.",
+          "<strong>Observabilidad, trazabilidad y supervisión humana.</strong> Una capacidad transversal que registra los eventos relevantes, las versiones de los modelos, las entradas y salidas necesarias, las reglas aplicadas y las intervenciones humanas, respetando los principios de proporcionalidad y protección de datos."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Esta arquitectura permite combinar la flexibilidad de los modelos probabilísticos, la interpretabilidad de EBM y la previsibilidad de los controles deterministas."
+      },
+      {
+        "type": "p",
+        "html": "Pero también exige validar la calidad de los datos que atraviesan cada componente."
+      },
+      {
+        "type": "p",
+        "html": "Una predicción interpretable no equivale automáticamente a una decisión correcta. Y una regla determinista no garantiza que los datos que recibe sean fiables."
+      },
+      {
+        "type": "p",
+        "html": "Por eso necesitamos gobernar el sistema completo, no solamente el algoritmo."
+      },
+      {
+        "type": "h2",
+        "html": "La inteligencia predictiva no basta"
+      },
+      {
+        "type": "p",
+        "html": "La evolución de la inteligencia artificial nos ha llevado desde unas pocas multiplicaciones encadenadas hasta modelos con cientos de miles de millones de parámetros capaces de escribir código, interpretar contratos o analizar imágenes médicas."
+      },
+      {
+        "type": "p",
+        "html": "Pero la capacidad predictiva y la capacidad de explicar, verificar y controlar una decisión son propiedades diferentes."
+      },
+      {
+        "type": "p",
+        "html": "No necesitamos que todos los modelos de una organización sean cajas de cristal."
+      },
+      {
+        "type": "p",
+        "html": "Necesitamos asegurarnos de que ninguna decisión crítica descanse sobre una caja negra sin controles arquitectónicos adecuados."
+      },
+      {
+        "type": "p",
+        "html": "El liderazgo tecnológico de los próximos años no se definirá únicamente por la sofisticación de los modelos que entrenemos, sino por nuestra capacidad para comprender, verificar y gobernar sus consecuencias."
+      },
+      {
+        "type": "p",
+        "html": "Porque los modelos pueden ser probabilísticos."
+      },
+      {
+        "type": "p",
+        "html": "La responsabilidad empresarial no puede serlo."
+      },
+      {
+        "type": "h2",
+        "html": "Fuentes y lecturas de referencia"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Krizhevsky, A., Sutskever, I. &amp; Hinton, G. (2012). <em>ImageNet Classification with Deep Convolutional Neural Networks</em>. <a href=\"https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html\">NeurIPS</a>.",
+          "Rumelhart, D. E., Hinton, G. E. &amp; Williams, R. J. (1986). <em>Learning Representations by Back-Propagating Errors</em>. <a href=\"https://www.nature.com/articles/323533a0\">Nature</a>.",
+          "Nori, H., Jenkins, S., Koch, P. &amp; Caruana, R. (2019). <em>InterpretML: A Unified Framework for Machine Learning Interpretability</em>. <a href=\"https://arxiv.org/abs/1909.09223\">arXiv</a>.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">Reglamento Europeo de Inteligencia Artificial</a> — texto consolidado.",
+          "Comisión Europea — calendario de aplicación del AI Act.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">AI Act — Artículo 12</a>: conservación de registros.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">AI Act — Artículo 13</a>: transparencia.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">AI Act — Artículo 14</a>: supervisión humana."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "#AIGovernance #ExplainableAI #MachineLearning #EUAIAct #ResponsibleAI"
+      }
+    ],
+    "excerpt": "De backpropagation a Explainable Boosting Machines (EBM): por qué entender cómo aprende una IA no significa necesariamente entender sus decisiones. En 2012, una red neuronal cambió la historia de la…"
+  },
+  {
+    "slug": "from-a-primary-school-multiplication-to-the-black-box-how-do-we-govern-an-ai-we",
+    "title": "From a primary-school multiplication to the black box: how do we govern an AI we cannot always explain?",
+    "lang": "en",
+    "published": "2026-11-17",
+    "blocks": [
+      {
+        "type": "p",
+        "html": "From backpropagation to Explainable Boosting Machines (EBMs): why understanding how an AI learns does not necessarily mean understanding its decisions."
+      },
+      {
+        "type": "p",
+        "html": "In 2012, a neural network changed the history of artificial intelligence."
+      },
+      {
+        "type": "p",
+        "html": "AlexNet, developed by Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton, transformed image classification on ImageNet. A winning variant based on its architecture achieved a top-5 error rate of 15.3%, against 26.2% for the runner-up."
+      },
+      {
+        "type": "p",
+        "html": "One important detail: that 15.3% did not come from a single network. It came from an ensemble of seven convolutional neural networks (CNNs): five CNNs combined with two others pretrained on a broader version of ImageNet."
+      },
+      {
+        "type": "p",
+        "html": "Twelve years later, in 2024, Hinton received the Nobel Prize in Physics with John Hopfield for foundational discoveries and inventions that enable machine learning with artificial neural networks."
+      },
+      {
+        "type": "p",
+        "html": "Behind that revolution, though, was a mathematical idea much simpler than it first appears: teaching a machine to correct its own errors."
+      },
+      {
+        "type": "h2",
+        "html": "1. How a machine learns to correct itself"
+      },
+      {
+        "type": "p",
+        "html": "The mechanism that made ever more sophisticated neural networks possible rests, among other things, on backpropagation, popularised by Rumelhart, Hinton and Williams in their landmark 1986 paper, building on earlier mathematical foundations."
+      },
+      {
+        "type": "p",
+        "html": "It combines two fundamental tools: the chain rule from differential calculus, and the accumulation of gradients."
+      },
+      {
+        "type": "p",
+        "html": "To see it in action, imagine a tiny, simplified neural network, with no biases and no non-linear activation functions, that must tell cats from dogs."
+      },
+      {
+        "type": "p",
+        "html": "We show it a photograph of a golden retriever and assume that an earlier stage has already extracted a visual feature — the presence of whiskers — and represented it as the value 0.8."
+      },
+      {
+        "type": "p",
+        "html": "That value passes through a first connection with a weight of 0.5:"
+      },
+      {
+        "type": "p",
+        "html": "0.8 × 0.5 = 0.4"
+      },
+      {
+        "type": "p",
+        "html": "The intermediate neuron sends that result to two outputs with different weights:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Cat: 0.4 × 2.0 = 0.80",
+          "Dog: 0.4 × 0.5 = 0.20"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "The network has assigned Cat a score four times higher than Dog. It is wrong."
+      },
+      {
+        "type": "p",
+        "html": "These outputs are raw scores, not mathematical probabilities. To measure the miss we use a squared loss:"
+      },
+      {
+        "type": "p",
+        "html": "L = ½ Σ (ŷᵢ − yᵢ)²"
+      },
+      {
+        "type": "p",
+        "html": "where ŷ is the prediction and y is the correct label."
+      },
+      {
+        "type": "p",
+        "html": "If the label is 0 for Cat and 1 for Dog, the derivative of the loss with respect to each output is:"
+      },
+      {
+        "type": "p",
+        "html": "∂L/∂ŷᵢ = ŷᵢ − yᵢ"
+      },
+      {
+        "type": "p",
+        "html": "We get two error signals:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Cat: 0.80 − 0 = +0.80",
+          "Dog: 0.20 − 1 = −0.80"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "This is where backpropagation begins: calculate how much each weight contributed to the final error, and send that information back to earlier connections through the chain rule."
+      },
+      {
+        "type": "p",
+        "html": "First we compute the gradients of the two output weights by multiplying the intermediate activation (0.4) by the error on each branch:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Cat: 0.4 × (+0.80) = +0.32",
+          "Dog: 0.4 × (−0.80) = −0.32"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "One level further back, the intermediate neuron feeds both paths. We therefore have to accumulate the contributions returning along the two branches:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Cat branch: 2.0 × (+0.80) = +1.60",
+          "Dog branch: 0.5 × (−0.80) = −0.40"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "The gradient of the first weight is:"
+      },
+      {
+        "type": "p",
+        "html": "0.8 × (1.60 − 0.40) = +0.96"
+      },
+      {
+        "type": "p",
+        "html": "The distributive property is what lets us write that accumulation algebraically, grouping the contributions that meet at one neuron."
+      },
+      {
+        "type": "p",
+        "html": "The real computational efficiency of backpropagation comes from applying the chain rule recursively, reusing intermediate gradients instead of recomputing every path from scratch. This is a case of reverse-mode automatic differentiation."
+      },
+      {
+        "type": "p",
+        "html": "Finally, we update the weights by gradient descent:"
+      },
+      {
+        "type": "p",
+        "html": "New weight = previous weight − learning rate × gradient"
+      },
+      {
+        "type": "p",
+        "html": "With a learning rate of 0.1:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Neuron → Cat: 2.000 → 1.968",
+          "Neuron → Dog: 0.500 → 0.532",
+          "Whiskers → Neuron: 0.500 → 0.404"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "After this single iteration, passing the same photograph through again changes the scores:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Cat: 0.80 → 0.636",
+          "Dog: 0.20 → 0.172"
+        ]
+      },
+      {
+        "type": "p",
+        "html": "Both fall, because the shared input weight has also been reduced. The gap between them narrows, though, and the overall squared loss drops from 0.64 to about 0.545."
+      },
+      {
+        "type": "p",
+        "html": "The network has started to correct its bias toward Cat."
+      },
+      {
+        "type": "p",
+        "html": "Up to this point we can audit every operation mathematically: we know what goes in, what comes out, and how each parameter changes."
+      },
+      {
+        "type": "p",
+        "html": "What happens when we go from three weights to billions?"
+      },
+      {
+        "type": "h2",
+        "html": "2. The black-box paradox"
+      },
+      {
+        "type": "p",
+        "html": "A deep neural network is not a handful of isolated connections. It is many successive layers of matrix operations, non-linear functions, and parameters that learn distributed representations of the data."
+      },
+      {
+        "type": "p",
+        "html": "We know its architecture. We know its training algorithm. We can even inspect its weights."
+      },
+      {
+        "type": "p",
+        "html": "That mechanical transparency does not mean we can translate its internal representations into an understandable explanation of each individual decision."
+      },
+      {
+        "type": "p",
+        "html": "Knowing how a model learns is not the same as knowing why it produced a particular prediction."
+      },
+      {
+        "type": "p",
+        "html": "That is the black-box paradox."
+      },
+      {
+        "type": "p",
+        "html": "We can observe that a system rejected a credit application. We cannot directly reconstruct which combination of internal relationships determined that result."
+      },
+      {
+        "type": "p",
+        "html": "Post-hoc techniques such as SHAP or LIME help estimate which variables influenced a prediction. Their explanations are mainly local, and they can be aggregated into a global picture."
+      },
+      {
+        "type": "p",
+        "html": "There is an important limit: explaining a variable's contribution is not a proof of causality, and it does not turn a complex model into one that is interpretable by design."
+      },
+      {
+        "type": "p",
+        "html": "In regulated enterprise settings, that difference matters a great deal."
+      },
+      {
+        "type": "h2",
+        "html": "3. EBMs: what if we design models we can inspect?"
+      },
+      {
+        "type": "p",
+        "html": "Not every business problem needs a deep neural network."
+      },
+      {
+        "type": "p",
+        "html": "For some classification and regression tasks on tabular data there is a particularly useful alternative: Explainable Boosting Machines (EBMs)."
+      },
+      {
+        "type": "p",
+        "html": "Available in the open InterpretML framework, an EBM is a glass-box model based on generalised additive models (GAMs) and gradient boosting."
+      },
+      {
+        "type": "p",
+        "html": "Its basic structure can be written as:"
+      },
+      {
+        "type": "p",
+        "html": "g(E[Y | X=x]) = β₀ + Σⱼ fⱼ(xⱼ)"
+      },
+      {
+        "type": "p",
+        "html": "It can also include pairwise interactions:"
+      },
+      {
+        "type": "p",
+        "html": "g(E[Y | X=x]) = β₀ + Σᵢ fᵢ(xᵢ) + Σᵢⱼ fᵢⱼ(xᵢ, xⱼ)"
+      },
+      {
+        "type": "p",
+        "html": "The idea is relatively simple. The model learns a contribution function for each variable and, when it includes interactions, additional functions that represent how particular variables combine."
+      },
+      {
+        "type": "p",
+        "html": "That makes it possible to inspect how each factor contributes to the model's internal score and, through its link function, to the final result."
+      },
+      {
+        "type": "p",
+        "html": "It is a kind of modern scorecard, learned automatically from the data."
+      },
+      {
+        "type": "p",
+        "html": "Consider a financial institution assessing the risk of default."
+      },
+      {
+        "type": "p",
+        "html": "It might use variables such as:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Payment history.",
+          "Level of indebtedness.",
+          "Employment stability.",
+          "The relationship between income and debt."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "An EBM can show how the contribution of indebtedness to the risk score changes as that value rises."
+      },
+      {
+        "type": "p",
+        "html": "It can also show each variable's contribution on a specific prediction."
+      },
+      {
+        "type": "p",
+        "html": "That helps audit teams validate the model, review unexpected patterns, and identify variables that need further analysis."
+      },
+      {
+        "type": "p",
+        "html": "Rigour still applies: an interpretable EBM does not, by itself, guarantee fair decisions, the absence of historical bias, or causal relationships."
+      },
+      {
+        "type": "p",
+        "html": "Its advantage is more concrete. The architecture itself is designed so that we can inspect and challenge its components."
+      },
+      {
+        "type": "h2",
+        "html": "4. Why 2027 changes the rules"
+      },
+      {
+        "type": "p",
+        "html": "This architectural distinction stops being a purely academic debate once European regulation enters the picture."
+      },
+      {
+        "type": "p",
+        "html": "After the changes introduced by the Digital Omnibus on AI in 2026, the application timetable of the EU Artificial Intelligence Act sets two dates that matter in particular:"
+      },
+      {
+        "type": "p",
+        "html": "<strong>2 December 2027:</strong> the specific requirements begin to apply to AI systems classified as high-risk under Article 6(2) and Annex III."
+      },
+      {
+        "type": "p",
+        "html": "The fields of application include certain uses related to:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Recruitment, evaluation and management of workers.",
+          "Education and access to training.",
+          "Creditworthiness assessment of natural persons and credit scoring, with an exception for systems used to detect financial fraud.",
+          "Critical infrastructure and certain biometric systems."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "<strong>2 August 2028:</strong> the requirements begin to apply to the high-risk systems covered by Article 6(1) and Annex I, linked to regulated products."
+      },
+      {
+        "type": "p",
+        "html": "An important qualification: not every use of AI in these sectors is automatically high-risk. Classification depends on the intended purpose, the scope, and the criteria and exceptions set by the Regulation."
+      },
+      {
+        "type": "p",
+        "html": "Does this mean Europe bans deep neural networks, or mandates EBMs?"
+      },
+      {
+        "type": "p",
+        "html": "Not at all."
+      },
+      {
+        "type": "p",
+        "html": "The AI Act is technology-neutral, but it requires specific safeguards for high-risk systems."
+      },
+      {
+        "type": "p",
+        "html": "Three articles are especially relevant to any enterprise architecture:"
+      },
+      {
+        "type": "h3",
+        "html": "Article 12 — Traceability"
+      },
+      {
+        "type": "p",
+        "html": "High-risk systems must be able to log events automatically over their lifetime, at a level of traceability appropriate to their intended purpose."
+      },
+      {
+        "type": "h3",
+        "html": "Article 13 — Transparency"
+      },
+      {
+        "type": "p",
+        "html": "Their operation must be transparent enough for deployers to interpret the outputs and use them appropriately. That includes instructions and information on capabilities and limitations."
+      },
+      {
+        "type": "h3",
+        "html": "Article 14 — Human oversight"
+      },
+      {
+        "type": "p",
+        "html": "There must be effective mechanisms so that the people responsible can understand the system's capabilities and limitations, detect anomalies, interpret its outputs, challenge them, and intervene when necessary."
+      },
+      {
+        "type": "p",
+        "html": "Alongside these sit the requirements on risk management, data governance, technical documentation, accuracy, robustness and cybersecurity."
+      },
+      {
+        "type": "p",
+        "html": "The enterprise challenge is no longer only to maximise a predictive metric in the lab. It is to demonstrate how the system's impact is validated, overseen and controlled in production."
+      },
+      {
+        "type": "h2",
+        "html": "5. Beyond EBMs: a hybrid governance architecture"
+      },
+      {
+        "type": "p",
+        "html": "The mature answer is not to replace every neural network with an additive model."
+      },
+      {
+        "type": "p",
+        "html": "It is to place each technology where it adds the most value and the least risk."
+      },
+      {
+        "type": "p",
+        "html": "A generative model can be extraordinarily useful at extracting clauses from contracts or summarising unstructured documents. It should not, without further controls, become the only mechanism that decides whether a financial transaction is approved."
+      },
+      {
+        "type": "p",
+        "html": "A hybrid architecture can be built from four components:"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "<strong>Probabilistic models (LLMs / deep learning).</strong> They process unstructured information — documents, images and natural language — and extract relevant signals or entities.",
+          "<strong>Interpretable models (EBM / GAM).</strong> They score structured variables and produce scores with contributions broken down by factor.",
+          "<strong>Deterministic policy engines.</strong> They apply business rules, thresholds, exposure limits, permissions and authorisation conditions that must not be left to the discretion of the probabilistic model.",
+          "<strong>Observability, traceability and human oversight.</strong> A cross-cutting capability that records the relevant events, model versions, the inputs and outputs that are needed, the rules applied and the human interventions, in line with proportionality and data-protection principles."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "This architecture combines the flexibility of probabilistic models, the interpretability of EBMs, and the predictability of deterministic controls."
+      },
+      {
+        "type": "p",
+        "html": "It also requires the quality of the data passing through each component to be validated."
+      },
+      {
+        "type": "p",
+        "html": "An interpretable prediction is not automatically a correct decision. A deterministic rule does not guarantee that the data it receives are reliable."
+      },
+      {
+        "type": "p",
+        "html": "That is why we have to govern the whole system, not only the algorithm."
+      },
+      {
+        "type": "h2",
+        "html": "Predictive intelligence is not enough"
+      },
+      {
+        "type": "p",
+        "html": "Artificial intelligence has moved from a few chained multiplications to models with hundreds of billions of parameters that can write code, interpret contracts or analyse medical images."
+      },
+      {
+        "type": "p",
+        "html": "Predictive capability, and the capability to explain, verify and control a decision, are different properties."
+      },
+      {
+        "type": "p",
+        "html": "We do not need every model in an organisation to be a glass box."
+      },
+      {
+        "type": "p",
+        "html": "We do need to make sure that no critical decision rests on a black box without adequate architectural controls."
+      },
+      {
+        "type": "p",
+        "html": "Technology leadership in the years ahead will not be defined only by how sophisticated the models we train are. It will be defined by our ability to understand, verify and govern their consequences."
+      },
+      {
+        "type": "p",
+        "html": "Models can be probabilistic."
+      },
+      {
+        "type": "p",
+        "html": "Enterprise accountability cannot."
+      },
+      {
+        "type": "h2",
+        "html": "Sources and further reading"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Krizhevsky, A., Sutskever, I. &amp; Hinton, G. (2012). <em>ImageNet Classification with Deep Convolutional Neural Networks</em>. <a href=\"https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html\">NeurIPS</a>.",
+          "Rumelhart, D. E., Hinton, G. E. &amp; Williams, R. J. (1986). <em>Learning Representations by Back-Propagating Errors</em>. <a href=\"https://www.nature.com/articles/323533a0\">Nature</a>.",
+          "Nori, H., Jenkins, S., Koch, P. &amp; Caruana, R. (2019). <em>InterpretML: A Unified Framework for Machine Learning Interpretability</em>. <a href=\"https://arxiv.org/abs/1909.09223\">arXiv</a>.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">EU Artificial Intelligence Act</a> — consolidated text.",
+          "European Commission — AI Act application timetable.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">AI Act — Article 12</a>: record-keeping.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">AI Act — Article 13</a>: transparency.",
+          "<a href=\"https://eur-lex.europa.eu/eli/reg/2024/1689/oj\">AI Act — Article 14</a>: human oversight."
+        ]
+      },
+      {
+        "type": "p",
+        "html": "#AIGovernance #ExplainableAI #MachineLearning #EUAIAct #ResponsibleAI"
+      }
+    ],
+    "excerpt": "From backpropagation to Explainable Boosting Machines (EBMs): why understanding how an AI learns does not necessarily mean understanding its decisions. In 2012, a neural network changed the history…"
+  },
+  {
+    "slug": "the-game-has-changed-we-no-longer-just-secure-applications-we-govern-autonomous",
+    "title": "The Game Has Changed: We No Longer Just Secure Applications. We Govern Autonomous Agents.",
+    "lang": "en",
+    "published": "2026-11-11",
+    "blocks": [
+      {
+        "type": "p",
+        "html": "An autonomous agent processing an adverse-event report receives an obfuscated, indirect prompt injection. It hijacks the agent's reasoning loop, calls an internal document-management API, extracts unblinded clinical trial endpoints, and transmits them to an external repository without triggering a single firewall alert, signature detection, or software exception."
+      },
+      {
+        "type": "p",
+        "html": "This is not a hypothetical. It is the threat model that agentic AI introduces into regulated industries, and it breaks the assumptions that enterprise security and compliance have relied on for decades."
+      },
+      {
+        "type": "h2",
+        "html": "The paradigm shift"
+      },
+      {
+        "type": "p",
+        "html": "Traditional enterprise security was engineered around deterministic systems: static codebases, hardened perimeters, and immutable databases with clearly mapped boundaries. In pharmaceuticals, biotech, and healthcare, assurance frameworks from GxP validation to Computerized System Validation (CSV) rested on a simple premise: identical inputs produce identical, auditable behaviour."
+      },
+      {
+        "type": "p",
+        "html": "Agentic AI breaks that premise."
+      },
+      {
+        "type": "p",
+        "html": "Autonomous agents synthesize intent, plan multi-step workflows, query vector databases, invoke private APIs, and execute decisions across production infrastructure. When an agent touches clinical trial registries, drug discovery pipelines, pharmacovigilance databases, or ERP systems, security and governance stop being isolated IT problems. They become direct determinants of patient safety, regulatory compliance, IP protection, and institutional trust."
+      },
+      {
+        "type": "h2",
+        "html": "Where traditional defences fail"
+      },
+      {
+        "type": "p",
+        "html": "Traditional systems versus agentic AI ecosystems:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "<strong>Execution paths.</strong> Pre-compiled and inspectable before runtime → generated dynamically through non-deterministic reasoning and tool selection.",
+          "<strong>Access control.</strong> Static Role-Based Access Control (RBAC) → agents operate with ambient authority across databases and microservices.",
+          "<strong>Validation.</strong> Point-in-time testing, then freeze until the next release → continuous behavioural drift; vulnerabilities emerge at runtime.",
+          "<strong>Threat model.</strong> Code vulnerabilities, credential theft, network ingress → intent manipulation, context poisoning, tool over-privileging, semantic drift.",
+          "<strong>Perimeter.</strong> Clear and well-defined → natural language is simultaneously the user interface, the business logic, and the execution payload."
+        ]
+      },
+      {
+        "type": "h2",
+        "html": "The dual-threat vector"
+      },
+      {
+        "type": "p",
+        "html": "Sophisticated attackers rarely target model weights or hardened cloud perimeters. They target the seams: the connective tissue linking reasoning models to enterprise APIs, RAG pipelines, and users."
+      },
+      {
+        "type": "h3",
+        "html": "External adversary: infiltration via workflow seams"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "<strong>Tool over-privileging:</strong> broad API access without fine-grained, action-level permission controls.",
+          "<strong>Context and pipeline poisoning:</strong> corrupting vector databases with unverified research, adversarial filings, or compromised third-party datasets that trigger indirect prompt injections.",
+          "<strong>Downstream execution exploits:</strong> exploiting missing schema validation when an agent translates reasoning into database writes or API payloads."
+        ]
+      },
+      {
+        "type": "h3",
+        "html": "Internal confused deputy: context leakage and accidental misalignment"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "<strong>Cross-domain data bleed:</strong> an agent spanning preliminary R&amp;D and validated GxP environments retrieves, summarises, or exfiltrates unblinded clinical data or unpatented molecular structures into an unclassified context window.",
+          "<strong>Privilege elevation via delegation:</strong> a low-privilege user prompts an agent to perform actions or aggregate sensitive telemetry the user cannot directly access, bypassing access tiering because the agent itself holds high-level service credentials."
+        ]
+      },
+      {
+        "type": "h2",
+        "html": "The exploitation window has collapsed"
+      },
+      {
+        "type": "p",
+        "html": "Automated vulnerability research and adversarial LLM frameworks now probe API schemas, analyse tool descriptions, and map runtime execution gaps in minutes, compressing what previously required months of manual penetration testing into hours."
+      },
+      {
+        "type": "p",
+        "html": "Point-in-time validation and static PDF compliance binders are no longer defensible. Governance must operate as active, continuous runtime assurance."
+      },
+      {
+        "type": "h2",
+        "html": "The governance blueprint"
+      },
+      {
+        "type": "p",
+        "html": "Deploying autonomous agents in regulated environments requires a shift from reactive compliance to what I call Zero-Trust Behavioural Governance: a continuous, behavioural zero-trust architecture."
+      },
+      {
+        "type": "ol",
+        "items": [
+          "<strong>Deterministic guardrails and domain partitioning.</strong> Hard-coded guardrails validate all agent inputs and outputs before action execution; strict data-boundary segmentation prevents agents from bridging exploratory R&amp;D contexts with validated GxP environments without explicit, auditable clearance.",
+          "<strong>Continuous runtime monitoring and autonomous circuit breakers.</strong> Track reasoning chains, tool-call arguments, and semantic trajectories in real time, and quarantine the agent instantly on behavioural anomalies, intent deviation, unauthorised chaining, or prompt leakage.",
+          "<strong>Human-in-the-loop by design.</strong> Mandatory human verification gates for irreversible, high-consequence actions — updating clinical trial protocols, publishing regulatory dossiers, altering manufacturing batch records — with clear, auditable escalation paths built into the orchestration layer.",
+          "<strong>Continuous adversarial red-teaming.</strong> Replace static benchmarks with dynamic, automated red-teaming against simulated data poisoning, prompt injections, and out-of-distribution edge cases before production sign-off.",
+          "<strong>Post-deployment drift detection.</strong> Continuously evaluate agent behaviour against baseline acceptance profiles to meet the ongoing oversight mandates of EU AI Act Article 14 on human oversight and Article 15 on accuracy, robustness, and cybersecurity, and evolving FDA digital-health guidance.",
+          "<strong>End-to-end auditability and cryptographic lineage.</strong> Apply ALCOA+ data-integrity principles to autonomous reasoning, maintaining immutable, tamper-evident logs of user prompts, retrieved context chunks, reasoning steps, tool payloads, and outputs for regulatory defensibility."
+        ]
+      },
+      {
+        "type": "h2",
+        "html": "The strategic question"
+      },
+      {
+        "type": "p",
+        "html": "In the software era, an unpatched vulnerability compromised an isolated application. In the agentic era, an ungoverned agent compromises an entire autonomous chain of clinical, operational, and financial decisions."
+      },
+      {
+        "type": "p",
+        "html": "The question is no longer whether the model is secure. It is who governs, bounds, and verifies its behaviour when it operates autonomously."
+      },
+      {
+        "type": "p",
+        "html": "Dynamic behaviour cannot be governed with firewalls or static blocklists. It requires continuous observability, deterministic boundaries, rigorous acceptance criteria, and independent runtime controls."
+      }
+    ],
+    "excerpt": "An autonomous agent processing an adverse-event report receives an obfuscated, indirect prompt injection. It hijacks the agent's reasoning loop, calls an internal document-management API, extracts…"
+  },
+  {
+    "slug": "el-juego-ha-cambiado-ya-no-solo-aseguramos-aplicaciones-gobernamos-agentes-auton",
+    "title": "El juego ha cambiado: ya no solo aseguramos aplicaciones. Gobernamos agentes autónomos.",
+    "lang": "es",
+    "published": "2026-11-11",
+    "blocks": [
+      {
+        "type": "p",
+        "html": "Un agente autónomo que procesa un informe de acontecimiento adverso recibe una inyección indirecta de prompt, ofuscada. Secuestra el bucle de razonamiento del agente, llama a una API interna de gestión documental, extrae criterios de valoración no cegados de un ensayo clínico y los transmite a un repositorio externo sin disparar ni una alerta de cortafuegos, ni una detección por firma, ni una excepción de software."
+      },
+      {
+        "type": "p",
+        "html": "No es un caso hipotético. Es el modelo de amenaza que la IA agéntica introduce en los sectores regulados, y rompe los supuestos en los que la seguridad y el cumplimiento empresariales se han apoyado durante décadas."
+      },
+      {
+        "type": "h2",
+        "html": "El cambio de paradigma"
+      },
+      {
+        "type": "p",
+        "html": "La seguridad empresarial tradicional se diseñó alrededor de sistemas deterministas: bases de código estáticas, perímetros endurecidos y bases de datos inmutables con límites claramente trazados. En la industria farmacéutica, la biotecnología y la salud, los marcos de garantía —desde la validación GxP hasta la validación de sistemas informatizados (CSV)— descansaban en una premisa simple: las mismas entradas producen el mismo comportamiento, auditable."
+      },
+      {
+        "type": "p",
+        "html": "La IA agéntica rompe esa premisa."
+      },
+      {
+        "type": "p",
+        "html": "Los agentes autónomos sintetizan la intención, planifican flujos de varios pasos, consultan bases de datos vectoriales, invocan APIs privadas y ejecutan decisiones sobre la infraestructura de producción. Cuando un agente toca registros de ensayos clínicos, pipelines de descubrimiento de fármacos, bases de farmacovigilancia o sistemas ERP, la seguridad y la gobernanza dejan de ser problemas aislados de TI. Pasan a determinar de forma directa la seguridad del paciente, el cumplimiento regulatorio, la protección de la propiedad intelectual y la confianza institucional."
+      },
+      {
+        "type": "h2",
+        "html": "Dónde fallan las defensas tradicionales"
+      },
+      {
+        "type": "p",
+        "html": "Sistemas tradicionales frente a ecosistemas de IA agéntica:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "<strong>Rutas de ejecución.</strong> Precompiladas e inspeccionables antes del runtime → generadas de forma dinámica mediante razonamiento no determinista y selección de herramientas.",
+          "<strong>Control de acceso.</strong> Control de acceso basado en roles (RBAC), estático → los agentes operan con autoridad ambiental sobre bases de datos y microservicios.",
+          "<strong>Validación.</strong> Pruebas en un momento dado y después congelación hasta la siguiente release → deriva conductual continua; las vulnerabilidades aparecen en runtime.",
+          "<strong>Modelo de amenaza.</strong> Vulnerabilidades de código, robo de credenciales, entrada por la red → manipulación de la intención, envenenamiento del contexto, privilegios excesivos en herramientas y deriva semántica.",
+          "<strong>Perímetro.</strong> Claro y bien definido → el lenguaje natural es, a la vez, la interfaz de usuario, la lógica de negocio y la carga útil de ejecución."
+        ]
+      },
+      {
+        "type": "h2",
+        "html": "El vector de doble amenaza"
+      },
+      {
+        "type": "p",
+        "html": "Los atacantes sofisticados rara vez apuntan a los pesos del modelo o a perímetros cloud endurecidos. Apuntan a las costuras: el tejido conectivo que une los modelos de razonamiento con las APIs empresariales, los pipelines RAG y los usuarios."
+      },
+      {
+        "type": "h3",
+        "html": "Adversario externo: infiltración por las costuras del flujo de trabajo"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "<strong>Privilegios excesivos en herramientas:</strong> acceso amplio a APIs sin controles de permiso finos, a nivel de acción.",
+          "<strong>Envenenamiento del contexto y del pipeline:</strong> corromper bases de datos vectoriales con investigación no verificada, escritos adversarios o conjuntos de datos de terceros comprometidos que disparan inyecciones indirectas de prompt.",
+          "<strong>Exploits de ejecución aguas abajo:</strong> aprovechar la falta de validación de esquema cuando un agente traduce el razonamiento en escrituras de base de datos o en cargas de una API."
+        ]
+      },
+      {
+        "type": "h3",
+        "html": "Confused deputy interno: fuga de contexto y desalineación accidental"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "<strong>Fuga de datos entre dominios:</strong> un agente que abarca I+D preliminar y entornos GxP validados recupera, resume o exfiltra datos clínicos no cegados, o estructuras moleculares aún no patentadas, hacia una ventana de contexto no clasificada.",
+          "<strong>Elevación de privilegios por delegación:</strong> un usuario con pocos privilegios pide al agente que ejecute acciones o agregue telemetría sensible a la que él no puede acceder directamente, saltándose la segmentación de acceso porque el propio agente posee credenciales de servicio de alto nivel."
+        ]
+      },
+      {
+        "type": "h2",
+        "html": "La ventana de explotación se ha cerrado"
+      },
+      {
+        "type": "p",
+        "html": "La investigación automatizada de vulnerabilidades y los marcos adversarios de LLM sondean ya esquemas de API, analizan descripciones de herramientas y mapean huecos de ejecución en runtime en cuestión de minutos, comprimiendo en horas lo que antes exigía meses de pruebas de penetración manuales."
+      },
+      {
+        "type": "p",
+        "html": "La validación puntual y las carpetas de cumplimiento en PDF estático ya no son defendibles. La gobernanza tiene que operar como garantía de runtime activa y continua."
+      },
+      {
+        "type": "h2",
+        "html": "El plano de gobernanza"
+      },
+      {
+        "type": "p",
+        "html": "Desplegar agentes autónomos en entornos regulados exige pasar del cumplimiento reactivo a lo que llamo Gobernanza conductual de confianza cero (<em>Zero-Trust Behavioural Governance</em>): una arquitectura de confianza cero continua y conductual."
+      },
+      {
+        "type": "ol",
+        "items": [
+          "<strong>Barandillas deterministas y partición de dominios.</strong> Barandillas codificadas de forma explícita validan todas las entradas y salidas del agente antes de ejecutar una acción; una segmentación estricta de los límites de datos impide que los agentes conecten contextos exploratorios de I+D con entornos GxP validados sin una autorización explícita y auditable.",
+          "<strong>Monitorización continua en runtime e interruptores automáticos.</strong> Seguir en tiempo real las cadenas de razonamiento, los argumentos de las llamadas a herramientas y las trayectorias semánticas, y poner al agente en cuarentena de inmediato ante anomalías de comportamiento, desviación de la intención, encadenamiento no autorizado o fuga de prompt.",
+          "<strong>Humano en el bucle por diseño.</strong> Compuertas obligatorias de verificación humana para acciones irreversibles y de alta consecuencia —actualizar protocolos de ensayos clínicos, publicar expedientes regulatorios, alterar registros de lote de fabricación— con rutas de escalado claras y auditables integradas en la capa de orquestación.",
+          "<strong>Red teaming adversario continuo.</strong> Sustituir los benchmarks estáticos por red teaming dinámico y automatizado contra envenenamiento simulado de datos, inyecciones de prompt y casos límite fuera de distribución, antes de la aprobación para producción.",
+          "<strong>Detección de deriva tras el despliegue.</strong> Evaluar de forma continua el comportamiento del agente frente a perfiles de aceptación de referencia, para cumplir los mandatos de supervisión continua del artículo 14 del Reglamento de IA de la UE, sobre supervisión humana, y del artículo 15, sobre precisión, robustez y ciberseguridad, junto con la orientación en evolución de la FDA sobre salud digital.",
+          "<strong>Auditabilidad de extremo a extremo y linaje criptográfico.</strong> Aplicar los principios de integridad de datos ALCOA+ al razonamiento autónomo, manteniendo registros inmutables y a prueba de manipulación de los prompts del usuario, los fragmentos de contexto recuperados, los pasos de razonamiento, las cargas de las herramientas y las salidas, de modo que puedan defenderse ante un regulador."
+        ]
+      },
+      {
+        "type": "h2",
+        "html": "La pregunta estratégica"
+      },
+      {
+        "type": "p",
+        "html": "En la era del software, una vulnerabilidad sin parche comprometía una aplicación aislada. En la era agéntica, un agente sin gobernanza compromete una cadena autónoma entera de decisiones clínicas, operativas y financieras."
+      },
+      {
+        "type": "p",
+        "html": "La pregunta ya no es si el modelo es seguro. Es quién gobierna, acota y verifica su comportamiento cuando opera de forma autónoma."
+      },
+      {
+        "type": "p",
+        "html": "El comportamiento dinámico no se gobierna con cortafuegos ni con listas de bloqueo estáticas. Exige observabilidad continua, límites deterministas, criterios de aceptación rigurosos y controles de runtime independientes."
+      }
+    ],
+    "excerpt": "Un agente autónomo que procesa un informe de acontecimiento adverso recibe una inyección indirecta de prompt, ofuscada. Secuestra el bucle de razonamiento del agente, llama a una API interna de…"
+  },
+  {
     "slug": "ai-s-coding-fluency-the-strategic-imperative-for-a-new-human-machine-operating-m",
     "title": "AI’s Coding Fluency: The Strategic Imperative for a New Human-Machine \nOperating Model",
     "lang": "en",
