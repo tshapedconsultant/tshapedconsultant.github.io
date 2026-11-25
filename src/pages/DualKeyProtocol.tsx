@@ -153,7 +153,15 @@ export default function DualKeyProtocol() {
           {copy.archDetail.map((item) => (
             <div key={item.title}>
               <dt>{item.title}</dt>
-              <dd>{item.text}</dd>
+              <dd>
+                {item.text}
+                {item.note ? (
+                  <details className="dual-key-limit">
+                    <summary>{copy.limitSummary}</summary>
+                    <p>{item.note}</p>
+                  </details>
+                ) : null}
+              </dd>
             </div>
           ))}
         </dl>

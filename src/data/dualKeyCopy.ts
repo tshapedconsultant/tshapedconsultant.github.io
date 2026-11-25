@@ -1,12 +1,18 @@
 import { SERVICE_LADDER as LADDER_EN } from "../content.js";
 import { SERVICE_LADDER as LADDER_ES } from "../content.es.js";
 
-function snapshotPrice(items: { id: string; price: string }[]) {
-  return items.find((item) => item.id === "snapshot")?.price || "";
+function ladderPrice(items: { id: string; price: string }[], id: string) {
+  return items.find((item) => item.id === id)?.price || "";
 }
 
-const PRICE_EN = snapshotPrice(LADDER_EN.items);
-const PRICE_ES = snapshotPrice(LADDER_ES.items);
+function euroAmount(price: string) {
+  return price.match(/€[\d.,]+/)?.[0] || "";
+}
+
+const PRICE_EN = ladderPrice(LADDER_EN.items, "snapshot");
+const PRICE_ES = ladderPrice(LADDER_ES.items, "snapshot");
+const BLUEPRINT_EN = euroAmount(ladderPrice(LADDER_EN.items, "blueprint"));
+const BLUEPRINT_ES = euroAmount(ladderPrice(LADDER_ES.items, "blueprint"));
 
 export type DualKeyRow = {
   runtime: string;
@@ -57,7 +63,8 @@ export type DualKeyCopy = {
   archLabel: string;
   archSteps: { title: string; text: string }[];
   archDetailTitle: string;
-  archDetail: { title: string; text: string }[];
+  archDetail: { title: string; text: string; note?: string }[];
+  limitSummary: string;
   archNote: string;
   refTitle: string;
   refBadge: string;
@@ -136,7 +143,7 @@ const EN: DualKeyCopy = {
     },
   ],
   offerNext:
-    "A full control design or runtime implementation is a separate Blueprint & Runtime Assurance engagement, from €6,500 and scoped to requirements.",
+    `A full control design or runtime implementation is a separate Blueprint & Runtime Assurance engagement, from ${BLUEPRINT_EN} and scoped to requirements.`,
   middleCta: "Request an AI Governance Snapshot",
   evidenceTitle: "What is shown, and what is not",
   evidenceLead:
@@ -145,7 +152,7 @@ const EN: DualKeyCopy = {
   evidenceItems: [
     {
       title: "HR Copilot",
-      linkLabel: "Watch the documented HR Copilot demo",
+      linkLabel: "Explore the documented HR Copilot demo",
       text: "A documented demonstration on synthetic data. It shows runtime controls on that copilot. It is not evidence of a Dual-Key deployment, and a result from that test suite does not transfer to other systems.",
     },
     {
@@ -180,11 +187,13 @@ const EN: DualKeyCopy = {
     },
     {
       title: "PEP",
-      text: "Recomputes the hash of the actual canonical payload, re-checks the execution deadline immediately before dispatch, and redeems the one-time capability. That re-check reduces the gap between decision and execution. It does not remove every distributed race, and it does not guarantee that a remote tool finishes before the deadline.",
+      text: "The PEP rechecks the actual action and execution deadline before dispatch.",
+      note: "Rechecking reduces the decision-to-execution gap; it does not guarantee remote completion before the deadline or exactly-once external effects.",
     },
   ],
+  limitSummary: "What this re-check does not guarantee",
   archNote:
-    "Rollback and recovery are separate mechanisms. Approving an action does not make it reversible. Reserving nonces does not by itself make an external effect happen exactly once. That also needs idempotency and durable recovery.",
+    "Rollback and recovery are separate mechanisms. Approving an action does not make it reversible.",
   refTitle: "Reference architectures",
   refBadge: "Reference architecture — implementation and validation are scoped separately.",
   refNote:
@@ -240,13 +249,13 @@ const EN: DualKeyCopy = {
     "Only an authenticated gateway constructs PDP input. The agent cannot set policy decisions, identity, signature status, time or hashes.",
     "A verifier validates signatures against identity-bound public keys and an authoritative role registry. The policy reads the result; it does not run the cryptography.",
     "The PEP hashes the actual canonical execution payload. It never trusts an agent-supplied hash.",
-    "Approvals carry issued_at and expires_at, a maximum TTL and a conservative clock-skew margin, all in nanoseconds. Near-expiry approvals are denied. The payload has its own execution deadline, re-checked by the PEP immediately before dispatch.",
+    "Approval timestamps are supplied as RFC3339 strings and converted to nanoseconds for evaluation. TTL and clock-skew values are expressed in nanoseconds. Near-expiry approvals are denied.",
     "After a PDP allow, an authorization coordinator atomically reserves both approval nonces and issues a one-time execution capability. The policy does not consume nonces.",
     "Whether Dual-Key is required comes from trusted policy data, not from the agent.",
   ],
   policySummary: "Illustrative PDP policy",
   policyLabel:
-    "Illustrative Rego v1. Not compiled or tested with OPA. Do not treat it as a production policy until it passes opa check and an authorization/denial test matrix.",
+    "Illustrative Rego v1. The repository suite executes the allow and deny cases with OPA. This is not a production authorization policy.",
   policyGateway:
     "The authenticated gateway supplies only signature-verified approvals and the hash of the canonical execution payload. The agent cannot construct or override these inputs.",
   policyExternal:
@@ -333,7 +342,7 @@ const ES: DualKeyCopy = {
     },
   ],
   offerNext:
-    "El diseño completo o la implementación en runtime es un encargo aparte de Blueprint & Runtime Assurance, desde €6.500 y con alcance definido.",
+    `El diseño completo o la implementación en runtime es un encargo aparte de Blueprint & Runtime Assurance, desde ${BLUEPRINT_ES} y con alcance definido.`,
   middleCta: "Solicitar AI Governance Snapshot",
   evidenceTitle: "Qué está demostrado y qué no",
   evidenceLead:
@@ -342,7 +351,7 @@ const ES: DualKeyCopy = {
   evidenceItems: [
     {
       title: "HR Copilot",
-      linkLabel: "Ver la demostración documentada de HR Copilot",
+      linkLabel: "Explorar la demostración documentada de HR Copilot",
       text: "Demostración documentada con datos sintéticos. Muestra controles de runtime sobre ese copiloto. No es evidencia de un despliegue Dual-Key, y el resultado de esa batería de pruebas no se transfiere a otros sistemas.",
     },
     {
@@ -377,11 +386,13 @@ const ES: DualKeyCopy = {
     },
     {
       title: "PEP",
-      text: "Recalcula el hash de la carga canónica real, vuelve a comprobar el plazo de ejecución justo antes del despacho y redime la capacidad de un solo uso. Esa comprobación reduce la distancia entre la decisión y la ejecución. No elimina todas las carreras en sistemas distribuidos, ni garantiza que una herramienta remota termine antes del plazo.",
+      text: "El PEP vuelve a comprobar la acción real y el plazo de ejecución antes del despacho.",
+      note: "La comprobación reduce la distancia entre la decisión y la ejecución; no garantiza que una herramienta remota termine antes del plazo ni que los efectos externos ocurran exactamente una vez.",
     },
   ],
+  limitSummary: "Qué no garantiza esta comprobación",
   archNote:
-    "La reversión y la recuperación son mecanismos aparte. Aprobar una acción no la hace reversible. Reservar nonces no hace, por sí solo, que un efecto externo ocurra exactamente una vez. Eso también exige idempotencia y recuperación durable.",
+    "La reversión y la recuperación son mecanismos aparte. Aprobar una acción no la hace reversible.",
   refTitle: "Arquitecturas de referencia",
   refBadge: "Arquitectura de referencia — la implementación y la validación se contratan aparte.",
   refNote:
@@ -438,13 +449,13 @@ const ES: DualKeyCopy = {
     "Solo una pasarela autenticada construye la entrada del PDP. El agente no puede fijar decisiones de política, identidad, estado de la firma, tiempo ni hashes.",
     "Un verificador valida las firmas contra claves públicas ligadas a la identidad y un registro de roles con autoridad. La política lee el resultado; no ejecuta la criptografía.",
     "El PEP calcula el hash de la carga canónica real de ejecución. Nunca confía en un hash aportado por el agente.",
-    "Las aprobaciones llevan issued_at y expires_at, un TTL máximo y un margen conservador de desfase de reloj, todo en nanosegundos. Las aprobaciones próximas a caducar se deniegan. La carga tiene su propio plazo de ejecución, que el PEP vuelve a comprobar justo antes del despacho.",
+    "Las marcas de tiempo de las aprobaciones se reciben como cadenas RFC3339 y se convierten a nanosegundos para la evaluación. El TTL y el desfase de reloj se expresan en nanosegundos. Las aprobaciones próximas a caducar se deniegan.",
     "Tras un allow del PDP, un coordinador de autorización reserva de forma atómica ambos nonces y emite una capacidad de ejecución de un solo uso. La política no consume nonces.",
     "Si Dual-Key es obligatorio lo decide la política de confianza, no el agente.",
   ],
   policySummary: "Política PDP ilustrativa",
   policyLabel:
-    "Rego v1 ilustrativo. No compilado ni probado con OPA. No lo uses como política de producción hasta superar opa check y una matriz de pruebas de autorización y denegación.",
+    "Rego v1 ilustrativo. La batería del repositorio ejecuta los casos de autorización y denegación con OPA. No es una política de autorización de producción.",
   policyGateway:
     "La pasarela autenticada solo aporta aprobaciones con la firma ya verificada y el hash de la carga canónica de ejecución. El agente no puede construir ni sustituir esas entradas.",
   policyExternal:
@@ -487,10 +498,11 @@ export const DUAL_KEY_REGO = `package dualkey.illustrative
 
 import rego.v1
 
-# Illustrative PDP check only. Not compiled or tested with OPA.
-# Not a complete authorization: it does not verify signatures,
-# consume nonces, or execute anything.
-# All durations are nanoseconds. now is captured once.
+# Illustrative PDP check. Exercised by opa test, not a complete authorization.
+# It does not verify signatures, consume nonces, or execute anything.
+# Approval timestamps are RFC3339 strings. Evaluation converts them with
+# time.parse_rfc3339_ns. TTL and clock_skew_ns are nanoseconds.
+# now is captured once.
 # now + clock_skew_ns is a conservative margin. Approvals close to
 # expiry are denied. It is not a permissive grace period.
 # data.role_registry[id] is a set of roles that identity may hold.
@@ -502,42 +514,42 @@ import rego.v1
 default dual_key_ok := false
 
 dual_key_ok if {
-  input.policy.require_dual_key == true
-  data.clock_skew_ns >= 0
-  data.max_ttl_ns > 0
-  count(input.approvals) == 2
+	input.policy.require_dual_key == true
+	data.clock_skew_ns >= 0
+	data.max_ttl_ns > 0
+	count(input.approvals) == 2
 
-  now := time.now_ns()
+	now := time.now_ns()
+	deadline := time.parse_rfc3339_ns(input.action.execution_deadline)
+	deadline > now + data.clock_skew_ns
 
-  roles := {a.role | some a in input.approvals}
-  roles == {"technical_owner", "business_owner"}
+	roles := {a.role | some a in input.approvals}
+	roles == {"technical_owner", "business_owner"}
 
-  approver_ids := {a.approver_id | some a in input.approvals}
-  count(approver_ids) == 2
+	approver_ids := {a.approver_id | some a in input.approvals}
+	count(approver_ids) == 2
 
-  every a in input.approvals {
-    a.approver_id != ""
-    a.role != ""
-    a.nonce != ""
-    a.payload_hash != ""
-    a.model_version != ""
-    a.policy_version != ""
-    a.signature_verified == true
-    a.role in data.role_registry[a.approver_id]
-    a.payload_hash == input.action.payload_hash
-    a.model_version == input.action.model_version
-    a.policy_version == input.policy.version
+	every a in input.approvals {
+		a.approver_id != ""
+		a.role != ""
+		a.nonce != ""
+		a.payload_hash != ""
+		a.model_version != ""
+		a.policy_version != ""
+		a.signature_verified == true
+		a.role in data.role_registry[a.approver_id]
+		a.payload_hash == input.action.payload_hash
+		a.model_version == input.action.model_version
+		a.policy_version == input.policy.version
 
-    issued_at := time.parse_rfc3339_ns(a.issued_at)
-    expires_at := time.parse_rfc3339_ns(a.expires_at)
-    deadline := time.parse_rfc3339_ns(input.action.execution_deadline)
+		issued_at := time.parse_rfc3339_ns(a.issued_at)
+		expires_at := time.parse_rfc3339_ns(a.expires_at)
 
-    issued_at <= now + data.clock_skew_ns
-    expires_at > issued_at
-    expires_at > now + data.clock_skew_ns
-    expires_at - issued_at <= data.max_ttl_ns
-    deadline > now + data.clock_skew_ns
-  }
+		issued_at <= now + data.clock_skew_ns
+		expires_at > issued_at
+		expires_at > now + data.clock_skew_ns
+		expires_at - issued_at <= data.max_ttl_ns
+	}
 }`;
 
 export function highlightRego(source: string): string {

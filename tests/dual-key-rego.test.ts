@@ -1,56 +1,63 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
+import { SERVICE_LADDER as LADDER_EN } from "../src/content.js";
+import { SERVICE_LADDER as LADDER_ES } from "../src/content.es.js";
+import { DUAL_KEY_REGO, dualKeyCopy } from "../src/data/dualKeyCopy.ts";
 
-/**
- * Snippet-content checks only.
- * OPA is not installed in this environment, so these assertions do not compile
- * or execute the policy. They are not an allow/deny matrix.
- */
-const copy = readFileSync(new URL("../src/data/dualKeyCopy.ts", import.meta.url), "utf8");
-const regoStart = copy.indexOf("export const DUAL_KEY_REGO");
-const rego = copy.slice(regoStart);
+const policyFile = readFileSync(new URL("../policies/dualkey_illustrative.rego", import.meta.url), "utf8")
+  .replace(/\r\n/g, "\n")
+  .trim();
 
-test("illustrative Rego text encodes the conservative contract and was not run with OPA", () => {
-  assert.ok(regoStart > 0);
-  assert.match(rego, /Not compiled or tested with OPA/);
-  assert.equal(rego.split("time.now_ns()").length - 1, 1);
-  assert.match(rego, /now := time\.now_ns\(\)/);
-  assert.doesNotMatch(rego, /time\.now_ns\(\) -/);
-  assert.doesNotMatch(rego, /nonce_unused/);
-  assert.match(rego, /data\.clock_skew_ns >= 0/);
-  assert.match(rego, /data\.max_ttl_ns > 0/);
-  assert.match(rego, /issued_at <= now \+ data\.clock_skew_ns/);
-  assert.match(rego, /expires_at > issued_at/);
-  assert.match(rego, /expires_at > now \+ data\.clock_skew_ns/);
-  assert.match(rego, /expires_at - issued_at <= data\.max_ttl_ns/);
-  assert.match(rego, /deadline > now \+ data\.clock_skew_ns/);
-  assert.match(rego, /count\(input\.approvals\) == 2/);
-  assert.match(rego, /roles == \{"technical_owner", "business_owner"\}/);
-  assert.match(rego, /count\(approver_ids\) == 2/);
-  assert.match(rego, /a\.approver_id != ""/);
-  assert.match(rego, /a\.nonce != ""/);
-  assert.match(rego, /a\.role in data\.role_registry\[a\.approver_id\]/);
-  assert.match(rego, /a\.payload_hash == input\.action\.payload_hash/);
-  assert.match(rego, /a\.model_version == input\.action\.model_version/);
-  assert.match(rego, /a\.policy_version == input\.policy\.version/);
-  assert.match(rego, /a\.signature_verified == true/);
-  assert.match(rego, /default dual_key_ok := false/);
-  assert.match(rego, /does not perform cryptography/);
+function opaBin() {
+  const local = new URL("../tools/opa.exe", import.meta.url);
+  if (existsSync(local)) return local.pathname.replace(/^\/([A-Za-z]:)/, "$1");
+  return "opa";
+}
+
+test("displayed Rego is the policy file OPA executes", () => {
+  assert.equal(DUAL_KEY_REGO.trim(), policyFile);
+  const deadlineAt = policyFile.indexOf("deadline := time.parse_rfc3339_ns");
+  const everyAt = policyFile.indexOf("every a in input.approvals");
+  assert.ok(deadlineAt > 0 && deadlineAt < everyAt);
+  assert.equal(policyFile.split("time.now_ns()").length - 1, 1);
+  assert.match(policyFile, /RFC3339 strings/);
 });
 
-test("EN and ES landing copy keeps the offer, sample and gateway sentences", () => {
-  assert.match(copy, /One system · One-week review · \$\{PRICE_EN\}/);
-  assert.match(copy, /Un sistema · Revisión de una semana · \$\{PRICE_ES\}/);
-  assert.match(
-    copy,
-    /The authenticated gateway supplies only signature-verified approvals and the hash of the canonical execution payload\. The agent cannot construct or override these inputs\./,
+test("both catalogues publish a Snapshot price and a Blueprint amount", () => {
+  for (const ladder of [LADDER_EN, LADDER_ES]) {
+    const snapshot = ladder.items.find((item) => item.id === "snapshot");
+    const blueprint = ladder.items.find((item) => item.id === "blueprint");
+    assert.ok(snapshot?.price);
+    assert.match(blueprint?.price || "", /€[\d.,]+/);
+  }
+  const en = dualKeyCopy("en");
+  const es = dualKeyCopy("es");
+  assert.match(en.microcopy, /From €2,495/);
+  assert.match(es.microcopy, /Desde €2\.495/);
+  assert.match(en.offerNext, /from €6,500/);
+  assert.match(es.offerNext, /desde €6\.500/);
+  assert.match(en.trust.join(" "), /Approval timestamps are supplied as RFC3339 strings/);
+  assert.match(es.trust.join(" "), /cadenas RFC3339/);
+  assert.equal(
+    en.archDetail.find((item) => item.title === "PEP")?.text,
+    "The PEP rechecks the actual action and execution deadline before dispatch.",
   );
-  assert.match(copy, /Example Snapshot output — illustrative/);
-  assert.match(copy, /Ejemplo de resultado del Snapshot — ilustrativo/);
-  assert.match(copy, /decisiones de alto impacto/);
-  assert.match(copy, /Responsabilidad de aprobación/);
-  assert.match(copy, /Sesión de presentación de resultados/);
-  assert.doesNotMatch(copy, /decisiones de consecuencia/);
-  assert.doesNotMatch(copy, /Titularidad de la aprobación/);
+  assert.equal(en.evidenceItems[0].linkLabel, "Explore the documented HR Copilot demo");
+  assert.equal(es.evidenceItems[0].linkLabel, "Explorar la demostración documentada de HR Copilot");
+});
+
+test("OPA executes the allow and deny matrix with a frozen clock", () => {
+  const bin = opaBin();
+  const version = spawnSync(bin, ["version"], { encoding: "utf8" });
+  assert.equal(version.status, 0, version.stderr || version.error?.message);
+  assert.match(version.stdout, /Version: \d+\.\d+\.\d+/);
+  const result = spawnSync(
+    bin,
+    ["test", "policies/dualkey_illustrative.rego", "policies/dualkey_illustrative_test.rego"],
+    { encoding: "utf8" },
+  );
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  assert.match(result.stdout, /PASS/);
 });

@@ -27,7 +27,7 @@ Why Hybrid Profiles May Have an Advantage in the Age of AI Agents (7 September 2
 Why autonomous systems need separation of powers (15 July 2026). Runtime Checks & Balances; EU AI Act Art. 14 and DORA.
 
 ### Dual-Key Protocol — https://tshapedconsultant.com/governance/dual-key-protocol
-Keeps AI recommendations separate from execution authority. An independent policy decides when two human keys are required. The entry offer is the one-week AI Governance Snapshot (from €2,495): a diagnosis, not a design, implementation or certification. Reference architectures are designs to validate per deployment, not verified production deployments. The illustrative Rego snippet is not compiled or tested with OPA.
+Keeps AI recommendations separate from execution authority. An independent policy decides when two human keys are required. The entry offer is the one-week AI Governance Snapshot (from €2,495): a diagnosis, not a design, implementation or certification. Reference architectures are designs to validate per deployment, not verified production deployments. The illustrative Rego snippet is exercised by the repository OPA allow and deny tests. It is not a production authorization policy.
 
 ### EU AI Act mapping — https://tshapedconsultant.com/governance/eu-ai-act-mapping
 Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect. References: Porto Seguro Compliance Hub; Enterprise AI Risk.
