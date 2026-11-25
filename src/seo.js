@@ -60,7 +60,7 @@ export const PAGE_SEO = {
   [WHITEPAPER_PATH]: {
     title: "Probabilistic Models Require Deterministic Governance | tshapedconsultant",
     description:
-      "Unified Edition v5.5 (23 pages): Dédalo™, DGOM™ and the Dual-Key Protocol. The illustrative policy is checked with OPA 1.22.4. Reference architectures are not production deployments.",
+      "Unified Edition v5.4 (23 pages): Dédalo™, DGOM™ and the Dual-Key Protocol. The illustrative policy is checked with OPA 1.22.4. Reference architectures are not production deployments.",
   },
   [HYBRID_PROFILES_PATH]: {
     title: `${HYBRID_ARTICLE.title} | tshapedconsultant`,

@@ -3,7 +3,7 @@
  * The Spanish unified edition is not published. Do not invent its page count.
  */
 export const WHITEPAPER_PUBLICATION = {
-  version: "5.5",
+  version: "5.4",
   publishedAt: "2026-11-25",
   policyFile: "policies/dualkey_illustrative.rego",
   policyCommit: "5cd704a",
@@ -14,7 +14,7 @@ export const WHITEPAPER_PUBLICATION = {
     archivePath: "/archive/Probabilistic-Models-Require-Deterministic-Governance-2026-11-16.pdf",
     pageCount: 23,
     bytes: 276335,
-    sha256: "17cf45acf6c25aac3e4a035d3d32360624c20c7c87cc0d0b8a6a20c8d87ac104",
+    sha256: "873452882ceb3f6872bc75de25d88681f9f5a45444b4fb07262c316d47213e54",
   },
   es: {
     status: "pending",
