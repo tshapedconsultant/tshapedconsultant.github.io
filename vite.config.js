@@ -80,7 +80,7 @@ const NOSCRIPT_ES = `<noscript>
           ·
           <a href="/Gobernanza-Determinista-IA.pdf">Los modelos probabilísticos requieren gobernanza determinista (PDF)</a>
           ·
-          <a href="/Dedalo-Executive-Brief.pdf">Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista</a>
+          <a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief (PDF, EN)</a>
         </p>
         <nav>
           <ul>

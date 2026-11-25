@@ -281,6 +281,33 @@ describe("Analytics — Zero PII & Sanitization Edge Cases", () => {
     assert.equal(events[8].event, "contact_submitted");
     assert.equal(events[9].event, "whitepaper_mailing_list_joined");
   });
+
+  test("dual-key and diagnostic events keep categorical props and drop free text", () => {
+    const click = trackEvent("dual_key_cta_click", {
+      source: "dual-key",
+      placement: "hero",
+      intent: "snapshot",
+    });
+    const start = trackEvent("diagnostic_form_start", { source: "dual-key", intent: "snapshot" });
+    const success = trackEvent("diagnostic_form_submit_success", {
+      source: "dual-key",
+      intent: "snapshot",
+    });
+    assert.ok(click);
+    assert.equal(click.props.source, "dual-key");
+    assert.equal(click.props.placement, "hero");
+    assert.equal(click.props.intent, "snapshot");
+    assert.equal(start?.props.source, "dual-key");
+    assert.equal(success?.props.intent, "snapshot");
+
+    const dirty = trackEvent("dual_key_cta_click", {
+      source: "please email me",
+      placement: "not a placement",
+    });
+    assert.ok(dirty);
+    assert.equal("source" in dirty.props, false);
+    assert.equal("placement" in dirty.props, false);
+  });
 });
 
 // ============================================================================

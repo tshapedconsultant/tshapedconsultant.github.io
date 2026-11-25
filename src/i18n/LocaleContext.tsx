@@ -48,9 +48,15 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       home: homePath(locale),
       localize: (href: string) => localizeHref(href, locale),
       localizedPath: (path: string) => withLocale(path, locale),
-      switchTo: (target: Locale) => switchLocalePath(location.pathname, location.hash, target),
+      switchTo: (target: Locale) => {
+        const next = switchLocalePath(location.pathname, location.hash, target);
+        if (new URLSearchParams(location.search).get("source") !== "dual-key") return next;
+        const hashAt = next.indexOf("#");
+        if (hashAt === -1) return `${next}?source=dual-key`;
+        return `${next.slice(0, hashAt)}?source=dual-key${next.slice(hashAt)}`;
+      },
     };
-  }, [location.hash, location.pathname]);
+  }, [location.hash, location.pathname, location.search]);
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }

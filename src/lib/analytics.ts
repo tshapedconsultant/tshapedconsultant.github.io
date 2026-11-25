@@ -17,7 +17,10 @@ export type ConversionEventName =
   | "snapshot_cta_clicked"
   | "demo_cta_clicked"
   | "contact_submitted"
-  | "whitepaper_mailing_list_joined";
+  | "whitepaper_mailing_list_joined"
+  | "dual_key_cta_click"
+  | "diagnostic_form_start"
+  | "diagnostic_form_submit_success";
 
 const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "risk_check_started",
@@ -30,6 +33,9 @@ const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "demo_cta_clicked",
   "contact_submitted",
   "whitepaper_mailing_list_joined",
+  "dual_key_cta_click",
+  "diagnostic_form_start",
+  "diagnostic_form_submit_success",
 ]);
 
 const ALLOWED_PROP_KEYS = new Set([
@@ -41,6 +47,7 @@ const ALLOWED_PROP_KEYS = new Set([
   "exposure_tier",
   "primary_finding",
   "intent",
+  "placement",
 ]);
 
 export interface AnalyticsEventRecord {

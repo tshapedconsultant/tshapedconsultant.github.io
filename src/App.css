@@ -3720,43 +3720,6 @@ details.mobile-disclose > summary:focus-visible {
   }
 }
 
-/* The Dual-Key item lengthens the bar. Keep every label on one line until the row has room. */
-@media (min-width: 1101px) and (max-width: 1420px) {
-  .top {
-    gap: 0.4rem;
-    padding-inline: 0.75rem;
-  }
-
-  .top nav {
-    gap: 0.5rem;
-  }
-
-  .top nav a,
-  .more-toggle {
-    font-size: 0.74rem;
-    letter-spacing: 0.01em;
-  }
-
-  .top nav a.nav-cta {
-    padding-inline: 0.55rem;
-  }
-
-  .mark-name-full {
-    display: none;
-  }
-
-  .mark-name-short {
-    display: inline;
-  }
-
-  .mark-sub-full {
-    display: none;
-  }
-
-  .mark-sub-short {
-    display: block;
-  }
-}
 
 @media (max-width: 1100px) {
   :root {
@@ -6354,6 +6317,138 @@ details.mobile-disclose > summary:focus-visible {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--cyan-200);
+  }
+}
+
+.dual-key-hero {
+  margin-bottom: 2rem;
+}
+
+.dual-key-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.1rem 0 0.85rem;
+}
+
+.dual-key-micro,
+.dual-key-price {
+  margin: 0.35rem 0 0;
+}
+
+.dual-key-micro {
+  color: var(--cyan-200);
+  font-size: 0.92rem;
+}
+
+.dual-key-price {
+  font-weight: 600;
+}
+
+.dual-key-fit {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.dual-key-simple {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0.4rem 0 1.25rem;
+  padding: 0;
+}
+
+.dual-key-simple li {
+  margin: 0;
+  padding: 0.9rem 0.9rem 1rem;
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+  border-top: 3px solid var(--cyan-400);
+  min-width: 0;
+}
+
+.dual-key-step-num {
+  margin: 0 0 0.35rem;
+  color: var(--cyan-200);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.dual-key-simple h3,
+.dual-key-detail dt {
+  margin: 0 0 0.35rem;
+  font-size: 1.02rem;
+  color: var(--white);
+}
+
+.dual-key-detail {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0.4rem 0 1rem;
+}
+
+.dual-key-detail dd {
+  margin: 0;
+}
+
+.dual-key-ref-badge {
+  margin: 0 0 0.45rem;
+  color: var(--cyan-200);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.dual-key-details {
+  margin: 0 0 0.7rem;
+  border: 1px solid var(--navy-800);
+  background: var(--navy-900);
+}
+
+.dual-key-details summary {
+  cursor: pointer;
+  padding: 0.85rem 1rem;
+}
+
+.dual-key-details summary h3 {
+  display: inline;
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--white);
+}
+
+.dual-key-details-body {
+  padding: 0 1rem 1rem;
+}
+
+.dual-key-faq {
+  display: grid;
+  gap: 1rem;
+}
+
+.dual-key-page a:focus-visible,
+.dual-key-page button:focus-visible,
+.dual-key-page summary:focus-visible {
+  outline: 2px solid var(--cyan-200);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .dual-key-simple {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dual-key-simple {
+    grid-template-columns: 1fr;
+  }
+
+  .dual-key-actions .btn {
+    width: 100%;
   }
 }
 

@@ -91,7 +91,7 @@ export const UI = {
     },
     hrDemo: {
       badge: "LIVE DEMO · SYNTHETIC DATA",
-      link: "The same controls generalize to high-consequence decisions via the Dual-Key Protocol →",
+      link: "For high-consequence execution authority, see the Dual-Key Protocol →",
     },
     mappingTeaser: {
       whitepaper: "Whitepaper",
@@ -241,8 +241,8 @@ export const UI = {
       pdf: "Download PDF",
       pdfLong: "Download the whitepaper PDF",
       briefLead:
-        "Need the board version? The Unified Edition whitepaper (PDF): Probabilistic Models Require Deterministic Governance compresses the Deterministic Cage, DGOM™ lifecycle and regulatory mapping into two pages.",
-      brief: "Unified Edition whitepaper (PDF): Probabilistic Models Require Deterministic Governance",
+        "Need the board version? The Dédalo™ Executive Brief compresses the Deterministic Cage, DGOM™ lifecycle and regulatory mapping into two pages.",
+      brief: "Download Dédalo™ Executive Brief",
       also: "Further reading:",
       medium: "articles on Medium",
     },
@@ -499,7 +499,7 @@ export const UI = {
     },
     hrDemo: {
       badge: "DEMO EN VIVO · DATOS SINTÉTICOS",
-      link: "Los mismos controles se generalizan a decisiones de alta consecuencia mediante el Protocolo Dual-Key →",
+      link: "Para la autoridad de ejecución de alta consecuencia, ver el Protocolo Dual-Key →",
     },
     mappingTeaser: {
       whitepaper: "Whitepaper",
@@ -649,8 +649,8 @@ export const UI = {
       pdf: "Descargar PDF",
       pdfLong: "Descargar Los modelos probabilísticos requieren gobernanza determinista (PDF)",
       briefLead:
-        "¿Necesitas la versión ejecutiva? El whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista resume en dos páginas el Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo regulatorio.",
-      brief: "Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista",
+        "¿Necesitas la versión ejecutiva? El Dédalo™ Executive Brief resume en dos páginas el Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo regulatorio.",
+      brief: "Descargar Dédalo™ Executive Brief (PDF, EN)",
       also: "Más lectura:",
       medium: "artículos en Medium",
     },

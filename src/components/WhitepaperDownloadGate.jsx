@@ -92,7 +92,7 @@ const COPY = {
       "Gracias por unirte a la lista de correo. Ya tienes acceso completo a las 26 secciones en esta página y puedes descargar cualquiera de las ediciones en PDF:",
     downloadEs: "Descargar Whitepaper en Español (PDF)",
     downloadEn: "Descargar Whitepaper en Inglés (PDF)",
-    downloadBrief: "Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista",
+    downloadBrief: "Descargar Dédalo™ Executive Brief (PDF)",
     readOnline: "Leer en este sitio",
     errors: {
       emailRequired: "Introduce tu dirección de email para continuar.",
@@ -121,7 +121,7 @@ const COPY = {
       "Thank you for joining the mailing list. All 26 sections are now unlocked on this page, and you can download any PDF edition below:",
     downloadEn: "Download English Whitepaper (PDF)",
     downloadEs: "Download Spanish Whitepaper (PDF)",
-    downloadBrief: "Unified Edition whitepaper (PDF): Probabilistic Models Require Deterministic Governance",
+    downloadBrief: "Download Dédalo™ Executive Brief (PDF)",
     readOnline: "Read on this site",
     errors: {
       emailRequired: "Enter your email address to continue.",

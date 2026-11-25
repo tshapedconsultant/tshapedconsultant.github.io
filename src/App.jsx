@@ -227,10 +227,18 @@ function DgomFlow({ model, phases }) {
   );
 }
 
-function DiagnosticForm({ intent, onIntentChange }) {
+const ENQUIRY_SOURCES = new Set(["dual-key"]);
+
+function enquirySourceFromSearch(search) {
+  const value = new URLSearchParams(search).get("source");
+  return value && ENQUIRY_SOURCES.has(value) ? value : "";
+}
+
+function DiagnosticForm({ intent, onIntentChange, enquirySource = "" }) {
   const { t, content, localizedPath } = useI18n();
   const { DIAGNOSTIC_FORM } = content;
   const summaryRef = useRef(null);
+  const formStarted = useRef(false);
   const [values, setValues] = useState({
     name: "",
     company: "",
@@ -304,10 +312,14 @@ function DiagnosticForm({ intent, onIntentChange }) {
         caller: "Organisation",
         callerKey: "organisation",
         consent: values.consent,
-        source: "commercial-diagnostic-form",
+        source: enquirySource || "commercial-diagnostic-form",
       });
       trackEvent("contact_submitted", {
-        source: "commercial_form",
+        source: enquirySource || "commercial_form",
+        intent: intent || "snapshot",
+      });
+      trackEvent("diagnostic_form_submit_success", {
+        source: enquirySource || "diagnostic_form",
         intent: intent || "snapshot",
       });
       setStatus("sent");
@@ -357,7 +369,20 @@ function DiagnosticForm({ intent, onIntentChange }) {
   ].filter(([, , message]) => message);
 
   return (
-    <form className="diag-form" id="diagnostic-form" onSubmit={onSubmit} noValidate>
+    <form
+      className="diag-form"
+      id="diagnostic-form"
+      onSubmit={onSubmit}
+      noValidate
+      onFocus={() => {
+        if (formStarted.current) return;
+        formStarted.current = true;
+        trackEvent("diagnostic_form_start", {
+          source: enquirySource || "diagnostic_form",
+          intent: intent || "snapshot",
+        });
+      }}
+    >
       <p className="diag-form-kicker">{DIAGNOSTIC_FORM.kicker}</p>
       {DIAGNOSTIC_FORM.title ? <h3 className="diag-form-title">{DIAGNOSTIC_FORM.title}</h3> : null}
       {DIAGNOSTIC_FORM.lead ? <p className="diag-form-lead">{DIAGNOSTIC_FORM.lead}</p> : null}
@@ -793,6 +818,12 @@ export default function App() {
   }, [menuOpen]);
 
   useEffect(() => {
+    if (enquirySourceFromSearch(location.search) === "dual-key") {
+      setEnquiryIntent("snapshot");
+    }
+  }, [location.search]);
+
+  useEffect(() => {
     function onPointer(event) {
       if (!moreOpen) return;
       if (!moreWrapRef.current?.contains(event.target)) setMoreOpen(false);
@@ -907,6 +938,17 @@ export default function App() {
   );
   const resourceLinks = (
     <>
+      <Link
+        to={localizedPath(DUAL_KEY_PATH)}
+        className={view === "dualkey" ? "is-active" : undefined}
+        aria-current={view === "dualkey" ? "page" : undefined}
+        onClick={() => {
+          setMenuOpen(false);
+          setMoreOpen(false);
+        }}
+      >
+        {t.nav.dualKey}
+      </Link>
       <Link
         to={localizedPath(RISK_CHECK_PATH)}
         onClick={() => {
@@ -1061,17 +1103,6 @@ export default function App() {
               }}
             >
               {t.nav.euAiAct}
-            </Link>
-            <Link
-              to={localizedPath(DUAL_KEY_PATH)}
-              className={view === "dualkey" ? "is-active" : undefined}
-              aria-current={view === "dualkey" ? "page" : undefined}
-              onClick={() => {
-                setMenuOpen(false);
-                setMoreOpen(false);
-              }}
-            >
-              {t.nav.dualKey}
             </Link>
             <Link
               to={localizedPath(WHITEPAPER_PATH)}
@@ -2171,6 +2202,7 @@ export default function App() {
                 <DiagnosticForm
                   intent={enquiryIntent}
                   onIntentChange={setEnquiryIntent}
+                  enquirySource={enquirySourceFromSearch(location.search)}
                 />
               </div>
             </section>
