@@ -4,6 +4,7 @@ import Whitepaper from "./Whitepaper.jsx";
 import Article from "./Article.jsx";
 import HybridProfiles from "./HybridProfiles.jsx";
 import EuAiActMapping from "./pages/EuAiActMapping";
+import DualKeyProtocol from "./pages/DualKeyProtocol";
 import WhitepaperEs from "./pages/WhitepaperEs.jsx";
 import ArticleEs from "./pages/ArticleEs.jsx";
 import HybridProfilesEs from "./pages/HybridProfilesEs.jsx";
@@ -24,12 +25,14 @@ import {
   HYBRID_ARTICLE,
 } from "./content.js";
 import {
+  DUAL_KEY_PATH,
   EU_AI_ACT_MAPPING_PATH,
   PRIVACY_PATH,
   RISK_CHECK_PATH,
   WHITEPAPER_PATH,
   hashToPathRoute,
   isAppPath,
+  isDualKeyPath,
   isEuAiActMappingHash,
   isEuAiActMappingPath,
   isHybridProfilesPath,
@@ -58,6 +61,7 @@ function viewFromLocation(pathname, hash) {
   if (isRiskCheckPath(pathname)) return "riskcheck";
   if (isPrivacyPath(pathname)) return "privacy";
   if (isEuAiActMappingPath(pathname) || isEuAiActMappingHash(hash)) return "mapping";
+  if (isDualKeyPath(pathname)) return "dualkey";
   if (isWhitepaperPath(pathname)) return "whitepaper";
   if (isHybridProfilesPath(pathname)) return "hybrid";
   if (isMontesquieuPath(pathname)) return "article";
@@ -79,6 +83,7 @@ function scrollToHash() {
     isRiskCheckPath(pathname) ||
     isPrivacyPath(pathname) ||
     isEuAiActMappingPath(pathname) ||
+    isDualKeyPath(pathname) ||
     isWhitepaperPath(pathname) ||
     isHybridProfilesPath(pathname) ||
     isMontesquieuPath(pathname) ||
@@ -691,6 +696,7 @@ export default function App() {
     { id: "partners", label: t.mobile.partners },
     { id: "projects", label: t.mobile.projects },
     { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
+    { to: localizedPath(DUAL_KEY_PATH), label: t.mobile.dualKey, view: "dualkey" },
     { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
     { to: localizedPath(PRIVACY_PATH), label: t.mobile.privacy, view: "privacy" },
     { id: "about", label: t.mobile.about },
@@ -1057,6 +1063,17 @@ export default function App() {
               {t.nav.euAiAct}
             </Link>
             <Link
+              to={localizedPath(DUAL_KEY_PATH)}
+              className={view === "dualkey" ? "is-active" : undefined}
+              aria-current={view === "dualkey" ? "page" : undefined}
+              onClick={() => {
+                setMenuOpen(false);
+                setMoreOpen(false);
+              }}
+            >
+              {t.nav.dualKey}
+            </Link>
+            <Link
               to={localizedPath(WHITEPAPER_PATH)}
               className={view === "whitepaper" ? "is-active" : undefined}
               aria-current={view === "whitepaper" ? "page" : undefined}
@@ -1174,6 +1191,8 @@ export default function App() {
           <PrivacyPage />
         ) : view === "mapping" ? (
           <EuAiActMapping />
+        ) : view === "dualkey" ? (
+          <DualKeyProtocol />
         ) : view === "whitepaper" ? (
           locale === "es" ? <WhitepaperEs /> : <Whitepaper />
         ) : view === "article" ? (
@@ -1294,6 +1313,25 @@ export default function App() {
                       <p className="risk-text">{item.text || item.detail}</p>
                     </article>
                   ))}
+                </div>
+                <div className="layer-block">
+                  <h3 id="framework-layers">{t.layers.title}</h3>
+                  <div className="layer-grid">
+                    {t.layers.cards.map((card) => (
+                      <article key={card.name} className="layer-card">
+                        <p className="layer-label">{card.label}</p>
+                        <h4>
+                          {card.link ? (
+                            <Link to={localizedPath(DUAL_KEY_PATH)}>{card.name}</Link>
+                          ) : (
+                            card.name
+                          )}
+                        </h4>
+                        <p>{card.text}</p>
+                      </article>
+                    ))}
+                  </div>
+                  <p className="layer-line">{t.layers.line}</p>
                 </div>
                 <div className="pain-cta-bar">
                   <a
@@ -1430,9 +1468,15 @@ export default function App() {
                         ))}
                       </ol>
                       <div className="hr-claim-box" role="note">
-                        <p className="hr-claim-headline">{FEATURED_HR_COPILOT.resultClaim}</p>
+                        <div className="hr-claim-head">
+                          <p className="hr-demo-badge">{t.hrDemo.badge}</p>
+                          <p className="hr-claim-headline">{FEATURED_HR_COPILOT.resultClaim}</p>
+                        </div>
                         <p className="hr-claim-scope">{FEATURED_HR_COPILOT.scopeNote}</p>
                       </div>
+                      <p className="hr-dual-key-link">
+                        <Link to={localizedPath(DUAL_KEY_PATH)}>{t.hrDemo.link}</Link>
+                      </p>
                       <div className="hero-cta-row hr-case-actions">
                         <a
                           className="btn btn-solid"
@@ -2593,6 +2637,7 @@ export default function App() {
           <a href={`${home}#leadership`}>{locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership"}</a>
           <a href={`${home}#hr-copilot-case`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
+          <Link to={localizedPath(DUAL_KEY_PATH)}>{t.nav.dualKey}</Link>
           <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>
           <Link to={localizedPath(PRIVACY_PATH)}>{t.nav.privacy}</Link>
         </p>

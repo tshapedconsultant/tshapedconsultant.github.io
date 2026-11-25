@@ -4,7 +4,7 @@ import GovernancePipeline from "../components/GovernancePipeline";
 import MappingTable from "../components/MappingTable";
 import { mappingCopy } from "../data/mappingI18n";
 import { useI18n } from "../i18n/LocaleContext";
-import { EU_AI_ACT_MAPPING_PATH, WHITEPAPER_PATH } from "../routes";
+import { DUAL_KEY_PATH, EU_AI_ACT_MAPPING_PATH, WHITEPAPER_PATH } from "../routes";
 
 const PORTO = "https://github.com/tshapedconsultant/porto-seguro-compliance-hub";
 const RISK = "https://github.com/tshapedconsultant/enterprise-ai-risk";
@@ -22,6 +22,10 @@ export default function EuAiActMapping() {
       <h1>{t.mapping.title}</h1>
       <p className="paper-sub">{copy.subtitle}</p>
       <p className="callout">{t.mapping.callout}</p>
+      <p className="callout">
+        {t.mapping.dualKeyLead}{" "}
+        <a href={localizedPath(DUAL_KEY_PATH)}>{t.mapping.dualKeyLink}</a>
+      </p>
       <p className="mapping-lead-short">{copy.leadShort}</p>
       <details className="mobile-disclose mapping-legal-more">
         <summary>{t.mapping.roleSummary}</summary>

@@ -400,6 +400,8 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
     assert.equal(isPrivacyPath("/es/privacy/"), true);
     assert.equal(isAppPath("/es/ai-runtime-risk-check"), true);
     assert.equal(isAppPath("/es/privacy"), true);
+    assert.equal(isAppPath("/governance/dual-key-protocol"), true);
+    assert.equal(isAppPath("/es/governance/dual-key-protocol/"), true);
     assert.equal(localeFromPath("/es/ai-runtime-risk-check"), "es");
     assert.equal(stripLocale("/es/ai-runtime-risk-check"), RISK_CHECK_PATH);
     assert.equal(withLocale(PRIVACY_PATH, "es"), "/es/privacy");

@@ -3713,6 +3713,49 @@ details.mobile-disclose > summary:focus-visible {
     order: 6;
     margin-left: 0.35rem;
   }
+
+  .top nav a,
+  .more-toggle {
+    white-space: nowrap;
+  }
+}
+
+/* The Dual-Key item lengthens the bar. Keep every label on one line until the row has room. */
+@media (min-width: 1101px) and (max-width: 1420px) {
+  .top {
+    gap: 0.4rem;
+    padding-inline: 0.75rem;
+  }
+
+  .top nav {
+    gap: 0.5rem;
+  }
+
+  .top nav a,
+  .more-toggle {
+    font-size: 0.74rem;
+    letter-spacing: 0.01em;
+  }
+
+  .top nav a.nav-cta {
+    padding-inline: 0.55rem;
+  }
+
+  .mark-name-full {
+    display: none;
+  }
+
+  .mark-name-short {
+    display: inline;
+  }
+
+  .mark-sub-full {
+    display: none;
+  }
+
+  .mark-sub-short {
+    display: block;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -6013,6 +6056,304 @@ details.mobile-disclose > summary:focus-visible {
   .mobile-conversion-bar .btn {
     font-size: 0.78rem;
     padding: 0.5rem 0.45rem;
+  }
+}
+
+/* ——— Dual-Key Protocol and framework layers ——— */
+
+.layer-block {
+  margin-top: 1.75rem;
+}
+
+.layer-block > h3 {
+  margin: 0 0 0.9rem;
+}
+
+.layer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.layer-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--navy-800);
+  padding: 1.05rem 1.05rem 1.15rem;
+  min-width: 0;
+}
+
+.layer-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+}
+
+.layer-card h4 {
+  margin: 0.4rem 0 0.45rem;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.layer-card p {
+  margin: 0;
+  color: var(--slate-700);
+}
+
+.layer-line {
+  margin: 1rem 0 0;
+  max-width: 62ch;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hr-claim-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.hr-demo-badge {
+  margin: 0;
+  padding: 0.22rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--navy-950);
+  background: var(--cyan-200);
+}
+
+.hr-claim-head .hr-claim-headline {
+  margin: 0;
+  flex: 1 1 14rem;
+}
+
+.hr-dual-key-link {
+  margin: -0.35rem 0 1.15rem;
+}
+
+.hr-dual-key-link a {
+  font-weight: 600;
+}
+
+.dual-key-flow {
+  list-style: none;
+  margin: 0.4rem 0 1.6rem;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.dual-key-step {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+  border-left: 3px solid var(--cyan-400);
+  min-width: 0;
+}
+
+.dual-key-step h3,
+.dual-key-ref h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: var(--white);
+}
+
+.dual-key-step p,
+.dual-key-ref p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.dual-key-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.dual-key-pair > div {
+  min-width: 0;
+  padding: 0.75rem;
+  background: var(--navy-950);
+  border-top: 3px solid var(--gold);
+}
+
+.dual-key-key-title {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.dual-key-exec {
+  border-left-color: var(--gold);
+}
+
+.dual-key-table-wrap {
+  margin: 0.4rem 0 1.6rem;
+  overflow-x: auto;
+}
+
+.dual-key-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.dual-key-table caption {
+  caption-side: bottom;
+  text-align: left;
+  padding-top: 0.7rem;
+  color: var(--muted);
+}
+
+.dual-key-table th,
+.dual-key-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem 0.7rem;
+  border-bottom: 1px solid var(--navy-800);
+  color: var(--white);
+}
+
+.dual-key-table thead th {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cyan-200);
+}
+
+.dual-key-trust {
+  margin: 0.4rem 0 1.6rem;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.dual-key-refs {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0.4rem 0 1.6rem;
+}
+
+.dual-key-ref {
+  margin: 0;
+  padding: 1rem;
+  background: var(--navy-900);
+  border: 1px solid var(--navy-800);
+}
+
+.dual-key-ref-label {
+  margin: 0 0 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--cyan-200);
+}
+
+.dual-key-policy {
+  margin: 0.4rem 0 1.6rem;
+}
+
+.dual-key-policy figcaption {
+  margin: 0 0 0.6rem;
+  color: var(--muted);
+}
+
+.dual-key-policy pre {
+  margin: 0;
+  padding: 1rem 1.05rem;
+  overflow-x: auto;
+  background: var(--navy-950);
+  border: 1px solid var(--navy-800);
+  color: var(--white);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.dual-key-policy code {
+  font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+
+.rego-kw {
+  color: var(--cyan-200);
+}
+
+.rego-fn {
+  color: #e7c56a;
+}
+
+.rego-str {
+  color: #f3d48a;
+}
+
+@media (max-width: 900px) {
+  .layer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dual-key-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .dual-key-table caption {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    caption-side: top;
+    padding-top: 0;
+    margin-bottom: 0.85rem;
+  }
+
+  .dual-key-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .dual-key-table,
+  .dual-key-table tbody,
+  .dual-key-table tr,
+  .dual-key-table th,
+  .dual-key-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .dual-key-table tr {
+    margin: 0 0 0.9rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--navy-800);
+  }
+
+  .dual-key-table th,
+  .dual-key-table td {
+    border: 0;
+    padding: 0.35rem 0;
+  }
+
+  .dual-key-table th::before,
+  .dual-key-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cyan-200);
   }
 }
 

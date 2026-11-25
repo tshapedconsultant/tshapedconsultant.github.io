@@ -13,6 +13,7 @@ const SPA_FALLBACK_DIRS = [
   "hybrid-profiles",
   "agentic-ai-montesquieu",
   "governance/eu-ai-act-mapping",
+  "governance/dual-key-protocol",
   "ai-runtime-risk-check",
   "privacy",
   "es",
@@ -20,6 +21,7 @@ const SPA_FALLBACK_DIRS = [
   "es/hybrid-profiles",
   "es/agentic-ai-montesquieu",
   "es/governance/eu-ai-act-mapping",
+  "es/governance/dual-key-protocol",
   "es/ai-runtime-risk-check",
   "es/privacy",
 ];
@@ -78,7 +80,7 @@ const NOSCRIPT_ES = `<noscript>
           ·
           <a href="/Gobernanza-Determinista-IA.pdf">Los modelos probabilísticos requieren gobernanza determinista (PDF)</a>
           ·
-          <a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief (PDF)</a>
+          <a href="/Dedalo-Executive-Brief.pdf">Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista</a>
         </p>
         <nav>
           <ul>
@@ -90,6 +92,7 @@ const NOSCRIPT_ES = `<noscript>
             <li><a href="/es/#dgom">Modelo operativo DGOM™</a></li>
             <li><a href="/es/#partners">Explorar co-delivery (Despachos y firmas asesoras)</a></li>
             <li><a href="/es/governance/eu-ai-act-mapping/">Mapeo del EU AI Act</a></li>
+            <li><a href="/es/governance/dual-key-protocol/">Protocolo Dual-Key</a></li>
             <li><a href="/es/whitepaper/">Whitepaper</a></li>
             <li><a href="/es/hybrid-profiles/">Perfiles híbridos</a></li>
             <li><a href="/es/agentic-ai-montesquieu/">IA agéntica y Montesquieu</a></li>

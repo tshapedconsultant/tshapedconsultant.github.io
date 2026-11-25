@@ -693,7 +693,7 @@ export const SOCIAL_PROOF = [
   },
   {
     id: "executive-brief",
-    text: "Dédalo™ Executive Brief — Deterministic Cage en dos páginas",
+    text: "Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista",
     href: EXECUTIVE_BRIEF_PDF,
     download: true,
   },
@@ -835,7 +835,7 @@ export const DGOM_MODEL = {
   disclaimer:
     "DGOM™ operacionaliza controles técnicos de gobernanza. No sustituye el asesoramiento jurídico, la certificación formal ni a los responsables de la organización.",
   cta: "Ver el modelo operativo DGOM",
-  briefCta: "Descargar el Dédalo™ Executive Brief",
+  briefCta: "Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista",
   diagramLabel: "Cómo DGOM™ conecta la rendición de cuentas con la garantía en runtime",
   layers: {
     top: "Política / Regulación / Riesgo",
@@ -1447,7 +1447,7 @@ export const CREDENTIAL_GROUPS = [
       },
       {
         kind: "Resumen",
-        title: "Dédalo™ Executive Brief",
+        title: "Whitepaper edición unificada (PDF): Los modelos probabilísticos requieren gobernanza determinista",
         detail:
           "Resumen ejecutivo de dos páginas: por qué la IA probabilística necesita un Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo a EU AI Act, NIST AI RMF e ISO 42001 · PDF (EN)",
         href: EXECUTIVE_BRIEF_PDF,

@@ -1,4 +1,5 @@
 import {
+  DUAL_KEY_PATH,
   EU_AI_ACT_MAPPING_PATH,
   HYBRID_PROFILES_PATH,
   MONTEQUIEU_PATH,
@@ -68,6 +69,11 @@ export const PAGE_SEO = {
     title: `${ARTICLE.title} | tshapedconsultant`,
     description: ARTICLE.excerpt,
   },
+  [DUAL_KEY_PATH]: {
+    title: "Dual-Key Protocol | Independent Execution Authority for AI Agents",
+    description:
+      "Dual approval for high-consequence AI actions: an independent PDP/PEP checks both keys and keeps execution authority fail-closed.",
+  },
   [EU_AI_ACT_MAPPING_PATH]: {
     title: "EU AI Act mapping | tshapedconsultant",
     description:
@@ -108,6 +114,11 @@ export const PAGE_SEO_ES = {
     title: `${ARTICLE_ES.title} | tshapedconsultant`,
     description:
       "IA agéntica y separación de poderes: Runtime Checks & Balances, art. 14 del EU AI Act y DORA. Gobernanza de IA para agentes autónomos con supervisión independiente.",
+  },
+  [DUAL_KEY_PATH]: {
+    title: "Protocolo Dual-Key | Autoridad de ejecución independiente para agentes de IA",
+    description:
+      "Doble aprobación para acciones de IA de alta consecuencia: un PDP/PEP independiente comprueba ambas llaves y mantiene la autoridad de ejecución en fallo cerrado.",
   },
   [EU_AI_ACT_MAPPING_PATH]: {
     title: "Mapeo del EU AI Act | gobernanza de IA y cumplimiento | tshapedconsultant",

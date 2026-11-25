@@ -2,6 +2,7 @@ export const WHITEPAPER_PATH = "/whitepaper";
 export const HYBRID_PROFILES_PATH = "/hybrid-profiles";
 export const MONTEQUIEU_PATH = "/agentic-ai-montesquieu";
 export const EU_AI_ACT_MAPPING_PATH = "/governance/eu-ai-act-mapping";
+export const DUAL_KEY_PATH = "/governance/dual-key-protocol";
 export const RISK_CHECK_PATH = "/ai-runtime-risk-check";
 export const PRIVACY_PATH = "/privacy";
 export const ES_PREFIX = "/es";
@@ -14,6 +15,7 @@ export const SPA_FALLBACK_DIRS = [
   HYBRID_PROFILES_PATH,
   MONTEQUIEU_PATH,
   EU_AI_ACT_MAPPING_PATH,
+  DUAL_KEY_PATH,
   RISK_CHECK_PATH,
   PRIVACY_PATH,
   ES_PREFIX,
@@ -21,6 +23,7 @@ export const SPA_FALLBACK_DIRS = [
   `${ES_PREFIX}${HYBRID_PROFILES_PATH}`,
   `${ES_PREFIX}${MONTEQUIEU_PATH}`,
   `${ES_PREFIX}${EU_AI_ACT_MAPPING_PATH}`,
+  `${ES_PREFIX}${DUAL_KEY_PATH}`,
   `${ES_PREFIX}${RISK_CHECK_PATH}`,
   `${ES_PREFIX}${PRIVACY_PATH}`,
 ] as const;
@@ -74,6 +77,10 @@ export function isEuAiActMappingPath(pathname: string): boolean {
   return stripLocale(pathname) === EU_AI_ACT_MAPPING_PATH;
 }
 
+export function isDualKeyPath(pathname: string): boolean {
+  return stripLocale(pathname) === DUAL_KEY_PATH;
+}
+
 export function isEuAiActMappingHash(hash: string): boolean {
   const raw = hash.replace(/^#/, "").replace(/^\/+/, "").replace(/\/+$/, "");
   return raw === "governance/eu-ai-act-mapping";
@@ -105,6 +112,7 @@ const APP_PATHS = new Set<string>([
   HYBRID_PROFILES_PATH,
   MONTEQUIEU_PATH,
   EU_AI_ACT_MAPPING_PATH,
+  DUAL_KEY_PATH,
   RISK_CHECK_PATH,
   PRIVACY_PATH,
 ]);
@@ -126,6 +134,8 @@ export function assertLocaleSwitch(): void {
     ["/es/agentic-ai-montesquieu", "", "en", "/agentic-ai-montesquieu"],
     ["/governance/eu-ai-act-mapping", "#art-9", "es", "/es/governance/eu-ai-act-mapping#art-9"],
     ["/es/governance/eu-ai-act-mapping/", "", "en", "/governance/eu-ai-act-mapping"],
+    ["/governance/dual-key-protocol", "", "es", "/es/governance/dual-key-protocol"],
+    ["/es/governance/dual-key-protocol/", "", "en", "/governance/dual-key-protocol"],
     ["/es/ai-runtime-risk-check/", "", "en", "/ai-runtime-risk-check"],
     ["/ai-runtime-risk-check", "", "es", "/es/ai-runtime-risk-check"],
     ["/es/privacy", "", "en", "/privacy"],
