@@ -1,23 +1,11 @@
-import WhitepaperDownloadGate, {
-  useWhitepaperUnlocked,
-} from "../components/WhitepaperDownloadGate.jsx";
+import WhitepaperDownloadGate from "../components/WhitepaperDownloadGate.jsx";
+import { WHITEPAPER_PUBLICATION } from "../data/whitepaperPublication.js";
 import { HYBRID_PROFILES_PATH, MONTEQUIEU_PATH, WHITEPAPER_PATH } from "../routes";
 import { useI18n } from "../i18n/LocaleContext";
 
 export default function WhitepaperEs() {
   const { localize, t } = useI18n();
-  const [unlocked] = useWhitepaperUnlocked();
-
-  function handleTocClick(event, sectionNumber) {
-    if (unlocked || sectionNumber <= 1) return;
-    event.preventDefault();
-    const gateEl = document.getElementById("whitepaper-reading-gate");
-    if (gateEl) {
-      gateEl.scrollIntoView({ behavior: "smooth", block: "center" });
-      const emailInput = gateEl.querySelector('input[type="email"]');
-      emailInput?.focus();
-    }
-  }
+  const paper = WHITEPAPER_PUBLICATION;
 
   return (
     <article className="paper">
@@ -40,17 +28,15 @@ export default function WhitepaperEs() {
       </p>
       <WhitepaperDownloadGate source="whitepaper_es" />
       <p className="paper-brief-lead">{t.paper.briefLead}</p>
+      <p className="paper-brief-lead">
+        La edición unificada en castellano no está publicada. El PDF en castellano es la edición
+        del {paper.es.previousPublishedAt} ({paper.es.previousPageCount} páginas). El ensayo de
+        esta página es esa edición y se lee sin registro. El Executive Brief sigue siendo un
+        resumen distinto de {paper.brief.pageCount} páginas, en inglés. La Unified Edition v
+        {paper.version} ({paper.en.pageCount} páginas) está solo en inglés.
+      </p>
 
-      <nav
-        className="paper-toc"
-        aria-label="Índice del whitepaper"
-        onClick={(e) => {
-          const anchor = e.target.closest("a[href^='#s']");
-          if (!anchor) return;
-          const num = parseInt(anchor.getAttribute("href").slice(2), 10);
-          if (!Number.isNaN(num)) handleTocClick(e, num);
-        }}
-      >
+      <nav className="paper-toc" aria-label="Índice del whitepaper">
         <h2>Índice</h2>
         <ol>
           <li><a href="#s00">00 Resumen ejecutivo</a></li>
@@ -167,31 +153,7 @@ export default function WhitepaperEs() {
         </p>
       </section>
 
-      {!unlocked ? (
-        <div className="paper-reading-gate-wrap">
-          <div className="paper-reading-preview-fade" aria-hidden="true">
-            <section>
-              <h2>
-                <span>02</span> La ecuación del riesgo de la IA agéntica
-              </h2>
-              <p>
-                A menudo hablamos del riesgo de la IA como si fuera una propiedad inevitable del
-                modelo. Ese planteamiento es incompleto. Los grandes modelos de lenguaje son
-                probabilísticos por diseño. Pueden alucinar, interpretar mal las instrucciones,
-                seleccionar la herramienta equivocada o producir salidas diferentes ante una misma
-                entrada…
-              </p>
-              <p className="callout">Riesgo ≈ Probabilidad × Impacto</p>
-            </section>
-          </div>
-          <WhitepaperDownloadGate source="whitepaper_es_reading_gate" mode="reading" />
-        </div>
-      ) : null}
-
-      <div
-        className={unlocked ? "paper-gated-body is-unlocked" : "paper-gated-body is-locked"}
-        aria-hidden={!unlocked ? "true" : undefined}
-      >
+      <div className="paper-gated-body is-unlocked">
       <section id="s02">
         <h2><span>02</span> La ecuación del riesgo de la IA agéntica</h2>
         <p>
@@ -352,23 +314,23 @@ export default function WhitepaperEs() {
         <p>
           Por eso, los sistemas críticos no se diseñan únicamente para maximizar la probabilidad de
           éxito. Se diseñan para limitar las consecuencias de los errores inevitables. La gobernanza
-          determinista existe precisamente para gestionar ese 1 % residual.
+          determinista existe precisamente para contener la cola residual de fallos de alto impacto.
         </p>
         <p>
-          Porque el problema no es el 99 % de las decisiones correctas. El problema es el 1 % que
-          puede provocar pérdidas financieras, interrupciones operativas, daño reputacional,
-          incumplimientos normativos, litigios y sanciones: según la infracción, el artículo 99 del
-          Reglamento de IA de la UE prevé multas administrativas de hasta 35 millones de euros o el
-          7 % del volumen de negocios anual mundial para las prácticas prohibidas, con máximos
-          inferiores para otras categorías de infracción.
+          Porque el problema no está en la mayoría de las decisiones correctas, sino en los fallos
+          que pueden provocar pérdidas financieras, interrupciones operativas, daños reputacionales,
+          incumplimientos normativos y litigios. Según la infracción, el artículo 99 del Reglamento
+          de IA de la UE prevé multas administrativas de hasta 35 millones de euros o el 7 % del
+          volumen de negocios anual mundial para las prácticas prohibidas, con máximos inferiores
+          para otras categorías de infracción.
         </p>
         <p>La pregunta estratégica no es: «¿Qué exactitud tiene mi modelo?».</p>
         <p className="callout">
           La pregunta estratégica es: «¿Qué ocurre cuando, inevitablemente, se equivoca?».
         </p>
         <p>
-          En ese 1 % reside el verdadero riesgo empresarial. Y es precisamente ahí donde la
-          gobernanza determinista crea valor.
+          En esa cola residual de fallos de alto impacto reside el verdadero riesgo empresarial. Y es
+          precisamente ahí donde la gobernanza determinista crea valor.
         </p>
         <p className="note">Reglamento (UE) 2024/1689, artículo 99.</p>
       </section>
@@ -1158,7 +1120,8 @@ export default function WhitepaperEs() {
         <p>El agente sigue siendo autónomo. Pero no soberano.</p>
         <p>
           <strong>Mensaje clave:</strong> estos tres casos muestran la diferencia entre gobernar
-          modelos y gobernar consecuencias. El primero lo demuestra en directo sobre un agente real;
+          modelos y gobernar consecuencias. El primero lo demuestra en directo mediante una
+          implementación funcional;
           el segundo protege la integridad cognitiva del sistema; el tercero protege la resiliencia
           operativa de la organización. Los tres requieren exactamente el mismo principio: un
           sistema probabilístico nunca debería ser el único poder capaz de decidir sobre acciones
@@ -1237,7 +1200,7 @@ export default function WhitepaperEs() {
         <h2><span>24</span> Conclusión</h2>
         <p>
           Dédalo dio alas a la humanidad. Ícaro nos enseñó los límites. La inteligencia artificial
-          es nuestro juego de alas moderno. El reto no consiste en impedir el vuelo. Consiste en
+          es nuestro nuevo par de alas. El reto no consiste en impedir el vuelo. Consiste en
           evitar el colapso.
         </p>
         <p>
@@ -1497,7 +1460,7 @@ distinct_dual_approvers if {
           </li>
         </ul>
 
-        <h3>4. Motores de políticas deterministas y salvaguardas técnicas</h3>
+        <h3>4. Motores de políticas deterministas, salvaguardas y pruebas adversarias</h3>
         <ul>
           <li>
             Open Policy Agent, proyecto graduado de la CNCF. Documentación de OPA y del lenguaje de
@@ -1520,14 +1483,14 @@ distinct_dual_approvers if {
             <a href="https://www.lakera.ai/lakera-guard">Lakera</a>
           </li>
           <li>
-            NVIDIA / Derczynski, L. et al. <em>Garak</em>: escáner de vulnerabilidades y sondas de{" "}
-            <em>red teaming</em> para modelos de lenguaje (LLM).{" "}
+            NVIDIA / Derczynski, L. et al. <em>Garak</em>: herramienta de detección de
+            vulnerabilidades en LLM y ejecución de sondas automatizadas de <em>red teaming</em>.{" "}
             <a href="https://github.com/NVIDIA/garak">GitHub</a>
           </li>
           <li>
-            Microsoft AI Red Team. <em>PyRIT (Python Risk Identification Tool for generative AI)</em>
-            : marco de automatización de pruebas adversarias para sistemas de IA generativa y
-            agéntica. <a href="https://github.com/Azure/PyRIT">GitHub</a>
+            Microsoft AI Red Team. <em>PyRIT (Python Risk Identification Tool)</em>: framework para
+            pruebas adversarias de sistemas de IA generativa y agéntica.{" "}
+            <a href="https://github.com/Azure/PyRIT">GitHub</a>
           </li>
         </ul>
 

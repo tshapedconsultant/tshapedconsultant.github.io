@@ -397,7 +397,7 @@ describe("Contact & Security — Sanitization, Validation & Rate Limiting", () =
     });
     assert.equal(
       mailingPayload["Explicit consent"],
-      "Accepted (Whitepaper download & AI Governance mailing list)"
+      "Accepted (AI Governance mailing list only; PDF download is separate)"
     );
     assert.equal(
       mailingPayload["Mailing list"],

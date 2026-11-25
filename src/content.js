@@ -1,11 +1,13 @@
 import { pulseInsights } from "./data/pulseLibrary.ts";
+import { WHITEPAPER_PUBLICATION } from "./data/whitepaperPublication.js";
 
 export const COVER = "/cover.png";
 export const COVER_WEBP = "/cover.webp";
 export const COVER_AVIF = "/cover.avif";
-export const WHITEPAPER_PDF = "/Probabilistic-Models-Require-Deterministic-Governance.pdf";
-export const WHITEPAPER_PDF_ES = "/Gobernanza-Determinista-IA.pdf";
-export const EXECUTIVE_BRIEF_PDF = "/Dedalo-Executive-Brief.pdf";
+export const WHITEPAPER_PDF = WHITEPAPER_PUBLICATION.en.pdfPath;
+export const WHITEPAPER_PDF_ES = WHITEPAPER_PUBLICATION.es.previousPdfPath;
+export const EXECUTIVE_BRIEF_PDF = WHITEPAPER_PUBLICATION.brief.pdfPath;
+export { WHITEPAPER_PUBLICATION };
 export const CASE_STUDY_PDF = "/bbva-platform-ai-strategy-case-study.pdf";
 export const RESUME_MATCHING_PDF = "/responsible-ai-resume-job-matching.pdf";
 
@@ -681,7 +683,7 @@ export const SOCIAL_PROOF = [
   },
   {
     id: "whitepaper",
-    text: "Whitepaper: Probabilistic Models Require Deterministic Governance",
+    text: `Whitepaper: Unified Edition v${WHITEPAPER_PUBLICATION.version} (${WHITEPAPER_PUBLICATION.en.pageCount} pages)`,
     href: WHITEPAPER_PDF,
     download: true,
   },

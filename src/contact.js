@@ -194,7 +194,7 @@ export function buildEnquiryPayload({
 
   if (consent) {
     payload["Explicit consent"] = mailingList
-      ? "Accepted (Whitepaper download & AI Governance mailing list)"
+      ? "Accepted (AI Governance mailing list only; PDF download is separate)"
       : "Accepted (response to this request only)";
   }
 

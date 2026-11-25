@@ -6,10 +6,19 @@
  * - Categorical properties are closed enums taken from real call sites.
  * - question_step is an integer from 1 to 6. Other numbers are dropped.
  *
- * Conversion:
- * - diagnostic_form_submit_success is the primary enquiry conversion.
- * - contact_submitted is kept for existing consumers of the same success.
- * - Do not add the two events together. They are one lead.
+ * Submitted enquiry, not a qualified request:
+ * - diagnostic_form_submit_success means the provider accepted the send.
+ *   intent "snapshot" is a submitted Snapshot request only.
+ * - Qualification is a later human review: identifiable organisation,
+ *   a concrete system, a problem inside scope, and a real chance of buying.
+ * - A commercial opportunity is later still: the right counterpart and an
+ *   agreed next step. A proposal and a won or lost outcome stay in that
+ *   same commercial record. The browser does not record those later levels.
+ * - contact_submitted is the same accepted send, kept for existing consumers.
+ * - Do not add the two events together.
+ *
+ * One analytics destination. If both window.plausible and window.gtag exist,
+ * only Plausible receives the event, so one submitted request is not stored twice.
  */
 
 export type ConversionEventName =
@@ -187,8 +196,7 @@ export function trackEvent(
     try {
       if (typeof window.plausible === "function") {
         window.plausible(event, { props });
-      }
-      if (typeof window.gtag === "function") {
+      } else if (typeof window.gtag === "function") {
         window.gtag("event", event, props);
       }
     } catch {

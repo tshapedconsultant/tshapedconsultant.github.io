@@ -157,9 +157,9 @@ export default function DiagnosticForm({ intent, onIntentChange, enquirySource =
         source: enquirySource || "commercial-diagnostic-form",
         attemptId: attemptIdRef.current,
       });
-      // One successful delivery emits both events for compatibility.
-      // diagnostic_form_submit_success is the primary conversion.
-      // Do not sum it with contact_submitted.
+      // One accepted send emits both names for compatibility.
+      // diagnostic_form_submit_success counts a submitted enquiry.
+      // It is not a qualified request. Do not sum it with contact_submitted.
       trackEvent("contact_submitted", {
         source: enquirySource || "commercial_form",
         intent: intent || "snapshot",

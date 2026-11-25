@@ -59,7 +59,7 @@ export const PAGE_SEO = {
   [WHITEPAPER_PATH]: {
     title: "Probabilistic Models Require Deterministic Governance | tshapedconsultant",
     description:
-      "Why enterprise and agentic AI needs a constitutional architecture — independent runtime controls, the Deterministic Cage, and a separation of policy, execution and oversight.",
+      "Unified Edition v5.4 (23 pages): Dédalo™, DGOM™ and the Dual-Key Protocol. The illustrative policy is checked with OPA 1.22.4. Reference architectures are not production deployments.",
   },
   [HYBRID_PROFILES_PATH]: {
     title: `${HYBRID_ARTICLE.title} | tshapedconsultant`,
@@ -103,7 +103,7 @@ export const PAGE_SEO_ES = {
   [WHITEPAPER_PATH]: {
     title: "Los modelos probabilísticos requieren gobernanza determinista | tshapedconsultant",
     description:
-      "Whitepaper de gobernanza de IA: por qué los modelos probabilísticos requieren una arquitectura constitucional. Deterministic Cage (Jaula Determinista), EU AI Act, garantía en runtime y cumplimiento.",
+      "El ensayo en castellano es la edición del 16 de noviembre de 2026 (30 páginas). La edición unificada en castellano no está publicada. El Executive Brief es un resumen aparte de dos páginas.",
   },
   [HYBRID_PROFILES_PATH]: {
     title: `${HYBRID_ARTICLE_ES.title} | tshapedconsultant`,

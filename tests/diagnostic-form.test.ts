@@ -143,7 +143,7 @@ async function fill(mounted) {
   return form;
 }
 
-test("diagnostic form starts once per mount and keeps one primary conversion", async () => {
+test("diagnostic form starts once per mount and records one submitted request", async () => {
   const mounted = await mountedForm();
   try {
     const button = mounted.form.querySelector("button[type='submit']");

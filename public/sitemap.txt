@@ -16,6 +16,7 @@ https://tshapedconsultant.com/es/governance/eu-ai-act-mapping/
 https://tshapedconsultant.com/es/governance/dual-key-protocol/
 https://tshapedconsultant.com/llms.txt
 https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf
+https://tshapedconsultant.com/archive/Probabilistic-Models-Require-Deterministic-Governance-2026-11-16.pdf
 https://tshapedconsultant.com/Gobernanza-Determinista-IA.pdf
 https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf
 https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf

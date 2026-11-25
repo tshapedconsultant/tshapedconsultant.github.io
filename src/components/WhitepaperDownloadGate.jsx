@@ -10,6 +10,7 @@ import {
   EXECUTIVE_BRIEF_PDF,
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
+  WHITEPAPER_PUBLICATION,
 } from "../content.js";
 import { useI18n } from "../i18n/LocaleContext";
 import { trackEvent } from "../lib/analytics";
@@ -59,40 +60,30 @@ const PDF_DOWNLOAD_FILENAMES = {
   [EXECUTIVE_BRIEF_PDF]: "Dedalo-Executive-Brief.pdf",
 };
 
-function triggerBrowserDownload(href) {
-  if (typeof document === "undefined" || !href) return;
-  const link = document.createElement("a");
-  link.href = href;
-  link.setAttribute("download", PDF_DOWNLOAD_FILENAMES[href] || "");
-  link.style.display = "none";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
 const COPY = {
   es: {
-    kicker: "Lista de correo y acceso completo (Web + PDF)",
-    title: "Desbloquea la lectura completa y descarga el Whitepaper en PDF",
-    lead: "Deja tu email para leer las 28 páginas completas en la web, descargar el PDF (ES · 30 págs. / EN · 25 págs.) y recibir nuevos análisis técnicos, plantillas OPA/Rego y actualizaciones de gobernanza de IA.",
-    readingKicker: "Vista previa hasta la página 3 · Secciones 02 a 26 bloqueadas",
-    readingTitle: "Introduce tu email para seguir leyendo el Whitepaper completo",
+    kicker: "Lista de correo, aparte de la descarga",
+    title: "Recibe ensayos técnicos y notas de OPA/Rego",
+    lead: "La descarga del PDF y del Executive Brief no pide email. La lista es opcional: ensayos técnicos, notas de OPA/Rego y actualizaciones de gobernanza. No es el mismo acto que descargar.",
+    readingKicker: "Lista de correo opcional",
+    readingTitle: "Recibe ensayos técnicos y notas de OPA/Rego",
     readingLead:
-      "Has llegado al final de las 3 primeras páginas de vista previa (Portada, Índice, Sección 00 y Sección 01). Deja tu email para desbloquear al instante las secciones 02 a 26 en esta página y acceder también al PDF completo.",
-    readingSubmitBtn: "Seguir leyendo y unirme",
+      "El ensayo de esta página se lee sin registro. El email solo sirve para la lista de correo.",
+    readingSubmitBtn: "Unirme a la lista",
     emailLabel: "Tu email",
     emailPlaceholder: "nombre@empresa.com",
     consentLabel:
-      "Acepto desbloquear el whitepaper (web y PDF) y suscribirme a la lista de correo sobre gobernanza de IA y Runtime Assurance (baja en 1 clic en cualquier momento).",
+      "Quiero recibir la lista de correo sobre gobernanza de IA y Runtime Assurance (baja en 1 clic). Esta casilla no condiciona la descarga.",
     privacyLink: "Política de privacidad",
-    submitBtn: "Unirme y descargar PDF",
+    submitBtn: "Unirme a la lista",
     submittingBtn: "Procesando…",
-    unlockedTitle: "Suscripción confirmada · Lectura completa y descargas desbloqueadas",
+    unlockedTitle: "Suscripción confirmada",
     unlockedLead:
-      "Gracias por unirte a la lista de correo. Ya tienes acceso completo a las 26 secciones en esta página y puedes descargar cualquiera de las ediciones en PDF:",
-    downloadEs: "Descargar Whitepaper en Español (PDF)",
-    downloadEn: "Descargar Whitepaper en Inglés (PDF)",
-    downloadBrief: "Descargar Dédalo™ Executive Brief (PDF)",
+      "Gracias. La lista es independiente de los PDF, que siguen enlazados arriba.",
+    downloadEs: `Descargar la edición en castellano del ${WHITEPAPER_PUBLICATION.es.previousPublishedAt} (${WHITEPAPER_PUBLICATION.es.previousPageCount} páginas)`,
+    downloadEn: `Descargar Unified Edition v${WHITEPAPER_PUBLICATION.version} (${WHITEPAPER_PUBLICATION.en.pageCount} páginas)`,
+    downloadBrief: "Descargar Dédalo™ Executive Brief (PDF, 2 páginas, EN)",
+    archiveEn: "Archivo",
     readOnline: "Leer en este sitio",
     errors: {
       emailRequired: "Introduce tu dirección de email para continuar.",
@@ -101,27 +92,26 @@ const COPY = {
     },
   },
   en: {
-    kicker: "Mailing list & full access (Web + PDF)",
-    title: "Unlock full online reading & download the Whitepaper PDF",
-    lead: "Leave your email to read the full whitepaper online, download the complete PDF edition (EN · 25 pp. / ES · 30 pp.), and receive new technical essays, OPA/Rego templates, and AI governance updates.",
-    readingKicker: "Preview ends at page 3 · Sections 02 to 26 locked",
-    readingTitle: "Enter your email to continue reading the full Whitepaper",
-    readingLead:
-      "You have reached the end of the 3-page preview (Cover, Contents, Section 00, and Section 01). Leave your email to immediately unlock Sections 02 to 26 on this page and access the full PDF downloads.",
-    readingSubmitBtn: "Continue reading & join",
+    kicker: "Mailing list, separate from the download",
+    title: "Receive technical essays and OPA/Rego notes",
+    lead: "The PDF and the Executive Brief download without an email. The list is optional: technical essays, OPA/Rego notes and governance updates. Subscribing is not the same action as downloading.",
+    readingKicker: "Optional mailing list",
+    readingTitle: "Receive technical essays and OPA/Rego notes",
+    readingLead: "The essay on this page is open. An email only joins the mailing list.",
+    readingSubmitBtn: "Join the list",
     emailLabel: "Your email",
     emailPlaceholder: "name@company.com",
     consentLabel:
-      "I agree to unlock the whitepaper (online & PDF) and subscribe to the AI Governance & Runtime Assurance mailing list (one-click unsubscribe anytime).",
+      "I want the AI Governance and Runtime Assurance mailing list (one-click unsubscribe). This box does not gate the download.",
     privacyLink: "Privacy policy",
-    submitBtn: "Join mailing list & download PDF",
+    submitBtn: "Join the list",
     submittingBtn: "Processing…",
-    unlockedTitle: "Subscription confirmed · Full reading & downloads unlocked",
-    unlockedLead:
-      "Thank you for joining the mailing list. All 26 sections are now unlocked on this page, and you can download any PDF edition below:",
-    downloadEn: "Download English Whitepaper (PDF)",
-    downloadEs: "Download Spanish Whitepaper (PDF)",
-    downloadBrief: "Download Dédalo™ Executive Brief (PDF)",
+    unlockedTitle: "Subscription confirmed",
+    unlockedLead: "Thank you. The list is separate from the PDFs, which stay linked above.",
+    downloadEn: `Download Unified Edition v${WHITEPAPER_PUBLICATION.version} (${WHITEPAPER_PUBLICATION.en.pageCount} pages)`,
+    downloadEs: `Download the Spanish edition of ${WHITEPAPER_PUBLICATION.es.previousPublishedAt} (${WHITEPAPER_PUBLICATION.es.previousPageCount} pages)`,
+    downloadBrief: "Download Dédalo™ Executive Brief (PDF, 2 pages)",
+    archiveEn: "Previous English PDF (16 Nov 2026)",
     readOnline: "Read on this site",
     errors: {
       emailRequired: "Enter your email address to continue.",
@@ -151,14 +141,6 @@ export default function WhitepaperDownloadGate({
   const [hp, setHp] = useState("");
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [targetPdf, setTargetPdf] = useState(isReadingGate ? null : primaryPdf);
-
-  function handleLockedClick(event, pdfHref) {
-    if (unlocked) return;
-    event.preventDefault();
-    setTargetPdf(pdfHref || primaryPdf);
-    emailInputRef.current?.focus();
-  }
 
   function validate() {
     const next = {};
@@ -184,12 +166,9 @@ export default function WhitepaperDownloadGate({
       return;
     }
 
-    const pdfToDownload = isReadingGate ? targetPdf : targetPdf || primaryPdf;
-
     if (hp.trim()) {
       markUnlocked();
       setUnlocked(true);
-      if (pdfToDownload) triggerBrowserDownload(pdfToDownload);
       return;
     }
 
@@ -201,17 +180,11 @@ export default function WhitepaperDownloadGate({
         mailingList: true,
         callerKey: "mailing_list",
         caller: "Mailing List Subscriber",
-        intent: isReadingGate
-          ? isEs
-            ? "Suscripción a Mailing List + Desbloqueo Lectura Web Whitepaper (ES)"
-            : "Mailing List Subscription + Web Whitepaper Reading Unlock (EN)"
-          : isEs
-            ? "Suscripción a Mailing List + Descarga Whitepaper PDF (ES)"
-            : "Mailing List Subscription + Whitepaper PDF Download (EN)",
+        intent: isEs
+          ? "Suscripción a la lista de correo del whitepaper (ES)"
+          : "Whitepaper mailing list subscription (EN)",
         source,
-        govern: isReadingGate
-          ? `Mailing list signup & web reading unlock after page 3 (${source})`
-          : `Mailing list signup & whitepaper download (${pdfToDownload})`,
+        govern: `Mailing list signup only. The PDF download stays separate (${source}).`,
       });
     } catch (err) {
       if (err instanceof RateLimitError || err instanceof FormNotConfiguredError) {
@@ -225,7 +198,6 @@ export default function WhitepaperDownloadGate({
         source,
         intent: "mailing_list",
       });
-      if (pdfToDownload) triggerBrowserDownload(pdfToDownload);
     }
   }
 
@@ -244,16 +216,19 @@ export default function WhitepaperDownloadGate({
           <a
             className={showReadOnlineButton ? "btn btn-ghost" : "btn btn-solid"}
             href={primaryPdf}
-            download={unlocked ? PDF_DOWNLOAD_FILENAMES[primaryPdf] : undefined}
-            onClick={(e) => handleLockedClick(e, primaryPdf)}
+            download={PDF_DOWNLOAD_FILENAMES[primaryPdf]}
           >
             {isEs ? copy.downloadEs : copy.downloadEn}
           </a>
+          {!isEs ? (
+            <a className="btn btn-ghost" href={WHITEPAPER_PUBLICATION.en.archivePath}>
+              {copy.archiveEn}
+            </a>
+          ) : null}
           <a
             className="btn btn-ghost"
             href={EXECUTIVE_BRIEF_PDF}
-            download={unlocked ? PDF_DOWNLOAD_FILENAMES[EXECUTIVE_BRIEF_PDF] : undefined}
-            onClick={(e) => handleLockedClick(e, EXECUTIVE_BRIEF_PDF)}
+            download={PDF_DOWNLOAD_FILENAMES[EXECUTIVE_BRIEF_PDF]}
           >
             {copy.downloadBrief}
           </a>

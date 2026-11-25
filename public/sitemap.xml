@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tshapedconsultant.com/</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/whitepaper/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/hybrid-profiles/</loc>
@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/ai-runtime-risk-check/</loc>
@@ -46,7 +46,7 @@
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/whitepaper/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/hybrid-profiles/</loc>
@@ -66,23 +66,27 @@
   </url>
   <url>
     <loc>https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/Gobernanza-Determinista-IA.pdf</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-10-21</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/llms.txt</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-11-25</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/llms-full.txt</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://tshapedconsultant.com/archive/Probabilistic-Models-Require-Deterministic-Governance-2026-11-16.pdf</loc>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/insights/de-una-multiplicacion-de-primaria-a-la-caja-negra-como-gobernamos-una-ia-que-no/</loc>

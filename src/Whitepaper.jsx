@@ -1,20 +1,8 @@
-import WhitepaperDownloadGate, {
-  useWhitepaperUnlocked,
-} from "./components/WhitepaperDownloadGate.jsx";
+import WhitepaperDownloadGate from "./components/WhitepaperDownloadGate.jsx";
+import { WHITEPAPER_PUBLICATION } from "./data/whitepaperPublication.js";
 
 export default function Whitepaper() {
-  const [unlocked] = useWhitepaperUnlocked();
-
-  function handleTocClick(event, sectionNumber) {
-    if (unlocked || sectionNumber <= 1) return;
-    event.preventDefault();
-    const gateEl = document.getElementById("whitepaper-reading-gate");
-    if (gateEl) {
-      gateEl.scrollIntoView({ behavior: "smooth", block: "center" });
-      const emailInput = gateEl.querySelector('input[type="email"]');
-      emailInput?.focus();
-    }
-  }
+  const paper = WHITEPAPER_PUBLICATION;
 
   return (
     <article className="paper">
@@ -35,20 +23,13 @@ export default function Whitepaper() {
       </p>
       <WhitepaperDownloadGate source="whitepaper_en" />
       <p className="paper-brief-lead">
-        Two-page board brief: Deterministic Cage bounds, DGOM™ lifecycle, and mapping to EU AI Act,
-        NIST AI RMF and ISO 42001 — with links to the public reference implementations.
+        The current PDF is Unified Edition v{paper.version}, {paper.en.pageCount} pages, published{" "}
+        {paper.publishedAt}. The illustrative policy in that file is {paper.policyFile}, checked
+        with OPA 1.22.4. The essay below is the earlier long edition and stays open. The Dédalo™
+        Executive Brief is a separate {paper.brief.pageCount}-page summary, not this edition.
       </p>
 
-      <nav
-        className="paper-toc"
-        aria-label="Whitepaper contents"
-        onClick={(e) => {
-          const anchor = e.target.closest("a[href^='#s']");
-          if (!anchor) return;
-          const num = parseInt(anchor.getAttribute("href").slice(2), 10);
-          if (!Number.isNaN(num)) handleTocClick(e, num);
-        }}
-      >
+      <nav className="paper-toc" aria-label="Whitepaper contents">
         <h2>Contents</h2>
         <ol>
           <li><a href="#s00">00 Executive summary</a></li>
@@ -147,30 +128,7 @@ export default function Whitepaper() {
         </p>
       </section>
 
-      {!unlocked ? (
-        <div className="paper-reading-gate-wrap">
-          <div className="paper-reading-preview-fade" aria-hidden="true">
-            <section>
-              <h2>
-                <span>02</span> The risk equation of agentic AI
-              </h2>
-              <p>
-                We often discuss AI risk as if it were an unavoidable property of the model. That
-                framing is incomplete. Large language models are probabilistic by design. They can
-                hallucinate, misunderstand instructions, select the wrong tool, or produce different
-                outputs from the same input…
-              </p>
-              <p className="callout">Risk ≈ Likelihood × Impact</p>
-            </section>
-          </div>
-          <WhitepaperDownloadGate source="whitepaper_en_reading_gate" mode="reading" />
-        </div>
-      ) : null}
-
-      <div
-        className={unlocked ? "paper-gated-body is-unlocked" : "paper-gated-body is-locked"}
-        aria-hidden={!unlocked ? "true" : undefined}
-      >
+      <div className="paper-gated-body is-unlocked">
       <section id="s02">
         <h2><span>02</span> The risk equation of agentic AI</h2>
         <p>

@@ -8,6 +8,7 @@ import {
   RESUME_MATCHING_PDF,
   WHITEPAPER_PDF,
   WHITEPAPER_PDF_ES,
+  WHITEPAPER_PUBLICATION,
 } from "./content.js";
 import { pulseInsights } from "./data/pulseLibrary.ts";
 
@@ -687,7 +688,7 @@ export const SOCIAL_PROOF = [
   },
   {
     id: "whitepaper",
-    text: "Whitepaper: Los modelos probabilísticos requieren gobernanza determinista",
+    text: `Whitepaper: edición del ${WHITEPAPER_PUBLICATION.es.previousPublishedAt} (${WHITEPAPER_PUBLICATION.es.previousPageCount} páginas). La edición unificada en castellano no está publicada.`,
     href: WHITEPAPER_PDF_ES,
     download: true,
   },

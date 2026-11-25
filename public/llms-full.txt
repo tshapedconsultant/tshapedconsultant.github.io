@@ -17,8 +17,12 @@ Practice: AI Governance Engineering — controls, accountability and evidence ac
 - Contact: https://tshapedconsultant.com/#diagnostic
 
 ### Whitepaper — https://tshapedconsultant.com/whitepaper
-Probabilistic Models Require Deterministic Governance. Constitutional architecture: policy, execution and independent oversight. The Deterministic Cage. PDF: https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf
-Dédalo™ Executive Brief (two-page board summary of the Deterministic Cage, DGOM™ and regulatory mapping): https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf
+Current English PDF: Unified Edition v5.4, 23 pages, 25 November 2026. https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf
+The illustrative policy printed there is policies/dualkey_illustrative.rego, checked with OPA 1.22.4. The verifier, authorization coordinator and PEP are described, not demonstrated end to end. HR Copilot is a documented demonstration. Sector reference architectures are not production deployments. Commercial results are not measured.
+Previous English PDF (16 November 2026): https://tshapedconsultant.com/archive/Probabilistic-Models-Require-Deterministic-Governance-2026-11-16.pdf
+Spanish PDF: 30-page edition of 16 November 2026. The unified Spanish edition is not published. https://tshapedconsultant.com/Gobernanza-Determinista-IA.pdf
+The on-site essay is the earlier long edition and can be read without an email.
+Dédalo™ Executive Brief, a separate two-page summary, not the unified edition: https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf
 
 ### Hybrid profiles — https://tshapedconsultant.com/hybrid-profiles
 Why Hybrid Profiles May Have an Advantage in the Age of AI Agents (7 September 2026). Fundamentals, specialist depth, cross-domain judgment and AI-agent leverage.
