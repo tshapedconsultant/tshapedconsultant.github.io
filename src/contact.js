@@ -115,6 +115,7 @@ export function buildEnquiryPayload({
   mailingList,
   source,
   assessmentSummary,
+  attemptId,
 }) {
   const workEmail = sanitizeLine(email, 254);
   const payload = {};
@@ -204,6 +205,13 @@ export function buildEnquiryPayload({
   const sourceLine = sanitizeLine(source, 80);
   if (sourceLine) {
     payload.Source = sourceLine;
+  }
+
+  // Formspree and FormSubmit do not deduplicate. The same mounted form reuses
+  // this id, so a receiver that supports idempotency can collapse a retry.
+  const attemptLine = sanitizeLine(attemptId, 80);
+  if (attemptLine) {
+    payload["Attempt id"] = attemptLine;
   }
 
   payload.email = workEmail;

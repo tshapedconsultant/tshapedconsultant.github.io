@@ -28,8 +28,12 @@ If you migrate to Netlify later, restore HTTP headers there (`X-Frame-Options`, 
 
 ```bash
 npm ci
+node scripts/install-opa.mjs
+npm test
 npm run dev
 ```
+
+`node scripts/install-opa.mjs` installs OPA 1.22.4 and checks the pinned sha256. `npm test` fails if that binary is missing or is another version. The Rego matrix and the Node suite are separate counts.
 
 Dev server: http://localhost:5174
 

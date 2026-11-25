@@ -2,18 +2,21 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { SERVICE_LADDER as LADDER_EN } from "../src/content.js";
 import { SERVICE_LADDER as LADDER_ES } from "../src/content.es.js";
 import { DUAL_KEY_REGO, dualKeyCopy } from "../src/data/dualKeyCopy.ts";
+
+const OPA_VERSION = "1.22.4";
+const INSTALL = "node scripts/install-opa.mjs";
 
 const policyFile = readFileSync(new URL("../policies/dualkey_illustrative.rego", import.meta.url), "utf8")
   .replace(/\r\n/g, "\n")
   .trim();
 
 function opaBin() {
-  const local = new URL("../tools/opa.exe", import.meta.url);
-  if (existsSync(local)) return local.pathname.replace(/^\/([A-Za-z]:)/, "$1");
-  return "opa";
+  const name = process.platform === "win32" ? "opa.exe" : "opa";
+  return fileURLToPath(new URL(`../tools/${name}`, import.meta.url));
 }
 
 test("displayed Rego is the policy file OPA executes", () => {
@@ -48,16 +51,23 @@ test("both catalogues publish a Snapshot price and a Blueprint amount", () => {
   assert.equal(es.evidenceItems[0].linkLabel, "Explorar la demostración documentada de HR Copilot");
 });
 
-test("OPA executes the allow and deny matrix with a frozen clock", () => {
+test("OPA 1.22.4 executes the strict check and the frozen-clock matrix", () => {
   const bin = opaBin();
+  assert.equal(existsSync(bin), true, `OPA ${OPA_VERSION} is required. Run: ${INSTALL}`);
   const version = spawnSync(bin, ["version"], { encoding: "utf8" });
-  assert.equal(version.status, 0, version.stderr || version.error?.message);
-  assert.match(version.stdout, /Version: \d+\.\d+\.\d+/);
+  assert.equal(version.status, 0, version.stderr || version.error?.message || `OPA ${OPA_VERSION} is required. Run: ${INSTALL}`);
+  assert.match(
+    version.stdout,
+    /Version: 1\.22\.4/,
+    `OPA ${OPA_VERSION} is required. Run: ${INSTALL}\n${version.stdout}`,
+  );
+  const check = spawnSync(bin, ["check", "--strict", "policies"], { encoding: "utf8" });
+  assert.equal(check.status, 0, `${check.stdout}\n${check.stderr}`);
   const result = spawnSync(
     bin,
-    ["test", "policies/dualkey_illustrative.rego", "policies/dualkey_illustrative_test.rego"],
+    ["test", "policies/dualkey_illustrative.rego", "policies/dualkey_illustrative_test.rego", "-v"],
     { encoding: "utf8" },
   );
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
-  assert.match(result.stdout, /PASS/);
+  assert.match(result.stdout, /PASS: \d+\/\d+/);
 });

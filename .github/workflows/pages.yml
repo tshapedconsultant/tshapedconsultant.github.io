@@ -15,7 +15,60 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install pinned OPA
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/install-opa.mjs | tee opa-install.txt
+          ./tools/opa version | tee opa-version.txt
+      - name: Strict Rego check
+        shell: bash
+        run: |
+          set -o pipefail
+          ./tools/opa check --strict policies | tee opa-check.txt
+      - name: Rego matrix
+        shell: bash
+        run: |
+          set -o pipefail
+          ./tools/opa test policies/dualkey_illustrative.rego policies/dualkey_illustrative_test.rego -v | tee opa-test.txt
+      - name: Node suite
+        shell: bash
+        run: |
+          set -o pipefail
+          npm test | tee node-test.txt
+      - name: Record separate counts
+        if: always()
+        run: |
+          cat > validation-note.txt <<'EOF'
+          OPA supported version: 1.22.4
+          Install command: node scripts/install-opa.mjs
+          Rego matrix: opa test policies/dualkey_illustrative.rego policies/dualkey_illustrative_test.rego
+          Node suite: npm test
+          The Rego case count and the Node test count are different measurements.
+          EOF
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-results
+          path: |
+            opa-install.txt
+            opa-version.txt
+            opa-check.txt
+            opa-test.txt
+            node-test.txt
+            validation-note.txt
+
   build:
+    needs: validate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +86,7 @@ jobs:
           path: dist
 
   deploy:
-    needs: build
+    needs: [validate, build]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

@@ -4,4 +4,5 @@ dist
 .DS_Store
 *.local
 tools/*.exe
+tools/opa
 tests/.diagnostic-form-bundle.mjs

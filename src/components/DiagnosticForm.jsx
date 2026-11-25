@@ -74,6 +74,8 @@ export default function DiagnosticForm({ intent, onIntentChange, enquirySource =
   const { DIAGNOSTIC_FORM } = content;
   const summaryRef = useRef(null);
   const formStarted = useRef(false);
+  const sendingRef = useRef(false);
+  const attemptIdRef = useRef(globalThis.crypto?.randomUUID?.() || "");
   const [values, setValues] = useState({
     name: "",
     company: "",
@@ -118,6 +120,10 @@ export default function DiagnosticForm({ intent, onIntentChange, enquirySource =
 
   async function onSubmit(event) {
     event.preventDefault();
+    // The button's disabled state arrives on the next render. This ref blocks a
+    // second submit in the same turn. Leaving the page drops it, so a new mount
+    // is a new attempt and gets a new attempt id.
+    if (sendingRef.current) return;
     setSubmitError("");
     setMailtoFallback("");
     const nextErrors = validate(values);
@@ -134,6 +140,7 @@ export default function DiagnosticForm({ intent, onIntentChange, enquirySource =
     const intentLabel =
       DIAGNOSTIC_FORM.intents.find((option) => option.value === intent)?.label || "";
 
+    sendingRef.current = true;
     setStatus("sending");
     try {
       await submitEnquiry({
@@ -148,6 +155,7 @@ export default function DiagnosticForm({ intent, onIntentChange, enquirySource =
         callerKey: "organisation",
         consent: values.consent,
         source: enquirySource || "commercial-diagnostic-form",
+        attemptId: attemptIdRef.current,
       });
       // One successful delivery emits both events for compatibility.
       // diagnostic_form_submit_success is the primary conversion.
@@ -193,6 +201,8 @@ export default function DiagnosticForm({ intent, onIntentChange, enquirySource =
         })
       );
       requestAnimationFrame(() => summaryRef.current?.focus());
+    } finally {
+      sendingRef.current = false;
     }
   }
 

@@ -49,16 +49,20 @@ base_input(approvals, execution_deadline) := {
 	"approvals": approvals,
 }
 
-allows(approvals, execution_deadline) if {
+eval(approvals, execution_deadline, role_registry) if {
 	illustrative.dual_key_ok with input as base_input(approvals, execution_deadline)
 		with data.clock_skew_ns as skew_ns
 		with data.max_ttl_ns as day_ns
-		with data.role_registry as registry
+		with data.role_registry as role_registry
 		with time.now_ns as now
 }
 
+allows(approvals, execution_deadline) if {
+	eval(approvals, execution_deadline, registry)
+}
+
 denies(approvals, execution_deadline) if {
-	not allows(approvals, execution_deadline)
+	not eval(approvals, execution_deadline, registry)
 }
 
 test_technical_then_business_allows if {
@@ -70,18 +74,21 @@ test_business_then_technical_allows if {
 }
 
 test_same_identity_denies if {
-	same := approval("tech-1", "business_owner", issued, expires)
-	denies([technical, same], deadline)
+	# Both roles are authorized for this one identity. Nonces differ.
+	# The role set is still exactly the required pair, so the deny is the repeated identity.
+	both_roles := {"tech-1": {"technical_owner", "business_owner"}}
+	first := object.union(approval("tech-1", "technical_owner", issued, expires), {"nonce": "n-tech-a"})
+	second := object.union(approval("tech-1", "business_owner", issued, expires), {"nonce": "n-tech-b"})
+	not eval([first, second], deadline, both_roles)
 }
 
 test_unauthorized_role_denies if {
-	auditor := approval("tech-1", "auditor", issued, expires)
-	denies([auditor, business], deadline)
-}
-
-test_role_not_in_registry_denies if {
-	swapped := approval("tech-1", "business_owner", issued, expires)
-	denies([swapped, business], deadline)
+	# Roles and identities are the valid pair. Only the technical identity lacks technical_owner.
+	limited := {
+		"tech-1": {"auditor"},
+		"biz-1": {"business_owner"},
+	}
+	not eval([technical, business], deadline, limited)
 }
 
 test_one_approval_denies if {
