@@ -118,9 +118,9 @@ const NOSCRIPT_ES = `<noscript>
 const NOSCRIPT_WHITEPAPER_EN = `<noscript>
       <main>
         <h1>Probabilistic Models Require Deterministic Governance</h1>
-        <p>Unified Edition v5.4, 23 pages. Dédalo™ is the governance architecture, DGOM™ is the operating model, and Dual-Key is the execution-authority pattern.</p>
+        <p>Unified Edition v5.5, 23 pages. Dédalo™ is the governance architecture, DGOM™ is the operating model, and Dual-Key is the execution-authority pattern.</p>
         <p>The illustrative policy is policies/dualkey_illustrative.rego, checked with OPA 1.22.4. The verifier, authorization coordinator and PEP are described, not demonstrated end to end. HR Copilot is a documented demonstration. Sector reference architectures are not production deployments.</p>
-        <p><a href="${UNIFIED_PDF}">Download Unified Edition v5.4 (PDF, 23 pages)</a></p>
+        <p><a href="${UNIFIED_PDF}">Download Unified Edition v5.5 (PDF, 23 pages)</a></p>
         <p><a href="/archive/Probabilistic-Models-Require-Deterministic-Governance-2026-11-16.pdf">Previous English PDF, 16 November 2026</a></p>
         <p><a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief, two pages, separate from the unified edition</a></p>
         <p>The essay on this page is the earlier long edition and can be read without an email. The Spanish unified edition is not published.</p>
@@ -132,7 +132,7 @@ const NOSCRIPT_WHITEPAPER_ES = `<noscript>
         <h1>Los modelos probabilísticos requieren gobernanza determinista</h1>
         <p>La edición unificada en castellano no está publicada. El PDF en castellano es la edición del 16 de noviembre de 2026, 30 páginas. El ensayo de esta página es esa edición y se lee sin registro.</p>
         <p><a href="/Gobernanza-Determinista-IA.pdf">Descargar la edición en castellano del 16 de noviembre de 2026 (PDF, 30 páginas)</a></p>
-        <p><a href="${UNIFIED_PDF}">Unified Edition v5.4 en inglés (PDF, 23 páginas)</a></p>
+        <p><a href="${UNIFIED_PDF}">Unified Edition v5.5 en inglés (PDF, 23 páginas)</a></p>
         <p><a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief, dos páginas, en inglés, distinto de la edición unificada</a></p>
       </main>
     </noscript>`;
