@@ -885,7 +885,7 @@ export const SERVICE_LADDER = {
       name: "AI Governance Snapshot",
       price: "Desde €2.495",
       description:
-        "Revisión acotada de un sistema, arquitectura, controles, riesgos y acciones prioritarias.",
+        "Revisión acotada de un sistema, arquitectura, controles, riesgos y acciones prioritarias. La revisión pregunta qué flujo o decisión cambia, quién tiene la autoridad y quién la recibe, adónde se desplaza la revisión, quién mantiene las políticas y las herramientas, qué ocurre si esa persona no está y qué evidencia existe ya. Un rediseño organizativo completo es un encargo posterior.",
       problem:
         "Un sistema de IA está en piloto o producción y necesitas saber exactamente dónde están los gaps técnicos y qué priorizar.",
       outcome:
@@ -894,6 +894,7 @@ export const SERVICE_LADDER = {
         "Alcance: una organización y un sistema o caso de uso de IA (entrega en 1 semana)",
         "Revisión de arquitectura, herramientas, flujos de datos y registros actuales",
         "Memo ejecutivo, matriz breve de riesgos y sesión de devolución",
+        "La metodología cubre el cambio de flujo, la autoridad de decisión, la capacidad de revisión, la propiedad de las políticas, la ausencia del responsable y la evidencia existente. No es un rediseño organizativo completo.",
       ],
       audience:
         "Apoyo técnico de ingeniería de gobernanza. No es asesoramiento jurídico ni certificación.",
@@ -1065,9 +1066,11 @@ export const DIAGNOSTIC = {
         "Mapa de gaps de acceso, autoridad, fail-safe y evidencia.",
         "Memo ejecutivo y de 3 a 5 controles prioritarios recomendados.",
         "Sesión de devolución técnica y ejecutiva.",
+        "La revisión cubre el cambio de flujo o de decisión, quién tiene la autoridad, adónde se desplaza la revisión, quién mantiene políticas y herramientas, qué ocurre si esa persona no está y qué evidencia existe.",
       ],
       limits: [
         "Acotado a una organización y un sistema o caso de uso.",
+        "Un rediseño organizativo completo es un encargo posterior.",
         "No incluye implementación en código.",
         "No es asesoramiento jurídico ni certificación.",
       ],
@@ -1198,19 +1201,19 @@ export const PROJECTS = [
     videoCaption:
       "Recorrido en castellano (Acto I sin gobernanza vs Acto II con TGI v1): bloqueo determinista capa por capa.",
     outcome:
-      "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado, con cada intento neutralizado y registrado como evidencia verificable.",
+      "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado. Los datos son sintéticos y el resultado se limita a ese conjunto documentado. No demuestra Dual-Key de extremo a extremo.",
   },
   {
     num: "02",
     name: "Enterprise AI Risk Console",
-    category: "Gobernanza / ISO/IEC 42001",
+    category: "Demo / PoC · trazabilidad que evidencia manipulación",
     href: "https://github.com/tshapedconsultant/enterprise-ai-risk",
     liveHref: "https://enterprise-ai-risk.onrender.com",
     stack: "FastAPI · YAML profiles · Jira gates · hash-chained audit",
     summary:
-      "Riesgo de proveedor, controles como código, compuertas humanas, auditabilidad y evidencia. Triaje determinista a partir de perfiles YAML validados — la evidencia ausente nunca reduce el riesgo residual.",
+      "Demo/PoC de riesgo de proveedor, controles como código, compuertas humanas y evidencia. Triaje determinista a partir de perfiles YAML validados — la evidencia ausente nunca reduce el riesgo residual. La cadena hash local evidencia manipulación; no es almacenamiento WORM ni una firma de cada decisión. HMAC-SHA256 cubre el cuerpo del webhook de Jira. Los anclajes Rekor y S3 son opcionales y están apagados por defecto. Las menciones al EU AI Act, ISO 42001 y NIST son solo de alineación. Esta demo no acredita conformidad con DORA.",
     outcome:
-      "Gobernanza de proveedores ejecutable: motor de reglas, compuertas Jira validadas con HMAC y paquetes de evidencia desplegados por CI.",
+      "Demo de gobernanza de proveedores: motor de reglas, HMAC del cuerpo del webhook de Jira y paquetes de evidencia en CI. Trazabilidad que evidencia manipulación, no almacenamiento inmutable, y no conformidad con DORA.",
   },
   {
     num: "03",
@@ -1248,7 +1251,7 @@ export const PROJECTS = [
     stack: "EBM · Polars · Streamlit · plano de control · pack EIPD RGPD",
     lead: "El modelo propone. Los controles deciden. El riesgo residual permanece visible.",
     summary:
-      "Arquitectura de referencia para puntuación de siniestros — no es una cartera real de seguros ni una presentación a la AEPD. El relato sigue la EIPD: identificar el tratamiento (Kaggle Porto Seguro anonimizado, 595.212 filas), un riesgo para los derechos, un control en vivo (denegación antes del modelo, aprobación humana de un solo uso, redacción) e inspeccionar la cadena hash local. Las puntuaciones residuales son estimaciones pendientes de verificación. Una cadena hash local no es almacenamiento WORM.",
+      "Arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. No es una cartera real de seguros ni una presentación a la AEPD, y no implementa aislamiento de RAG ni una neutralización demostrada de prompt injection. El relato sigue la EIPD: identificar el tratamiento (Kaggle Porto Seguro anonimizado, 595.212 filas), un riesgo para los derechos, un control en vivo (denegación antes del modelo, aprobación humana de un solo uso, redacción) e inspeccionar la cadena hash local. Las puntuaciones residuales son estimaciones pendientes de verificación. Una cadena hash local no es almacenamiento WORM.",
     controlFlowLabel: "Secuencia EIPD",
     controlFlow: [
       "Finalidad del tratamiento",

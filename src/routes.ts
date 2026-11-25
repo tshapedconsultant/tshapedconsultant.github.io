@@ -3,6 +3,8 @@ export const HYBRID_PROFILES_PATH = "/hybrid-profiles";
 export const MONTEQUIEU_PATH = "/agentic-ai-montesquieu";
 export const EU_AI_ACT_MAPPING_PATH = "/governance/eu-ai-act-mapping";
 export const DUAL_KEY_PATH = "/governance/dual-key-protocol";
+export const DEDALO_PATH = "/dedalo";
+export const WORKFLOW_ARTICLE_PATH = "/insights/ai-value-workflow-redesign";
 export const RISK_CHECK_PATH = "/ai-runtime-risk-check";
 export const PRIVACY_PATH = "/privacy";
 export const ES_PREFIX = "/es";
@@ -16,6 +18,7 @@ export const SPA_FALLBACK_DIRS = [
   MONTEQUIEU_PATH,
   EU_AI_ACT_MAPPING_PATH,
   DUAL_KEY_PATH,
+  DEDALO_PATH,
   RISK_CHECK_PATH,
   PRIVACY_PATH,
   ES_PREFIX,
@@ -24,6 +27,9 @@ export const SPA_FALLBACK_DIRS = [
   `${ES_PREFIX}${MONTEQUIEU_PATH}`,
   `${ES_PREFIX}${EU_AI_ACT_MAPPING_PATH}`,
   `${ES_PREFIX}${DUAL_KEY_PATH}`,
+  `${ES_PREFIX}${DEDALO_PATH}`,
+  WORKFLOW_ARTICLE_PATH,
+  `${ES_PREFIX}${WORKFLOW_ARTICLE_PATH}`,
   `${ES_PREFIX}${RISK_CHECK_PATH}`,
   `${ES_PREFIX}${PRIVACY_PATH}`,
 ] as const;
@@ -65,6 +71,11 @@ export function localizeHref(href: string, locale: Locale): string {
 }
 
 export function switchLocalePath(pathname: string, hash: string, target: Locale): string {
+  if (stripLocale(pathname) === WORKFLOW_ARTICLE_PATH) {
+    const next = withLocale(WORKFLOW_ARTICLE_PATH, target);
+    if (!hash || hash === "#") return next;
+    return `${next}${hash.startsWith("#") ? hash : `#${hash}`}`;
+  }
   if (stripLocale(pathname).startsWith("/insights/")) {
     return target === "es" ? "/es/#insights" : "/#insights";
   }
@@ -79,6 +90,10 @@ export function isEuAiActMappingPath(pathname: string): boolean {
 
 export function isDualKeyPath(pathname: string): boolean {
   return stripLocale(pathname) === DUAL_KEY_PATH;
+}
+
+export function isDedaloPath(pathname: string): boolean {
+  return stripLocale(pathname) === DEDALO_PATH;
 }
 
 export function isEuAiActMappingHash(hash: string): boolean {
@@ -113,6 +128,7 @@ const APP_PATHS = new Set<string>([
   MONTEQUIEU_PATH,
   EU_AI_ACT_MAPPING_PATH,
   DUAL_KEY_PATH,
+  DEDALO_PATH,
   RISK_CHECK_PATH,
   PRIVACY_PATH,
 ]);
@@ -135,6 +151,10 @@ export function assertLocaleSwitch(): void {
     ["/governance/eu-ai-act-mapping", "#art-9", "es", "/es/governance/eu-ai-act-mapping#art-9"],
     ["/es/governance/eu-ai-act-mapping/", "", "en", "/governance/eu-ai-act-mapping"],
     ["/governance/dual-key-protocol", "", "es", "/es/governance/dual-key-protocol"],
+    ["/dedalo", "", "es", "/es/dedalo"],
+    ["/es/dedalo/", "", "en", "/dedalo"],
+    [WORKFLOW_ARTICLE_PATH, "", "es", `/es${WORKFLOW_ARTICLE_PATH}`],
+    [`/es${WORKFLOW_ARTICLE_PATH}`, "", "en", WORKFLOW_ARTICLE_PATH],
     ["/es/governance/dual-key-protocol/", "", "en", "/governance/dual-key-protocol"],
     ["/es/ai-runtime-risk-check/", "", "en", "/ai-runtime-risk-check"],
     ["/ai-runtime-risk-check", "", "es", "/es/ai-runtime-risk-check"],

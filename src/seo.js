@@ -1,4 +1,5 @@
 import {
+  DEDALO_PATH,
   DUAL_KEY_PATH,
   EU_AI_ACT_MAPPING_PATH,
   HYBRID_PROFILES_PATH,
@@ -69,6 +70,11 @@ export const PAGE_SEO = {
     title: `${ARTICLE.title} | tshapedconsultant`,
     description: ARTICLE.excerpt,
   },
+  [DEDALO_PATH]: {
+    title: "Dédalo™ | Workflow, decision rights and runtime controls",
+    description:
+      "A short governance frame for AI workflow redesign: decision rights, review capacity and executable controls. Anthropic’s Working with AI study is directional, not a measure of return.",
+  },
   [DUAL_KEY_PATH]: {
     title: "Dual-Key Protocol | Separate AI recommendations from execution authority",
     description:
@@ -114,6 +120,11 @@ export const PAGE_SEO_ES = {
     title: `${ARTICLE_ES.title} | tshapedconsultant`,
     description:
       "IA agéntica y separación de poderes: Runtime Checks & Balances, art. 14 del EU AI Act y DORA. Gobernanza de IA para agentes autónomos con supervisión independiente.",
+  },
+  [DEDALO_PATH]: {
+    title: "Dédalo™ | Flujo de trabajo, autoridad de decisión y controles en ejecución",
+    description:
+      "Marco breve para rediseñar el trabajo con IA: quién decide, quién revisa y qué control se ejecuta. El estudio Working with AI, de Anthropic, es orientativo y no mide el retorno.",
   },
   [DUAL_KEY_PATH]: {
     title: "Protocolo Dual-Key | Separa las recomendaciones de la IA de la autoridad de ejecución",

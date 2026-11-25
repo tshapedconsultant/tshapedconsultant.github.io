@@ -33,6 +33,12 @@ Why autonomous systems need separation of powers (15 July 2026). Runtime Checks 
 ### Dual-Key Protocol — https://tshapedconsultant.com/governance/dual-key-protocol
 Keeps AI recommendations separate from execution authority. An independent policy decides when two human keys are required. The entry offer is the one-week AI Governance Snapshot (from €2,495): a diagnosis, not a design, implementation or certification. Reference architectures are designs to validate per deployment, not verified production deployments. The illustrative Rego snippet is exercised by the repository OPA allow and deny tests. It is not a production authorization policy.
 
+### Dédalo™ — https://tshapedconsultant.com/dedalo
+Short hub, not a second Dual-Key page. Dédalo™ is the architecture, DGOM™ is PLAN → BUILD → DEPLOY → MONITOR, and Dual-Key is the execution-authority pattern for consequential actions. Anthropic’s Working with AI study (Wilmers, Massenkoff and McCrory, 23 November 2026; 66 interviews, 58 US customers, not a random sample) is cited as directional evidence. It is not a causal ROI estimate and not an Anthropic endorsement. Spanish: https://tshapedconsultant.com/es/dedalo
+
+### Beyond task automation — https://tshapedconsultant.com/insights/ai-value-workflow-redesign
+Open essay in English and Spanish (same slug). It keeps the study separate from the governance interpretation. The appendix PDF was not used as a source for a correlation coefficient. Spanish: https://tshapedconsultant.com/es/insights/ai-value-workflow-redesign
+
 ### EU AI Act mapping — https://tshapedconsultant.com/governance/eu-ai-act-mapping
 Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect. References: Porto Seguro Compliance Hub; Enterprise AI Risk.
 

@@ -1,8 +1,12 @@
 import { PULSE_ARTICLES, type PulseArticle } from "./pulseArticles.ts";
+import { WORKFLOW_ARTICLES } from "./workflowArticle.ts";
+
+const ARTICLES: PulseArticle[] = [...WORKFLOW_ARTICLES, ...PULSE_ARTICLES];
 
 /** Most relevant to executable governance first; market notes and explainers last. */
 const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
   es: [
+    "ai-value-workflow-redesign",
     "de-una-multiplicacion-de-primaria-a-la-caja-negra-como-gobernamos-una-ia-que-no",
     "el-juego-ha-cambiado-ya-no-solo-aseguramos-aplicaciones-gobernamos-agentes-auton",
     "el-genio-la-jaula-y-la-gobernanza-de-la-ia-por-que-las-politicas-no-frenan-a-los",
@@ -25,6 +29,7 @@ const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
     "el-tablero-completo-nvidia-no-quiere-controlar-solo-el-hardware-quiere-controlar",
   ],
   en: [
+    "ai-value-workflow-redesign",
     "from-a-primary-school-multiplication-to-the-black-box-how-do-we-govern-an-ai-we",
     "the-game-has-changed-we-no-longer-just-secure-applications-we-govern-autonomous",
     "the-risk-equation-of-agentic-ai",
@@ -45,7 +50,7 @@ const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
 
 export function pulseInsights(lang: PulseArticle["lang"]) {
   const rank = new Map(RELEVANCE[lang].map((slug, index) => [slug, index]));
-  return PULSE_ARTICLES.filter((article) => article.lang === lang)
+  return ARTICLES.filter((article) => article.lang === lang)
     .slice()
     .sort((a, b) => (rank.get(a.slug) ?? 999) - (rank.get(b.slug) ?? 999))
     .map((article) => ({
@@ -60,5 +65,5 @@ export function pulseInsights(lang: PulseArticle["lang"]) {
 export function pulseByPath(pathname: string, lang: PulseArticle["lang"]) {
   const match = pathname.replace(/\/+$/, "").match(/\/insights\/([a-z0-9-]+)$/);
   if (!match) return undefined;
-  return PULSE_ARTICLES.find((article) => article.slug === match[1] && article.lang === lang);
+  return ARTICLES.find((article) => article.slug === match[1] && article.lang === lang);
 }

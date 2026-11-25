@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { pulseByPath } from "../data/pulseLibrary";
+import { trackEvent } from "../lib/analytics";
 import { localeFromPath, withLocale } from "../routes";
 
 function Block({ block }) {
@@ -30,8 +31,16 @@ export default function InsightArticle() {
   const home = `${withLocale("/", locale)}#insights`;
   const published = article.published.slice(0, 10);
 
+  function onArticleClick(event) {
+    const link = event.target.closest?.("a[data-bridge]");
+    const target = link?.getAttribute("data-bridge");
+    if (target === "study" || target === "snapshot" || target === "dedalo" || target === "dual-key" || target === "article") {
+      trackEvent("workflow_bridge_click", { bridge_placement: "article", bridge_target: target });
+    }
+  }
+
   return (
-    <article className="paper article-page">
+    <article className="paper article-page" onClick={onArticleClick}>
       <p className="paper-nav">
         <a href={home}>{locale === "es" ? "← Volver a ensayos" : "← Back to Insights"}</a>
       </p>

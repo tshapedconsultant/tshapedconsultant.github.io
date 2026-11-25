@@ -17,6 +17,8 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 - [Previous English PDF, 16 November 2026](https://tshapedconsultant.com/archive/Probabilistic-Models-Require-Deterministic-Governance-2026-11-16.pdf)
 - [Dédalo™ Executive Brief (PDF, 2 pages)](https://tshapedconsultant.com/Dedalo-Executive-Brief.pdf): a separate board summary, not the unified edition.
 - [Dual-Key Protocol](https://tshapedconsultant.com/governance/dual-key-protocol): Separate AI recommendations from execution authority. Entry offer is the one-week AI Governance Snapshot, not a certification. Reference architectures are not verified production deployments.
+- [Dédalo™](https://tshapedconsultant.com/dedalo): Governance frame for workflow redesign, decision rights and runtime controls. The Anthropic Working with AI study (23 November 2026) is directional interview evidence, not a return estimate and not an endorsement.
+- [Beyond task automation](https://tshapedconsultant.com/insights/ai-value-workflow-redesign): Open essay. It separates the study from a governance reading. The report PDF was not quoted for a correlation coefficient.
 - [BBVA case study (PDF)](https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf)
 - [Responsible AI framework for resume–job matching (PDF)](https://tshapedconsultant.com/responsible-ai-resume-job-matching.pdf)
 - [Hybrid profiles article](https://tshapedconsultant.com/hybrid-profiles)

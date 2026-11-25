@@ -17,6 +17,9 @@ import WhitepaperDownloadGate from "./components/WhitepaperDownloadGate.jsx";
 import { pulseByPath } from "./data/pulseLibrary.ts";
 import { Icon } from "./Icons.jsx";
 import Picture from "./components/Picture.jsx";
+import DedaloHub from "./pages/DedaloHub";
+import { WORKING_WITH_AI } from "./data/workingWithAi";
+import { trackEvent } from "./lib/analytics";
 import { useI18n } from "./i18n/LocaleContext";
 import { applyDocumentHead } from "./i18n/documentHead.js";
 import {
@@ -24,6 +27,7 @@ import {
   HYBRID_ARTICLE,
 } from "./content.js";
 import {
+  DEDALO_PATH,
   DUAL_KEY_PATH,
   EU_AI_ACT_MAPPING_PATH,
   PRIVACY_PATH,
@@ -31,6 +35,7 @@ import {
   WHITEPAPER_PATH,
   hashToPathRoute,
   isAppPath,
+  isDedaloPath,
   isDualKeyPath,
   isEuAiActMappingHash,
   isEuAiActMappingPath,
@@ -61,6 +66,7 @@ function viewFromLocation(pathname, hash) {
   if (isPrivacyPath(pathname)) return "privacy";
   if (isEuAiActMappingPath(pathname) || isEuAiActMappingHash(hash)) return "mapping";
   if (isDualKeyPath(pathname)) return "dualkey";
+  if (isDedaloPath(pathname)) return "dedalo";
   if (isWhitepaperPath(pathname)) return "whitepaper";
   if (isHybridProfilesPath(pathname)) return "hybrid";
   if (isMontesquieuPath(pathname)) return "article";
@@ -83,6 +89,7 @@ function scrollToHash() {
     isPrivacyPath(pathname) ||
     isEuAiActMappingPath(pathname) ||
     isDualKeyPath(pathname) ||
+    isDedaloPath(pathname) ||
     isWhitepaperPath(pathname) ||
     isHybridProfilesPath(pathname) ||
     isMontesquieuPath(pathname) ||
@@ -267,6 +274,7 @@ export default function App() {
     { id: "projects", label: t.mobile.projects },
     { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
     { to: localizedPath(DUAL_KEY_PATH), label: t.mobile.dualKey, view: "dualkey" },
+    { to: localizedPath(DEDALO_PATH), label: t.mobile.dedalo, view: "dedalo" },
     { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
     { to: localizedPath(PRIVACY_PATH), label: t.mobile.privacy, view: "privacy" },
     { id: "about", label: t.mobile.about },
@@ -493,6 +501,18 @@ export default function App() {
         }}
       >
         {t.nav.dualKey}
+      </Link>
+      <Link
+        to={localizedPath(DEDALO_PATH)}
+        className={view === "dedalo" ? "is-active" : undefined}
+        aria-current={view === "dedalo" ? "page" : undefined}
+        onClick={() => {
+          setMenuOpen(false);
+          setMoreOpen(false);
+          trackEvent("workflow_bridge_click", { bridge_placement: "home", bridge_target: "dedalo" });
+        }}
+      >
+        {t.nav.dedalo}
       </Link>
       <Link
         to={localizedPath(RISK_CHECK_PATH)}
@@ -769,6 +789,8 @@ export default function App() {
           <EuAiActMapping />
         ) : view === "dualkey" ? (
           <DualKeyProtocol />
+        ) : view === "dedalo" ? (
+          <DedaloHub />
         ) : view === "whitepaper" ? (
           locale === "es" ? <WhitepaperEs /> : <Whitepaper />
         ) : view === "article" ? (
@@ -890,6 +912,52 @@ export default function App() {
                     </article>
                   ))}
                 </div>
+                <aside className="workflow-bridge">
+                  <p className="workflow-kicker">{locale === "es" ? "Hallazgo del estudio" : "Research finding"}</p>
+                  <h3>
+                    {locale === "es"
+                      ? "La IA crea valor dentro de un proceso, no al margen de él."
+                      : "AI value depends on the workflow around the model."}
+                  </h3>
+                  <p>
+                    {locale === "es"
+                      ? "El estudio Working with AI, de Anthropic, encontró que los usos de mayor valor solían ir acompañados de una reorganización de roles y procesos. Son hallazgos de entrevistas, orientativos, no una estimación causal del retorno."
+                      : "Anthropic’s Working with AI study found that higher-value applications often involved reorganizing roles and workflows. Its interview-based findings are directional, not a causal estimate of ROI."}
+                  </p>
+                  <p>
+                    {locale === "es"
+                      ? "Cuando cambia el trabajo, tienen que cambiar con él quién decide, quién revisa y cómo se escala un caso."
+                      : "When work changes, decision rights, review capacity and escalation paths need to change with it."}
+                  </p>
+                  <p>
+                    {locale === "es"
+                      ? "Ayudo a hacer explícitos esos límites y a traducirlos en controles ejecutables."
+                      : "I help make those boundaries explicit—and translate them into executable controls."}
+                  </p>
+                  <p className="workflow-actions">
+                    <Link
+                      to={localizedPath(DEDALO_PATH)}
+                      onClick={() =>
+                        trackEvent("workflow_bridge_click", { bridge_placement: "home", bridge_target: "dedalo" })
+                      }
+                    >
+                      {locale === "es" ? "Ver el enfoque de gobernanza" : "Explore the governance approach"}
+                    </Link>
+                    <a
+                      href={WORKING_WITH_AI.url}
+                      onClick={() =>
+                        trackEvent("workflow_bridge_click", { bridge_placement: "home", bridge_target: "study" })
+                      }
+                    >
+                      {locale === "es" ? "Leer el estudio original" : "Read the original research"}
+                    </a>
+                  </p>
+                  <p className="workflow-source">
+                    {locale === "es"
+                      ? "Fuente: Anthropic, Working with AI, 23 de noviembre de 2026."
+                      : "Source: Anthropic, Working with AI, 23 November 2026."}
+                  </p>
+                </aside>
                 <div className="layer-block">
                   <h3 id="framework-layers">{t.layers.title}</h3>
                   <div className="layer-grid">
@@ -899,6 +967,18 @@ export default function App() {
                         <h4>
                           {card.link ? (
                             <Link to={localizedPath(DUAL_KEY_PATH)}>{card.name}</Link>
+                          ) : card.hub ? (
+                            <Link
+                              to={localizedPath(DEDALO_PATH)}
+                              onClick={() =>
+                                trackEvent("workflow_bridge_click", {
+                                  bridge_placement: "home",
+                                  bridge_target: "dedalo",
+                                })
+                              }
+                            >
+                              {card.name}
+                            </Link>
                           ) : (
                             card.name
                           )}
@@ -2215,6 +2295,7 @@ export default function App() {
           <a href={`${home}#hr-copilot-case`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
           <Link to={localizedPath(DUAL_KEY_PATH)}>{t.nav.dualKey}</Link>
+          <Link to={localizedPath(DEDALO_PATH)}>{t.nav.dedalo}</Link>
           <Link to={localizedPath(WHITEPAPER_PATH)}>{t.nav.whitepaper}</Link>
           <Link to={localizedPath(PRIVACY_PATH)}>{t.nav.privacy}</Link>
         </p>

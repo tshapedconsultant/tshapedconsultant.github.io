@@ -6028,6 +6028,95 @@ details.mobile-disclose > summary:focus-visible {
   margin-top: 1.75rem;
 }
 
+.workflow-bridge {
+  margin-top: 1.25rem;
+  max-width: 68ch;
+}
+
+.workflow-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cyan-200);
+}
+
+.region-light .workflow-kicker,
+.region-light .workflow-source {
+  color: var(--blue-700);
+}
+
+.workflow-bridge h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.2rem;
+}
+
+.workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+
+.workflow-source {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+}
+
+.dedalo-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  list-style: none;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+}
+
+.dedalo-flow li {
+  margin: 0;
+  padding: 0.65rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.dedalo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dedalo-table th,
+.dedalo-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+@media (max-width: 700px) {
+  .dedalo-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .dedalo-table thead {
+    display: none;
+  }
+
+  .dedalo-table tr {
+    display: block;
+    margin-bottom: 0.85rem;
+  }
+
+  .dedalo-table td {
+    display: block;
+  }
+
+  .dedalo-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    color: var(--cyan-200);
+  }
+}
+
 .layer-block > h3 {
   margin: 0 0 0.9rem;
 }

@@ -880,7 +880,7 @@ export const SERVICE_LADDER = {
       name: "AI Governance Snapshot",
       price: "From €2,495",
       description:
-        "Bounded review of one system, architecture, controls, risks and priority actions.",
+        "Bounded review of one system, architecture, controls, risks and priority actions. The review asks which workflow or decision changes, who holds authority and who receives it, where review moves, who maintains the policies and tools, what happens if that person is unavailable, and what evidence already exists. A full organisational redesign is a later engagement.",
       problem:
         "An AI system is in pilot or production and you need to know exactly where the technical gaps sit and what to prioritise.",
       outcome:
@@ -889,6 +889,7 @@ export const SERVICE_LADDER = {
         "Scope: one organisation and one AI system or use case (1-week delivery)",
         "Review of architecture, connected tools, data flows and current logging",
         "Executive memo, short risk matrix and technical readout session",
+        "Methodology covers workflow change, decision rights, review capacity, policy ownership, absence of the owner, and existing evidence. Not a full organisational redesign.",
       ],
       audience:
         "Technical governance engineering support. Not legal advice or certification.",
@@ -1054,9 +1055,11 @@ export const DIAGNOSTIC = {
         "Gap map across access, authority, fail-safe and evidence.",
         "Executive memo and 3 to 5 prioritised control actions.",
         "Technical and executive readout session.",
+        "The review covers workflow or decision change, who holds authority, where review moves, who maintains policies and tools, what happens if that person is unavailable, and what evidence exists.",
       ],
       limits: [
         "Bounded to one organisation and one system or use case.",
+        "A full organisational redesign is a later engagement.",
         "Does not include code implementation.",
         "Not legal advice or certification.",
       ],
@@ -1187,18 +1190,19 @@ export const PROJECTS = [
     videoCaption:
       "Two-act walkthrough (Spanish audio, subtitles included): Act I without governance versus Act II with TGI v1.",
     outcome:
-      "The demonstration produced no sensitive findings across the test suite used, with every blocked attempt logged as verifiable evidence.",
+      "The demonstration produced no sensitive findings across the test suite used. The data is synthetic and the result is limited to that documented suite. It does not by itself demonstrate Dual-Key end to end.",
   },
   {
     num: "02",
     name: "Enterprise AI Risk Console",
-    category: "Governance / ISO/IEC 42001",
+    category: "Demo / PoC · tamper-evident traceability",
     href: "https://github.com/tshapedconsultant/enterprise-ai-risk",
     liveHref: "https://enterprise-ai-risk.onrender.com",
     stack: "FastAPI · YAML profiles · Jira gates · hash-chained audit",
     summary:
-      "Vendor risk, controls as code, human gates, auditability and evidence. Deterministic triage from validated YAML profiles — missing evidence never reduces residual risk.",
-    outcome: "Executable vendor governance: rules engine, HMAC-validated Jira gates, CI-deployed evidence packs.",
+      "Demo/PoC for vendor risk, controls as code, human gates and evidence. Deterministic triage from validated YAML profiles — missing evidence never reduces residual risk. The local hash chain is tamper-evident, not WORM storage and not a signature of each decision. HMAC-SHA256 covers the Jira webhook body. Rekor and S3 anchors are optional and off by default. EU AI Act, ISO 42001 and NIST mentions are alignment only. This demo does not establish DORA conformity.",
+    outcome:
+      "Executable vendor-governance demo: rules engine, HMAC of the Jira webhook body, and CI evidence packs. Tamper-evident traceability, not immutable storage, and not DORA conformity.",
   },
   {
     num: "03",
@@ -1233,7 +1237,7 @@ export const PROJECTS = [
     stack: "EBM · Polars · Streamlit · control plane · GDPR EIPD pack",
     lead: "The model proposes. Controls decide. Residual risk stays visible.",
     summary:
-      "Reference architecture for insurance-claim scoring — not a live insurance book and not an AEPD filing. The walkthrough follows the EIPD: identify the processing (anonymized Kaggle Porto Seguro, 595,212 rows), a risk to people’s rights, a live control (deny before the model runs, single-use human approval, redaction), then inspect the local hash chain. Residual scores are estimates pending verification. A local hash chain is not WORM storage.",
+      "Reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. It is not a live insurance book and not an AEPD filing, and it does not implement RAG isolation or demonstrated prompt-injection neutralisation. The walkthrough follows the EIPD: identify the processing (anonymized Kaggle Porto Seguro, 595,212 rows), a risk to people’s rights, a live control (deny before the model runs, single-use human approval, redaction), then inspect the local hash chain. Residual scores are estimates pending verification. A local hash chain is not WORM storage.",
     controlFlowLabel: "EIPD sequence",
     controlFlow: [
       "Processing purpose",

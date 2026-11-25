@@ -34,7 +34,8 @@ export type ConversionEventName =
   | "whitepaper_mailing_list_joined"
   | "dual_key_cta_click"
   | "diagnostic_form_start"
-  | "diagnostic_form_submit_success";
+  | "diagnostic_form_submit_success"
+  | "workflow_bridge_click";
 
 const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "risk_check_started",
@@ -50,6 +51,7 @@ const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "dual_key_cta_click",
   "diagnostic_form_start",
   "diagnostic_form_submit_success",
+  "workflow_bridge_click",
 ]);
 
 const ENUMS: Record<string, ReadonlySet<string>> = {
@@ -87,6 +89,8 @@ const ENUMS: Record<string, ReadonlySet<string>> = {
   question_id: new Set(["q1", "q2", "q3", "q4", "q5", "q6"]),
   exposure_tier: new Set(["informational", "operational", "sensitive", "critical_agentic", "unknown"]),
   primary_finding: new Set(["result_a", "result_b", "result_c", "result_d", "unknown"]),
+  bridge_placement: new Set(["home", "dedalo", "article"]),
+  bridge_target: new Set(["dedalo", "study", "snapshot", "dual-key", "article"]),
 };
 
 const ALLOWED_PROP_KEYS = new Set(Object.keys(ENUMS).concat("question_step"));

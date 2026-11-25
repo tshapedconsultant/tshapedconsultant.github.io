@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
-import { PAGE_SEO, PAGE_SEO_ES } from "./src/seo.js";
+import { PAGE_SEO, PAGE_SEO_ES, pageSeoFor } from "./src/seo.js";
 import { assertLocaleSwitch } from "./src/routes.ts";
 
 assertLocaleSwitch();
@@ -14,6 +14,8 @@ const SPA_FALLBACK_DIRS = [
   "agentic-ai-montesquieu",
   "governance/eu-ai-act-mapping",
   "governance/dual-key-protocol",
+  "dedalo",
+  "insights/ai-value-workflow-redesign",
   "ai-runtime-risk-check",
   "privacy",
   "es",
@@ -22,6 +24,8 @@ const SPA_FALLBACK_DIRS = [
   "es/agentic-ai-montesquieu",
   "es/governance/eu-ai-act-mapping",
   "es/governance/dual-key-protocol",
+  "es/dedalo",
+  "es/insights/ai-value-workflow-redesign",
   "es/ai-runtime-risk-check",
   "es/privacy",
 ];
@@ -93,6 +97,7 @@ const NOSCRIPT_ES = `<noscript>
             <li><a href="/es/#partners">Explorar co-delivery (Despachos y firmas asesoras)</a></li>
             <li><a href="/es/governance/eu-ai-act-mapping/">Mapeo del EU AI Act</a></li>
             <li><a href="/es/governance/dual-key-protocol/">Protocolo Dual-Key</a></li>
+            <li><a href="/es/dedalo/">Dédalo™</a></li>
             <li><a href="/es/whitepaper/">Whitepaper</a></li>
             <li><a href="/es/hybrid-profiles/">Perfiles híbridos</a></li>
             <li><a href="/es/agentic-ai-montesquieu/">IA agéntica y Montesquieu</a></li>
@@ -130,6 +135,42 @@ const NOSCRIPT_WHITEPAPER_ES = `<noscript>
       </main>
     </noscript>`;
 
+const NOSCRIPT_DEDALO_EN = `<noscript>
+      <main>
+        <h1>Dédalo™</h1>
+        <p>Redesign the workflow. Make decision authority explicit. Enforce the boundary at runtime. Anthropic’s Working with AI study is directional, not a measure of return, and it is not an endorsement.</p>
+        <p><a href="https://www.anthropic.com/research/working-with-ai">Read the original research</a></p>
+        <p><a href="/insights/ai-value-workflow-redesign/">Read the essay</a></p>
+        <p><a href="/#diagnostic">Request an AI Governance Snapshot</a> — one week, one organisation, one system, from €2,495. Not a full organisational redesign.</p>
+      </main>
+    </noscript>`;
+
+const NOSCRIPT_DEDALO_ES = `<noscript>
+      <main>
+        <h1>Dédalo™</h1>
+        <p>Rediseña el flujo de trabajo. Haz explícita la autoridad de decisión. Haz cumplir el límite en ejecución. El estudio Working with AI, de Anthropic, es orientativo, no una medida del retorno, y no es un aval.</p>
+        <p><a href="https://www.anthropic.com/research/working-with-ai">Leer el estudio original</a></p>
+        <p><a href="/es/insights/ai-value-workflow-redesign/">Leer el ensayo</a></p>
+        <p><a href="/es/#diagnostic">Solicitar AI Governance Snapshot</a>: una semana, una organización y un sistema, desde €2.495. No es un rediseño organizativo completo.</p>
+      </main>
+    </noscript>`;
+
+const NOSCRIPT_WORKFLOW_EN = `<noscript>
+      <main>
+        <h1>Beyond task automation: governing AI-enabled workflow redesign</h1>
+        <p>Anthropic’s Working with AI study, 23 November 2026, is based on 66 interviews with 58 customers. The findings are directional. This essay separates that research from a governance reading.</p>
+        <p><a href="https://www.anthropic.com/research/working-with-ai">Original research</a> · <a href="/dedalo/">Dédalo™</a> · <a href="/#diagnostic">AI Governance Snapshot</a></p>
+      </main>
+    </noscript>`;
+
+const NOSCRIPT_WORKFLOW_ES = `<noscript>
+      <main>
+        <h1>Más allá de automatizar tareas: gobernar el rediseño del trabajo con IA</h1>
+        <p>El estudio Working with AI, de Anthropic, del 23 de noviembre de 2026, recoge 66 entrevistas en 58 empresas. Los hallazgos son orientativos. Este ensayo separa esa investigación de una lectura de gobernanza.</p>
+        <p><a href="https://www.anthropic.com/research/working-with-ai">Estudio original</a> · <a href="/es/dedalo/">Dédalo™</a> · <a href="/es/#diagnostic">AI Governance Snapshot</a></p>
+      </main>
+    </noscript>`;
+
 function htmlAttr(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -157,7 +198,8 @@ function replaceAttr(html, pattern, replacement) {
 function patchFallbackHtml(html, dir) {
   const { isEs, enUrl, esUrl, canonical, pagePath } = pathsForDir(dir);
   const table = isEs ? PAGE_SEO_ES : PAGE_SEO;
-  const meta = table[pagePath] || table["/"];
+  const requestPath = isEs ? (pagePath === "/" ? "/es" : `/es${pagePath}`) : pagePath;
+  const meta = table[pagePath] || pageSeoFor(requestPath);
   let out = html;
   out = replaceAttr(out, /<html lang="[^"]*">/, `<html lang="${isEs ? "es" : "en-GB"}">`);
   out = replaceAttr(
@@ -203,6 +245,18 @@ function patchFallbackHtml(html, dir) {
   }
   if (dir === "es/whitepaper") {
     out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_WHITEPAPER_ES);
+  }
+  if (dir === "dedalo") {
+    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_DEDALO_EN);
+  }
+  if (dir === "es/dedalo") {
+    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_DEDALO_ES);
+  }
+  if (dir === "insights/ai-value-workflow-redesign") {
+    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_WORKFLOW_EN);
+  }
+  if (dir === "es/insights/ai-value-workflow-redesign") {
+    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_WORKFLOW_ES);
   }
   if (meta) {
     const title = htmlAttr(meta.title);
