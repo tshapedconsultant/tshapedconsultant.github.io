@@ -3,8 +3,13 @@
  *
  * Security & privacy constraints:
  * - Never logs prompts, free-text answers, client names, emails, or confidential data.
- * - Only emits allowlisted event names and non-PII categorical properties
- *   (locale, viewport, question_step, exposure_tier, primary_finding_id, source).
+ * - Categorical properties are closed enums taken from real call sites.
+ * - question_step is an integer from 1 to 6. Other numbers are dropped.
+ *
+ * Conversion:
+ * - diagnostic_form_submit_success is the primary enquiry conversion.
+ * - contact_submitted is kept for existing consumers of the same success.
+ * - Do not add the two events together. They are one lead.
  */
 
 export type ConversionEventName =
@@ -38,17 +43,44 @@ const ALLOWED_EVENTS = new Set<ConversionEventName>([
   "diagnostic_form_submit_success",
 ]);
 
-const ALLOWED_PROP_KEYS = new Set([
-  "locale",
-  "viewport",
-  "source",
-  "question_step",
-  "question_id",
-  "exposure_tier",
-  "primary_finding",
-  "intent",
-  "placement",
-]);
+const ENUMS: Record<string, ReadonlySet<string>> = {
+  locale: new Set(["en", "es"]),
+  viewport: new Set(["mobile", "desktop"]),
+  placement: new Set(["hero", "middle", "footer"]),
+  intent: new Set([
+    "snapshot",
+    "mentoring",
+    "workshop",
+    "hackathon",
+    "briefing",
+    "blueprint",
+    "fractional",
+    "partners",
+    "other",
+    "mailing_list",
+  ]),
+  source: new Set([
+    "dedicated_route",
+    "dedicated_page",
+    "home_embed",
+    "embedded_home",
+    "risk_check_result",
+    "dual-key",
+    "commercial_form",
+    "diagnostic_form",
+    "whitepaper_page",
+    "whitepaper_es",
+    "whitepaper_es_reading_gate",
+    "whitepaper_en",
+    "whitepaper_en_reading_gate",
+    "home_whitepaper_teaser",
+  ]),
+  question_id: new Set(["q1", "q2", "q3", "q4", "q5", "q6"]),
+  exposure_tier: new Set(["informational", "operational", "sensitive", "critical_agentic", "unknown"]),
+  primary_finding: new Set(["result_a", "result_b", "result_c", "result_d", "unknown"]),
+};
+
+const ALLOWED_PROP_KEYS = new Set(Object.keys(ENUMS).concat("question_step"));
 
 export interface AnalyticsEventRecord {
   event: ConversionEventName;
@@ -96,17 +128,16 @@ export function sanitizeAnalyticsProps(
 
   for (const [key, val] of Object.entries(raw)) {
     if (!ALLOWED_PROP_KEYS.has(key)) continue;
-    if (typeof val === "number" && Number.isFinite(val)) {
-      safe[key] = val;
-    } else if (typeof val === "boolean") {
-      safe[key] = val;
-    } else if (typeof val === "string") {
-      // Strip anything resembling an email or free-text sentence with spaces
-      const trimmed = val.trim().slice(0, 48);
-      if (trimmed && !trimmed.includes("@") && !/\s/.test(trimmed)) {
-        safe[key] = trimmed.replace(/[^a-zA-Z0-9_-]/g, "_");
+    if (key === "question_step") {
+      if (typeof val === "number" && Number.isInteger(val) && val >= 1 && val <= 6) {
+        safe[key] = val;
       }
+      continue;
     }
+    if (typeof val !== "string") continue;
+    const trimmed = val.trim();
+    const allowed = ENUMS[key];
+    if (allowed?.has(trimmed)) safe[key] = trimmed;
   }
 
   return safe;

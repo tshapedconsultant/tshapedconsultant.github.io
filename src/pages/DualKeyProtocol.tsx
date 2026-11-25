@@ -67,7 +67,7 @@ export default function DualKeyProtocol() {
           </a>
         </div>
         <p className="dual-key-micro">{copy.microcopy}</p>
-        <p className="dual-key-price">{copy.priceLine}</p>
+        <p className="dual-key-process">{copy.ctaProcess}</p>
       </header>
 
       <section aria-labelledby="dual-key-fit-title">
@@ -89,6 +89,26 @@ export default function DualKeyProtocol() {
             <li key={item}>{item}</li>
           ))}
         </ul>
+        <h3 className="dual-key-sample-title">{copy.sampleTitle}</h3>
+        <p>{copy.sampleNote}</p>
+        <div className="dual-key-sample">
+          {copy.samples.map((row) => (
+            <article key={row.finding}>
+              <h4>
+                <span>{copy.sampleFinding}</span>
+                {row.finding}
+              </h4>
+              <p>
+                <span>{copy.sampleConsequence}</span>
+                {row.consequence}
+              </p>
+              <p>
+                <span>{copy.sampleAction}</span>
+                {row.action}
+              </p>
+            </article>
+          ))}
+        </div>
         <p>{copy.offerNext}</p>
         <p className="dual-key-actions">
           <Link className="btn btn-solid" to={intake} onClick={() => trackCta("middle")}>
@@ -105,6 +125,11 @@ export default function DualKeyProtocol() {
             <article key={item.title} className="dual-key-ref">
               <h3>{item.title}</h3>
               <p>{item.text}</p>
+              {item.linkLabel ? (
+                <p>
+                  <a href={copy.demoHref}>{item.linkLabel}</a>
+                </p>
+              ) : null}
             </article>
           ))}
         </div>
@@ -204,6 +229,7 @@ export default function DualKeyProtocol() {
           <div className="dual-key-details-body">
             <figure className="dual-key-policy">
               <figcaption>{copy.policyLabel}</figcaption>
+              <p>{copy.policyGateway}</p>
               <p>
                 <button type="button" className="btn btn-ghost" onClick={onCopyPolicy}>
                   {copy.copyPolicy}

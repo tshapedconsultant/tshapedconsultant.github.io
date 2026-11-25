@@ -6332,7 +6332,7 @@ details.mobile-disclose > summary:focus-visible {
 }
 
 .dual-key-micro,
-.dual-key-price {
+.dual-key-process {
   margin: 0.35rem 0 0;
 }
 
@@ -6341,8 +6341,48 @@ details.mobile-disclose > summary:focus-visible {
   font-size: 0.92rem;
 }
 
-.dual-key-price {
+.dual-key-process {
+  max-width: 42rem;
+  color: var(--cyan-200);
+}
+
+.dual-key-sample {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0.75rem 0 1.1rem;
+}
+
+.dual-key-sample article {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(185, 230, 255, 0.28);
+  border-radius: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.dual-key-sample h4,
+.dual-key-sample p {
+  margin: 0 0 0.65rem;
+}
+
+.dual-key-sample p:last-child {
+  margin-bottom: 0;
+}
+
+.dual-key-sample span {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--cyan-200);
+  font-size: 0.75rem;
   font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 900px) {
+  .dual-key-sample {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .dual-key-fit {

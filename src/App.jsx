@@ -314,6 +314,9 @@ function DiagnosticForm({ intent, onIntentChange, enquirySource = "" }) {
         consent: values.consent,
         source: enquirySource || "commercial-diagnostic-form",
       });
+      // One successful delivery emits both events for compatibility.
+      // diagnostic_form_submit_success is the primary conversion.
+      // Do not sum it with contact_submitted.
       trackEvent("contact_submitted", {
         source: enquirySource || "commercial_form",
         intent: intent || "snapshot",
@@ -374,7 +377,16 @@ function DiagnosticForm({ intent, onIntentChange, enquirySource = "" }) {
       id="diagnostic-form"
       onSubmit={onSubmit}
       noValidate
-      onFocus={() => {
+      onFocusCapture={(event) => {
+        // One start per mounted attempt. Leaving the page drops the ref, so a
+        // return visit can start again. A failed validation, a network error,
+        // or another field in the same visit does not emit a second start.
+        // Submit buttons and links are not a start.
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const tag = target.tagName;
+        if (tag !== "INPUT" && tag !== "SELECT" && tag !== "TEXTAREA") return;
+        if (target.id === "diag-hp") return;
         if (formStarted.current) return;
         formStarted.current = true;
         trackEvent("diagnostic_form_start", {

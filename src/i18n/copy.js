@@ -477,7 +477,7 @@ export const UI = {
     },
     layers: {
       title: "Un marco, tres capas",
-      line: "Una arquitectura, un modelo operativo, un patrón de ejecución para las decisiones de consecuencia.",
+      line: "Una arquitectura, un modelo operativo, un patrón de ejecución para las decisiones de alto impacto.",
       cards: [
         {
           name: "Dédalo™",
@@ -492,14 +492,14 @@ export const UI = {
         {
           name: "Protocolo Dual-Key",
           label: "El CÓMO, para las decisiones críticas",
-          text: "El patrón de ejecución para decisiones de consecuencia: dos llaves humanas, PDP/PEP independiente y ejecución en fallo cerrado.",
+          text: "El patrón de ejecución para decisiones de alto impacto: dos llaves humanas, PDP/PEP independiente y ejecución en fallo cerrado.",
           link: true,
         },
       ],
     },
     hrDemo: {
       badge: "DEMO EN VIVO · DATOS SINTÉTICOS",
-      link: "Para la autoridad de ejecución de alta consecuencia, ver el Protocolo Dual-Key →",
+      link: "Para la autoridad de ejecución de alto impacto, ver el Protocolo Dual-Key →",
     },
     mappingTeaser: {
       whitepaper: "Whitepaper",

@@ -118,7 +118,7 @@ export const PAGE_SEO_ES = {
   [DUAL_KEY_PATH]: {
     title: "Protocolo Dual-Key | Separa las recomendaciones de la IA de la autoridad de ejecución",
     description:
-      "Localiza dónde un agente puede cambiar sistemas o comprometer acciones sin una compuerta de autorización independiente. El AI Governance Snapshot es una revisión técnica de una semana, no una certificación.",
+      "Localiza dónde un agente puede cambiar sistemas o ejecutar acciones sin un control de autorización independiente. El AI Governance Snapshot es una revisión técnica de una semana, no una certificación.",
   },
   [EU_AI_ACT_MAPPING_PATH]: {
     title: "Mapeo del EU AI Act | gobernanza de IA y cumplimiento | tshapedconsultant",

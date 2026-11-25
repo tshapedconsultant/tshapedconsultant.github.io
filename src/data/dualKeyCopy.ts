@@ -1,3 +1,13 @@
+import { SERVICE_LADDER as LADDER_EN } from "../content.js";
+import { SERVICE_LADDER as LADDER_ES } from "../content.es.js";
+
+function snapshotPrice(items: { id: string; price: string }[]) {
+  return items.find((item) => item.id === "snapshot")?.price || "";
+}
+
+const PRICE_EN = snapshotPrice(LADDER_EN.items);
+const PRICE_ES = snapshotPrice(LADDER_ES.items);
+
 export type DualKeyRow = {
   runtime: string;
   specialization: string;
@@ -33,7 +43,16 @@ export type DualKeyCopy = {
   middleCta: string;
   evidenceTitle: string;
   evidenceLead: string;
-  evidenceItems: { title: string; text: string }[];
+  evidenceItems: { title: string; text: string; linkLabel?: string }[];
+  demoHref: string;
+  sampleTitle: string;
+  sampleNote: string;
+  sampleFinding: string;
+  sampleConsequence: string;
+  sampleAction: string;
+  samples: { finding: string; consequence: string; action: string }[];
+  ctaProcess: string;
+  policyGateway: string;
   archTitle: string;
   archLabel: string;
   archSteps: { title: string; text: string }[];
@@ -73,8 +92,9 @@ const EN: DualKeyCopy = {
     "Identify where your agents can change systems, move money or commit consequential decisions without an independent authorization gate—and define the controls needed before production.",
   primaryCta: "Request an AI Governance Snapshot",
   secondaryCta: "Explore the control architecture",
-  microcopy: "Bounded technical review · Scope agreed before engagement · No compliance certification claims",
-  priceLine: "From €2,495 · delivered in one week",
+  microcopy: `One system · One-week review · ${PRICE_EN}`,
+  priceLine: PRICE_EN,
+  ctaProcess: "Submit your system context. We confirm fit and scope before an engagement is agreed.",
   fitTitle: "Where this fits",
   fitLead:
     "Not every action needs two human approvals. An independent, trusted policy decides when Dual-Key is required. Other actions can stay on a simpler gate.",
@@ -93,15 +113,39 @@ const EN: DualKeyCopy = {
     "Executive memo, a short risk matrix and 3 to 5 prioritised technical actions.",
     "A technical readout session.",
   ],
+  sampleTitle: "Example Snapshot output — illustrative",
+  sampleNote: "An illustration of the shape of the memo. Not a client report and not a measured result.",
+  sampleFinding: "Finding",
+  sampleConsequence: "Consequence",
+  sampleAction: "Recommended action",
+  samples: [
+    {
+      finding: "Agent has write access without an independent authorization gate.",
+      consequence: "An unreviewed action may reach a business system.",
+      action: "Introduce a trusted authorization boundary.",
+    },
+    {
+      finding: "Approval is not bound to the executable payload.",
+      consequence: "The reviewed action and executed action may differ.",
+      action: "Bind approval to the canonical payload hash.",
+    },
+    {
+      finding: "Decision evidence is incomplete.",
+      consequence: "The organization cannot reliably reconstruct the authorization chain.",
+      action: "Record policy version, decision, approval and execution evidence.",
+    },
+  ],
   offerNext:
     "A full control design or runtime implementation is a separate Blueprint & Runtime Assurance engagement, from €6,500 and scoped to requirements.",
   middleCta: "Request an AI Governance Snapshot",
   evidenceTitle: "What is shown, and what is not",
   evidenceLead:
     "A demonstration and a reference design are not the same thing as a production deployment of this protocol.",
+  demoHref: "/#hr-copilot-case",
   evidenceItems: [
     {
       title: "HR Copilot",
+      linkLabel: "Watch the documented HR Copilot demo",
       text: "A documented demonstration on synthetic data. It shows runtime controls on that copilot. It is not evidence of a Dual-Key deployment, and a result from that test suite does not transfer to other systems.",
     },
     {
@@ -136,11 +180,11 @@ const EN: DualKeyCopy = {
     },
     {
       title: "PEP",
-      text: "Recomputes the hash of the actual canonical payload, re-checks the execution deadline and other conditions, and redeems that one-time capability.",
+      text: "Recomputes the hash of the actual canonical payload, re-checks the execution deadline immediately before dispatch, and redeems the one-time capability. That re-check reduces the gap between decision and execution. It does not remove every distributed race, and it does not guarantee that a remote tool finishes before the deadline.",
     },
   ],
   archNote:
-    "Rollback and recovery are separate mechanisms. Approving an action does not make it reversible.",
+    "Rollback and recovery are separate mechanisms. Approving an action does not make it reversible. Reserving nonces does not by itself make an external effect happen exactly once. That also needs idempotency and durable recovery.",
   refTitle: "Reference architectures",
   refBadge: "Reference architecture — implementation and validation are scoped separately.",
   refNote:
@@ -156,7 +200,7 @@ const EN: DualKeyCopy = {
     },
     {
       domain: "Insurance underwriting",
-      text: "An underwriting recommendation is not committed until a technical key and an underwriting key bind the same payload. This does not place motor or other lines into the EU AI Act life-and-health category, and it does not certify compliance.",
+      text: "An underwriting recommendation is not committed until a technical key and an underwriting key bind the same payload. This does not place motor or other lines into the EU AI Act life-and-health category.",
     },
   ],
   techTitle: "Technical detail",
@@ -196,15 +240,17 @@ const EN: DualKeyCopy = {
     "Only an authenticated gateway constructs PDP input. The agent cannot set policy decisions, identity, signature status, time or hashes.",
     "A verifier validates signatures against identity-bound public keys and an authoritative role registry. The policy reads the result; it does not run the cryptography.",
     "The PEP hashes the actual canonical execution payload. It never trusts an agent-supplied hash.",
-    "Approvals carry issued_at and expires_at, a maximum TTL and a clock-skew margin, all in the same time unit. The payload has its own execution deadline, re-checked by the PEP immediately before dispatch.",
+    "Approvals carry issued_at and expires_at, a maximum TTL and a conservative clock-skew margin, all in nanoseconds. Near-expiry approvals are denied. The payload has its own execution deadline, re-checked by the PEP immediately before dispatch.",
     "After a PDP allow, an authorization coordinator atomically reserves both approval nonces and issues a one-time execution capability. The policy does not consume nonces.",
     "Whether Dual-Key is required comes from trusted policy data, not from the agent.",
   ],
   policySummary: "Illustrative PDP policy",
   policyLabel:
     "Illustrative Rego v1. Not compiled or tested with OPA. Do not treat it as a production policy until it passes opa check and an authorization/denial test matrix.",
+  policyGateway:
+    "The authenticated gateway supplies only signature-verified approvals and the hash of the canonical execution payload. The agent cannot construct or override these inputs.",
   policyExternal:
-    "Outside this snippet: the verifier checks signatures and the role registry; the gateway builds the input, including whether Dual-Key is required; the coordinator atomically reserves both nonces after allow. A true boolean in the input is not cryptographic proof, and a nonce flag inside the policy is not replay protection.",
+    "This rule only checks those trusted inputs. It is not a complete executable authorization. Comparing signature_verified does not run cryptography: the verifier set that boolean. The PDP does not consume nonces. After allow, the coordinator reserves both nonces atomically and issues a one-time capability. The PEP then recomputes the hash and redeems it. now + clock_skew_ns is a conservative margin, in nanoseconds: approvals near expiry are denied. It is not a permissive grace period.",
   copyPolicy: "Copy policy",
   copiedPolicy: "Policy copied",
   copyFailed: "Could not copy. Select the policy text instead.",
@@ -239,18 +285,20 @@ const ES: DualKeyCopy = {
   kicker: "Protocolo Dual-Key",
   title: "Separa las recomendaciones de la IA de la autoridad de ejecución.",
   subhead:
-    "Identifica dónde tus agentes pueden cambiar sistemas, mover dinero o comprometer decisiones de consecuencia sin una compuerta de autorización independiente, y define los controles necesarios antes de producción.",
+    "Identifica dónde tus agentes pueden cambiar sistemas, mover dinero o ejecutar decisiones de alto impacto sin un control de autorización independiente, y define los controles necesarios antes de producción.",
   primaryCta: "Solicitar AI Governance Snapshot",
   secondaryCta: "Ver la arquitectura de control",
-  microcopy: "Revisión técnica acotada · Alcance acordado antes del encargo · Sin pretensión de certificación",
-  priceLine: "Desde €2.495 · entrega en una semana",
+  microcopy: `Un sistema · Revisión de una semana · ${PRICE_ES}`,
+  priceLine: PRICE_ES,
+  ctaProcess:
+    "Describe tu sistema. Confirmamos el encaje y el alcance antes de acordar el encargo.",
   fitTitle: "Cuándo encaja",
   fitLead:
     "No toda acción necesita dos aprobaciones humanas. Una política independiente y de confianza decide cuándo se exige Dual-Key. El resto puede quedar en una compuerta más simple.",
   fit: [
     "Agentes con permiso de escritura.",
-    "Acciones físicas, financieras o de negocio de consecuencia.",
-    "Titularidad de la aprobación poco clara, o evidencia débil a nivel de acción.",
+    "Acciones físicas, financieras o de negocio de alto impacto.",
+    "Responsabilidad de aprobación poco clara, o evidencia débil a nivel de acción.",
   ],
   offerTitle: "Qué entrega la revisión de entrada",
   offerName: "AI Governance Snapshot",
@@ -258,9 +306,31 @@ const ES: DualKeyCopy = {
     "Es un diagnóstico de una organización y un sistema o caso de uso de IA. No es el diseño completo, ni la implementación, ni una certificación.",
   offerItems: [
     "Revisión de la arquitectura, las herramientas conectadas, los flujos de datos y los registros actuales.",
-    "Un mapa de brechas de acceso, autoridad y evidencia, incluido dónde un agente puede cambiar un sistema, mover dinero o comprometer una acción.",
+    "Un mapa de brechas de acceso, autoridad y evidencia, incluido dónde un agente puede cambiar un sistema, mover dinero o ejecutar una acción.",
     "Memo ejecutivo, matriz breve de riesgos y de 3 a 5 acciones técnicas priorizadas.",
-    "Sesión de devolución técnica.",
+    "Sesión de presentación de resultados.",
+  ],
+  sampleTitle: "Ejemplo de resultado del Snapshot — ilustrativo",
+  sampleNote: "Ilustra la forma del memo. No es un informe de cliente ni un resultado medido.",
+  sampleFinding: "Hallazgo",
+  sampleConsequence: "Consecuencia",
+  sampleAction: "Acción recomendada",
+  samples: [
+    {
+      finding: "El agente tiene acceso de escritura sin un control de autorización independiente.",
+      consequence: "Una acción no revisada puede llegar a un sistema de negocio.",
+      action: "Introducir un límite de autorización de confianza.",
+    },
+    {
+      finding: "La aprobación no está ligada a la carga ejecutable.",
+      consequence: "La acción revisada y la acción ejecutada pueden no coincidir.",
+      action: "Ligar la aprobación al hash de la carga canónica.",
+    },
+    {
+      finding: "La evidencia de la decisión está incompleta.",
+      consequence: "La organización no puede reconstruir con fiabilidad la cadena de autorización.",
+      action: "Registrar la versión de la política, la decisión, la aprobación y la evidencia de ejecución.",
+    },
   ],
   offerNext:
     "El diseño completo o la implementación en runtime es un encargo aparte de Blueprint & Runtime Assurance, desde €6.500 y con alcance definido.",
@@ -268,9 +338,11 @@ const ES: DualKeyCopy = {
   evidenceTitle: "Qué está demostrado y qué no",
   evidenceLead:
     "Una demostración y un diseño de referencia no son un despliegue de producción de este protocolo.",
+  demoHref: "/es#hr-copilot-case",
   evidenceItems: [
     {
       title: "HR Copilot",
+      linkLabel: "Ver la demostración documentada de HR Copilot",
       text: "Demostración documentada con datos sintéticos. Muestra controles de runtime sobre ese copiloto. No es evidencia de un despliegue Dual-Key, y el resultado de esa batería de pruebas no se transfiere a otros sistemas.",
     },
     {
@@ -305,11 +377,11 @@ const ES: DualKeyCopy = {
     },
     {
       title: "PEP",
-      text: "Recalcula el hash de la carga canónica real, vuelve a comprobar el plazo de ejecución y las demás condiciones, y redime esa capacidad de un solo uso.",
+      text: "Recalcula el hash de la carga canónica real, vuelve a comprobar el plazo de ejecución justo antes del despacho y redime la capacidad de un solo uso. Esa comprobación reduce la distancia entre la decisión y la ejecución. No elimina todas las carreras en sistemas distribuidos, ni garantiza que una herramienta remota termine antes del plazo.",
     },
   ],
   archNote:
-    "La reversión y la recuperación son mecanismos aparte. Aprobar una acción no la hace reversible.",
+    "La reversión y la recuperación son mecanismos aparte. Aprobar una acción no la hace reversible. Reservar nonces no hace, por sí solo, que un efecto externo ocurra exactamente una vez. Eso también exige idempotencia y recuperación durable.",
   refTitle: "Arquitecturas de referencia",
   refBadge: "Arquitectura de referencia — la implementación y la validación se contratan aparte.",
   refNote:
@@ -325,13 +397,13 @@ const ES: DualKeyCopy = {
     },
     {
       domain: "Suscripción de seguros",
-      text: "Una recomendación de suscripción no se confirma hasta que una llave técnica y una llave de suscripción ligan la misma carga. Esto no sitúa el automóvil u otros ramos en la categoría de vida y salud del Reglamento de IA, y no certifica el cumplimiento.",
+      text: "Una recomendación de suscripción no se confirma hasta que una llave técnica y una llave de suscripción ligan la misma carga. Esto no sitúa el automóvil u otros ramos en la categoría de vida y salud del Reglamento de IA.",
     },
   ],
   techTitle: "Detalle técnico",
   techLead: "El mismo material del diseño de control, disponible aquí sin salir de la página.",
   tableSummary: "Cómo especializa Runtime Assurance",
-  tableCaption: "Dual-Key concreta Runtime Assurance para acciones de consecuencia. No lo sustituye.",
+  tableCaption: "Dual-Key concreta Runtime Assurance para acciones de alto impacto. No lo sustituye.",
   colRuntime: "Runtime Assurance",
   colDualKey: "Especialización Dual-Key",
   colWhy: "Por qué",
@@ -366,15 +438,17 @@ const ES: DualKeyCopy = {
     "Solo una pasarela autenticada construye la entrada del PDP. El agente no puede fijar decisiones de política, identidad, estado de la firma, tiempo ni hashes.",
     "Un verificador valida las firmas contra claves públicas ligadas a la identidad y un registro de roles con autoridad. La política lee el resultado; no ejecuta la criptografía.",
     "El PEP calcula el hash de la carga canónica real de ejecución. Nunca confía en un hash aportado por el agente.",
-    "Las aprobaciones llevan issued_at y expires_at, un TTL máximo y un margen de desfase de reloj, todos en la misma unidad de tiempo. La carga tiene su propio plazo de ejecución, que el PEP vuelve a comprobar inmediatamente antes del envío.",
+    "Las aprobaciones llevan issued_at y expires_at, un TTL máximo y un margen conservador de desfase de reloj, todo en nanosegundos. Las aprobaciones próximas a caducar se deniegan. La carga tiene su propio plazo de ejecución, que el PEP vuelve a comprobar justo antes del despacho.",
     "Tras un allow del PDP, un coordinador de autorización reserva de forma atómica ambos nonces y emite una capacidad de ejecución de un solo uso. La política no consume nonces.",
     "Si Dual-Key es obligatorio lo decide la política de confianza, no el agente.",
   ],
   policySummary: "Política PDP ilustrativa",
   policyLabel:
     "Rego v1 ilustrativo. No compilado ni probado con OPA. No lo uses como política de producción hasta superar opa check y una matriz de pruebas de autorización y denegación.",
+  policyGateway:
+    "La pasarela autenticada solo aporta aprobaciones con la firma ya verificada y el hash de la carga canónica de ejecución. El agente no puede construir ni sustituir esas entradas.",
   policyExternal:
-    "Fuera de este fragmento: el verificador comprueba las firmas y el registro de roles; la pasarela construye la entrada, incluido si Dual-Key es obligatorio; el coordinador reserva ambos nonces de forma atómica tras el allow. Un booleano verdadero en la entrada no es prueba criptográfica, y una bandera de nonce dentro de la política no es protección anti-repetición.",
+    "Esta regla solo comprueba esas entradas de confianza. No es una autorización ejecutable completa. Comparar signature_verified no ejecuta criptografía: el verificador fijó ese booleano. El PDP no consume nonces. Tras el allow, el coordinador reserva ambos nonces de forma atómica y emite una capacidad de un solo uso. El PEP recalcula el hash y la redime. now + clock_skew_ns es un margen conservador, en nanosegundos: las aprobaciones próximas a caducar se deniegan. No es un periodo de gracia permisivo.",
   copyPolicy: "Copiar política",
   copiedPolicy: "Política copiada",
   copyFailed: "No se ha podido copiar. Selecciona el texto de la política.",
@@ -382,7 +456,7 @@ const ES: DualKeyCopy = {
   faq: [
     {
       q: "¿Toda acción de IA necesita dos aprobaciones?",
-      a: "No. Una política independiente decide cuándo aplica Dual-Key. Las acciones de menor consecuencia pueden usar una compuerta más simple.",
+      a: "No. Una política independiente decide cuándo aplica Dual-Key. Las acciones de menor impacto pueden usar un control más simple.",
     },
     {
       q: "¿Hay que sustituir los modelos?",
@@ -398,7 +472,7 @@ const ES: DualKeyCopy = {
     },
     {
       q: "¿Qué ocurre después de la revisión inicial?",
-      a: "En una semana recibes el Snapshot: el mapa de brechas, un memo ejecutivo, una matriz breve de riesgos y de 3 a 5 acciones priorizadas, más la sesión de devolución. Un Blueprint o una implementación es un encargo posterior y distinto.",
+      a: "En una semana recibes el Snapshot: el mapa de brechas, un memo ejecutivo, una matriz breve de riesgos y de 3 a 5 acciones priorizadas, más la sesión de presentación de resultados. Un Blueprint o una implementación es un encargo posterior y distinto.",
     },
   ],
   finalLead: "Empieza por el Snapshot de una semana. El diseño y la implementación quedan fuera hasta que los pidas.",
@@ -413,16 +487,27 @@ export const DUAL_KEY_REGO = `package dualkey.illustrative
 
 import rego.v1
 
-# Illustrative only. Not compiled or tested with OPA.
-# clock_skew_ns and max_ttl_ns are nanoseconds.
+# Illustrative PDP check only. Not compiled or tested with OPA.
+# Not a complete authorization: it does not verify signatures,
+# consume nonces, or execute anything.
+# All durations are nanoseconds. now is captured once.
+# now + clock_skew_ns is a conservative margin. Approvals close to
+# expiry are denied. It is not a permissive grace period.
 # data.role_registry[id] is a set of roles that identity may hold.
-# The gateway, not the agent, sets input.policy.require_dual_key.
+# The authenticated gateway sets input.policy.require_dual_key,
+# approval.signature_verified, and the canonical payload hash.
+# Comparing signature_verified does not perform cryptography.
+# The agent cannot construct or override these inputs.
 
 default dual_key_ok := false
 
 dual_key_ok if {
   input.policy.require_dual_key == true
+  data.clock_skew_ns >= 0
+  data.max_ttl_ns > 0
   count(input.approvals) == 2
+
+  now := time.now_ns()
 
   roles := {a.role | some a in input.approvals}
   roles == {"technical_owner", "business_owner"}
@@ -431,6 +516,13 @@ dual_key_ok if {
   count(approver_ids) == 2
 
   every a in input.approvals {
+    a.approver_id != ""
+    a.role != ""
+    a.nonce != ""
+    a.payload_hash != ""
+    a.model_version != ""
+    a.policy_version != ""
+    a.signature_verified == true
     a.role in data.role_registry[a.approver_id]
     a.payload_hash == input.action.payload_hash
     a.model_version == input.action.model_version
@@ -440,10 +532,11 @@ dual_key_ok if {
     expires_at := time.parse_rfc3339_ns(a.expires_at)
     deadline := time.parse_rfc3339_ns(input.action.execution_deadline)
 
-    issued_at <= time.now_ns() + data.clock_skew_ns
-    expires_at >= time.now_ns() - data.clock_skew_ns
+    issued_at <= now + data.clock_skew_ns
+    expires_at > issued_at
+    expires_at > now + data.clock_skew_ns
     expires_at - issued_at <= data.max_ttl_ns
-    deadline >= time.now_ns() - data.clock_skew_ns
+    deadline > now + data.clock_skew_ns
   }
 }`;
 
