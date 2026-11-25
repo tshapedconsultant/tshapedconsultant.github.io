@@ -20,8 +20,33 @@ export default function DedaloHub() {
   const homeCase = `${localizedPath("/")}#hr-copilot-case`;
 
   function go(target: "study" | "snapshot" | "dual-key" | "article") {
-    trackEvent("workflow_bridge_click", { bridge_placement: "dedalo", bridge_target: target });
+    trackEvent("workflow_bridge_click", { bridge_placement: "dedalo_hub", bridge_target: target });
   }
+
+  const columns = es
+    ? [
+        { id: "dedalo-change", label: "Cambio organizativo" },
+        { id: "dedalo-question", label: "Pregunta de gobernanza" },
+        { id: "dedalo-control", label: "Control propuesto" },
+      ]
+    : [
+        { id: "dedalo-change", label: "Organizational change" },
+        { id: "dedalo-question", label: "Governance question" },
+        { id: "dedalo-control", label: "Proposed control" },
+      ];
+  const rows = es
+    ? [
+        ["Roles más amplios", "¿Quién puede decidir y qué se puede delegar?", "Mapa de autoridad y permisos acotados."],
+        ["Más producción", "¿La capacidad de revisión absorbe el volumen?", "Revisión proporcional al riesgo y escalado."],
+        ["Nuevas aplicaciones internas", "¿Quién mantiene el sistema y sus políticas?", "Propiedad, inventario y revisión del ciclo de vida."],
+        ["Decisiones entre funciones", "¿Quién autoriza esta acción concreta?", "Autorización independiente; Dual-Key cuando esté justificado."],
+      ]
+    : [
+        ["Broader roles", "Who may decide, and what may be delegated?", "Authority map and scoped permissions."],
+        ["Increased output", "Can review capacity absorb the volume?", "Risk-proportionate review and escalation."],
+        ["New internal applications", "Who maintains the system and its policies?", "Ownership, inventory and lifecycle review."],
+        ["Cross-functional decisions", "Who authorizes this specific action?", "Independent authorization; Dual-Key where justified."],
+      ];
 
   return (
     <article className="paper dedalo-hub">
@@ -106,30 +131,21 @@ export default function DedaloHub() {
         <table className="dedalo-table">
           <thead>
             <tr>
-              <th>{es ? "Cambio organizativo" : "Organizational change"}</th>
-              <th>{es ? "Pregunta de gobernanza" : "Governance question"}</th>
-              <th>{es ? "Control propuesto" : "Proposed control"}</th>
+              {columns.map((column) => (
+                <th key={column.id} id={column.id} scope="col">
+                  {column.label}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {(es
-              ? [
-                  ["Roles más amplios", "¿Quién puede decidir y qué se puede delegar?", "Mapa de autoridad y permisos acotados."],
-                  ["Más producción", "¿La capacidad de revisión absorbe el volumen?", "Revisión proporcional al riesgo y escalado."],
-                  ["Nuevas aplicaciones internas", "¿Quién mantiene el sistema y sus políticas?", "Propiedad, inventario y revisión del ciclo de vida."],
-                  ["Decisiones entre funciones", "¿Quién autoriza esta acción concreta?", "Autorización independiente; Dual-Key cuando esté justificado."],
-                ]
-              : [
-                  ["Broader roles", "Who may decide, and what may be delegated?", "Authority map and scoped permissions."],
-                  ["Increased output", "Can review capacity absorb the volume?", "Risk-proportionate review and escalation."],
-                  ["New internal applications", "Who maintains the system and its policies?", "Ownership, inventory and lifecycle review."],
-                  ["Cross-functional decisions", "Who authorizes this specific action?", "Independent authorization; Dual-Key where justified."],
-                ]
-            ).map(([change, question, control]) => (
-              <tr key={change}>
-                <td data-label={es ? "Cambio" : "Change"}>{change}</td>
-                <td data-label={es ? "Pregunta" : "Question"}>{question}</td>
-                <td data-label={es ? "Control" : "Control"}>{control}</td>
+            {rows.map((row) => (
+              <tr key={row[0]}>
+                {row.map((cell, index) => (
+                  <td key={columns[index].id} headers={columns[index].id}>
+                    {cell}
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -200,8 +216,8 @@ export default function DedaloHub() {
         <li>
           <a href={PORTO}>Porto Seguro Compliance Hub</a>
           {es
-            ? " — arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. No aísla un RAG ni neutraliza prompt injection."
-            : " — reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. It does not isolate a RAG corpus or neutralise prompt injection."}
+            ? " — arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. La evidencia consultada no demuestra aislamiento de RAG ni neutralización de prompt injection."
+            : " — reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. The evidence consulted does not demonstrate RAG isolation or prompt-injection neutralisation."}
         </li>
       </ul>
 

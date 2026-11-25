@@ -509,7 +509,7 @@ export default function App() {
         onClick={() => {
           setMenuOpen(false);
           setMoreOpen(false);
-          trackEvent("workflow_bridge_click", { bridge_placement: "home", bridge_target: "dedalo" });
+          trackEvent("workflow_bridge_click", { bridge_placement: "nav", bridge_target: "dedalo" });
         }}
       >
         {t.nav.dedalo}
@@ -734,6 +734,9 @@ export default function App() {
                   onClick={() => {
                     setMenuOpen(false);
                     setMoreOpen(false);
+                    if (item.view === "dedalo") {
+                      trackEvent("workflow_bridge_click", { bridge_placement: "nav", bridge_target: "dedalo" });
+                    }
                   }}
                 >
                   {item.label}
@@ -938,7 +941,10 @@ export default function App() {
                     <Link
                       to={localizedPath(DEDALO_PATH)}
                       onClick={() =>
-                        trackEvent("workflow_bridge_click", { bridge_placement: "home", bridge_target: "dedalo" })
+                        trackEvent("workflow_bridge_click", {
+                          bridge_placement: "home_research_block",
+                          bridge_target: "dedalo",
+                        })
                       }
                     >
                       {locale === "es" ? "Ver el enfoque de gobernanza" : "Explore the governance approach"}
@@ -946,7 +952,10 @@ export default function App() {
                     <a
                       href={WORKING_WITH_AI.url}
                       onClick={() =>
-                        trackEvent("workflow_bridge_click", { bridge_placement: "home", bridge_target: "study" })
+                        trackEvent("workflow_bridge_click", {
+                          bridge_placement: "home_research_block",
+                          bridge_target: "study",
+                        })
                       }
                     >
                       {locale === "es" ? "Leer el estudio original" : "Read the original research"}
@@ -972,7 +981,7 @@ export default function App() {
                               to={localizedPath(DEDALO_PATH)}
                               onClick={() =>
                                 trackEvent("workflow_bridge_click", {
-                                  bridge_placement: "home",
+                                  bridge_placement: "home_framework_card",
                                   bridge_target: "dedalo",
                                 })
                               }

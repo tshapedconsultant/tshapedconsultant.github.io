@@ -6078,6 +6078,11 @@ details.mobile-disclose > summary:focus-visible {
   border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
+.dedalo-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 .dedalo-table {
   width: 100%;
   border-collapse: collapse;
@@ -6096,24 +6101,8 @@ details.mobile-disclose > summary:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .dedalo-table thead {
-    display: none;
-  }
-
-  .dedalo-table tr {
-    display: block;
-    margin-bottom: 0.85rem;
-  }
-
-  .dedalo-table td {
-    display: block;
-  }
-
-  .dedalo-table td::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 0.75rem;
-    color: var(--cyan-200);
+  .dedalo-table {
+    min-width: 36rem;
   }
 }
 

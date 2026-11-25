@@ -59,8 +59,10 @@ test("portfolio cards keep the corrected limits", () => {
   const risk = PROJECTS.find((item) => item.name.includes("Enterprise AI Risk"));
   const hr = PROJECTS.find((item) => item.name.includes("HR Copilot"));
   assert.match(porto.summary, /explainable predictive models/);
-  assert.match(porto.summary, /does not implement RAG isolation/);
-  assert.match(portoEs.summary, /no implementa aislamiento de RAG/);
+  assert.match(porto.summary, /evidence consulted does not demonstrate RAG isolation/);
+  assert.equal(porto.summary.includes("does not implement RAG isolation"), false);
+  assert.match(portoEs.summary, /evidencia consultada no demuestra aislamiento de RAG/);
+  assert.equal(portoEs.summary.includes("no implementa aislamiento de RAG"), false);
   assert.match(risk.category, /Demo \/ PoC/);
   assert.match(risk.summary, /tamper-evident/);
   assert.match(risk.summary, /does not establish DORA conformity/);
@@ -102,18 +104,31 @@ test("routes, sitemap and fallback html include the new pages", () => {
 test("workflow bridge clicks use a closed enum and drop free text", () => {
   clearTrackedEvents();
   const kept = trackEvent("workflow_bridge_click", {
-    bridge_placement: "home",
+    bridge_placement: "home_research_block",
     bridge_target: "study",
     note: "client name",
   });
-  assert.equal(kept.props.bridge_placement, "home");
+  assert.equal(kept.props.bridge_placement, "home_research_block");
   assert.equal(kept.props.bridge_target, "study");
   assert.equal("note" in kept.props, false);
   const dropped = trackEvent("workflow_bridge_click", {
-    bridge_placement: "sidebar",
+    bridge_placement: "home",
     bridge_target: "dedalo",
   });
   assert.equal("bridge_placement" in dropped.props, false);
   assert.equal(dropped.props.bridge_target, "dedalo");
   assert.equal(getTrackedEvents().length, 2);
+});
+
+test("bridge placements stay separate and the dedalo table keeps its headers", () => {
+  assert.match(home, /bridge_placement: "nav"/);
+  assert.match(home, /bridge_placement: "home_research_block"/);
+  assert.match(home, /bridge_placement: "home_framework_card"/);
+  assert.equal(home.includes('bridge_placement: "home"'), false);
+  assert.match(hub, /bridge_placement: "dedalo_hub"/);
+  assert.match(hub, /scope="col"/);
+  assert.match(hub, /headers=\{columns\[index\]\.id\}/);
+  const css = fs.readFileSync("src/App.css", "utf8");
+  assert.equal(/\.dedalo-table thead\s*\{[^}]*display:\s*none/.test(css), false);
+  assert.equal(/\.dedalo-table[\s\S]{0,600}data-label/.test(css), false);
 });

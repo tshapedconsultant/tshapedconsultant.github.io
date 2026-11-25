@@ -67,7 +67,7 @@ export const WORKFLOW_ARTICLES: PulseArticle[] = [
           "HR Copilot is a documented demonstration on synthetic data. The recorded tests did not show sensitive findings. It does not demonstrate Dual-Key end to end.",
           "The illustrative Rego file is checked with OPA 1.22.4. The verifier, the authorization coordinator and the PEP are described. They are not demonstrated end to end.",
           "Enterprise AI Risk is a demo. Its ledger is a tamper-evident hash chain, not immutable storage. HMAC covers the Jira webhook. It does not establish DORA conformity.",
-          "Porto Seguro Compliance Hub is a reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. It does not isolate a RAG corpus or neutralise prompt injection.",
+          "Porto Seguro Compliance Hub is a reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. The evidence consulted does not demonstrate RAG isolation or prompt-injection neutralisation.",
         ],
       },
       {
@@ -142,7 +142,7 @@ export const WORKFLOW_ARTICLES: PulseArticle[] = [
           "HR Copilot es una demostración documentada con datos sintéticos. Las pruebas registradas no mostraron hallazgos sensibles. No demuestra Dual-Key de extremo a extremo.",
           "El archivo Rego ilustrativo se comprueba con OPA 1.22.4. El verificador, el coordinador de autorización y el PEP se describen. No se demuestran de extremo a extremo.",
           "Enterprise AI Risk es una demo. Su registro es una cadena hash que evidencia manipulación, no un almacén inmutable. El HMAC cubre el webhook de Jira. No acredita conformidad con DORA.",
-          "Porto Seguro Compliance Hub es una arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. No aísla un RAG ni neutraliza el prompt injection.",
+          "Porto Seguro Compliance Hub es una arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. La evidencia consultada no demuestra aislamiento de RAG ni neutralización de prompt injection.",
         ],
       },
       {

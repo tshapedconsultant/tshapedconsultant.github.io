@@ -1237,7 +1237,7 @@ export const PROJECTS = [
     stack: "EBM · Polars · Streamlit · control plane · GDPR EIPD pack",
     lead: "The model proposes. Controls decide. Residual risk stays visible.",
     summary:
-      "Reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. It is not a live insurance book and not an AEPD filing, and it does not implement RAG isolation or demonstrated prompt-injection neutralisation. The walkthrough follows the EIPD: identify the processing (anonymized Kaggle Porto Seguro, 595,212 rows), a risk to people’s rights, a live control (deny before the model runs, single-use human approval, redaction), then inspect the local hash chain. Residual scores are estimates pending verification. A local hash chain is not WORM storage.",
+      "Reference architecture for explainable predictive models, drift monitoring, fairness assessment and governance evidence. It is not a live insurance book and not an AEPD filing. The evidence consulted does not demonstrate RAG isolation or prompt-injection neutralisation. The walkthrough follows the EIPD: identify the processing (anonymized Kaggle Porto Seguro, 595,212 rows), a risk to people’s rights, a live control (deny before the model runs, single-use human approval, redaction), then inspect the local hash chain. Residual scores are estimates pending verification. A local hash chain is not WORM storage.",
     controlFlowLabel: "EIPD sequence",
     controlFlow: [
       "Processing purpose",

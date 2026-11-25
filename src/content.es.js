@@ -1251,7 +1251,7 @@ export const PROJECTS = [
     stack: "EBM · Polars · Streamlit · plano de control · pack EIPD RGPD",
     lead: "El modelo propone. Los controles deciden. El riesgo residual permanece visible.",
     summary:
-      "Arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. No es una cartera real de seguros ni una presentación a la AEPD, y no implementa aislamiento de RAG ni una neutralización demostrada de prompt injection. El relato sigue la EIPD: identificar el tratamiento (Kaggle Porto Seguro anonimizado, 595.212 filas), un riesgo para los derechos, un control en vivo (denegación antes del modelo, aprobación humana de un solo uso, redacción) e inspeccionar la cadena hash local. Las puntuaciones residuales son estimaciones pendientes de verificación. Una cadena hash local no es almacenamiento WORM.",
+      "Arquitectura de referencia para modelos predictivos explicables, vigilancia de deriva, evaluación de equidad y evidencia de gobernanza. No es una cartera real de seguros ni una presentación a la AEPD. La evidencia consultada no demuestra aislamiento de RAG ni neutralización de prompt injection. El relato sigue la EIPD: identificar el tratamiento (Kaggle Porto Seguro anonimizado, 595.212 filas), un riesgo para los derechos, un control en vivo (denegación antes del modelo, aprobación humana de un solo uso, redacción) e inspeccionar la cadena hash local. Las puntuaciones residuales son estimaciones pendientes de verificación. Una cadena hash local no es almacenamiento WORM.",
     controlFlowLabel: "Secuencia EIPD",
     controlFlow: [
       "Finalidad del tratamiento",

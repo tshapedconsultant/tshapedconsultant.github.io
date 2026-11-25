@@ -89,7 +89,13 @@ const ENUMS: Record<string, ReadonlySet<string>> = {
   question_id: new Set(["q1", "q2", "q3", "q4", "q5", "q6"]),
   exposure_tier: new Set(["informational", "operational", "sensitive", "critical_agentic", "unknown"]),
   primary_finding: new Set(["result_a", "result_b", "result_c", "result_d", "unknown"]),
-  bridge_placement: new Set(["home", "dedalo", "article"]),
+  bridge_placement: new Set([
+    "nav",
+    "home_research_block",
+    "home_framework_card",
+    "dedalo_hub",
+    "workflow_article",
+  ]),
   bridge_target: new Set(["dedalo", "study", "snapshot", "dual-key", "article"]),
 };
 

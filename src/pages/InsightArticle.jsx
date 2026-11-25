@@ -35,7 +35,7 @@ export default function InsightArticle() {
     const link = event.target.closest?.("a[data-bridge]");
     const target = link?.getAttribute("data-bridge");
     if (target === "study" || target === "snapshot" || target === "dedalo" || target === "dual-key" || target === "article") {
-      trackEvent("workflow_bridge_click", { bridge_placement: "article", bridge_target: target });
+      trackEvent("workflow_bridge_click", { bridge_placement: "workflow_article", bridge_target: target });
     }
   }
 
