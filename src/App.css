@@ -3798,6 +3798,14 @@ details.mobile-disclose > summary:focus-visible {
 
   #site-nav.open {
     display: flex;
+    max-height: calc(100svh - var(--header-h) - 0.75rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body:has(#site-nav.open) {
+    overflow: hidden;
   }
 
   #site-nav a,
@@ -5999,7 +6007,7 @@ details.mobile-disclose > summary:focus-visible {
     align-items: center;
     justify-content: center;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .foot {
