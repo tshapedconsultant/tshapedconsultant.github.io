@@ -56,7 +56,7 @@ export function useWhitepaperUnlocked() {
 
 const PDF_DOWNLOAD_FILENAMES = {
   [WHITEPAPER_PDF_ES]: "Los modelos probabilísticos requieren gobernanza determinista.pdf",
-  [WHITEPAPER_PDF]: "Probabilistic Models Require Deterministic Governance.pdf",
+  [WHITEPAPER_PDF]: `Dedalo Unified Edition v${WHITEPAPER_PUBLICATION.version}.pdf`,
   [EXECUTIVE_BRIEF_PDF]: "Dedalo-Executive-Brief.pdf",
 };
 
@@ -81,7 +81,7 @@ const COPY = {
     unlockedLead:
       "Gracias. La lista es independiente de los PDF, que siguen enlazados arriba.",
     downloadEs: `Descargar la edición en castellano del ${WHITEPAPER_PUBLICATION.es.previousPublishedAt} (${WHITEPAPER_PUBLICATION.es.previousPageCount} páginas)`,
-    downloadEn: `Descargar Unified Edition v${WHITEPAPER_PUBLICATION.version} (${WHITEPAPER_PUBLICATION.en.pageCount} páginas)`,
+    downloadEn: `Descargar Unified Edition v${WHITEPAPER_PUBLICATION.version} (${WHITEPAPER_PUBLICATION.en.pageCount} páginas, EN)`,
     downloadBrief: "Descargar Dédalo™ Executive Brief (PDF, 2 páginas, EN)",
     archiveEn: "Archivo",
     readOnline: "Leer en este sitio",
@@ -129,7 +129,6 @@ export default function WhitepaperDownloadGate({
   const { locale, localizedPath } = useI18n();
   const isEs = locale === "es";
   const copy = isEs ? COPY.es : COPY.en;
-  const primaryPdf = isEs ? WHITEPAPER_PDF_ES : WHITEPAPER_PDF;
   const isReadingGate = mode === "reading";
 
   const formId = useId();
@@ -215,16 +214,24 @@ export default function WhitepaperDownloadGate({
           ) : null}
           <a
             className={showReadOnlineButton ? "btn btn-ghost" : "btn btn-solid"}
-            href={primaryPdf}
-            download={PDF_DOWNLOAD_FILENAMES[primaryPdf]}
+            href={WHITEPAPER_PDF}
+            download={PDF_DOWNLOAD_FILENAMES[WHITEPAPER_PDF]}
           >
-            {isEs ? copy.downloadEs : copy.downloadEn}
+            {copy.downloadEn}
           </a>
-          {!isEs ? (
+          {isEs ? (
+            <a
+              className="btn btn-ghost"
+              href={WHITEPAPER_PDF_ES}
+              download={PDF_DOWNLOAD_FILENAMES[WHITEPAPER_PDF_ES]}
+            >
+              {copy.downloadEs}
+            </a>
+          ) : (
             <a className="btn btn-ghost" href={WHITEPAPER_PUBLICATION.en.archivePath}>
               {copy.archiveEn}
             </a>
-          ) : null}
+          )}
           <a
             className="btn btn-ghost"
             href={EXECUTIVE_BRIEF_PDF}

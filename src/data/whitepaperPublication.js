@@ -31,3 +31,8 @@ export const WHITEPAPER_PUBLICATION = {
     sha256: "285eef8072afb2ad2f14a1aa004965716a89bd200f975907814ea76ba08babdf",
   },
 };
+
+/** Bust the cached November edition that shared this URL and download name. */
+export function publishedFileHref(file) {
+  return `${file.pdfPath}?v=${file.sha256.slice(0, 12)}`;
+}

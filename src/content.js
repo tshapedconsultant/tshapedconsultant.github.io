@@ -1,10 +1,10 @@
 import { pulseInsights } from "./data/pulseLibrary.ts";
-import { WHITEPAPER_PUBLICATION } from "./data/whitepaperPublication.js";
+import { WHITEPAPER_PUBLICATION, publishedFileHref } from "./data/whitepaperPublication.js";
 
 export const COVER = "/cover.png";
 export const COVER_WEBP = "/cover.webp";
 export const COVER_AVIF = "/cover.avif";
-export const WHITEPAPER_PDF = WHITEPAPER_PUBLICATION.en.pdfPath;
+export const WHITEPAPER_PDF = publishedFileHref(WHITEPAPER_PUBLICATION.en);
 export const WHITEPAPER_PDF_ES = WHITEPAPER_PUBLICATION.es.previousPdfPath;
 export const EXECUTIVE_BRIEF_PDF = WHITEPAPER_PUBLICATION.brief.pdfPath;
 export { WHITEPAPER_PUBLICATION };
