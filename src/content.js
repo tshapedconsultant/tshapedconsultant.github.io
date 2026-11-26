@@ -59,6 +59,7 @@ export const HERO = {
   scope:
     "90-second runtime risk check, bounded technical review and runtime control architecture.",
   principle: "Governance is not documented. It is executed. Probabilistic models require deterministic governance.",
+  offerLine: "AI Governance Snapshot · From €2,495 · 1 week",
   executiveSummary: [
     {
       question: "1. What concrete problem do I solve?",
@@ -85,6 +86,7 @@ export const PATH_SELECTOR = {
   threeEntries: [
     {
       id: "direct",
+      tab: "Buyer",
       title: "Direct buyer route",
       role: "For CTOs, CISOs, Heads of AI, Risk & technology leaders",
       cta: "Check my system's risk",
@@ -98,6 +100,7 @@ export const PATH_SELECTOR = {
     },
     {
       id: "technical",
+      tab: "Technical",
       title: "Internal technical route",
       role: "For architects, engineers & Red Team Leads",
       cta: "Watch the technical demo",
@@ -111,6 +114,7 @@ export const PATH_SELECTOR = {
     },
     {
       id: "partner",
+      tab: "Partner",
       title: "Partner route",
       role: "For law firms, Big Four & consultancies",
       cta: "Explore co-delivery",
@@ -199,6 +203,17 @@ export const PAIN_SECTION = {
     },
   ],
   cta: "Check my system's risk",
+};
+
+export const WORKFLOW_BRIDGE = {
+  kicker: "Research finding",
+  title: "AI value depends on the workflow around the model.",
+  paragraphs: [
+    "Anthropic’s Working with AI study found that higher-value applications often involved reorganizing roles and workflows. Its interview-based findings are directional, not a causal estimate of ROI.",
+    "When work changes, decision rights, review capacity and escalation paths need to change with it.",
+    "I help make those boundaries explicit—and translate them into executable controls.",
+  ],
+  source: "Source: Anthropic, Working with AI, 23 November 2026.",
 };
 
 export const FEATURED_HR_COPILOT = {
@@ -627,6 +642,9 @@ export const CASE_STUDIES = {
       governance:
         "Governance is treated as a competitive edge: a centralised AI model inventory, ongoing bias-reduction work, and proactive alignment with the EU AI Act — so innovation can accelerate only if oversight keeps pace.",
       note: "Independent strategic analysis by Andrés Lage Freire; not authored or endorsed by BBVA. Figures as reported in the analysis (March 2025 and Q1 2025).",
+      scanProblem:
+        "A global bank cannot scale personalised AI without a unified core, a model inventory and EU AI Act alignment.",
+      scanResult: "78.1 million active clients, with governance treated as a competitive edge.",
       pdf: CASE_STUDY_PDF,
     },
     {
@@ -656,6 +674,8 @@ export const CASE_STUDIES = {
       governance:
         "Human oversight is the control, not a disclaimer. Confidence limits, dual approval, logged overrides and a candidate appeal keep the probabilistic score inside a deterministic decision path — the same pattern as a lifecycle gate: early human triage, a harder stop before a person is turned away, and a board that can halt the system.",
       note: "Responsible AI operating framework written by Andrés Lage Freire. It specifies the controls. It is not a report of a named deployment, and it is not legal advice.",
+      scanProblem: "AI can decide who gets hired only if humans never leave the loop.",
+      scanResult: "Mandatory human review, dual approval before rejection, and a real appeals channel.",
       pdf: RESUME_MATCHING_PDF,
       downloadLabel: "Download the framework (PDF)",
     },

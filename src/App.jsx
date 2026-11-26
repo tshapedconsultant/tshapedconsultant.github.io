@@ -121,6 +121,13 @@ function isInternalHref(href) {
   return typeof href === "string" && (href.startsWith("#") || (href.startsWith("/") && !href.startsWith("//")));
 }
 
+function clipLine(text, max = 148) {
+  if (!text) return "";
+  const sentence = String(text).split(/(?<=[.!?])\s/)[0];
+  if (sentence.length <= max) return sentence;
+  return `${sentence.slice(0, max - 1).trim()}…`;
+}
+
 function GovernanceDiagram() {
   const { t } = useI18n();
   const primary = t.diagram.primary;
@@ -242,7 +249,6 @@ export default function App() {
     INSIGHTS,
     LINKS,
     LOCATION,
-    LOCATION_HERO,
     MAPPING_TEASER,
     PAIN_SECTION,
     PARTNERS,
@@ -253,31 +259,24 @@ export default function App() {
     SOCIAL_PROOF,
     WHITEPAPER_PDF,
     WHITEPAPER_PDF_ES,
+    WORKFLOW_BRIDGE,
   } = content;
   const paperPdf = locale === "es" ? WHITEPAPER_PDF_ES : WHITEPAPER_PDF;
   const otherLocale = locale === "es" ? "en" : "es";
   const navSections = [
-    { id: "risk-check", label: t.nav.riskCheck },
     { id: "services", label: t.nav.services },
-    { id: "hr-copilot-case", label: t.nav.caseStudies },
-    { id: "dgom", label: t.nav.dgom },
+    { id: "hr-copilot-case", label: t.nav.demos },
+    { id: "case-studies", label: t.nav.caseStudies },
+    { id: "about", label: t.nav.about },
   ];
-  const mobileNav = [
-    { to: localizedPath(RISK_CHECK_PATH), label: t.mobile.riskCheck, view: "riskcheck" },
-    { id: "diagnostic", label: t.mobile.diagnostic },
-    { id: "services", label: t.mobile.services },
-    { id: "enablement", label: locale === "es" ? "Talleres In-Company" : "In-Company Workshops" },
-    { id: "leadership", label: locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership" },
-    { id: "hr-copilot-case", label: t.mobile.caseStudy },
-    { id: "dgom", label: t.mobile.dgom },
-    { id: "partners", label: t.mobile.partners },
-    { id: "projects", label: t.mobile.projects },
-    { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.mobile.mapping, view: "mapping" },
-    { to: localizedPath(DUAL_KEY_PATH), label: t.mobile.dualKey, view: "dualkey" },
-    { to: localizedPath(DEDALO_PATH), label: t.mobile.dedalo, view: "dedalo" },
-    { to: localizedPath(WHITEPAPER_PATH), label: t.mobile.whitepaper, view: "whitepaper" },
-    { to: localizedPath(PRIVACY_PATH), label: t.mobile.privacy, view: "privacy" },
-    { id: "about", label: t.mobile.about },
+  const resourceNav = [
+    { to: localizedPath(EU_AI_ACT_MAPPING_PATH), label: t.nav.euAiAct, view: "mapping" },
+    { to: localizedPath(WHITEPAPER_PATH), label: t.nav.whitepaper, view: "whitepaper" },
+    { to: localizedPath(DUAL_KEY_PATH), label: t.nav.dualKey, view: "dualkey" },
+    { to: localizedPath(DEDALO_PATH), label: t.nav.dedalo, view: "dedalo" },
+    { id: "projects", label: t.nav.projects },
+    { id: "insights", label: t.insights.title },
+    { to: localizedPath(PRIVACY_PATH), label: t.nav.privacy, view: "privacy" },
   ];
   const [view, setView] = useState(() => viewFromLocation(location.pathname, location.hash));
   const [menuOpen, setMenuOpen] = useState(false);
@@ -285,10 +284,13 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("");
   const [enquiryIntent, setEnquiryIntent] = useState("snapshot");
   const [showMobileBar, setShowMobileBar] = useState(false);
+  const [pathId, setPathId] = useState("direct");
+  const [caseOpen, setCaseOpen] = useState(null);
   const menuBtnRef = useRef(null);
   const moreBtnRef = useRef(null);
   const moreWrapRef = useRef(null);
   const headerRef = useRef(null);
+  const caseDialogRef = useRef(null);
 
   useEffect(() => {
     applyDocumentHead(location.pathname);
@@ -384,6 +386,16 @@ export default function App() {
     document.addEventListener("pointerdown", onPointer);
     return () => document.removeEventListener("pointerdown", onPointer);
   }, [moreOpen]);
+
+  useEffect(() => {
+    const dialog = caseDialogRef.current;
+    if (!dialog?.isConnected) return;
+    if (caseOpen) {
+      if (!dialog.open) dialog.showModal();
+    } else if (dialog.open) {
+      dialog.close();
+    }
+  }, [caseOpen]);
 
   useEffect(() => {
     if (view !== "home") return undefined;
@@ -489,88 +501,44 @@ export default function App() {
       </a>
     </>
   );
-  const resourceLinks = (
-    <>
-      <Link
-        to={localizedPath(DUAL_KEY_PATH)}
-        className={view === "dualkey" ? "is-active" : undefined}
-        aria-current={view === "dualkey" ? "page" : undefined}
-        onClick={() => {
-          setMenuOpen(false);
-          setMoreOpen(false);
-        }}
-      >
-        {t.nav.dualKey}
-      </Link>
-      <Link
-        to={localizedPath(DEDALO_PATH)}
-        className={view === "dedalo" ? "is-active" : undefined}
-        aria-current={view === "dedalo" ? "page" : undefined}
-        onClick={() => {
-          setMenuOpen(false);
-          setMoreOpen(false);
-          trackEvent("workflow_bridge_click", { bridge_placement: "nav", bridge_target: "dedalo" });
-        }}
-      >
-        {t.nav.dedalo}
-      </Link>
-      <Link
-        to={localizedPath(RISK_CHECK_PATH)}
-        onClick={() => {
-          setMenuOpen(false);
-          setMoreOpen(false);
-        }}
-      >
-        {t.mobile.riskCheck}
-      </Link>
+  function renderResourceLink(item) {
+    const closeMenus = () => {
+      setMenuOpen(false);
+      setMoreOpen(false);
+      if (item.view === "dedalo") {
+        trackEvent("workflow_bridge_click", { bridge_placement: "nav", bridge_target: "dedalo" });
+      }
+    };
+    if (item.to) {
+      return (
+        <Link
+          key={item.to}
+          to={item.to}
+          className={view === item.view ? "is-active" : undefined}
+          aria-current={view === item.view ? "page" : undefined}
+          onClick={closeMenus}
+        >
+          {item.label}
+        </Link>
+      );
+    }
+    return (
       <a
-        href="#enablement"
+        key={item.id}
+        href={`#${item.id}`}
+        className={activeSection === item.id && view === "home" ? "is-active" : undefined}
+        aria-current={activeSection === item.id && view === "home" ? "location" : undefined}
         onClick={(event) => {
           event.preventDefault();
-          goHomeSection("enablement");
+          goHomeSection(item.id);
         }}
       >
-        {locale === "es" ? "Talleres In-Company" : "In-Company Workshops"}
+        {item.label}
       </a>
-      <a
-        href="#leadership"
-        onClick={(event) => {
-          event.preventDefault();
-          goHomeSection("leadership");
-        }}
-      >
-        {locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership"}
-      </a>
-      <a
-        href="#partners"
-        onClick={(event) => {
-          event.preventDefault();
-          goHomeSection("partners");
-        }}
-      >
-        {t.nav.partners}
-      </a>
-      <a
-        href="#about"
-        onClick={(event) => {
-          event.preventDefault();
-          goHomeSection("about");
-        }}
-      >
-        {t.nav.about}
-      </a>
-      <Link
-        to={localizedPath(PRIVACY_PATH)}
-        onClick={() => {
-          setMenuOpen(false);
-          setMoreOpen(false);
-        }}
-      >
-        {t.nav.privacy}
-      </Link>
-      {identityLinks}
-    </>
-  );
+    );
+  }
+
+  const openStudy = CASE_STUDIES.items.find((item) => item.id === caseOpen) ?? null;
 
   return (
     <div className={view === "home" ? "site" : "site site-paper"}>
@@ -614,21 +582,6 @@ export default function App() {
           <span className="nav-cta-full">{CTA.persistentPrimary || t.discuss}</span>
           <span className="nav-cta-short">{locale === "es" ? "Test riesgo" : "Risk Check"}</span>
         </a>
-        <nav className="lang-switch" aria-label={t.language}>
-          <Link
-            className="lang-btn"
-            to={switchTo(otherLocale)}
-            hrefLang={otherLocale === "es" ? "es" : "en-GB"}
-            lang={otherLocale === "es" ? "es" : "en-GB"}
-            aria-label={otherLocale === "es" ? t.switchToEs : t.switchToEn}
-            onClick={() => {
-              setMenuOpen(false);
-              setMoreOpen(false);
-            }}
-          >
-            {otherLocale === "es" ? t.langEs : t.langEn}
-          </Link>
-        </nav>
         <button
           className="menu-toggle"
           type="button"
@@ -658,48 +611,6 @@ export default function App() {
                 {item.label}
               </a>
             ))}
-            <Link
-              to={localizedPath(EU_AI_ACT_MAPPING_PATH)}
-              className={view === "mapping" ? "is-active" : undefined}
-              aria-current={view === "mapping" ? "page" : undefined}
-              onClick={() => {
-                setMenuOpen(false);
-                setMoreOpen(false);
-              }}
-            >
-              {t.nav.euAiAct}
-            </Link>
-            <Link
-              to={localizedPath(WHITEPAPER_PATH)}
-              className={view === "whitepaper" ? "is-active" : undefined}
-              aria-current={view === "whitepaper" ? "page" : undefined}
-              onClick={() => {
-                setMenuOpen(false);
-                setMoreOpen(false);
-              }}
-            >
-              {t.nav.whitepaper}
-            </Link>
-            <a
-              className="nav-cta-secondary"
-              href="#diagnostic"
-              onClick={(event) => {
-                event.preventDefault();
-                goToEnquiry("snapshot");
-              }}
-            >
-              {CTA.persistentSecondary || t.discussSecondary}
-            </a>
-            <a
-              className="nav-cta"
-              href="#risk-check"
-              onClick={(event) => {
-                event.preventDefault();
-                goToRiskCheck();
-              }}
-            >
-              {CTA.persistentPrimary || t.discuss}
-            </a>
             <div className="more-wrap" ref={moreWrapRef}>
               <button
                 className="more-toggle"
@@ -719,43 +630,9 @@ export default function App() {
                 {t.resources}
               </button>
               <div id="more-menu" className={moreOpen ? "more-menu open" : "more-menu"} hidden={!moreOpen}>
-                {resourceLinks}
+                {resourceNav.map((item) => renderResourceLink(item))}
               </div>
             </div>
-          </div>
-          <div className="nav-mobile">
-            {mobileNav.map((item) =>
-              item.to ? (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className={view === item.view ? "is-active" : undefined}
-                  aria-current={view === item.view ? "page" : undefined}
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setMoreOpen(false);
-                    if (item.view === "dedalo") {
-                      trackEvent("workflow_bridge_click", { bridge_placement: "nav", bridge_target: "dedalo" });
-                    }
-                  }}
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={activeSection === item.id && view === "home" ? "is-active" : undefined}
-                  aria-current={activeSection === item.id && view === "home" ? "location" : undefined}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    goHomeSection(item.id);
-                  }}
-                >
-                  {item.label}
-                </a>
-              )
-            )}
             <a
               className="nav-cta"
               href="#risk-check"
@@ -766,20 +643,41 @@ export default function App() {
             >
               {CTA.persistentPrimary || t.discuss}
             </a>
-            <div className="nav-secondary">{identityLinks}</div>
-            <Link
-              className="lang-menu-btn"
-              to={switchTo(otherLocale)}
-              hrefLang={otherLocale === "es" ? "es" : "en-GB"}
-              lang={otherLocale === "es" ? "es" : "en-GB"}
-              onClick={() => {
-                setMenuOpen(false);
-                setMoreOpen(false);
-              }}
-            >
-              {otherLocale === "es" ? t.switchToEs : t.switchToEn}
-            </Link>
           </div>
+          <div className="nav-mobile">
+            {navSections.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={activeSection === item.id && view === "home" ? "is-active" : undefined}
+                aria-current={activeSection === item.id && view === "home" ? "location" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  goHomeSection(item.id);
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+            <p className="nav-group-label">{t.resources}</p>
+            {resourceNav.map((item) => renderResourceLink(item))}
+            <div className="nav-secondary">{identityLinks}</div>
+          </div>
+        </nav>
+        <nav className="lang-switch" aria-label={t.language}>
+          <Link
+            className="lang-btn"
+            to={switchTo(otherLocale)}
+            hrefLang={otherLocale === "es" ? "es" : "en-GB"}
+            lang={otherLocale === "es" ? "es" : "en-GB"}
+            aria-label={otherLocale === "es" ? t.switchToEs : t.switchToEn}
+            onClick={() => {
+              setMenuOpen(false);
+              setMoreOpen(false);
+            }}
+          >
+            {otherLocale === "es" ? t.langEs : t.langEn}
+          </Link>
         </nav>
       </header>
 
@@ -806,26 +704,13 @@ export default function App() {
           <NotFound />
         ) : (
           <>
-            {/* 1. HERO — valor + tesis determinista */}
-<section className="hero region-dark" id="top">
+            {/* 1. HERO */}
+            <section className="hero region-dark" id="top">
               <div className="hero-grid">
                 <div className="hero-copy">
-                  <p className="eyebrow loc-line">{HERO.kicker || LOCATION_HERO}</p>
-                  <h1>
-                    {HERO.headline}
-                    <span className="h1-specialty">
-                      {HERO.tagline || (locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering")}
-                    </span>
-                  </h1>
+                  <p className="eyebrow loc-line">{t.hero.eyebrow}</p>
+                  <h1>{HERO.headline}</h1>
                   <p className="value-prop">{HERO.value}</p>
-                  {HERO.assets ? <p className="hero-assets">{HERO.assets}</p> : null}
-                  {HERO.pills ? (
-                    <ul className="hero-pills" aria-label="Focus areas">
-                      {HERO.pills.map((pill) => (
-                        <li key={pill}>{pill}</li>
-                      ))}
-                    </ul>
-                  ) : null}
                   <div className="hero-actions">
                     <div className="hero-cta-row">
                       <a
@@ -849,17 +734,12 @@ export default function App() {
                         {CTA.secondary}
                       </a>
                     </div>
-                    <p className="hero-qualify">{HERO.qualify}</p>
-                    <p className="cta-note">{CTA.note}</p>
+                    {HERO.offerLine ? <p className="hero-offer">{HERO.offerLine}</p> : null}
                   </div>
                   {HERO_PROOF_METRICS ? (
                     <ul
                       className="hero-proof-metrics"
-                      aria-label={
-                        locale === "es"
-                          ? "Resultados verificables, liderazgo y entregas"
-                          : "Verified delivery, leadership & mentoring"
-                      }
+                      aria-label={t.hero.proofLabel}
                     >
                       {HERO_PROOF_METRICS.map((item) => (
                         <li key={item.metric}>
@@ -877,21 +757,73 @@ export default function App() {
                       ))}
                     </ul>
                   ) : null}
-                  {HERO.executiveSummary ? (
-                    <div className="hero-exec-answers" role="region" aria-label={locale === "es" ? "Resumen ejecutivo" : "Executive summary"}>
-                      {HERO.executiveSummary.map((item) => (
-                        <div key={item.question} className="hero-exec-card">
-                          <p className="hero-exec-q">{item.question}</p>
-                          <p className="hero-exec-a">{item.answer}</p>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
                 </div>
-                <details className="mobile-disclose hero-diagram">
-                  <summary>{t.diagram.how}</summary>
-                  <GovernanceDiagram />
-                </details>
+              </div>
+            </section>
+
+            {PATH_SELECTOR?.threeEntries ? (
+              <section id="paths" className="region region-light region-mid path-band">
+                <div className="region-inner">
+                  <div className="section-head">
+                    <h2 id="path-selector-title">{PATH_SELECTOR.title}</h2>
+                  </div>
+                  <div className="path-tabs" role="tablist" aria-labelledby="path-selector-title">
+                    {PATH_SELECTOR.threeEntries.map((route) => (
+                      <button
+                        key={route.id}
+                        type="button"
+                        role="tab"
+                        id={`path-tab-${route.id}`}
+                        className={pathId === route.id ? "path-tab is-active" : "path-tab"}
+                        aria-selected={pathId === route.id}
+                        aria-controls={`path-panel-${route.id}`}
+                        tabIndex={pathId === route.id ? 0 : -1}
+                        onClick={() => setPathId(route.id)}
+                      >
+                        {route.tab || route.title}
+                      </button>
+                    ))}
+                  </div>
+                  {PATH_SELECTOR.threeEntries.map((route) =>
+                    pathId === route.id ? (
+                      <div
+                        key={route.id}
+                        className="path-panel"
+                        role="tabpanel"
+                        id={`path-panel-${route.id}`}
+                        aria-labelledby={`path-tab-${route.id}`}
+                      >
+                        <p className="path-panel-role">{route.role}</p>
+                        <ul>
+                          {route.steps.slice(0, 3).map((step) => (
+                            <li key={step}>{step}</li>
+                          ))}
+                        </ul>
+                        <a
+                          className="btn btn-solid"
+                          href={`#${route.target}`}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            if (route.id === "partner") setEnquiryIntent("partners");
+                            goHomeSection(route.target);
+                          }}
+                        >
+                          {route.cta}
+                        </a>
+                      </div>
+                    ) : null
+                  )}
+                </div>
+              </section>
+            ) : null}
+
+            <section id="risk-check" className="region region-dark risk-check-band risk-check-anchor region-major">
+              <div className="region-inner">
+                <AiRuntimeRiskCheck
+                  embedded={true}
+                  onRequestSnapshot={() => goToEnquiry("snapshot")}
+                  onViewDemo={() => goHomeSection("hr-copilot-case")}
+                />
               </div>
             </section>
 
@@ -916,27 +848,16 @@ export default function App() {
                   ))}
                 </div>
                 <aside className="workflow-bridge">
-                  <p className="workflow-kicker">{locale === "es" ? "Hallazgo del estudio" : "Research finding"}</p>
-                  <h3>
-                    {locale === "es"
-                      ? "La IA crea valor dentro de un proceso, no al margen de él."
-                      : "AI value depends on the workflow around the model."}
-                  </h3>
-                  <p>
-                    {locale === "es"
-                      ? "El estudio Working with AI, de Anthropic, encontró que los usos de mayor valor solían ir acompañados de una reorganización de roles y procesos. Son hallazgos de entrevistas, orientativos, no una estimación causal del retorno."
-                      : "Anthropic’s Working with AI study found that higher-value applications often involved reorganizing roles and workflows. Its interview-based findings are directional, not a causal estimate of ROI."}
-                  </p>
-                  <p>
-                    {locale === "es"
-                      ? "Cuando cambia el trabajo, tienen que cambiar con él quién decide, quién revisa y cómo se escala un caso."
-                      : "When work changes, decision rights, review capacity and escalation paths need to change with it."}
-                  </p>
-                  <p>
-                    {locale === "es"
-                      ? "Ayudo a hacer explícitos esos límites y a traducirlos en controles ejecutables."
-                      : "I help make those boundaries explicit—and translate them into executable controls."}
-                  </p>
+                  <p className="workflow-kicker">{WORKFLOW_BRIDGE.kicker}</p>
+                  <h3>{WORKFLOW_BRIDGE.title}</h3>
+                  <p>{WORKFLOW_BRIDGE.paragraphs[0]}</p>
+                  <details className="workflow-more">
+                    <summary>{t.why.readMore}</summary>
+                    {WORKFLOW_BRIDGE.paragraphs.slice(1).map((paragraph) => (
+                      <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+                    ))}
+                    <p className="workflow-source">{WORKFLOW_BRIDGE.source}</p>
+                  </details>
                   <p className="workflow-actions">
                     <Link
                       to={localizedPath(DEDALO_PATH)}
@@ -947,7 +868,7 @@ export default function App() {
                         })
                       }
                     >
-                      {locale === "es" ? "Ver el enfoque de gobernanza" : "Explore the governance approach"}
+                      {t.workflow.governance}
                     </Link>
                     <a
                       href={WORKING_WITH_AI.url}
@@ -958,13 +879,8 @@ export default function App() {
                         })
                       }
                     >
-                      {locale === "es" ? "Leer el estudio original" : "Read the original research"}
+                      {t.workflow.study}
                     </a>
-                  </p>
-                  <p className="workflow-source">
-                    {locale === "es"
-                      ? "Fuente: Anthropic, Working with AI, 23 de noviembre de 2026."
-                      : "Source: Anthropic, Working with AI, 23 November 2026."}
                   </p>
                 </aside>
                 <div className="layer-block">
@@ -998,80 +914,12 @@ export default function App() {
                   </div>
                   <p className="layer-line">{t.layers.line}</p>
                 </div>
-                <div className="pain-cta-bar">
-                  <a
-                    className="btn btn-solid"
-                    href="#risk-check"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      goHomeSection("risk-check");
-                    }}
-                  >
-                    {PAIN_SECTION ? PAIN_SECTION.cta : CTA.primary}
-                  </a>
-                  <Link className="btn btn-ghost" to={localizedPath(RISK_CHECK_PATH)}>
-                    {locale === "es"
-                      ? "Abrir test en pantalla completa"
-                      : "Open full-screen assessment"}
-                  </Link>
-                </div>
                 <aside className="callout-pair">
                   <p className="best-fit">
                     <span className="callout-label">{t.why.bestFit}</span>
                     {BEST_FIT.replace(/^(Best fit|Mejor encaje):\s*/i, "")}
                   </p>
                 </aside>
-
-                {PATH_SELECTOR && PATH_SELECTOR.threeEntries ? (
-                  <div className="path-selector-box" aria-labelledby="path-selector-title">
-                    <div className="path-selector-head">
-                      <h3 id="path-selector-title">{PATH_SELECTOR.title}</h3>
-                      <p className="path-selector-sub">{PATH_SELECTOR.subtitle}</p>
-                    </div>
-                    <div className="path-three-routes">
-                      {PATH_SELECTOR.threeEntries.map((route) => (
-                        <article key={route.id} className={`path-route-card path-route-${route.id}`}>
-                          <p className="path-route-title">{route.title}</p>
-                          <p className="path-route-role">{route.role}</p>
-                          <ol className="path-route-steps">
-                            {route.steps.map((step, idx) => (
-                              <li key={step}>
-                                <span>{step}</span>
-                                {idx < route.steps.length - 1 ? (
-                                  <span className="path-step-arrow" aria-hidden="true">
-                                    ↓
-                                  </span>
-                                ) : null}
-                              </li>
-                            ))}
-                          </ol>
-                          <a
-                            className="btn btn-ghost path-route-cta"
-                            href={`#${route.target}`}
-                            onClick={(event) => {
-                              event.preventDefault();
-                              if (route.id === "partner") setEnquiryIntent("partners");
-                              goHomeSection(route.target);
-                            }}
-                          >
-                            {route.cta}
-                          </a>
-                        </article>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-            </section>
-
-            {/* 3. AI RUNTIME RISK CHECK — entrada en 90s */}
-<section id="risk-check" className="region region-dark risk-check-band region-major">
-              <div className="region-inner">
-                <AiRuntimeRiskCheck
-                  embedded={true}
-                  onRequestSnapshot={() => goToEnquiry("snapshot")}
-                  onViewDemo={() => goHomeSection("hr-copilot-case")}
-                />
               </div>
             </section>
 
@@ -1087,11 +935,17 @@ export default function App() {
                   <h2 id="why-tshaped-title">{ABOUT_WHY.title}</h2>
                 </div>
                 <div className="why-tshaped-body">
-                  {ABOUT_WHY.paragraphs.map((paragraph) => (
-                    <p key={paragraph.slice(0, 48)} className="about-why why-tshaped-text">
-                      {paragraph}
-                    </p>
-                  ))}
+                  <p className="about-why why-tshaped-text">{ABOUT_WHY.paragraphs[0]}</p>
+                  {ABOUT_WHY.paragraphs.length > 1 ? (
+                    <details className="why-tshaped-more">
+                      <summary>{t.why.readMore}</summary>
+                      {ABOUT_WHY.paragraphs.slice(1).map((paragraph) => (
+                        <p key={paragraph.slice(0, 48)} className="about-why why-tshaped-text">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </details>
+                  ) : null}
                 </div>
               </div>
             </section>
@@ -1124,14 +978,17 @@ export default function App() {
                     ))}
                   </div>
 
+                  <details className="hr-controls-disclose">
+                    <summary>{FEATURED_HR_COPILOT.controlsTitle}</summary>
+                    <ol className="hr-controls-list">
+                      {FEATURED_HR_COPILOT.controls.map((ctrl) => (
+                        <li key={ctrl}>{ctrl}</li>
+                      ))}
+                    </ol>
+                  </details>
+
                   <div className="hr-copilot-showcase">
                     <div className="hr-controls-panel">
-                      <h3>{FEATURED_HR_COPILOT.controlsTitle}</h3>
-                      <ol className="hr-controls-list">
-                        {FEATURED_HR_COPILOT.controls.map((ctrl) => (
-                          <li key={ctrl}>{ctrl}</li>
-                        ))}
-                      </ol>
                       <div className="hr-claim-box" role="note">
                         <div className="hr-claim-head">
                           <p className="hr-demo-badge">{t.hrDemo.badge}</p>
@@ -1142,31 +999,9 @@ export default function App() {
                       <p className="hr-dual-key-link">
                         <Link to={localizedPath(DUAL_KEY_PATH)}>{t.hrDemo.link}</Link>
                       </p>
-                      <div className="hero-cta-row hr-case-actions">
-                        <a
-                          className="btn btn-solid"
-                          href="#risk-check"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            goHomeSection("risk-check");
-                          }}
-                        >
-                          {CTA.primary}
-                        </a>
-                        <a
-                          className="btn btn-ghost"
-                          href="#diagnostic"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            goToEnquiry("snapshot");
-                          }}
-                        >
-                          {locale === "es" ? "Solicitar AI Governance Snapshot" : "Request AI Governance Snapshot"}
-                        </a>
-                        <Link className="btn btn-ghost" to={FEATURED_HR_COPILOT.docsHref}>
-                          {FEATURED_HR_COPILOT.docsCta}
-                        </Link>
-                      </div>
+                      <Link className="btn btn-ghost" to={FEATURED_HR_COPILOT.docsHref}>
+                        {FEATURED_HR_COPILOT.docsCta}
+                      </Link>
                     </div>
 
                     <figure className="project-demo hr-video-figure">
@@ -1185,7 +1020,7 @@ export default function App() {
                             kind="subtitles"
                             src={FEATURED_HR_COPILOT.captions}
                             srcLang="es"
-                            label="Español"
+                            label={t.captionsEs}
                             default
                           />
                         ) : null}
@@ -1207,49 +1042,75 @@ export default function App() {
                   <h2>{t.cases.title}</h2>
                 </div>
                 <p className="section-lede">{CASE_STUDIES.lede}</p>
-                {CASE_STUDIES.items.map((study) => (
-                  <article className="case-study" key={study.id} aria-labelledby={`${study.id}-title`}>
-                    <header className="case-head">
+                <div className="case-grid">
+                  {CASE_STUDIES.items.map((study) => (
+                    <article className="case-scan" key={study.id}>
                       <p className="case-kicker">{study.kicker}</p>
-                      <p className="case-client">
-                        {study.client} · {study.sector}
+                      <h3>
+                        {study.client} · {study.title}
+                      </h3>
+                      <p>
+                        <span className="callout-label">{t.cases.problem}</span>
+                        {study.scanProblem}
                       </p>
-                      <h3 id={`${study.id}-title`}>{study.title}</h3>
-                      <p className="case-role">{study.role}</p>
-                    </header>
-                    <div className="case-problem">
-                      <h4>{t.cases.problem}</h4>
-                      <p>{study.problem}</p>
-                    </div>
-                    <h4 className="case-outcomes-label">{t.cases.outcomes}</h4>
-                    <ol className="case-outcomes">
-                      {study.outcomes.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ol>
-                    <details className="mobile-disclose case-extra">
-                      <summary>{t.cases.more}</summary>
-                      <div>
-                        <details className="disclose-always case-done">
-                          <summary>{t.cases.done}</summary>
-                          <ul>
-                            {study.approach.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        </details>
-                        <aside className="case-gov">
-                          <h4>{t.cases.governance}</h4>
-                          <p>{study.governance}</p>
-                        </aside>
-                        <p className="case-note">{study.note}</p>
+                      <p>
+                        <span className="callout-label">{t.cases.outcomes}</span>
+                        {study.scanResult}
+                      </p>
+                      <button type="button" className="btn btn-ghost" onClick={() => setCaseOpen(study.id)}>
+                        {t.cases.more}
+                      </button>
+                    </article>
+                  ))}
+                </div>
+                <dialog
+                  className="case-dialog"
+                  ref={caseDialogRef}
+                  aria-labelledby="case-dialog-title"
+                  onClose={() => setCaseOpen(null)}
+                >
+                  {openStudy ? (
+                    <article className="case-study">
+                      <button type="button" className="btn btn-ghost case-dialog-close" onClick={() => caseDialogRef.current?.close()}>
+                        {t.close}
+                      </button>
+                      <header className="case-head">
+                        <p className="case-kicker">{openStudy.kicker}</p>
+                        <p className="case-client">
+                          {openStudy.client} · {openStudy.sector}
+                        </p>
+                        <h3 id="case-dialog-title">{openStudy.title}</h3>
+                        <p className="case-role">{openStudy.role}</p>
+                      </header>
+                      <div className="case-problem">
+                        <h4>{t.cases.problem}</h4>
+                        <p>{openStudy.problem}</p>
                       </div>
-                    </details>
-                    <a className="btn btn-solid" href={study.pdf} download>
-                      {study.downloadLabel || t.cases.download}
-                    </a>
-                  </article>
-                ))}
+                      <h4 className="case-outcomes-label">{t.cases.outcomes}</h4>
+                      <ol className="case-outcomes">
+                        {openStudy.outcomes.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ol>
+                      <details className="disclose-always case-done">
+                        <summary>{t.cases.done}</summary>
+                        <ul>
+                          {openStudy.approach.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </details>
+                      <aside className="case-gov">
+                        <h4>{t.cases.governance}</h4>
+                        <p>{openStudy.governance}</p>
+                      </aside>
+                      <p className="case-note">{openStudy.note}</p>
+                      <a className="btn btn-solid" href={openStudy.pdf} download>
+                        {openStudy.downloadLabel || t.cases.download}
+                      </a>
+                    </article>
+                  ) : null}
+                </dialog>
               </div>
             </section>
 
@@ -1265,73 +1126,82 @@ export default function App() {
                 <p className="section-lede">{t.projects.lede}</p>
                 <div className="project-grid">
                   {PROJECTS.filter((project) => project.num !== "01").map((project) => (
-                    <article className="project" key={project.href || project.liveHref || project.name}>
+                    <article className="project project-scan" key={project.href || project.liveHref || project.name}>
                       <header>
                         <p className="flag">{project.num}</p>
                         <p className="ver">{project.category}</p>
                         <h3>{project.name}</h3>
                       </header>
-                      {project.lead ? <p className="project-lead">{project.lead}</p> : null}
-                      <p>{project.summary}</p>
-                      {project.controlFlow ? (
-                        <div className="project-flow-block" role="group" aria-label={project.controlFlowLabel}>
-                          <p className="project-flow-label">{project.controlFlowLabel}</p>
-                          <ol className="project-flow">
-                            {project.controlFlow.map((step) => (
-                              <li key={step}>{step}</li>
-                            ))}
-                          </ol>
-                        </div>
-                      ) : null}
-                      {project.video ? (
-                        <figure className="project-demo">
-                          <video
-                            key={locale}
-                            controls
-                            playsInline
-                            preload="metadata"
-                            poster={project.poster}
-                            width={project.videoWidth || 1280}
-                            height={project.videoHeight || 806}
-                          >
-                            <source src={project.video} type="video/mp4" />
-                            {project.captions ? (
-                              <track
-                                kind="subtitles"
-                                src={project.captions}
-                                srcLang="es"
-                                label="Español"
-                                default
-                              />
-                            ) : null}
-                          </video>
-                          <figcaption>{project.videoCaption}</figcaption>
-                        </figure>
-                      ) : null}
-                      {project.schemaVideo ? (
-                        <figure className="project-demo">
-                          <video
-                            key={`${locale}-schema`}
-                            controls
-                            playsInline
-                            preload="metadata"
-                            poster={project.schemaPoster}
-                            width={project.schemaVideoWidth || project.videoWidth || 1600}
-                            height={project.schemaVideoHeight || project.videoHeight || 948}
-                          >
-                            <source src={project.schemaVideo} type="video/mp4" />
-                          </video>
-                          <figcaption>{project.schemaCaption}</figcaption>
-                        </figure>
-                      ) : null}
-                      <ul className="stack-tags">
-                        {project.stack.split(" · ").map((tag) => (
-                          <li key={tag}>{tag}</li>
-                        ))}
-                      </ul>
-                      <p className="outcome">
-                        <strong>{t.projects.outcome}</strong> {project.outcome}
+                      <p>
+                        <span className="callout-label">{t.cases.problem}</span>
+                        {clipLine(project.lead || project.summary)}
                       </p>
+                      <p className="outcome">
+                        <strong>{t.projects.outcome}</strong> {clipLine(project.outcome)}
+                      </p>
+                      <details className="project-disclose">
+                        <summary>{t.projects.detail}</summary>
+                        <p>{project.summary}</p>
+                        {project.controlFlow ? (
+                          <div className="project-flow-block" role="group" aria-label={project.controlFlowLabel}>
+                            <p className="project-flow-label">{project.controlFlowLabel}</p>
+                            <ol className="project-flow">
+                              {project.controlFlow.map((step) => (
+                                <li key={step}>{step}</li>
+                              ))}
+                            </ol>
+                          </div>
+                        ) : null}
+                        {project.video ? (
+                          <figure className="project-demo">
+                            <video
+                              key={locale}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              poster={project.poster}
+                              width={project.videoWidth || 1280}
+                              height={project.videoHeight || 806}
+                            >
+                              <source src={project.video} type="video/mp4" />
+                              {project.captions ? (
+                                <track
+                                  kind="subtitles"
+                                  src={project.captions}
+                                  srcLang="es"
+                                  label={t.captionsEs}
+                                  default
+                                />
+                              ) : null}
+                            </video>
+                            <figcaption>{project.videoCaption}</figcaption>
+                          </figure>
+                        ) : null}
+                        {project.schemaVideo ? (
+                          <figure className="project-demo">
+                            <video
+                              key={`${locale}-schema`}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              poster={project.schemaPoster}
+                              width={project.schemaVideoWidth || project.videoWidth || 1600}
+                              height={project.schemaVideoHeight || project.videoHeight || 948}
+                            >
+                              <source src={project.schemaVideo} type="video/mp4" />
+                            </video>
+                            <figcaption>{project.schemaCaption}</figcaption>
+                          </figure>
+                        ) : null}
+                        <ul className="stack-tags">
+                          {project.stack.split(" · ").map((tag) => (
+                            <li key={tag}>{tag}</li>
+                          ))}
+                        </ul>
+                        <p className="outcome">
+                          <strong>{t.projects.outcome}</strong> {project.outcome}
+                        </p>
+                      </details>
                       <div className="project-actions">
                         {project.liveHref ? (
                           <ExternalLink className="btn btn-solid" href={project.liveHref}>
@@ -2301,7 +2171,8 @@ export default function App() {
           <a href={`${home}#services`}>{t.nav.services}</a>
           <a href={`${home}#enablement`}>{locale === "es" ? "Talleres In-Company" : "Workshops"}</a>
           <a href={`${home}#leadership`}>{locale === "es" ? "Mentoría y Liderazgo" : "Mentoring & Leadership"}</a>
-          <a href={`${home}#hr-copilot-case`}>{t.nav.caseStudies}</a>
+          <a href={`${home}#hr-copilot-case`}>{t.nav.demos}</a>
+          <a href={`${home}#case-studies`}>{t.nav.caseStudies}</a>
           <Link to={localizedPath(EU_AI_ACT_MAPPING_PATH)}>{t.hero.mapping}</Link>
           <Link to={localizedPath(DUAL_KEY_PATH)}>{t.nav.dualKey}</Link>
           <Link to={localizedPath(DEDALO_PATH)}>{t.nav.dedalo}</Link>
@@ -2317,10 +2188,7 @@ export default function App() {
       </footer>
 
       {view === "home" && !menuOpen && showMobileBar ? (
-        <aside
-          className="mobile-conversion-bar"
-          aria-label={locale === "es" ? "Acceso rápido a diagnóstico" : "Quick diagnostic actions"}
-        >
+        <aside className="mobile-conversion-bar" aria-label={CTA.persistentPrimary || t.discuss}>
           <a
             className="btn btn-solid mobile-bar-primary"
             href="#risk-check"
@@ -2329,17 +2197,7 @@ export default function App() {
               goToRiskCheck();
             }}
           >
-            {locale === "es" ? "Test de riesgo (90s)" : "Risk Check (90s)"}
-          </a>
-          <a
-            className="btn btn-ghost mobile-bar-secondary"
-            href="#diagnostic"
-            onClick={(event) => {
-              event.preventDefault();
-              goToEnquiry("snapshot");
-            }}
-          >
-            {locale === "es" ? "Diagnóstico / Mentoría" : "Diagnostic / Mentoring"}
+            {CTA.persistentPrimary || t.discuss}
           </a>
         </aside>
       ) : null}

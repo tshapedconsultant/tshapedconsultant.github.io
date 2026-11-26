@@ -12,6 +12,8 @@ import { DEDALO_PATH, WORKFLOW_ARTICLE_PATH, switchLocalePath } from "../src/rou
 const article = fs.readFileSync("src/data/workflowArticle.ts", "utf8");
 const hub = fs.readFileSync("src/pages/DedaloHub.tsx", "utf8");
 const home = fs.readFileSync("src/App.jsx", "utf8");
+const contentEn = fs.readFileSync("src/content.js", "utf8");
+const contentEs = fs.readFileSync("src/content.es.js", "utf8");
 const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
 const vite = fs.readFileSync("vite.config.js", "utf8");
 
@@ -42,15 +44,15 @@ test("dedalo and article metadata do not fall back to the homepage", () => {
 });
 
 test("study copy stays directional and does not quote an unread coefficient", () => {
-  const blob = `${article}\n${hub}\n${home}`;
+  const blob = `${article}\n${hub}\n${home}\n${contentEn}\n${contentEs}`;
   assert.equal(blob.includes("r=+0.39"), false);
   assert.equal(blob.includes("39% more value"), false);
   assert.equal(blob.includes("doesn't create value by automating"), false);
   assert.match(article, /does not quote a correlation coefficient/);
   assert.match(article, /Our governance interpretation/);
   assert.match(article, /Interpretación de gobernanza/);
-  assert.match(home, /AI value depends on the workflow around the model/);
-  assert.match(home, /La IA crea valor dentro de un proceso, no al margen de él/);
+  assert.match(contentEn, /AI value depends on the workflow around the model/);
+  assert.match(contentEs, /La IA crea valor dentro de un proceso, no al margen de él/);
 });
 
 test("portfolio cards keep the corrected limits", () => {

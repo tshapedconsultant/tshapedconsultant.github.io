@@ -63,6 +63,7 @@ export const HERO = {
   scope:
     "Diagnóstico en 90 segundos, revisión técnica acotada y arquitectura de control en runtime.",
   principle: "La gobernanza no se documenta. Se ejecuta. Los modelos probabilísticos requieren gobernanza determinista.",
+  offerLine: "AI Governance Snapshot · Desde €2.495 · 1 semana",
   executiveSummary: [
     {
       question: "1. ¿Qué problema concreto resuelvo?",
@@ -89,6 +90,7 @@ export const PATH_SELECTOR = {
   threeEntries: [
     {
       id: "direct",
+      tab: "Comprador",
       title: "Ruta directa",
       role: "Para CTOs, CISOs, Heads of AI, Risk y responsables de tecnología",
       cta: "Comprobar el riesgo de mi sistema",
@@ -102,6 +104,7 @@ export const PATH_SELECTOR = {
     },
     {
       id: "technical",
+      tab: "Técnico",
       title: "Ruta técnica interna",
       role: "Para arquitectos, ingenieros y Red Team Leads",
       cta: "Ver la demo técnica",
@@ -115,6 +118,7 @@ export const PATH_SELECTOR = {
     },
     {
       id: "partner",
+      tab: "Partner",
       title: "Ruta de partners",
       role: "Para firmas legales, Big Four y consultoras",
       cta: "Explorar co-delivery",
@@ -203,6 +207,17 @@ export const PAIN_SECTION = {
     },
   ],
   cta: "Comprobar el riesgo de mi sistema",
+};
+
+export const WORKFLOW_BRIDGE = {
+  kicker: "Hallazgo del estudio",
+  title: "La IA crea valor dentro de un proceso, no al margen de él.",
+  paragraphs: [
+    "El estudio Working with AI, de Anthropic, encontró que los usos de mayor valor solían ir acompañados de una reorganización de roles y procesos. Son hallazgos de entrevistas, orientativos, no una estimación causal del retorno.",
+    "Cuando cambia el trabajo, tienen que cambiar con él quién decide, quién revisa y cómo se escala un caso.",
+    "Ayudo a hacer explícitos esos límites y a traducirlos en controles ejecutables.",
+  ],
+  source: "Fuente: Anthropic, Working with AI, 23 de noviembre de 2026.",
 };
 
 export const FEATURED_HR_COPILOT = {
@@ -632,6 +647,9 @@ export const CASE_STUDIES = {
       governance:
         "La gobernanza se trata como ventaja competitiva: un inventario centralizado de modelos de IA, trabajo continuo de reducción de sesgo y alineación proactiva con el EU AI Act — de modo que la innovación solo acelere si la supervisión mantiene el ritmo.",
       note: "Análisis estratégico independiente de Andrés Lage Freire; no está redactado ni avalado por BBVA. Cifras según el análisis (marzo de 2025 y 1T 2025).",
+      scanProblem:
+        "Un banco global no puede escalar IA personalizada sin un núcleo unificado, inventario de modelos y alineación con el EU AI Act.",
+      scanResult: "78,1 millones de clientes activos, con la gobernanza tratada como ventaja competitiva.",
       pdf: CASE_STUDY_PDF,
     },
     {
@@ -661,6 +679,8 @@ export const CASE_STUDIES = {
       governance:
         "La supervisión humana es el control, no una cláusula. Límites de confianza, doble aprobación, anulaciones registradas y una reclamación de la persona candidata meten la puntuación probabilística en un camino de decisión determinista: triaje humano pronto, un freno más duro antes de descartar a alguien, y un consejo que puede detener el sistema.",
       note: "Marco operativo de IA responsable escrito por Andrés Lage Freire. Fija los controles. No es el informe de un despliegue con nombre, ni asesoramiento jurídico.",
+      scanProblem: "La IA puede decidir a quién se contrata solo si las personas no salen del proceso.",
+      scanResult: "Revisión humana obligatoria, doble aprobación antes del rechazo y un canal real de reclamación.",
       pdf: RESUME_MATCHING_PDF,
       downloadLabel: "Descargar el marco (PDF)",
     },
