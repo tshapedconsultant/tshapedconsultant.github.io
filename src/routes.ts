@@ -5,6 +5,9 @@ export const EU_AI_ACT_MAPPING_PATH = "/governance/eu-ai-act-mapping";
 export const DUAL_KEY_PATH = "/governance/dual-key-protocol";
 export const DEDALO_PATH = "/dedalo";
 export const WORKFLOW_ARTICLE_PATH = "/insights/ai-value-workflow-redesign";
+export const DETERMINISTIC_CAGE_PATH = "/insights/the-deterministic-cage";
+export const RED_TEAM_PATH = "/insights/ai-governance-hypothesis-red-teaming";
+export const INCENTIVE_PATH = "/insights/show-me-the-incentive";
 export const RISK_CHECK_PATH = "/ai-runtime-risk-check";
 export const PRIVACY_PATH = "/privacy";
 export const ES_PREFIX = "/es";
@@ -30,6 +33,12 @@ export const SPA_FALLBACK_DIRS = [
   `${ES_PREFIX}${DEDALO_PATH}`,
   WORKFLOW_ARTICLE_PATH,
   `${ES_PREFIX}${WORKFLOW_ARTICLE_PATH}`,
+  DETERMINISTIC_CAGE_PATH,
+  `${ES_PREFIX}${DETERMINISTIC_CAGE_PATH}`,
+  RED_TEAM_PATH,
+  `${ES_PREFIX}${RED_TEAM_PATH}`,
+  INCENTIVE_PATH,
+  `${ES_PREFIX}${INCENTIVE_PATH}`,
   `${ES_PREFIX}${RISK_CHECK_PATH}`,
   `${ES_PREFIX}${PRIVACY_PATH}`,
 ] as const;
@@ -70,13 +79,21 @@ export function localizeHref(href: string, locale: Locale): string {
   return href;
 }
 
+const PAIRED_INSIGHT_PATHS = new Set<string>([
+  WORKFLOW_ARTICLE_PATH,
+  DETERMINISTIC_CAGE_PATH,
+  RED_TEAM_PATH,
+  INCENTIVE_PATH,
+]);
+
 export function switchLocalePath(pathname: string, hash: string, target: Locale): string {
-  if (stripLocale(pathname) === WORKFLOW_ARTICLE_PATH) {
-    const next = withLocale(WORKFLOW_ARTICLE_PATH, target);
+  const stripped = stripLocale(pathname);
+  if (PAIRED_INSIGHT_PATHS.has(stripped)) {
+    const next = withLocale(stripped, target);
     if (!hash || hash === "#") return next;
     return `${next}${hash.startsWith("#") ? hash : `#${hash}`}`;
   }
-  if (stripLocale(pathname).startsWith("/insights/")) {
+  if (stripped.startsWith("/insights/")) {
     return target === "es" ? "/es/#insights" : "/#insights";
   }
   const next = withLocale(stripLocale(pathname), target);
@@ -155,6 +172,12 @@ export function assertLocaleSwitch(): void {
     ["/es/dedalo/", "", "en", "/dedalo"],
     [WORKFLOW_ARTICLE_PATH, "", "es", `/es${WORKFLOW_ARTICLE_PATH}`],
     [`/es${WORKFLOW_ARTICLE_PATH}`, "", "en", WORKFLOW_ARTICLE_PATH],
+    [DETERMINISTIC_CAGE_PATH, "", "es", `/es${DETERMINISTIC_CAGE_PATH}`],
+    [`/es${DETERMINISTIC_CAGE_PATH}`, "", "en", DETERMINISTIC_CAGE_PATH],
+    [RED_TEAM_PATH, "", "es", `/es${RED_TEAM_PATH}`],
+    [`/es${RED_TEAM_PATH}`, "", "en", RED_TEAM_PATH],
+    [INCENTIVE_PATH, "", "es", `/es${INCENTIVE_PATH}`],
+    [`/es${INCENTIVE_PATH}`, "", "en", INCENTIVE_PATH],
     ["/es/governance/dual-key-protocol/", "", "en", "/governance/dual-key-protocol"],
     ["/es/ai-runtime-risk-check/", "", "en", "/ai-runtime-risk-check"],
     ["/ai-runtime-risk-check", "", "es", "/es/ai-runtime-risk-check"],

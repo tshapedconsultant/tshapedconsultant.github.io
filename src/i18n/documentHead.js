@@ -1,5 +1,5 @@
 import {
-  jsonLdForLocale,
+  jsonLdForPath,
   pageSeoFor,
   absoluteUrl,
   alternateUrls,
@@ -73,6 +73,6 @@ export function applyDocumentHead(pathname) {
 
   const script = document.head.querySelector('script[type="application/ld+json"]');
   if (script) {
-    script.textContent = JSON.stringify(jsonLdForLocale(locale));
+    script.textContent = JSON.stringify(jsonLdForPath(pathname));
   }
 }

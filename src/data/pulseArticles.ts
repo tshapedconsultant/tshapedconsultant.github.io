@@ -9,6 +9,9 @@ export type PulseArticle = {
   lang: "es" | "en";
   published: string;
   excerpt: string;
+  /** Full document title when it should not use the default "| tshapedconsultant" suffix. */
+  seoTitle?: string;
+  seoDescription?: string;
   blocks: PulseBlock[];
 };
 

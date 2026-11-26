@@ -19,6 +19,9 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 - [Dual-Key Protocol](https://tshapedconsultant.com/governance/dual-key-protocol): Separate AI recommendations from execution authority. Entry offer is the one-week AI Governance Snapshot, not a certification. Reference architectures are not verified production deployments.
 - [Dédalo™](https://tshapedconsultant.com/dedalo): Governance frame for workflow redesign, decision rights and runtime controls. The Anthropic Working with AI study (23 November 2026) is directional interview evidence, not a return estimate and not an endorsement.
 - [Beyond task automation](https://tshapedconsultant.com/insights/ai-value-workflow-redesign): Open essay. It separates the study from a governance reading. The report PDF was not quoted for a correlation coefficient.
+- [The Deterministic Cage](https://tshapedconsultant.com/insights/the-deterministic-cage/): Why PDF policies do not stop autonomous agents, and how a runtime cage maps to EU AI Act Art. 14 and DORA. Spanish: https://tshapedconsultant.com/es/insights/the-deterministic-cage/
+- [AI governance is a hypothesis](https://tshapedconsultant.com/insights/ai-governance-hypothesis-red-teaming/): The Govern–Attack–Redesign loop and three questions for auditing runtime controls. Spanish: https://tshapedconsultant.com/es/insights/ai-governance-hypothesis-red-teaming/
+- [Show me the incentive](https://tshapedconsultant.com/insights/show-me-the-incentive/): Goodhart's Law, reward hacking and Layer 3 runtime controls. Spanish: https://tshapedconsultant.com/es/insights/show-me-the-incentive/
 - [BBVA case study (PDF)](https://tshapedconsultant.com/bbva-platform-ai-strategy-case-study.pdf)
 - [Responsible AI framework for resume–job matching (PDF)](https://tshapedconsultant.com/responsible-ai-resume-job-matching.pdf)
 - [Hybrid profiles article](https://tshapedconsultant.com/hybrid-profiles)

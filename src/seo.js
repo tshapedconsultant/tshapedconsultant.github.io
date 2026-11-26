@@ -148,9 +148,10 @@ export function pageSeoFor(pathname) {
   const table = locale === "es" ? PAGE_SEO_ES : PAGE_SEO;
   const pulse = pulseByPath(pathname, locale);
   if (pulse) {
+    const headline = pulse.title.replace(/\s+/g, " ").trim();
     return {
-      title: `${pulse.title.replace(/\s+/g, " ").trim()} | tshapedconsultant`,
-      description: pulse.excerpt,
+      title: pulse.seoTitle || `${headline} | tshapedconsultant`,
+      description: pulse.seoDescription || pulse.excerpt,
     };
   }
   if (table[path]) return table[path];
@@ -181,6 +182,37 @@ export function alternateUrls(pathname) {
   return {
     en: absoluteUrl(withLocale(canonical, "en")),
     es: absoluteUrl(withLocale(canonical, "es")),
+  };
+}
+
+export function jsonLdForPath(pathname) {
+  const locale = localeFromPath(pathname);
+  const base = jsonLdForLocale(locale);
+  const pulse = pulseByPath(pathname, locale);
+  if (!pulse?.seoTitle) return base;
+  const url = absoluteUrl(pathname);
+  return {
+    ...base,
+    "@graph": [
+      ...base["@graph"],
+      {
+        "@type": ["BlogPosting", "Article"],
+        "@id": `${url}#post`,
+        headline: pulse.title.replace(/\s+/g, " ").trim(),
+        description: pulse.seoDescription || pulse.excerpt,
+        url,
+        mainEntityOfPage: url,
+        datePublished: pulse.published,
+        inLanguage: locale === "es" ? "es" : "en-GB",
+        image: OG_IMAGE,
+        author: {
+          "@type": "Person",
+          "@id": `${ORIGIN}/#andres`,
+          name: "Andrés Lage Freire",
+        },
+        publisher: { "@id": `${ORIGIN}/#practice` },
+      },
+    ],
   };
 }
 

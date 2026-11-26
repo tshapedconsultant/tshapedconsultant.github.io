@@ -2,8 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
-import { PAGE_SEO, PAGE_SEO_ES, pageSeoFor, jsonLdForLocale } from "./src/seo.js";
+import { PAGE_SEO, PAGE_SEO_ES, pageSeoFor, jsonLdForPath } from "./src/seo.js";
 import { PULSE_ARTICLES } from "./src/data/pulseArticles.ts";
+import { FLAGSHIP_ARTICLES } from "./src/data/flagshipArticles.ts";
 import crypto from "node:crypto";
 import { WHITEPAPER_PUBLICATION, publishedFileHref } from "./src/data/whitepaperPublication.js";
 import { assertLocaleSwitch } from "./src/routes.ts";
@@ -37,6 +38,9 @@ const SPA_FALLBACK_DIRS = [
   ...new Set([
     ...CORE_FALLBACK_DIRS,
     ...PULSE_ARTICLES.map((article) =>
+      article.lang === "es" ? `es/insights/${article.slug}` : `insights/${article.slug}`
+    ),
+    ...FLAGSHIP_ARTICLES.map((article) =>
       article.lang === "es" ? `es/insights/${article.slug}` : `insights/${article.slug}`
     ),
   ]),
@@ -187,6 +191,30 @@ const NOSCRIPT_WORKFLOW_ES = `<noscript>
       </main>
     </noscript>`;
 
+function flagshipForDir(dir) {
+  const match = dir.match(/^(?:es\/)?insights\/([a-z0-9-]+)$/);
+  if (!match) return undefined;
+  const lang = dir.startsWith("es/") ? "es" : "en";
+  return FLAGSHIP_ARTICLES.find((article) => article.slug === match[1] && article.lang === lang);
+}
+
+function renderFlagshipNoscript(article) {
+  const body = article.blocks
+    .map((block) => {
+      if (block.type === "h2") return `<h2>${block.html}</h2>`;
+      if (block.type === "h3") return `<h3>${block.html}</h3>`;
+      if (block.type === "blockquote") return `<blockquote>${block.html}</blockquote>`;
+      if (block.type === "ul" || block.type === "ol") {
+        const items = block.items.map((item) => `<li>${item}</li>`).join("");
+        return `<${block.type}>${items}</${block.type}>`;
+      }
+      if (block.type === "hr") return "<hr />";
+      return `<p>${block.html}</p>`;
+    })
+    .join("");
+  return `<noscript><main><article><h1>${htmlAttr(article.title)}</h1>${body}</article></main></noscript>`;
+}
+
 function htmlAttr(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -274,6 +302,10 @@ function patchFallbackHtml(html, dir) {
   if (dir === "es/insights/ai-value-workflow-redesign") {
     out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_WORKFLOW_ES);
   }
+  const flagship = flagshipForDir(dir);
+  if (flagship) {
+    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, renderFlagshipNoscript(flagship));
+  }
   if (meta) {
     const title = htmlAttr(meta.title);
     const description = htmlAttr(meta.description);
@@ -300,14 +332,14 @@ function patchFallbackHtml(html, dir) {
       /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/s,
       `<meta name="twitter:description" content="${ogDescription}" />`
     );
-    const ldBody = `\n${JSON.stringify(jsonLdForLocale(isEs ? "es" : "en"))}\n`;
+    const ldBody = `\n${JSON.stringify(jsonLdForPath(requestPath))}\n`;
     const ldHash = crypto.createHash("sha256").update(ldBody, "utf8").digest("base64");
     out = out.replace(
       /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
       `<script type="application/ld+json">${ldBody}</script>`
     );
     out = out.replace(/sha256-[A-Za-z0-9+/=]+/, `sha256-${ldHash}`);
-    if (!CUSTOM_NOSCRIPT_DIRS.has(dir)) {
+    if (!CUSTOM_NOSCRIPT_DIRS.has(dir) && !flagship) {
       const pageTitle = htmlAttr(meta.title.replace(/\s+\|\s+.*$/, ""));
       out = out.replace(
         /<noscript>[\s\S]*?<\/noscript>/,

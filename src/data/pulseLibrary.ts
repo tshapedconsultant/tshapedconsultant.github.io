@@ -1,11 +1,15 @@
+import { FLAGSHIP_ARTICLES } from "./flagshipArticles.ts";
 import { PULSE_ARTICLES, type PulseArticle } from "./pulseArticles.ts";
 import { WORKFLOW_ARTICLES } from "./workflowArticle.ts";
 
-const ARTICLES: PulseArticle[] = [...WORKFLOW_ARTICLES, ...PULSE_ARTICLES];
+const ARTICLES: PulseArticle[] = [...FLAGSHIP_ARTICLES, ...WORKFLOW_ARTICLES, ...PULSE_ARTICLES];
 
 /** Most relevant to executable governance first; market notes and explainers last. */
 const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
   es: [
+    "the-deterministic-cage",
+    "ai-governance-hypothesis-red-teaming",
+    "show-me-the-incentive",
     "ai-value-workflow-redesign",
     "de-una-multiplicacion-de-primaria-a-la-caja-negra-como-gobernamos-una-ia-que-no",
     "el-juego-ha-cambiado-ya-no-solo-aseguramos-aplicaciones-gobernamos-agentes-auton",
@@ -29,6 +33,9 @@ const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
     "el-tablero-completo-nvidia-no-quiere-controlar-solo-el-hardware-quiere-controlar",
   ],
   en: [
+    "the-deterministic-cage",
+    "ai-governance-hypothesis-red-teaming",
+    "show-me-the-incentive",
     "ai-value-workflow-redesign",
     "from-a-primary-school-multiplication-to-the-black-box-how-do-we-govern-an-ai-we",
     "the-game-has-changed-we-no-longer-just-secure-applications-we-govern-autonomous",
