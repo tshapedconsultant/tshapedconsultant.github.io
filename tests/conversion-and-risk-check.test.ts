@@ -446,11 +446,11 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
   test("Spanish homepage SEO metadata matches exact required copy", () => {
     assert.equal(
       HOME_TITLE_ES,
-      "Gobernanza ejecutable para sistemas de IA | TShaped Consultant"
+      "Gobernanza ejecutable para agentes | TShaped Consultant"
     );
     assert.equal(
       HOME_DESCRIPTION_ES,
-      "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y sistemas de IA de alto impacto. Comprueba el riesgo de tu sistema en 90 segundos."
+      "Ingeniería de gobernanza de IA para RAG, copilotos y agentes. Comprueba si tu sistema puede acceder, decidir o actuar sin una compuerta independiente."
     );
     assert.equal(
       HOME_OG_TITLE_ES,
@@ -685,7 +685,8 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
           html.includes(`<link rel="canonical" href="${rc.canonical}" />`),
           `Incorrect canonical in ${rc.file}`
         );
-        assert.ok(html.includes('hreflang="en-GB"'), `Missing hreflang en-GB in ${rc.file}`);
+        assert.ok(html.includes('hreflang="en"'), `Missing hreflang en in ${rc.file}`);
+        assert.equal(html.includes('hreflang="en-GB"'), false, `Unexpected hreflang en-GB in ${rc.file}`);
         assert.ok(html.includes('hreflang="es"'), `Missing hreflang es in ${rc.file}`);
         assert.ok(html.includes('hreflang="x-default"'), `Missing hreflang x-default in ${rc.file}`);
       }

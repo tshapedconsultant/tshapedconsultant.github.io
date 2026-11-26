@@ -664,7 +664,7 @@ export default function App() {
           <Link
             className="lang-btn"
             to={switchTo(otherLocale)}
-            hrefLang={otherLocale === "es" ? "es" : "en-GB"}
+            hrefLang={otherLocale === "es" ? "es" : "en"}
             lang={otherLocale === "es" ? "es" : "en-GB"}
             aria-label={otherLocale === "es" ? t.switchToEs : t.switchToEn}
             onClick={() => {

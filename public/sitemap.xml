@@ -1,84 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tshapedconsultant.com/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/whitepaper/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/whitepaper/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/whitepaper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/whitepaper/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/hybrid-profiles/</loc>
     <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/hybrid-profiles/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/hybrid-profiles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/hybrid-profiles/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/agentic-ai-montesquieu/</loc>
     <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/agentic-ai-montesquieu/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/agentic-ai-montesquieu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/agentic-ai-montesquieu/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/governance/eu-ai-act-mapping/</loc>
     <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/governance/eu-ai-act-mapping/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/governance/eu-ai-act-mapping/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/governance/eu-ai-act-mapping/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/governance/dual-key-protocol/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/governance/dual-key-protocol/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/governance/dual-key-protocol/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/governance/dual-key-protocol/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/dedalo/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/dedalo/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/dedalo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/dedalo/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/insights/ai-value-workflow-redesign/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/insights/ai-value-workflow-redesign/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/insights/ai-value-workflow-redesign/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/insights/ai-value-workflow-redesign/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/ai-runtime-risk-check/</loc>
     <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/ai-runtime-risk-check/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/ai-runtime-risk-check/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/ai-runtime-risk-check/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/privacy/</loc>
     <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/privacy/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/ai-runtime-risk-check/</loc>
     <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/ai-runtime-risk-check/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/ai-runtime-risk-check/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/ai-runtime-risk-check/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/privacy/</loc>
     <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/privacy/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/whitepaper/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/whitepaper/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/whitepaper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/whitepaper/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/hybrid-profiles/</loc>
     <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/hybrid-profiles/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/hybrid-profiles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/hybrid-profiles/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/agentic-ai-montesquieu/</loc>
     <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/agentic-ai-montesquieu/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/agentic-ai-montesquieu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/agentic-ai-montesquieu/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/governance/eu-ai-act-mapping/</loc>
     <lastmod>2026-09-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/governance/eu-ai-act-mapping/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/governance/eu-ai-act-mapping/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/governance/eu-ai-act-mapping/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/governance/dual-key-protocol/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/governance/dual-key-protocol/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/governance/dual-key-protocol/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/governance/dual-key-protocol/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/dedalo/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/dedalo/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/dedalo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/dedalo/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/es/insights/ai-value-workflow-redesign/</loc>
     <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/insights/ai-value-workflow-redesign/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/insights/ai-value-workflow-redesign/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/insights/ai-value-workflow-redesign/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf</loc>

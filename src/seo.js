@@ -19,16 +19,20 @@ import { ARTICLE as ARTICLE_ES, HYBRID_ARTICLE as HYBRID_ARTICLE_ES } from "./co
 export const ORIGIN = "https://tshapedconsultant.com";
 
 export const HOME_TITLE =
-  "Executable AI Governance for Agentic and Regulated Systems | TShaped Consultant";
+  "Executable governance for AI agents | TShaped Consultant";
 
 export const HOME_TITLE_ES =
-  "Gobernanza ejecutable para sistemas de IA | TShaped Consultant";
+  "Gobernanza ejecutable para agentes | TShaped Consultant";
 
 export const HOME_DESCRIPTION =
-  "AI Governance Engineering for organisations deploying RAG, copilots and agentic systems. Assess whether your AI system can access, decide or act without sufficient controls.";
+  "AI Governance Engineering for RAG, copilots and agents. Check locally whether a system can access, decide or act without an independent control gate.";
 
 export const HOME_DESCRIPTION_ES =
-  "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y sistemas de IA de alto impacto. Comprueba el riesgo de tu sistema en 90 segundos.";
+  "Ingeniería de gobernanza de IA para RAG, copilotos y agentes. Comprueba si tu sistema puede acceder, decidir o actuar sin una compuerta independiente.";
+
+export const OG_IMAGE = `${ORIGIN}/og-image.jpg`;
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
 
 export const HOME_OG_TITLE_ES =
   "Gobernanza ejecutable para sistemas de IA que pueden acceder, decidir y actuar";
@@ -265,6 +269,37 @@ export function jsonLdForLocale(locale) {
           "https://github.com/tshapedconsultant",
           "https://medium.com/@andresl",
         ],
+        makesOffer: {
+          "@type": "Offer",
+          name: "AI Governance Snapshot",
+          price: "2495",
+          priceCurrency: "EUR",
+          description:
+            locale === "es"
+              ? "Desde 2495 EUR. Revisión técnica acotada de una semana. No es asesoramiento jurídico ni certificación."
+              : "From 2495 EUR. A bounded one-week technical review. Not legal advice or certification.",
+          url: `${home}#services`,
+          availability: "https://schema.org/InStock",
+        },
+      },
+      {
+        "@type": "WebApplication",
+        "@id": `${absoluteUrl(withLocale(RISK_CHECK_PATH, locale))}#app`,
+        name: "AI Runtime Risk Check",
+        url: absoluteUrl(withLocale(RISK_CHECK_PATH, locale)),
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web",
+        inLanguage,
+        description:
+          locale === "es"
+            ? "Seis preguntas en el navegador para RAG, copilotos, agentes y workflows. El resultado preliminar se calcula en local."
+            : "Six questions in the browser for RAG, copilots, agents and workflows. The preliminary result is calculated locally.",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "EUR",
+        },
+        provider: { "@id": `${ORIGIN}/#practice` },
       },
       {
         "@type": "Article",

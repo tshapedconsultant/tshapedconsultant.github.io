@@ -2,14 +2,16 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
-import { PAGE_SEO, PAGE_SEO_ES, pageSeoFor } from "./src/seo.js";
+import { PAGE_SEO, PAGE_SEO_ES, pageSeoFor, jsonLdForLocale } from "./src/seo.js";
+import { PULSE_ARTICLES } from "./src/data/pulseArticles.ts";
+import crypto from "node:crypto";
 import { WHITEPAPER_PUBLICATION, publishedFileHref } from "./src/data/whitepaperPublication.js";
 import { assertLocaleSwitch } from "./src/routes.ts";
 
 assertLocaleSwitch();
 
 /** GitHub Pages custom domain is served from `/`. Never use the repo-name base. */
-const SPA_FALLBACK_DIRS = [
+const CORE_FALLBACK_DIRS = [
   "whitepaper",
   "hybrid-profiles",
   "agentic-ai-montesquieu",
@@ -30,6 +32,25 @@ const SPA_FALLBACK_DIRS = [
   "es/ai-runtime-risk-check",
   "es/privacy",
 ];
+
+const SPA_FALLBACK_DIRS = [
+  ...new Set([
+    ...CORE_FALLBACK_DIRS,
+    ...PULSE_ARTICLES.map((article) =>
+      article.lang === "es" ? `es/insights/${article.slug}` : `insights/${article.slug}`
+    ),
+  ]),
+];
+
+const CUSTOM_NOSCRIPT_DIRS = new Set([
+  "es",
+  "whitepaper",
+  "es/whitepaper",
+  "dedalo",
+  "es/dedalo",
+  "insights/ai-value-workflow-redesign",
+  "es/insights/ai-value-workflow-redesign",
+]);
 
 const ORIGIN = "https://tshapedconsultant.com";
 const UNIFIED_PDF = publishedFileHref(WHITEPAPER_PUBLICATION.en);
@@ -204,8 +225,8 @@ function patchFallbackHtml(html, dir) {
   );
   out = replaceAttr(
     out,
-    /<link rel="alternate" hreflang="en-GB" href="[^"]*" \/>/,
-    `<link rel="alternate" hreflang="en-GB" href="${enUrl}" />`
+    /<link rel="alternate" hreflang="en" href="[^"]*" \/>/,
+    `<link rel="alternate" hreflang="en" href="${enUrl}" />`
   );
   out = replaceAttr(
     out,
@@ -233,7 +254,7 @@ function patchFallbackHtml(html, dir) {
       /<meta property="og:locale:alternate" content="[^"]*" \/>/,
       '<meta property="og:locale:alternate" content="en_GB" />'
     );
-    out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_ES);
+    if (dir === "es") out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_ES);
   }
   if (dir === "whitepaper") {
     out = out.replace(/<noscript>[\s\S]*?<\/noscript>/, NOSCRIPT_WHITEPAPER_EN);
@@ -279,6 +300,20 @@ function patchFallbackHtml(html, dir) {
       /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/s,
       `<meta name="twitter:description" content="${ogDescription}" />`
     );
+    const ldBody = `\n${JSON.stringify(jsonLdForLocale(isEs ? "es" : "en"))}\n`;
+    const ldHash = crypto.createHash("sha256").update(ldBody, "utf8").digest("base64");
+    out = out.replace(
+      /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
+      `<script type="application/ld+json">${ldBody}</script>`
+    );
+    out = out.replace(/sha256-[A-Za-z0-9+/=]+/, `sha256-${ldHash}`);
+    if (!CUSTOM_NOSCRIPT_DIRS.has(dir)) {
+      const pageTitle = htmlAttr(meta.title.replace(/\s+\|\s+.*$/, ""));
+      out = out.replace(
+        /<noscript>[\s\S]*?<\/noscript>/,
+        `<noscript><main><h1>${pageTitle}</h1><p>${description}</p></main></noscript>`
+      );
+    }
   }
   return out;
 }

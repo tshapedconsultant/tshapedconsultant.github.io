@@ -10,7 +10,7 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 
 ## Canonical pages
 
-- [Home](https://tshapedconsultant.com/): Positioning, DGOM™, services, diagnostic, partners, case studies and contact
+- [Home](https://tshapedconsultant.com/): AI Governance Engineering. Entry offer: AI Governance Snapshot, from 2495 EUR, one week. Three routes: Buyer, Technical and Partner.
 - [EU AI Act mapping](https://tshapedconsultant.com/governance/eu-ai-act-mapping): Which obligations apply by role and system, executable controls, and the evidence pack an auditor would inspect
 - [Whitepaper (on-site)](https://tshapedconsultant.com/whitepaper): The essay is the earlier long edition and is open. The current English PDF is Unified Edition v5.4, 23 pages. The Spanish unified edition is not published; the Spanish PDF is the 30-page edition of 16 November 2026.
 - [Whitepaper (PDF, Unified Edition v5.4)](https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf)
@@ -25,9 +25,16 @@ DGOM™ orchestrates governance frameworks. It does not replace legal advice, fo
 - [Agentic AI and Montesquieu](https://tshapedconsultant.com/agentic-ai-montesquieu)
 - [Full outline](https://tshapedconsultant.com/llms-full.txt)
 
+## Services and demos
+
+- AI Runtime Risk Check (free, six questions, local in the browser) — https://tshapedconsultant.com/ai-runtime-risk-check/
+- AI Governance Snapshot — from 2495 EUR, one week — https://tshapedconsultant.com/#services
+- HR Copilot, Act I without governance and Act II with TGI v1 — https://tshapedconsultant.com/#hr-copilot-case
+- Frameworks: Dédalo™ (architecture), DGOM™ (operating model), Dual-Key Protocol (execution authority)
+
 ## Contact
 
-- AI Governance Diagnostic — https://tshapedconsultant.com/#diagnostic
+- Check my risk — https://tshapedconsultant.com/#risk-check
 - DGOM™ operating model — https://tshapedconsultant.com/#dgom
 - Law firms and advisory partners — https://tshapedconsultant.com/#partners
 - Email: andreslage@tshapedconsultant.com

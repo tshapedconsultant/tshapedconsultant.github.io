@@ -1,4 +1,12 @@
-import { jsonLdForLocale, pageSeoFor, absoluteUrl, alternateUrls } from "../seo.js";
+import {
+  jsonLdForLocale,
+  pageSeoFor,
+  absoluteUrl,
+  alternateUrls,
+  OG_IMAGE,
+  OG_IMAGE_WIDTH,
+  OG_IMAGE_HEIGHT,
+} from "../seo.js";
 import { localeFromPath } from "../routes";
 
 function setMetaByName(name, content) {
@@ -47,13 +55,17 @@ export function applyDocumentHead(pathname) {
   document.title = seo.title;
   setMetaByName("description", seo.description);
   setLink("canonical", canonical);
-  setLink("alternate", alts.en, "en-GB");
+  setLink("alternate", alts.en, "en");
   setLink("alternate", alts.es, "es");
   setLink("alternate", alts.en, "x-default");
 
   setMetaByProperty("og:url", canonical);
   setMetaByProperty("og:title", ogTitle);
   setMetaByProperty("og:description", ogDescription);
+  setMetaByProperty("og:image", OG_IMAGE);
+  setMetaByProperty("og:image:width", String(OG_IMAGE_WIDTH));
+  setMetaByProperty("og:image:height", String(OG_IMAGE_HEIGHT));
+  setMetaByName("twitter:image", OG_IMAGE);
   setMetaByProperty("og:locale", locale === "es" ? "es_ES" : "en_GB");
   setMetaByProperty("og:locale:alternate", locale === "es" ? "en_GB" : "es_ES");
   setMetaByName("twitter:title", ogTitle);
