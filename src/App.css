@@ -4995,6 +4995,10 @@ details.mobile-disclose > summary:focus-visible {
 }
 
 /* HR Copilot Featured Case */
+.hr-act-toggle {
+  display: none;
+}
+
 .hr-acts-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -5690,6 +5694,42 @@ details.mobile-disclose > summary:focus-visible {
 
 /* ——— Responsive Mobile Overrides for New Conversion Sections ——— */
 @media (max-width: 900px) {
+  .hr-act-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .hr-act-tab {
+    appearance: none;
+    min-height: 44px;
+    padding: 0.55rem 0.55rem;
+    border: 1px solid var(--border);
+    background: var(--white);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--slate-700);
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .hr-act-tab.is-active {
+    background: var(--navy-900);
+    border-color: var(--navy-900);
+    color: var(--white);
+  }
+
+  .hr-act-card {
+    display: none;
+  }
+
+  .hr-act-card.is-selected {
+    display: block;
+  }
+
   .hr-acts-grid,
   .hr-copilot-showcase,
   .case-grid,

@@ -36,76 +36,69 @@ const UNIFIED_PDF = publishedFileHref(WHITEPAPER_PUBLICATION.en);
 
 const NOSCRIPT_ES = `<noscript>
       <main>
-        <p>Andrés Lage Freire · Madrid · EMEA en remoto</p>
+        <p>Ingeniería de Gobernanza de IA · EU AI Act</p>
         <h1>Gobernanza ejecutable para sistemas de IA que pueden acceder, decidir y actuar.</h1>
-        <p>Ingeniería de Gobernanza de IA</p>
+        <p>Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y workflows de alto impacto.</p>
+        <p>AI Governance Snapshot · Desde €2.495 · 1 semana</p>
         <p>
-          Diseño controles técnicos, límites de runtime y evidencia verificable para RAG,
-          copilotos, agentes y workflows de alto impacto.
+          <a href="/es/#risk-check">Comprobar el riesgo de mi sistema</a>
+          ·
+          <a href="/es/#hr-copilot-case">Ver la demo técnica</a>
         </p>
-        <p>
-          Mitigación de AI runtime risk y gobernanza de IA en tiempo de ejecución mediante
-          controles de acceso, autoridad y evidencia.
-        </p>
-        <p>Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.</p>
-        <section id="why">
-          <h2>Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución.</h2>
-          <ul>
-            <li><strong>Acceso:</strong> Qué puede leer o recuperar el sistema (RAG, permisos, prompt injection).</li>
-            <li><strong>Autoridad:</strong> Qué puede invocar o modificar (allowlist de herramientas, HITL, fail-safe).</li>
-            <li><strong>Evidencia:</strong> Qué puedes reconstruir y demostrar después (trazas de decisión, logs SHA-256).</li>
-          </ul>
-          <p><strong>¿Qué te trae aquí?</strong> [Comprobar el riesgo de mi sistema] · [Quiero formar a mi equipo] · [Busco un partner técnico] · [Quiero explorar co-delivery]</p>
+        <ul>
+          <li>6 sistemas ejecutables — Planos de control abiertos y demos en vivo</li>
+          <li>~30 % menos tiempo — Entrega cliente CRM multiagente gobernado (Coco Mind)</li>
+          <li>Panel de 24 registros — Revisor independiente, Piloto de validación JRS (2026)</li>
+          <li>Mentor y ponente — AImpacto Hackathon (MIL e IE), AI Safety Meetup</li>
+        </ul>
+        <section id="paths">
+          <h2>¿Qué te trae aquí?</h2>
+          <article>
+            <h3>Comprador</h3>
+            <p>Para CTOs, CISOs, Heads of AI, Risk y responsables de tecnología</p>
+            <ul>
+              <li>AI Runtime Risk Check</li>
+              <li>AI Governance Snapshot</li>
+              <li>Blueprint</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Técnico</h3>
+            <p>Para arquitectos, ingenieros y Red Team Leads</p>
+            <ul>
+              <li>HR Copilot</li>
+              <li>Demo de controles</li>
+              <li>Validación técnica</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Partner</h3>
+            <p>Para firmas legales, Big Four y consultoras</p>
+            <ul>
+              <li>Del PDF Legal al Código</li>
+              <li>Workshop o Hackathon</li>
+              <li>Co-delivery</li>
+            </ul>
+          </article>
         </section>
         <section id="risk-check">
-          <h2>AI Runtime Risk Check (90 segundos)</h2>
-          <p>Ejemplo de resultado — Riesgo detectado: autonomía sin compuerta independiente.</p>
-          <p><a href="/es/ai-runtime-risk-check/">Comprobar el riesgo de mi sistema (/es/ai-runtime-risk-check/)</a></p>
+          <h2>AI Runtime Risk Check</h2>
+          <p>Seis preguntas, evaluadas en local en el navegador. Un resultado preliminar para RAG, copilotos, agentes y workflows automatizados. Ejemplo de resultado — Riesgo detectado: autonomía sin compuerta independiente.</p>
+          <p>El trabajo convierte AI runtime risk en gobernanza de IA en tiempo de ejecución mediante controles de acceso, autoridad y evidencia.</p>
         </section>
         <section id="hr-copilot-case">
-          <h2>HR Copilot — Implementación Técnica de Gobernanza (TGI v1)</h2>
-          <p>Mismo modelo. Mismas peticiones. Dos posturas de riesgo: Acto I (sin gobernanza) frente a Acto II (8 controles deterministas en runtime). La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado.</p>
+          <h2>Mismo modelo. Mismas peticiones. Dos posturas de riesgo.</h2>
+          <p>HR Copilot — Acto I · Sin gobernanza frente a Acto II · Con TGI v1. La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado.</p>
         </section>
-        <section id="services">
-          <h2>Jerarquía de servicios y orientación de precios</h2>
-          <ol>
-            <li><strong>AI Runtime Risk Check</strong> — Gratis · 90 segundos</li>
-            <li><strong>AI Governance Snapshot</strong> — Desde €2.495 · Revisión técnica acotada en 1 semana</li>
-            <li><strong>Workshop / Hackathon In-Company («Del PDF Legal al Código»)</strong> — €1.200–€3.000</li>
-            <li><strong>AI Governance Blueprint</strong> — Desde €6.500 · Diseño de arquitectura de control</li>
-            <li><strong>Runtime Assurance / Arquitecto Fraccional</strong> — Implementación por sprints según alcance</li>
-            <li><strong>Partner / Co-delivery / White-label</strong> — Entrega técnica para despachos, Big 4 y consultoras</li>
-          </ol>
-        </section>
-        <p>
-          <a href="https://www.lavozdegalicia.es/noticia/educacion/2018/03/15/alumnos-fp-unen-empresas-estudiantes-resolver-retos/0003_201803H15C6991.htm">Premio al Emprendimiento de la Fundación Repsol, 2018</a>
-          ·
-          <a href="/bbva-platform-ai-strategy-case-study.pdf">Caso: estrategia de plataforma e IA de BBVA</a>
-          ·
-          <a href="/responsible-ai-resume-job-matching.pdf">Marco: IA responsable para emparejar currículum y puesto</a>
-          ·
-          <a href="/Gobernanza-Determinista-IA.pdf">Whitepaper en castellano, edición del 16 de noviembre de 2026 (PDF, 30 páginas)</a>
-          ·
-          <a href="/Dedalo-Executive-Brief.pdf">Dédalo™ Executive Brief (PDF, EN)</a>
-        </p>
         <nav>
           <ul>
-            <li><a href="/es/ai-runtime-risk-check/">Comprobar mi riesgo (AI Runtime Risk Check)</a></li>
-            <li><a href="/es/#diagnostic">Solicitar AI Governance Snapshot</a></li>
-            <li><a href="/es/#hr-copilot-case">Ver la demo técnica (HR Copilot TGI v1)</a></li>
-            <li><a href="/es/#enablement">Workshop In-Company: Del PDF Legal al Código</a></li>
-            <li><a href="/es/#services">Servicios y precios</a></li>
-            <li><a href="/es/#dgom">Modelo operativo DGOM™</a></li>
-            <li><a href="/es/#partners">Explorar co-delivery (Despachos y firmas asesoras)</a></li>
-            <li><a href="/es/governance/eu-ai-act-mapping/">Mapeo del EU AI Act</a></li>
-            <li><a href="/es/governance/dual-key-protocol/">Protocolo Dual-Key</a></li>
-            <li><a href="/es/dedalo/">Dédalo™</a></li>
-            <li><a href="/es/whitepaper/">Whitepaper</a></li>
-            <li><a href="/es/hybrid-profiles/">Perfiles híbridos</a></li>
-            <li><a href="/es/agentic-ai-montesquieu/">IA agéntica y Montesquieu</a></li>
-            <li><a href="/es/privacy/">Política de privacidad</a></li>
-            <li><a href="/es/#contact">Contacto</a></li>
-            <li><a href="/llms.txt">Resumen en texto plano para modelos de lenguaje</a></li>
+            <li><a href="/es/#services">Servicios</a></li>
+            <li><a href="/es/#hr-copilot-case">Demos</a></li>
+            <li><a href="/es/#case-studies">Casos</a></li>
+            <li><a href="/es/whitepaper/">Recursos</a></li>
+            <li><a href="/es/#about">Sobre mí</a></li>
+            <li><a href="/es/#risk-check">Comprobar mi riesgo</a></li>
+            <li><a href="/" hreflang="en">EN</a></li>
           </ul>
         </nav>
         <p>

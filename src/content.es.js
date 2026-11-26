@@ -49,44 +49,16 @@ export const ABOUT_WHY = {
 };
 
 export const HERO = {
-  kicker: "Andrés Lage Freire · TShaped Consultant · Ingeniería de Gobernanza de IA",
   headline:
     "Gobernanza ejecutable para sistemas de IA que pueden acceder, decidir y actuar.",
-  tagline: "Lleva tus sistemas de IA a producción con controles verificables",
   value:
     "Diseño controles técnicos, límites de runtime y evidencia verificable para RAG, copilotos, agentes y workflows de alto impacto.",
-  assets:
-    "Ayudo a equipos de IA, tecnología y riesgo a convertir obligaciones regulatorias y riesgos de AI runtime risk en gobernanza de IA en tiempo de ejecución mediante controles de acceso, autoridad y evidencia.",
-  pills: ["EU AI Act", "Agentic AI Governance", "Runtime Assurance"],
-  qualify:
-    "Para CISOs, CTOs, responsables de riesgo y equipos que llevan IA de piloto a producción.",
-  scope:
-    "Diagnóstico en 90 segundos, revisión técnica acotada y arquitectura de control en runtime.",
   principle: "La gobernanza no se documenta. Se ejecuta. Los modelos probabilísticos requieren gobernanza determinista.",
   offerLine: "AI Governance Snapshot · Desde €2.495 · 1 semana",
-  executiveSummary: [
-    {
-      question: "1. ¿Qué problema concreto resuelvo?",
-      answer:
-        "Evito que sistemas RAG, copilotos y agentes pasen a producción con acceso excesivo a datos, capacidad de ejecutar acciones sin compuerta independiente o sin trazas verificables para auditoría.",
-    },
-    {
-      question: "2. ¿Qué recibirás y cuánto tardarás?",
-      answer:
-        "En 90 segundos obtienes un diagnóstico preliminar (AI Runtime Risk Check). En 1 semana recibes el AI Governance Snapshot (Desde €2.495): mapa técnico de brechas y de 3 a 5 controles prioritarios.",
-    },
-    {
-      question: "3. ¿Qué tienes que hacer para empezar?",
-      answer:
-        "Completar el AI Runtime Risk Check de 6 preguntas o solicitar directamente una llamada de alcance de 30 minutos sobre tu sistema o arquitectura.",
-    },
-  ],
 };
 
 export const PATH_SELECTOR = {
   title: "¿Qué te trae aquí?",
-  subtitle:
-    "Quien detecta el problema → quien valida la solución → quien aprueba el presupuesto → quien puede derivar o co-entregar el proyecto.",
   threeEntries: [
     {
       id: "direct",
@@ -94,12 +66,7 @@ export const PATH_SELECTOR = {
       title: "Ruta directa",
       role: "Para CTOs, CISOs, Heads of AI, Risk y responsables de tecnología",
       cta: "Comprobar el riesgo de mi sistema",
-      steps: [
-        "AI Runtime Risk Check",
-        "AI Governance Snapshot",
-        "Blueprint",
-        "Runtime Assurance",
-      ],
+      steps: ["AI Runtime Risk Check", "AI Governance Snapshot", "Blueprint"],
       target: "risk-check",
     },
     {
@@ -108,12 +75,7 @@ export const PATH_SELECTOR = {
       title: "Ruta técnica interna",
       role: "Para arquitectos, ingenieros y Red Team Leads",
       cta: "Ver la demo técnica",
-      steps: [
-        "HR Copilot",
-        "Demo de controles",
-        "Validación técnica",
-        "Recomendación interna al decisor",
-      ],
+      steps: ["HR Copilot", "Demo de controles", "Validación técnica"],
       target: "hr-copilot-case",
     },
     {
@@ -122,54 +84,16 @@ export const PATH_SELECTOR = {
       title: "Ruta de partners",
       role: "Para firmas legales, Big Four y consultoras",
       cta: "Explorar co-delivery",
-      steps: [
-        "Del PDF Legal al Código",
-        "Workshop o Hackathon",
-        "Co-delivery",
-        "Proyecto del cliente",
-      ],
+      steps: ["Del PDF Legal al Código", "Workshop o Hackathon", "Co-delivery"],
       target: "partners",
-    },
-  ],
-  options: [
-    {
-      id: "evaluate",
-      label: "Comprobar el riesgo de mi sistema",
-      sub: "AI Runtime Risk Check → AI Governance Snapshot",
-      target: "risk-check",
-      intent: "snapshot",
-    },
-    {
-      id: "train",
-      label: "Quiero formar a mi equipo",
-      sub: "Del PDF Legal al Código → Workshop o Hackathon In-Company",
-      target: "enablement",
-      intent: "workshop",
-    },
-    {
-      id: "partner",
-      label: "Busco un partner técnico",
-      sub: "HR Copilot → Demo de controles → Validación técnica",
-      target: "hr-copilot-case",
-      intent: "snapshot",
-    },
-    {
-      id: "codelivery",
-      label: "Quiero explorar co-delivery",
-      sub: "Derivación, co-delivery o white-label para el proyecto del cliente",
-      target: "partners",
-      intent: "partners",
     },
   ],
 };
 
 export const PAIN_SECTION = {
-  kicker: "01 · El problema en ejecución",
   title:
     "Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución.",
   lead:
-    "Una política de IA no impide por sí sola que un agente consulte una herramienta indebida, recupere información no autorizada o ejecute una acción que nadie pueda reconstruir después.",
-  text:
     "Una política de IA no impide por sí sola que un agente consulte una herramienta indebida, recupere información no autorizada o ejecute una acción que nadie pueda reconstruir después.",
   cards: [
     {
@@ -177,10 +101,7 @@ export const PAIN_SECTION = {
       icon: "shield",
       title: "Acceso",
       subtitle: "¿Qué datos y herramientas puede utilizar?",
-      question: "¿Qué datos y herramientas puede utilizar?",
       text:
-        "Sin autorización por usuario, documento o fila, el sistema puede recuperar o exponer información que el usuario no debería ver.",
-      detail:
         "Sin autorización por usuario, documento o fila, el sistema puede recuperar o exponer información que el usuario no debería ver.",
     },
     {
@@ -188,10 +109,7 @@ export const PAIN_SECTION = {
       icon: "gears",
       title: "Autoridad",
       subtitle: "¿Qué puede decidir o ejecutar sin aprobación?",
-      question: "¿Qué puede decidir o ejecutar sin aprobación?",
       text:
-        "Si el modelo decide cuándo invocar herramientas o modificar sistemas, una instrucción manipulada puede convertirse en una acción real.",
-      detail:
         "Si el modelo decide cuándo invocar herramientas o modificar sistemas, una instrucción manipulada puede convertirse en una acción real.",
     },
     {
@@ -199,14 +117,10 @@ export const PAIN_SECTION = {
       icon: "clipboard",
       title: "Evidencia",
       subtitle: "¿Puedes demostrar qué ocurrió y por qué?",
-      question: "¿Puedes demostrar qué ocurrió y por qué?",
       text:
-        "Guardar solo el prompt y la respuesta no basta para reconstruir la identidad, la política aplicada, la herramienta y el resultado ante un incidente.",
-      detail:
         "Guardar solo el prompt y la respuesta no basta para reconstruir la identidad, la política aplicada, la herramienta y el resultado ante un incidente.",
     },
   ],
-  cta: "Comprobar el riesgo de mi sistema",
 };
 
 export const WORKFLOW_BRIDGE = {
@@ -869,7 +783,7 @@ export const DGOM_MODEL = {
 export const SERVICE_LADDER = {
   kicker: "Servicios y precios orientativos",
   title: "Tres pasos claros: diagnosticar, evaluar e implementar",
-  lead: "Empieza comprobando el riesgo en 90 segundos, solicita una revisión técnica acotada de una semana o diseña el plano de control para producción.",
+  lead: "Empieza comprobando el riesgo en 90 segundos, solicita una revisión técnica acotada de una semana o diseña el plano de control para producción. El trabajo convierte AI runtime risk en gobernanza de IA en tiempo de ejecución mediante controles de acceso, autoridad y evidencia.",
   expand: "Alcance y precio confirmados tras una llamada de 30 minutos. Ningún servicio constituye asesoramiento jurídico ni certificación.",
   problem: "Problema",
   outcome: "Resultado",

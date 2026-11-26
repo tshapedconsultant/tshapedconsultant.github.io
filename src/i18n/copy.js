@@ -18,18 +18,21 @@ export const UI = {
     required: "required",
     optional: "optional",
     proof: "Recognition and references",
+    brand: {
+      name: "tshapedconsultant",
+      nameShort: "tshaped",
+      sub: "AI Governance Engineering",
+      subShort: "AI Gov Eng.",
+      label: "tshapedconsultant, AI Governance Engineering",
+    },
     nav: {
       primary: "Primary",
-      riskCheck: "Risk Check",
+      ctaShort: "Risk Check",
       about: "About",
-      approach: "How I work",
-      dgom: "DGOM™",
       services: "Services",
       demos: "Demos",
-      partners: "Law firms",
       caseStudies: "Case Studies",
       projects: "Projects",
-      contact: "Diagnostic",
       euAiAct: "EU AI Act",
       dualKey: "Dual-Key Protocol",
       dedalo: "Dédalo™",
@@ -38,42 +41,19 @@ export const UI = {
     },
     mobile: {
       riskCheck: "AI Runtime Risk Check",
-      diagnostic: "Request diagnostic",
-      dgom: "DGOM™",
-      services: "Services",
-      partners: "Law firms",
-      approach: "How I work",
-      mapping: "EU AI Act",
-      dualKey: "Dual-Key Protocol",
-      dedalo: "Dédalo™",
-      caseStudy: "Case study",
-      projects: "Projects",
-      whitepaper: "Whitepaper",
-      about: "About",
-      contact: "Contact",
-      privacy: "Privacy",
     },
     hero: {
       eyebrow: "AI Governance Engineering · EU AI Act",
       proofLabel: "Verified delivery, leadership and mentoring",
-      readWhitepaper: "Read the whitepaper",
       mapping: "EU AI Act mapping",
-      bbva: "Read the BBVA case study",
-      implementations: "View reference implementations",
-      audienceLabel: "Choose your path",
-      recruiter: "Recruiters: background",
     },
     workflow: {
       governance: "Explore the governance approach",
       study: "Read the original research",
     },
     why: {
-      num: "01",
       title: "Your system can be governed on paper and still be vulnerable at runtime.",
       lead: "An AI policy alone does not stop an agent from calling an unauthorised tool, retrieving restricted data or executing an action nobody can reconstruct afterwards.",
-      brutal:
-        "Enterprises do not need another policy document. They need enforceable runtime limits that survive deployment, audit and regulatory scrutiny.",
-      close: "I design the control architecture that connects policy to runtime.",
       readMore: "Read more",
       bestFit: "Best fit",
     },
@@ -104,21 +84,17 @@ export const UI = {
       badge: "LIVE DEMO · SYNTHETIC DATA",
       link: "For high-consequence execution authority, see the Dual-Key Protocol →",
     },
+    demoActs: {
+      label: "Compare the two risk postures",
+      act1: "Act I · Without governance",
+      act2: "Act II · With TGI v1",
+    },
     mappingTeaser: {
       whitepaper: "Whitepaper",
       refs: "Reference implementations:",
     },
     diagnostic: {
       kicker: "Pricing & Technical Diagnostic",
-    },
-    dgom: {
-      num: "11",
-    },
-    services: {
-      num: "07",
-    },
-    partners: {
-      num: "14",
     },
     form: {
       name: "Name",
@@ -163,7 +139,6 @@ export const UI = {
       mailtoFooter: "Prepared from the site enquiry form. No mailing list; used only to respond.",
     },
     approach: {
-      num: "09",
       title: "How I work",
       business: "Business problem",
       businessText:
@@ -203,7 +178,6 @@ export const UI = {
       ],
     },
     guard: {
-      num: "13",
       title: "Guardrails are not governance",
       lead: "Guardrails constrain model behaviour.",
       cageSummary: "What the cage determines",
@@ -218,13 +192,11 @@ export const UI = {
       principle: "Model safety is a component. Control architecture is the system.",
     },
     deliver: {
-      num: "10",
       title: "What you get",
       lede: "Capabilities you can buy — architecture, engineering, decision traceability and executive output — not a policy workshop that ends in a slide deck.",
       included: "What’s included",
     },
     cases: {
-      num: "05",
       title: "Case studies",
       problem: "Problem",
       outcomes: "Outcomes",
@@ -234,7 +206,6 @@ export const UI = {
       more: "More about this case",
     },
     projects: {
-      num: "06",
       title: "Selected reference implementations",
       lede: "Runnable systems that show an agentic deterministic control plane (TGI v1), vendor risk, RAG retrieval security, governed SQL agents, regulated evidence, and an industrial deployment gate.",
       outcome: "Outcome.",
@@ -244,22 +215,16 @@ export const UI = {
       all: "View all reference implementations on GitHub",
     },
     paper: {
-      num: "15",
       title: "Whitepaper",
       heading: "Probabilistic Models Require Deterministic Governance",
       sub: "Why enterprise and agentic AI needs a constitutional architecture — a separation of policy, execution and independent oversight.",
       body: "Deterministic software aims for the same output for the same input. Foundation models do not. We cannot make probabilistic systems deterministic. We can constrain their authority and bound their consequences with independent runtime controls — the Deterministic Cage.",
-      read: "Read on this site",
-      pdf: "Download PDF",
-      pdfLong: "Download the whitepaper PDF",
       briefLead:
         "Need the board version? The Dédalo™ Executive Brief compresses the Deterministic Cage, DGOM™ lifecycle and regulatory mapping into two pages.",
-      brief: "Download Dédalo™ Executive Brief",
       also: "Further reading:",
       medium: "articles on Medium",
     },
     insights: {
-      num: "16",
       title: "Insights",
       lede: "Essays on responsible AI, operating models and runtime governance — on this site and on Medium.",
       read: "Read article",
@@ -268,7 +233,6 @@ export const UI = {
       allMedium: "All articles on Medium",
     },
     creds: {
-      num: "17",
       title: "Credentials, publications and open work",
       inProgress: "In progress",
       press: "Press:",
@@ -276,14 +240,12 @@ export const UI = {
       fewer: "Show fewer credentials",
     },
     about: {
-      num: "18",
       title: "About Andrés",
       unusual: "Why my background is unusual",
       combo: "Engineering + AI + Governance + Regulation",
       bio: "Read background",
     },
     contact: {
-      num: "19",
       title: "Next step",
       closing:
         "Your AI system becomes governed when policy is enforced in design, deployment and runtime—and when audit-ready evidence proves that it happened.",
@@ -438,18 +400,21 @@ export const UI = {
     required: "obligatorio",
     optional: "opcional",
     proof: "Reconocimiento y referencias",
+    brand: {
+      name: "tshapedconsultant",
+      nameShort: "tshaped",
+      sub: "Ingeniería de Gobernanza de IA",
+      subShort: "Ing. gob. IA",
+      label: "tshapedconsultant, Ingeniería de Gobernanza de IA",
+    },
     nav: {
       primary: "Principal",
-      riskCheck: "Risk Check",
+      ctaShort: "Test riesgo",
       about: "Sobre mí",
-      approach: "Cómo trabajo",
-      dgom: "DGOM™",
       services: "Servicios",
       demos: "Demos",
-      partners: "Despachos",
       caseStudies: "Casos",
       projects: "Proyectos",
-      contact: "Diagnóstico",
       euAiAct: "EU AI Act",
       dualKey: "Protocolo Dual-Key",
       dedalo: "Dédalo™",
@@ -458,42 +423,19 @@ export const UI = {
     },
     mobile: {
       riskCheck: "AI Runtime Risk Check",
-      diagnostic: "Solicitar diagnóstico",
-      dgom: "DGOM™",
-      services: "Servicios",
-      partners: "Despachos",
-      approach: "Cómo trabajo",
-      mapping: "EU AI Act",
-      dualKey: "Protocolo Dual-Key",
-      dedalo: "Dédalo™",
-      caseStudy: "Caso",
-      projects: "Proyectos",
-      whitepaper: "Whitepaper",
-      about: "Sobre mí",
-      contact: "Contacto",
-      privacy: "Privacidad",
     },
     hero: {
       eyebrow: "Ingeniería de Gobernanza de IA · EU AI Act",
       proofLabel: "Resultados verificables, liderazgo y entregas",
-      readWhitepaper: "Leer el whitepaper",
       mapping: "Mapeo del EU AI Act",
-      bbva: "Leer el caso BBVA",
-      implementations: "Ver implementaciones de referencia",
-      audienceLabel: "Elija su camino",
-      recruiter: "Reclutadores: trayectoria",
     },
     workflow: {
       governance: "Ver el enfoque de gobernanza",
       study: "Leer el estudio original",
     },
     why: {
-      num: "01",
       title: "Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución.",
       lead: "Una política de IA no impide por sí sola que un agente consulte una herramienta indebida, recupere información no autorizada o ejecute una acción que nadie pueda reconstruir después.",
-      brutal:
-        "Las empresas no necesitan otro documento de política. Necesitan límites técnicos exigibles que resistan el despliegue, el runtime, la auditoría y el escrutinio regulatorio.",
-      close: "Diseño la arquitectura de control que conecta la política con el runtime.",
       readMore: "Leer más",
       bestFit: "Mejor encaje",
     },
@@ -524,21 +466,17 @@ export const UI = {
       badge: "DEMO EN VIVO · DATOS SINTÉTICOS",
       link: "Para la autoridad de ejecución de alto impacto, ver el Protocolo Dual-Key →",
     },
+    demoActs: {
+      label: "Compara las dos posturas de riesgo",
+      act1: "Acto I · Sin gobernanza",
+      act2: "Acto II · Con TGI v1",
+    },
     mappingTeaser: {
       whitepaper: "Whitepaper",
       refs: "Implementaciones de referencia:",
     },
     diagnostic: {
       kicker: "Precios y Diagnóstico Técnico",
-    },
-    dgom: {
-      num: "11",
-    },
-    services: {
-      num: "07",
-    },
-    partners: {
-      num: "14",
     },
     form: {
       name: "Nombre",
@@ -583,7 +521,6 @@ export const UI = {
       mailtoFooter: "Preparado desde el formulario del sitio. Sin lista de correo; se usa solo para responder.",
     },
     approach: {
-      num: "09",
       title: "Cómo trabajo",
       business: "Problema de negocio",
       businessText:
@@ -623,7 +560,6 @@ export const UI = {
       ],
     },
     guard: {
-      num: "13",
       title: "Los guardrails no son gobernanza",
       lead: "Los guardrails restringen el comportamiento del modelo.",
       cageSummary: "Qué determina la jaula",
@@ -638,13 +574,11 @@ export const UI = {
       principle: "La seguridad del modelo es un componente. La arquitectura de control es el sistema.",
     },
     deliver: {
-      num: "10",
       title: "Qué obtienes",
       lede: "Capacidades técnicas contratables — arquitectura, controles en runtime, trazabilidad de decisiones y entregables ejecutivos — no un taller teórico que termina en una presentación.",
       included: "Qué incluye",
     },
     cases: {
-      num: "05",
       title: "Casos y marcos operativos",
       problem: "Problema",
       outcomes: "Resultados",
@@ -654,7 +588,6 @@ export const UI = {
       more: "Más sobre este caso",
     },
     projects: {
-      num: "06",
       title: "Implementaciones de referencia seleccionadas",
       lede: "Sistemas ejecutables que muestran un plano de control determinista para agentes (TGI v1), riesgo de proveedor, seguridad de recuperación RAG, agentes SQL gobernados, evidencia regulada y compuertas de despliegue industrial.",
       outcome: "Resultado.",
@@ -664,22 +597,16 @@ export const UI = {
       all: "Ver todas las implementaciones de referencia en GitHub",
     },
     paper: {
-      num: "15",
       title: "Whitepaper",
       heading: "Los modelos probabilísticos requieren gobernanza determinista",
       sub: "Por qué la IA empresarial y agéntica necesita una arquitectura constitucional — una separación entre política, ejecución y supervisión independiente.",
       body: "El software determinista aspira a la misma salida para la misma entrada. Los modelos fundacionales no. No podemos hacer deterministas los sistemas probabilísticos. Sí podemos limitar su autoridad y acotar sus consecuencias con controles independientes en runtime: el Deterministic Cage (Jaula Determinista).",
-      read: "Leer en este sitio",
-      pdf: "Descargar PDF",
-      pdfLong: "Descargar Los modelos probabilísticos requieren gobernanza determinista (PDF)",
       briefLead:
         "¿Necesitas la versión ejecutiva? El Dédalo™ Executive Brief resume en dos páginas el Deterministic Cage (Jaula Determinista), el ciclo DGOM™ y el mapeo regulatorio.",
-      brief: "Descargar Dédalo™ Executive Brief (PDF, EN)",
       also: "Más lectura:",
       medium: "artículos en Medium",
     },
     insights: {
-      num: "16",
       title: "Análisis",
       lede: "Ensayos sobre IA responsable, modelos operativos y gobernanza en runtime — en este sitio y en Medium.",
       read: "Leer artículo",
@@ -688,7 +615,6 @@ export const UI = {
       allMedium: "Todos los artículos en Medium",
     },
     creds: {
-      num: "17",
       title: "Credenciales, publicaciones y trabajo abierto",
       inProgress: "En curso",
       press: "Prensa:",
@@ -696,14 +622,12 @@ export const UI = {
       fewer: "Mostrar menos credenciales",
     },
     about: {
-      num: "18",
       title: "Sobre Andrés",
       unusual: "Por qué este perfil es poco habitual",
       combo: "Ingeniería + IA + Gobernanza + Regulación",
       bio: "Leer la trayectoria",
     },
     contact: {
-      num: "19",
       title: "Siguiente paso",
       closing:
         "Un sistema de IA queda gobernado cuando la política se exige en el diseño, el despliegue y el runtime — y cuando una evidencia lista para auditoría demuestra que ocurrió.",

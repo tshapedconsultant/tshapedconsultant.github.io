@@ -285,6 +285,7 @@ export default function App() {
   const [enquiryIntent, setEnquiryIntent] = useState("snapshot");
   const [showMobileBar, setShowMobileBar] = useState(false);
   const [pathId, setPathId] = useState("direct");
+  const [actId, setActId] = useState("act-1");
   const [caseOpen, setCaseOpen] = useState(null);
   const menuBtnRef = useRef(null);
   const moreBtnRef = useRef(null);
@@ -549,11 +550,7 @@ export default function App() {
         <Link
           className="mark"
           to={`${home}#top`}
-          aria-label={
-            locale === "es"
-              ? "tshapedconsultant, Ingeniería de Gobernanza de IA"
-              : "tshapedconsultant, AI Governance Engineering"
-          }
+          aria-label={t.brand.label}
           onClick={() => {
             setMenuOpen(false);
             setMoreOpen(false);
@@ -562,25 +559,24 @@ export default function App() {
           <Icon name="shield" className="icon mark-icon" />
           <span className="mark-text">
             <span className="mark-name">
-              <span className="mark-name-full">tshapedconsultant</span>
-              <span className="mark-name-short">tshaped</span>
+              <span className="mark-name-full" aria-hidden="true">{t.brand.name}</span>
+              <span className="mark-name-short" aria-hidden="true">{t.brand.nameShort}</span>
             </span>
-            <small className="mark-sub-full">
-              {locale === "es" ? "Ingeniería de Gobernanza de IA" : "AI Governance Engineering"}
-            </small>
-            <small className="mark-sub-short">{locale === "es" ? "Ing. gob. IA" : "AI Gov Eng."}</small>
+            <small className="mark-sub-full" aria-hidden="true">{t.brand.sub}</small>
+            <small className="mark-sub-short" aria-hidden="true">{t.brand.subShort}</small>
           </span>
         </Link>
         <a
           className="nav-cta nav-cta-bar"
           href="#risk-check"
+          aria-label={CTA.persistentPrimary || t.discuss}
           onClick={(event) => {
             event.preventDefault();
             goToRiskCheck();
           }}
         >
-          <span className="nav-cta-full">{CTA.persistentPrimary || t.discuss}</span>
-          <span className="nav-cta-short">{locale === "es" ? "Test riesgo" : "Risk Check"}</span>
+          <span className="nav-cta-full" aria-hidden="true">{CTA.persistentPrimary || t.discuss}</span>
+          <span className="nav-cta-short" aria-hidden="true">{t.nav.ctaShort}</span>
         </a>
         <button
           className="menu-toggle"
@@ -831,9 +827,6 @@ export default function App() {
 <section id="why" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    {t.why.num}
-                  </p>
                   <h2>{PAIN_SECTION ? PAIN_SECTION.title : t.why.title}</h2>
                 </div>
                 <p className="why-lead">{PAIN_SECTION ? PAIN_SECTION.lead || PAIN_SECTION.text : t.why.lead}</p>
@@ -955,9 +948,6 @@ export default function App() {
               <section id="hr-copilot-case" className="region region-light region-mid hr-copilot-band">
                 <div className="region-inner">
                   <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      04
-                    </p>
                     <div>
                       <p className="eyebrow">{FEATURED_HR_COPILOT.kicker}</p>
                       <h2>{FEATURED_HR_COPILOT.title}</h2>
@@ -965,11 +955,24 @@ export default function App() {
                   </div>
                   <p className="section-lede">{FEATURED_HR_COPILOT.subtitle}</p>
 
+                  <div className="hr-act-toggle" role="group" aria-label={t.demoActs.label}>
+                    {FEATURED_HR_COPILOT.acts.map((act) => (
+                      <button
+                        key={act.id}
+                        type="button"
+                        className={actId === act.id ? "hr-act-tab is-active" : "hr-act-tab"}
+                        aria-pressed={actId === act.id}
+                        onClick={() => setActId(act.id)}
+                      >
+                        {act.id === "act-2" ? t.demoActs.act2 : t.demoActs.act1}
+                      </button>
+                    ))}
+                  </div>
                   <div className="hr-acts-grid">
                     {FEATURED_HR_COPILOT.acts.map((act) => (
                       <article
                         key={act.id}
-                        className={`hr-act-card hr-act-${act.tone}`}
+                        className={`hr-act-card hr-act-${act.tone}${actId === act.id ? " is-selected" : ""}`}
                       >
                         <p className="hr-act-label">{act.label}</p>
                         <h3>{act.title}</h3>
@@ -1036,9 +1039,6 @@ export default function App() {
             <section id="case-studies" className="region region-light region-mist region-mid">
               <div className="region-inner">
                 <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      05
-                    </p>
                   <h2>{t.cases.title}</h2>
                 </div>
                 <p className="section-lede">{CASE_STUDIES.lede}</p>
@@ -1118,9 +1118,6 @@ export default function App() {
             <section id="projects" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    06
-                  </p>
                   <h2>{t.projects.title}</h2>
                 </div>
                 <p className="section-lede">{t.projects.lede}</p>
@@ -1128,7 +1125,6 @@ export default function App() {
                   {PROJECTS.filter((project) => project.num !== "01").map((project) => (
                     <article className="project project-scan" key={project.href || project.liveHref || project.name}>
                       <header>
-                        <p className="flag">{project.num}</p>
                         <p className="ver">{project.category}</p>
                         <h3>{project.name}</h3>
                       </header>
@@ -1229,9 +1225,6 @@ export default function App() {
 <section id="services" className="region region-light region-mist region-mid">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    {t.services.num}
-                  </p>
                   <div>
                     <p className="eyebrow">{SERVICE_LADDER.kicker}</p>
                     <h2>{SERVICE_LADDER.title}</h2>
@@ -1327,9 +1320,6 @@ export default function App() {
               <section id="enablement" className="region region-light region-mid enablement-band">
                 <div className="region-inner">
                   <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      08
-                    </p>
                     <div>
                       <p className="eyebrow">{ENABLEMENT_PROGRAMS.kicker}</p>
                       <h2>{ENABLEMENT_PROGRAMS.title}</h2>
@@ -1406,9 +1396,6 @@ export default function App() {
               <section id="leadership" className="region region-dark region-mid leadership-band">
                 <div className="region-inner">
                   <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      08B
-                    </p>
                     <div>
                       <p className="eyebrow">{LEADERSHIP_MENTORING.kicker}</p>
                       <h2>{LEADERSHIP_MENTORING.title}</h2>
@@ -1469,9 +1456,6 @@ export default function App() {
             <section id="approach" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    09
-                  </p>
                   <h2>{t.approach.title}</h2>
                 </div>
                 <div className="two-level">
@@ -1541,9 +1525,6 @@ export default function App() {
             <section id="deliver" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    10
-                  </p>
                   <h2>{t.deliver.title}</h2>
                 </div>
                 <p className="section-lede">{t.deliver.lede}</p>
@@ -1594,9 +1575,6 @@ export default function App() {
 <section id="dgom" className="region region-dark dgom-band region-major">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    11
-                  </p>
                   <h2>{DGOM_MODEL.title}</h2>
                 </div>
                 <p className="dgom-kicker">{DGOM_MODEL.kicker}</p>
@@ -1745,9 +1723,6 @@ export default function App() {
               <section id="authority" className="region region-light region-mid authority-band">
                 <div className="region-inner">
                   <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      12
-                    </p>
                     <div>
                       <p className="eyebrow">{AUTHORITY_ARCHITECTURE.kicker}</p>
                       <h2>{AUTHORITY_ARCHITECTURE.title}</h2>
@@ -1776,9 +1751,6 @@ export default function App() {
             <section id="guardrails" className="region region-dark guard-band region-quiet">
               <div className="region-inner guard-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    13
-                  </p>
                   <h2>{t.guard.title}</h2>
                 </div>
                 <p className="guard-lead">{t.guard.lead}</p>
@@ -1801,9 +1773,6 @@ export default function App() {
             <section id="partners" className="region region-light region-mid">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    14
-                  </p>
                   <h2>{PARTNERS.title}</h2>
                 </div>
                 <p className="partners-kicker">{PARTNERS.kicker}</p>
@@ -1887,9 +1856,6 @@ export default function App() {
               <div className="region-inner paper-teaser">
                 <div>
                   <div className="section-head">
-                    <p className="num" aria-hidden="true">
-                      15
-                    </p>
                     <h2>{t.paper.title}</h2>
                   </div>
                   <p className="paper-title-line">{t.paper.heading}</p>
@@ -1927,9 +1893,6 @@ export default function App() {
             <section id="insights" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    16
-                  </p>
                   <h2>{t.insights.title}</h2>
                 </div>
                 <p className="section-lede">{t.insights.lede}</p>
@@ -1976,9 +1939,6 @@ export default function App() {
             <section id="validation" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    17
-                  </p>
                   <h2>{t.creds.title}</h2>
                 </div>
                 {(() => {
@@ -2061,9 +2021,6 @@ export default function App() {
             <section id="about" className="region region-light region-quiet">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    18
-                  </p>
                   <h2>{t.about.title}</h2>
                 </div>
                 <p className="why-lead about-unusual">{t.about.unusual}</p>
@@ -2092,9 +2049,6 @@ export default function App() {
             <section id="contact" className="region region-dark contact-band region-major">
               <div className="region-inner">
                 <div className="section-head">
-                  <p className="num" aria-hidden="true">
-                    19
-                  </p>
                   <h2>{t.contact.title}</h2>
                 </div>
                 <p className="closing">

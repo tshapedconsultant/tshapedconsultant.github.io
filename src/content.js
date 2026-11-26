@@ -46,43 +46,15 @@ export const ABOUT_WHY = {
 };
 
 export const HERO = {
-  kicker: "Andrés Lage Freire · TShaped Consultant · AI Governance Engineering",
   headline: "Executable governance for AI systems that can access, decide and act.",
-  tagline: "Move your AI systems to production with verifiable controls",
   value:
     "I design technical controls, runtime limits and verifiable evidence for RAG, copilots, agents and high-impact workflows.",
-  assets:
-    "I help AI, engineering and risk teams turn regulatory obligations and AI runtime risk into runtime AI governance through independent access, authority and evidence controls.",
-  pills: ["EU AI Act", "Agentic AI Governance", "Runtime Assurance"],
-  qualify:
-    "For CISOs, CTOs, risk leaders and teams moving AI from pilot to production.",
-  scope:
-    "90-second runtime risk check, bounded technical review and runtime control architecture.",
   principle: "Governance is not documented. It is executed. Probabilistic models require deterministic governance.",
   offerLine: "AI Governance Snapshot · From €2,495 · 1 week",
-  executiveSummary: [
-    {
-      question: "1. What concrete problem do I solve?",
-      answer:
-        "I prevent RAG systems, copilots and agents from reaching production with excessive data access, unchecked tool execution or missing audit trails.",
-    },
-    {
-      question: "2. What will you receive and how long does it take?",
-      answer:
-        "In 90 seconds you get a preliminary diagnostic (AI Runtime Risk Check). In 1 week you receive the AI Governance Snapshot (From €2,495): a technical gap map and 3 to 5 priority controls.",
-    },
-    {
-      question: "3. How do we start?",
-      answer:
-        "Complete the 6-question AI Runtime Risk Check or request a 30-minute scoping call for your system.",
-    },
-  ],
 };
 
 export const PATH_SELECTOR = {
   title: "What brings you here?",
-  subtitle:
-    "Who detects the problem → who validates the technical solution → who approves the budget → who refers or co-delivers the engagement.",
   threeEntries: [
     {
       id: "direct",
@@ -90,12 +62,7 @@ export const PATH_SELECTOR = {
       title: "Direct buyer route",
       role: "For CTOs, CISOs, Heads of AI, Risk & technology leaders",
       cta: "Check my system's risk",
-      steps: [
-        "AI Runtime Risk Check",
-        "AI Governance Snapshot",
-        "Blueprint",
-        "Runtime Assurance",
-      ],
+      steps: ["AI Runtime Risk Check", "AI Governance Snapshot", "Blueprint"],
       target: "risk-check",
     },
     {
@@ -104,12 +71,7 @@ export const PATH_SELECTOR = {
       title: "Internal technical route",
       role: "For architects, engineers & Red Team Leads",
       cta: "Watch the technical demo",
-      steps: [
-        "HR Copilot",
-        "Runtime control demo",
-        "Technical validation",
-        "Internal recommendation to decision-maker",
-      ],
+      steps: ["HR Copilot", "Runtime control demo", "Technical validation"],
       target: "hr-copilot-case",
     },
     {
@@ -118,54 +80,16 @@ export const PATH_SELECTOR = {
       title: "Partner route",
       role: "For law firms, Big Four & consultancies",
       cta: "Explore co-delivery",
-      steps: [
-        "From Legal PDF to Code",
-        "Workshop or Hackathon",
-        "Co-delivery",
-        "Client engagement",
-      ],
+      steps: ["From Legal PDF to Code", "Workshop or Hackathon", "Co-delivery"],
       target: "partners",
-    },
-  ],
-  options: [
-    {
-      id: "evaluate",
-      label: "Check my system's risk",
-      sub: "AI Runtime Risk Check → AI Governance Snapshot",
-      target: "risk-check",
-      intent: "snapshot",
-    },
-    {
-      id: "train",
-      label: "I want to train my engineering team",
-      sub: "From Legal PDF to Code → In-Company Workshop or Hackathon",
-      target: "enablement",
-      intent: "workshop",
-    },
-    {
-      id: "partner",
-      label: "I am looking for a technical partner",
-      sub: "HR Copilot → Runtime control demo → Technical validation",
-      target: "hr-copilot-case",
-      intent: "snapshot",
-    },
-    {
-      id: "codelivery",
-      label: "I want to explore co-delivery",
-      sub: "Referral, co-delivery or white-label for your client project",
-      target: "partners",
-      intent: "partners",
     },
   ],
 };
 
 export const PAIN_SECTION = {
-  kicker: "01 · The runtime problem",
   title:
     "Your system can be governed on paper and still be vulnerable at runtime.",
   lead:
-    "An AI policy alone does not stop an agent from calling an unauthorised tool, retrieving restricted data or executing an action nobody can reconstruct afterwards.",
-  text:
     "An AI policy alone does not stop an agent from calling an unauthorised tool, retrieving restricted data or executing an action nobody can reconstruct afterwards.",
   cards: [
     {
@@ -173,10 +97,7 @@ export const PAIN_SECTION = {
       icon: "shield",
       title: "Access",
       subtitle: "What data and tools can it use?",
-      question: "What data and tools can it use?",
       text:
-        "Without per-user, document or row-level authorisation, the system can retrieve or expose information the user should not see.",
-      detail:
         "Without per-user, document or row-level authorisation, the system can retrieve or expose information the user should not see.",
     },
     {
@@ -184,10 +105,7 @@ export const PAIN_SECTION = {
       icon: "gears",
       title: "Authority",
       subtitle: "What can it decide or execute without approval?",
-      question: "What can it decide or execute without approval?",
       text:
-        "If the model decides when to invoke tools or modify systems, a manipulated instruction can become a real-world action.",
-      detail:
         "If the model decides when to invoke tools or modify systems, a manipulated instruction can become a real-world action.",
     },
     {
@@ -195,14 +113,10 @@ export const PAIN_SECTION = {
       icon: "clipboard",
       title: "Evidence",
       subtitle: "Can you prove what happened and why?",
-      question: "Can you prove what happened and why?",
       text:
-        "Storing only prompt and response is insufficient to reconstruct identity, applied policy, tool parameters and outcome after an incident.",
-      detail:
         "Storing only prompt and response is insufficient to reconstruct identity, applied policy, tool parameters and outcome after an incident.",
     },
   ],
-  cta: "Check my system's risk",
 };
 
 export const WORKFLOW_BRIDGE = {
@@ -864,7 +778,7 @@ export const DGOM_MODEL = {
 export const SERVICE_LADDER = {
   kicker: "Services & pricing guidance",
   title: "Three clear steps: diagnose, assess and implement",
-  lead: "Start by checking your runtime risk in 90 seconds, request a bounded one-week technical review, or design the control plane for production.",
+  lead: "Start by checking your AI runtime risk in 90 seconds, request a bounded one-week technical review, or design the control plane for production.",
   expand: "Scope and pricing confirmed after a 30-minute call. None of these services constitute legal advice or formal certification.",
   problem: "Problem",
   outcome: "Outcome",

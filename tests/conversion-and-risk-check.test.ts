@@ -482,16 +482,13 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
     assert.equal(contentEs.CTA.persistentPrimary, "Comprobar mi riesgo");
     assert.equal(contentEs.CTA.persistentSecondary, "Solicitar diagnóstico");
     assert.equal(
-      contentEs.HERO.tagline,
-      "Lleva tus sistemas de IA a producción con controles verificables"
+      contentEs.HERO.offerLine,
+      "AI Governance Snapshot · Desde €2.495 · 1 semana"
     );
-    assert.deepEqual(contentEs.HERO.pills, [
-      "EU AI Act",
-      "Agentic AI Governance",
-      "Runtime Assurance",
-    ]);
-    assert.equal(contentEs.HERO.executiveSummary.length, 3);
-    assert.equal(contentEn.HERO.executiveSummary.length, 3);
+    assert.equal(
+      contentEn.HERO.offerLine,
+      "AI Governance Snapshot · From €2,495 · 1 week"
+    );
     assert.equal(
       contentEs.PAIN_SECTION.title,
       "Tu sistema puede estar gobernado sobre el papel y seguir siendo vulnerable en ejecución."
@@ -522,9 +519,10 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
       contentEs.FEATURED_HR_COPILOT.resultClaim,
       "La demostración no produjo hallazgos sensibles en el conjunto de pruebas utilizado."
     );
-    assert.ok(contentEs.HERO.assets.includes("AI runtime risk"));
-    assert.ok(contentEs.HERO.assets.includes("gobernanza de IA en tiempo de ejecución"));
-    assert.ok(contentEs.HERO.assets.includes("controles de acceso, autoridad y evidencia"));
+    assert.ok(contentEs.SERVICE_LADDER.lead.includes("AI runtime risk"));
+    assert.ok(contentEs.SERVICE_LADDER.lead.includes("gobernanza de IA en tiempo de ejecución"));
+    assert.ok(contentEs.SERVICE_LADDER.lead.includes("controles de acceso, autoridad y evidencia"));
+    assert.ok(contentEn.SERVICE_LADDER.lead.includes("AI runtime risk"));
     assert.equal(contentEs.SERVICE_LADDER.items.length, 3);
     assert.equal(contentEs.ENABLEMENT_PROGRAMS.formats.length, 3);
     assert.equal(contentEn.ENABLEMENT_PROGRAMS.formats.length, 3);
@@ -566,19 +564,22 @@ describe("Routes, SEO Metadata & Bilingual Content Parity", () => {
   test("Path Selector (¿Qué te trae aquí?), 3 routes, and 6-tier Service Hierarchy are defined in ES and EN", () => {
     assert.equal(contentEs.PATH_SELECTOR.title, "¿Qué te trae aquí?");
     assert.equal(contentEn.PATH_SELECTOR.title, "What brings you here?");
-    assert.equal(contentEs.PATH_SELECTOR.options.length, 4);
-    assert.equal(contentEn.PATH_SELECTOR.options.length, 4);
-    assert.deepEqual(
-      contentEs.PATH_SELECTOR.options.map((o: { label: string }) => o.label),
-      [
-        "Comprobar el riesgo de mi sistema",
-        "Quiero formar a mi equipo",
-        "Busco un partner técnico",
-        "Quiero explorar co-delivery",
-      ]
-    );
     assert.equal(contentEs.PATH_SELECTOR.threeEntries.length, 3);
     assert.equal(contentEn.PATH_SELECTOR.threeEntries.length, 3);
+    assert.deepEqual(
+      contentEs.PATH_SELECTOR.threeEntries.map((route: { tab: string }) => route.tab),
+      ["Comprador", "Técnico", "Partner"]
+    );
+    assert.deepEqual(
+      contentEn.PATH_SELECTOR.threeEntries.map((route: { tab: string }) => route.tab),
+      ["Buyer", "Technical", "Partner"]
+    );
+    for (const route of [
+      ...contentEs.PATH_SELECTOR.threeEntries,
+      ...contentEn.PATH_SELECTOR.threeEntries,
+    ]) {
+      assert.equal(route.steps.length, 3);
+    }
     assert.deepEqual(
       contentEs.PATH_SELECTOR.threeEntries.map((r: { cta: string }) => r.cta),
       ["Comprobar el riesgo de mi sistema", "Ver la demo técnica", "Explorar co-delivery"]
