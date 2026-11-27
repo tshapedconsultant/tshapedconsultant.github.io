@@ -204,6 +204,9 @@ function renderFlagshipNoscript(article) {
       if (block.type === "h2") return `<h2>${block.html}</h2>`;
       if (block.type === "h3") return `<h3>${block.html}</h3>`;
       if (block.type === "blockquote") return `<blockquote>${block.html}</blockquote>`;
+      if (block.type === "figure") {
+        return `<figure><img src="${htmlAttr(block.src)}" alt="${htmlAttr(block.alt)}" width="${block.width}" height="${block.height}" loading="lazy" decoding="async"></figure>`;
+      }
       if (block.type === "ul" || block.type === "ol") {
         const items = block.items.map((item) => `<li>${item}</li>`).join("");
         return `<${block.type}>${items}</${block.type}>`;

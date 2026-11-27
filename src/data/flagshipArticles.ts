@@ -1,5 +1,5 @@
 import type { PulseArticle } from "./pulseArticles.ts";
-import { DETERMINISTIC_CAGE_PATH, INCENTIVE_PATH, RED_TEAM_PATH } from "../routes.ts";
+import { BUSINESS_LOGIC_PATH, DETERMINISTIC_CAGE_PATH, INCENTIVE_PATH, RED_TEAM_PATH } from "../routes.ts";
 
 const RISK_EN = "/ai-runtime-risk-check";
 const RISK_ES = "/es/ai-runtime-risk-check";
@@ -7,6 +7,16 @@ const TGI_EN = "/#hr-copilot-case";
 const TGI_ES = "/es/#hr-copilot-case";
 const SNAP_EN = "/#diagnostic";
 const SNAP_ES = "/es/#diagnostic";
+const DEDALO_EN = "/dedalo";
+const DEDALO_ES = "/es/dedalo";
+const DUAL_EN = "/governance/dual-key-protocol";
+const DUAL_ES = "/es/governance/dual-key-protocol";
+const DGOM_EN = "/#dgom";
+const DGOM_ES = "/es/#dgom";
+const PROJECTS_EN = "/#projects";
+const PROJECTS_ES = "/es/#projects";
+const STUDY = "https://www.anthropic.com/research/working-with-ai";
+const LOGIC_FIGURE = "/when-business-logic-migrates-to-agents.jpg";
 
 const CAGE_TITLE_EN = "The Deterministic Cage: Runtime AI Governance | TShaped";
 const CAGE_DESC_EN =
@@ -25,6 +35,13 @@ const RED_DESC_ES =
 const INCENTIVE_TITLE_EN = "Show Me the Incentive: Reward Hacking & Runtime Control";
 const INCENTIVE_DESC_EN =
   "How Goodhart's Law and reward hacking distort enterprise AI deployments—and why Mechanism Design requires Layer 3 runtime controls outside the model.";
+const LOGIC_TITLE_EN = "When Business Logic Migrates to Agents | TShaped";
+const LOGIC_DESC_EN =
+  "When agents absorb business logic, the company keeps authority, accountability and context. A Deterministic Cage constrains that execution.";
+const LOGIC_TITLE_ES = "Cuando la lógica de negocio migra a los agentes | TShaped";
+const LOGIC_DESC_ES =
+  "Cuando los agentes absorben la lógica de negocio, la empresa conserva autoridad, contexto y rendición de cuentas. La Jaula Determinista acota la ejecución.";
+
 const INCENTIVE_TITLE_ES = "Incentivos, Ley de Goodhart y reward hacking en IA";
 const INCENTIVE_DESC_ES =
   "Cómo la Ley de Goodhart y el reward hacking rompen despliegues de IA, y por qué el diseño de mecanismos exige controles en Capa 3 (Runtime).";
@@ -576,6 +593,198 @@ export const FLAGSHIP_ARTICLES: PulseArticle[] = [
       {
         type: "blockquote",
         html: `¿Tus agentes optimizan métricas sin controles externos de ejecución? Descubre tu nivel de exposición en 90 segundos con el <a href="${RISK_ES}">AI Runtime Risk Check</a>, revisa la <a href="${TGI_ES}">demo técnica de TGI v1</a> o solicita un <a href="${SNAP_ES}">AI Governance Snapshot</a>.`,
+      },
+    ],
+  },
+  {
+    slug: slugOf(BUSINESS_LOGIC_PATH),
+    lang: "en",
+    published: "2026-11-27",
+    title: "When Business Logic Migrates to Agents, What Is the Company Left to Do?",
+    excerpt: LOGIC_DESC_EN,
+    seoTitle: LOGIC_TITLE_EN,
+    seoDescription: LOGIC_DESC_EN,
+    blocks: [
+      {
+        type: "p",
+        html: "Satya Nadella argued on the BG2 podcast in December 2024 that business applications, essentially CRUD databases wrapped in business logic, could collapse in the agent era as that logic moves into agents. At Build 2026 he added a qualification: SaaS may be unbundled and recomposed rather than erased.",
+      },
+      {
+        type: "p",
+        html: "Software does not disappear. What shifts is where business logic lives. My answer to the title: the company keeps authority, accountability and context.",
+      },
+      {
+        type: "figure",
+        src: LOGIC_FIGURE,
+        alt: "Diagram of the shift from a classic enterprise of processes, approvals and hierarchies to an agent-heavy enterprise. Dédalo and the Deterministic Cage sit between agents and cross-system execution. Four enduring responsibilities remain: purpose and strategy, asset and context ownership, authority allocation, and accountability and trust.",
+        width: 1024,
+        height: 571,
+      },
+      { type: "h2", html: "What the data suggests" },
+      {
+        type: "p",
+        html: `<a href="${STUDY}">Working with AI</a>, from Anthropic, draws on 66 interviews across 58 US companies, covering nearly 300 applications. The sample is not representative and value is self-reported, so the findings are directional.`,
+      },
+      {
+        type: "p",
+        html: "Higher-value applications tended to involve deeper organizational change. A chart accompanying the study shows r = +0.39: an association, not evidence of causality.",
+      },
+      {
+        type: "p",
+        html: "As agents accelerate execution, the bottleneck migrates to code review, sales and strategic decision-making.",
+      },
+      { type: "h2", html: "When execution becomes abundant, authority becomes the scarce resource" },
+      {
+        type: "p",
+        html: "ExO 3.0 frames the organizational shift. I call the missing piece the Accountability Layer: an operational extension of its Fiduciary Wedge, making human ownership, decision rights, execution authority and evidence explicit.",
+      },
+      { type: "p", html: "Four functions stay with the organization:" },
+      {
+        type: "ul",
+        items: [
+          "<strong>Purpose and strategy:</strong> priorities, capital allocation and risk appetite.",
+          "<strong>Context ownership:</strong> proprietary data, evaluations and institutional knowledge.",
+          "<strong>Authority allocation:</strong> who can decide, execute, delegate and stop.",
+          "<strong>Accountability and trust:</strong> human ownership, supervision and evidence.",
+        ],
+      },
+      { type: "h2", html: "From autonomy to runtime assurance" },
+      {
+        type: "p",
+        html: "When agents act across systems and APIs, application-specific workflow assumptions become harder to enforce. Backend authorization remains essential, but it must now govern agent-to-system interactions.",
+      },
+      {
+        type: "p",
+        html: "AI Governance Engineering translates applicable obligations (the EU AI Act and, where relevant, DORA, plus NIST AI RMF and ISO/IEC 42001) into executable runtime controls:",
+      },
+      {
+        type: "ul",
+        items: [
+          `<strong><a href="${DEDALO_EN}">Dédalo™</a>:</strong> the governance architecture and its Deterministic Cage.`,
+          `<strong><a href="${DGOM_EN}">DGOM™</a>:</strong> its operation across PLAN, BUILD, DEPLOY and MONITOR.`,
+          `<strong><a href="${DUAL_EN}">Dual-Key Protocol</a>:</strong> independent authorization for high-consequence actions. It is a reference architecture with a proposed PoC plan, not a validated production deployment.`,
+        ],
+      },
+      {
+        type: "p",
+        html: `My open-source portfolio applies these ideas, with each project's scope stated:`,
+      },
+      {
+        type: "ul",
+        items: [
+          `<strong><a href="${TGI_EN}">HR Copilot</a>:</strong> documented live demo on synthetic data.`,
+          `<strong><a href="${PROJECTS_EN}">Porto Seguro Compliance Hub</a>:</strong> reference architecture on an anonymized public dataset, not an engagement with the insurer.`,
+          `<strong><a href="${PROJECTS_EN}">Enterprise AI Risk Console</a>:</strong> demo with HMAC-authenticated Jira gates and hash-chained audit records.`,
+        ],
+      },
+      {
+        type: "p",
+        html: "The model proposes. The control plane constrains. Accountable experts decide.",
+      },
+      { type: "h2", html: "The new role of the enterprise" },
+      {
+        type: "p",
+        html: "The company of the future may derive much of its strategic value from owning its purpose, capital allocation, proprietary context and institutional knowledge, while allocating authority, absorbing liability and governing delegated intelligence at scale.",
+      },
+      {
+        type: "blockquote",
+        html: `Is your organization redesigning its decision rights and control boundaries, or just adding another layer of pilots? To see whether your AI system can act without an independent control gate, try the <a href="${RISK_EN}">AI Runtime Risk Check</a>.`,
+      },
+    ],
+  },
+  {
+    slug: slugOf(BUSINESS_LOGIC_PATH),
+    lang: "es",
+    published: "2026-11-27",
+    title: "Cuando la lógica de negocio migra a los agentes, ¿qué le queda por hacer a la empresa?",
+    excerpt: LOGIC_DESC_ES,
+    seoTitle: LOGIC_TITLE_ES,
+    seoDescription: LOGIC_DESC_ES,
+    blocks: [
+      {
+        type: "p",
+        html: "Satya Nadella sostuvo en el pódcast BG2, en diciembre de 2024, que las aplicaciones de negocio —en esencia, bases de datos CRUD envueltas en lógica de negocio— podían derrumbarse en la era de los agentes, a medida que esa lógica se trasladara a los agentes. En Build 2026 añadió un matiz: el SaaS puede desagregarse y recomponerse, no necesariamente desaparecer.",
+      },
+      {
+        type: "p",
+        html: "El software no desaparece. Lo que cambia es dónde vive la lógica de negocio. Mi respuesta al título: la empresa conserva la autoridad, la rendición de cuentas y el contexto.",
+      },
+      {
+        type: "figure",
+        src: LOGIC_FIGURE,
+        alt: "Diagrama del paso de la empresa clásica —procesos, aprobaciones y jerarquías— a una empresa con muchos agentes. Dédalo y la Jaula Determinista se sitúan entre los agentes y la ejecución entre sistemas. Permanecen cuatro responsabilidades: propósito y estrategia, titularidad de activos y contexto, asignación de autoridad, y rendición de cuentas y confianza.",
+        width: 1024,
+        height: 571,
+      },
+      { type: "h2", html: "Qué sugieren los datos" },
+      {
+        type: "p",
+        html: `<a href="${STUDY}">Working with AI</a>, de Anthropic, se apoya en 66 entrevistas en 58 empresas de Estados Unidos y cubre casi 300 aplicaciones. La muestra no es representativa y el valor es autodeclarado, así que los hallazgos son orientativos.`,
+      },
+      {
+        type: "p",
+        html: "Las aplicaciones de mayor valor tendían a implicar un cambio organizativo más profundo. Un gráfico que acompaña al estudio muestra r = +0,39: una asociación, no una prueba de causalidad.",
+      },
+      {
+        type: "p",
+        html: "A medida que los agentes aceleran la ejecución, el cuello de botella se desplaza a la revisión de código, las ventas y la decisión estratégica.",
+      },
+      { type: "h2", html: "Cuando la ejecución abunda, la autoridad pasa a ser el recurso escaso" },
+      {
+        type: "p",
+        html: "ExO 3.0 enmarca el cambio organizativo. Llamo a la pieza que falta Capa de Rendición de Cuentas: una extensión operativa de su Fiduciary Wedge, que hace explícitos la titularidad humana, los derechos de decisión, la autoridad de ejecución y la evidencia.",
+      },
+      { type: "p", html: "Cuatro funciones siguen en la organización:" },
+      {
+        type: "ul",
+        items: [
+          "<strong>Propósito y estrategia:</strong> prioridades, asignación de capital y apetito de riesgo.",
+          "<strong>Titularidad del contexto:</strong> datos propios, evaluaciones y conocimiento institucional.",
+          "<strong>Asignación de autoridad:</strong> quién puede decidir, ejecutar, delegar y detener.",
+          "<strong>Rendición de cuentas y confianza:</strong> titularidad humana, supervisión y evidencia.",
+        ],
+      },
+      { type: "h2", html: "De la autonomía al aseguramiento en ejecución" },
+      {
+        type: "p",
+        html: "Cuando los agentes actúan entre sistemas y APIs, las hipótesis de flujo propias de cada aplicación se vuelven más difíciles de hacer cumplir. La autorización en el backend sigue siendo esencial, pero ahora tiene que gobernar la interacción del agente con los sistemas.",
+      },
+      {
+        type: "p",
+        html: "La ingeniería de gobernanza de IA traduce las obligaciones aplicables (el EU AI Act y, cuando corresponda, DORA, además del NIST AI RMF y la ISO/IEC 42001) en controles ejecutables en tiempo de ejecución:",
+      },
+      {
+        type: "ul",
+        items: [
+          `<strong><a href="${DEDALO_ES}">Dédalo™</a>:</strong> la arquitectura de gobernanza y su Jaula Determinista.`,
+          `<strong><a href="${DGOM_ES}">DGOM™</a>:</strong> su operación a lo largo de PLAN, BUILD, DEPLOY y MONITOR.`,
+          `<strong><a href="${DUAL_ES}">Protocolo Dual-Key</a>:</strong> autorización independiente para acciones de alto impacto. Es una arquitectura de referencia con un plan de PoC propuesto, no un despliegue de producción validado.`,
+        ],
+      },
+      {
+        type: "p",
+        html: "Mi portfolio de código abierto aplica estas ideas, y cada proyecto declara su alcance:",
+      },
+      {
+        type: "ul",
+        items: [
+          `<strong><a href="${TGI_ES}">HR Copilot</a>:</strong> demo en vivo documentada con datos sintéticos.`,
+          `<strong><a href="${PROJECTS_ES}">Porto Seguro Compliance Hub</a>:</strong> arquitectura de referencia sobre un conjunto de datos público anonimizado, no un encargo con la aseguradora.`,
+          `<strong><a href="${PROJECTS_ES}">Enterprise AI Risk Console</a>:</strong> demo con compuertas de Jira autenticadas por HMAC y registros de auditoría encadenados por hash.`,
+        ],
+      },
+      {
+        type: "p",
+        html: "El modelo propone. El plano de control acota. Los expertos responsables deciden.",
+      },
+      { type: "h2", html: "El nuevo papel de la empresa" },
+      {
+        type: "p",
+        html: "La empresa del futuro puede obtener gran parte de su valor estratégico de ser dueña de su propósito, de la asignación de capital, del contexto propio y del conocimiento institucional, mientras asigna autoridad, absorbe la responsabilidad y gobierna la inteligencia delegada a escala.",
+      },
+      {
+        type: "blockquote",
+        html: `¿Tu organización está rediseñando sus derechos de decisión y sus límites de control, o solo añade otra capa de pilotos? Comprueba si tu sistema de IA puede actuar sin una compuerta de control independiente con el <a href="${RISK_ES}">AI Runtime Risk Check</a>.`,
       },
     ],
   },

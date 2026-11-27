@@ -7,6 +7,7 @@ const ARTICLES: PulseArticle[] = [...FLAGSHIP_ARTICLES, ...WORKFLOW_ARTICLES, ..
 /** Most relevant to executable governance first; market notes and explainers last. */
 const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
   es: [
+    "when-business-logic-migrates-to-agents",
     "the-deterministic-cage",
     "ai-governance-hypothesis-red-teaming",
     "show-me-the-incentive",
@@ -33,6 +34,7 @@ const RELEVANCE: Record<PulseArticle["lang"], string[]> = {
     "el-tablero-completo-nvidia-no-quiere-controlar-solo-el-hardware-quiere-controlar",
   ],
   en: [
+    "when-business-logic-migrates-to-agents",
     "the-deterministic-cage",
     "ai-governance-hypothesis-red-teaming",
     "show-me-the-incentive",

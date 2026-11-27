@@ -8,6 +8,7 @@ export const WORKFLOW_ARTICLE_PATH = "/insights/ai-value-workflow-redesign";
 export const DETERMINISTIC_CAGE_PATH = "/insights/the-deterministic-cage";
 export const RED_TEAM_PATH = "/insights/ai-governance-hypothesis-red-teaming";
 export const INCENTIVE_PATH = "/insights/show-me-the-incentive";
+export const BUSINESS_LOGIC_PATH = "/insights/when-business-logic-migrates-to-agents";
 export const RISK_CHECK_PATH = "/ai-runtime-risk-check";
 export const PRIVACY_PATH = "/privacy";
 export const ES_PREFIX = "/es";
@@ -39,6 +40,8 @@ export const SPA_FALLBACK_DIRS = [
   `${ES_PREFIX}${RED_TEAM_PATH}`,
   INCENTIVE_PATH,
   `${ES_PREFIX}${INCENTIVE_PATH}`,
+  BUSINESS_LOGIC_PATH,
+  `${ES_PREFIX}${BUSINESS_LOGIC_PATH}`,
   `${ES_PREFIX}${RISK_CHECK_PATH}`,
   `${ES_PREFIX}${PRIVACY_PATH}`,
 ] as const;
@@ -84,6 +87,7 @@ const PAIRED_INSIGHT_PATHS = new Set<string>([
   DETERMINISTIC_CAGE_PATH,
   RED_TEAM_PATH,
   INCENTIVE_PATH,
+  BUSINESS_LOGIC_PATH,
 ]);
 
 export function switchLocalePath(pathname: string, hash: string, target: Locale): string {
@@ -178,6 +182,8 @@ export function assertLocaleSwitch(): void {
     [`/es${RED_TEAM_PATH}`, "", "en", RED_TEAM_PATH],
     [INCENTIVE_PATH, "", "es", `/es${INCENTIVE_PATH}`],
     [`/es${INCENTIVE_PATH}`, "", "en", INCENTIVE_PATH],
+    [BUSINESS_LOGIC_PATH, "", "es", `/es${BUSINESS_LOGIC_PATH}`],
+    [`/es${BUSINESS_LOGIC_PATH}`, "", "en", BUSINESS_LOGIC_PATH],
     ["/es/governance/dual-key-protocol/", "", "en", "/governance/dual-key-protocol"],
     ["/es/ai-runtime-risk-check/", "", "en", "/ai-runtime-risk-check"],
     ["/ai-runtime-risk-check", "", "es", "/es/ai-runtime-risk-check"],

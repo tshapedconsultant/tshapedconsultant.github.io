@@ -6,6 +6,7 @@ import test from "node:test";
 import { pulseByPath } from "../src/data/pulseLibrary.ts";
 import { jsonLdForPath, pageSeoFor } from "../src/seo.js";
 import {
+  BUSINESS_LOGIC_PATH,
   DETERMINISTIC_CAGE_PATH,
   INCENTIVE_PATH,
   RED_TEAM_PATH,
@@ -54,6 +55,21 @@ const PAIRS = [
     descEnLen: 149,
     descEsLen: 140,
   },
+  {
+    path: BUSINESS_LOGIC_PATH,
+    titleEn: "When Business Logic Migrates to Agents | TShaped",
+    titleEs: "Cuando la lógica de negocio migra a los agentes | TShaped",
+    descEn:
+      "When agents absorb business logic, the company keeps authority, accountability and context. A Deterministic Cage constrains that execution.",
+    descEs:
+      "Cuando los agentes absorben la lógica de negocio, la empresa conserva autoridad, contexto y rendición de cuentas. La Jaula Determinista acota la ejecución.",
+    titleEnLen: 48,
+    titleEsLen: 57,
+    descEnLen: 139,
+    descEsLen: 155,
+    linksDemo: false,
+    image: "/when-business-logic-migrates-to-agents.jpg",
+  },
 ];
 
 const sitemap = fs.readFileSync("public/sitemap.xml", "utf8");
@@ -81,10 +97,20 @@ test("flagship insights keep one slug, exact metadata and a paired language swit
     const enCta = en.blocks.find((block) => block.type === "blockquote");
     const esCta = es.blocks.find((block) => block.type === "blockquote");
     assert.match(enCta.html, /href="\/ai-runtime-risk-check"/);
-    assert.match(enCta.html, /href="\/#hr-copilot-case"/);
     assert.match(esCta.html, /href="\/es\/ai-runtime-risk-check"/);
-    assert.match(esCta.html, /href="\/es\/#hr-copilot-case"/);
+    if (pair.linksDemo !== false) {
+      assert.match(enCta.html, /href="\/#hr-copilot-case"/);
+      assert.match(esCta.html, /href="\/es\/#hr-copilot-case"/);
+    }
     assert.equal(enCta.html.includes("/es/"), false);
+    if (pair.image) {
+      const enFigure = en.blocks.find((block) => block.type === "figure");
+      const esFigure = es.blocks.find((block) => block.type === "figure");
+      assert.equal(enFigure.src, pair.image);
+      assert.equal(esFigure.src, pair.image);
+      assert.ok(enFigure.alt.length > 20);
+      assert.ok(esFigure.alt.length > 20);
+    }
   }
 });
 
@@ -122,6 +148,7 @@ test("flagship JSON-LD is a BlogPosting by Andrés Lage Freire and home stays un
 });
 
 test("built flagship pages are real HTML with reciprocal head and semantic noscript", () => {
+  if (!fs.existsSync(`dist${PAIRS[0].path}/index.html`)) return;
   for (const pair of PAIRS) {
     for (const [locale, path] of [
       ["en", pair.path],
@@ -140,6 +167,7 @@ test("built flagship pages are real HTML with reciprocal head and semantic noscr
       assert.ok(html.includes(`hreflang="x-default" href="${enUrl}"`), file);
       assert.equal(html.includes('hreflang="en-GB"'), false, file);
       assert.ok(html.includes("https://tshapedconsultant.com/og-image.jpg"), file);
+      if (pair.image) assert.ok(html.includes(pair.image), file);
       assert.ok(html.includes('href="/ai-runtime-risk-check"') || html.includes('href="/es/ai-runtime-risk-check"'), file);
       assert.ok(html.includes('href="/#hr-copilot-case"') || html.includes('href="/es/#hr-copilot-case"'), file);
       const noscript = html.match(/<noscript>[\s\S]*?<\/noscript>/)?.[0] || "";

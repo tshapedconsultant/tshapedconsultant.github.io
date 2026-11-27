@@ -78,6 +78,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/insights/show-me-the-incentive/"/>
   </url>
   <url>
+    <loc>https://tshapedconsultant.com/insights/when-business-logic-migrates-to-agents/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/insights/when-business-logic-migrates-to-agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/insights/when-business-logic-migrates-to-agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/insights/when-business-logic-migrates-to-agents/"/>
+  </url>
+  <url>
     <loc>https://tshapedconsultant.com/ai-runtime-risk-check/</loc>
     <lastmod>2026-10-19</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/ai-runtime-risk-check/"/>
@@ -181,6 +188,13 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/insights/show-me-the-incentive/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/insights/show-me-the-incentive/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/insights/show-me-the-incentive/"/>
+  </url>
+  <url>
+    <loc>https://tshapedconsultant.com/es/insights/when-business-logic-migrates-to-agents/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tshapedconsultant.com/insights/when-business-logic-migrates-to-agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://tshapedconsultant.com/es/insights/when-business-logic-migrates-to-agents/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tshapedconsultant.com/insights/when-business-logic-migrates-to-agents/"/>
   </url>
   <url>
     <loc>https://tshapedconsultant.com/Probabilistic-Models-Require-Deterministic-Governance.pdf</loc>

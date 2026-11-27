@@ -10,6 +10,20 @@ function Block({ block }) {
   if (block.type === "blockquote") {
     return <blockquote dangerouslySetInnerHTML={{ __html: block.html }} />;
   }
+  if (block.type === "figure") {
+    return (
+      <figure className="article-figure">
+        <img
+          src={block.src}
+          alt={block.alt}
+          width={block.width}
+          height={block.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    );
+  }
   if (block.type === "ul" || block.type === "ol") {
     const Tag = block.type;
     return (

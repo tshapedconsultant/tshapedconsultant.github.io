@@ -1,7 +1,8 @@
 export type PulseBlock =
   | { type: "hr" }
   | { type: "ul" | "ol"; items: string[] }
-  | { type: "p" | "h2" | "h3" | "blockquote"; html: string };
+  | { type: "p" | "h2" | "h3" | "blockquote"; html: string }
+  | { type: "figure"; src: string; alt: string; width: number; height: number };
 
 export type PulseArticle = {
   slug: string;
