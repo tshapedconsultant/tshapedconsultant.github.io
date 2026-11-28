@@ -18,9 +18,11 @@ function Block({ block }) {
           alt={block.alt}
           width={block.width}
           height={block.height}
-          loading="lazy"
+          loading={block.priority ? undefined : "lazy"}
+          fetchPriority={block.priority ? "high" : undefined}
           decoding="async"
         />
+        {block.caption ? <figcaption>{block.caption}</figcaption> : null}
       </figure>
     );
   }

@@ -108,8 +108,10 @@ test("flagship insights keep one slug, exact metadata and a paired language swit
       const esFigure = es.blocks.find((block) => block.type === "figure");
       assert.equal(enFigure.src, pair.image);
       assert.equal(esFigure.src, pair.image);
-      assert.ok(enFigure.alt.length > 20);
-      assert.ok(esFigure.alt.length > 20);
+      assert.equal(enFigure.priority, true);
+      assert.equal(esFigure.priority, true);
+      assert.match(esFigure.caption, /diagrama en inglés/);
+      assert.equal(enFigure.caption, undefined);
     }
   }
 });
@@ -167,7 +169,13 @@ test("built flagship pages are real HTML with reciprocal head and semantic noscr
       assert.ok(html.includes(`hreflang="x-default" href="${enUrl}"`), file);
       assert.equal(html.includes('hreflang="en-GB"'), false, file);
       assert.ok(html.includes("https://tshapedconsultant.com/og-image.jpg"), file);
-      if (pair.image) assert.ok(html.includes(pair.image), file);
+      if (pair.image) {
+        const figure = html.match(/<figure>[\s\S]*?<\/figure>/)?.[0] || "";
+        assert.ok(figure.includes(pair.image), file);
+        assert.match(figure, /fetchpriority="high"/);
+        assert.equal(figure.includes("loading="), false, file);
+        if (locale === "es") assert.match(figure, /<figcaption>Transición hacia una empresa agéntica/);
+      }
       assert.ok(html.includes('href="/ai-runtime-risk-check"') || html.includes('href="/es/ai-runtime-risk-check"'), file);
       assert.ok(html.includes('href="/#hr-copilot-case"') || html.includes('href="/es/#hr-copilot-case"'), file);
       const noscript = html.match(/<noscript>[\s\S]*?<\/noscript>/)?.[0] || "";

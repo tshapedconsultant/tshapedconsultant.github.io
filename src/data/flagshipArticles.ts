@@ -619,6 +619,7 @@ export const FLAGSHIP_ARTICLES: PulseArticle[] = [
         alt: "Diagram of the shift from a classic enterprise of processes, approvals and hierarchies to an agent-heavy enterprise. Dédalo and the Deterministic Cage sit between agents and cross-system execution. Four enduring responsibilities remain: purpose and strategy, asset and context ownership, authority allocation, and accountability and trust.",
         width: 1024,
         height: 571,
+        priority: true,
       },
       { type: "h2", html: "What the data suggests" },
       {
@@ -713,8 +714,10 @@ export const FLAGSHIP_ARTICLES: PulseArticle[] = [
         type: "figure",
         src: LOGIC_FIGURE,
         alt: "Diagrama del paso de la empresa clásica —procesos, aprobaciones y jerarquías— a una empresa con muchos agentes. Dédalo y la Jaula Determinista se sitúan entre los agentes y la ejecución entre sistemas. Permanecen cuatro responsabilidades: propósito y estrategia, titularidad de activos y contexto, asignación de autoridad, y rendición de cuentas y confianza.",
+        caption: "Transición hacia una empresa agéntica acotada por Dédalo y la Jaula Determinista (diagrama en inglés).",
         width: 1024,
         height: 571,
+        priority: true,
       },
       { type: "h2", html: "Qué sugieren los datos" },
       {
@@ -747,7 +750,7 @@ export const FLAGSHIP_ARTICLES: PulseArticle[] = [
       { type: "h2", html: "De la autonomía al aseguramiento en ejecución" },
       {
         type: "p",
-        html: "Cuando los agentes actúan entre sistemas y APIs, las hipótesis de flujo propias de cada aplicación se vuelven más difíciles de hacer cumplir. La autorización en el backend sigue siendo esencial, pero ahora tiene que gobernar la interacción del agente con los sistemas.",
+        html: "Cuando los agentes actúan entre sistemas y APIs, los supuestos de flujo propios de cada aplicación se vuelven más difíciles de hacer cumplir. La autorización en el backend sigue siendo esencial, pero ahora tiene que gobernar la interacción del agente con los sistemas.",
       },
       {
         type: "p",
